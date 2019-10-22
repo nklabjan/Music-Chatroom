@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './css/App.css';
-
+import axios from 'axios';
 class App extends Component {
 
   constructor(props) {
@@ -13,17 +13,14 @@ class App extends Component {
   Login() {
     this.setState({loggedIn: true});
     //return null;
-    /**app.get('/login', function(req, res) {
-      var scopes = 'user-read-private user-read-email';
-      res.redirect('https://accounts.spotify.com/authorize' +
-        '?response_type=code' +
-        '&client_id=' + my_client_id +
-        (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
-        '&redirect_uri=' + encodeURIComponent(redirect_uri));
-      });*/
+    axios.get('http://localhost:3000/login', {
+    }).then((response)=>{
+      console.log(response)
+    });
   }
 
   render() {
+    console.log(process.env)
     if(this.state.loggedIn === false) {
       return <div className="HomePage">
                 <header className="Home-Page">
