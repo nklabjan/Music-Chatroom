@@ -6,17 +6,51 @@
   text-align: left;
 }
 
+.login {
+  position: fixed;
+  height: 50px;
+  width: 150px;
+  border-radius: 15px;
+  background-color: purple;
+  color: white;
+}
+
 .logout {
   position: fixed;
   height: 50px;
   width: 100px;
   border-radius: 15px;
+  background-color: purple;
+  color: white;
 }
 
 .profile {
   position: fixed;
   margin-left: 125px;
   height: 50px;
-  width: 100px;
+  width: 150px;
   border-radius: 15px;
+  background-color: purple;
+  color: white;
+}
+
+.chatroom {
+  position: fixed;
+  margin-left: 1290px;
+  height: 50px;
+  width: 150px;
+  border-radius: 15px;
+  background-color: purple;
+  color: white;
+}
+
+.chat {
+  position: fixed;
+  margin-left: 600px;
+  margin-top: 350px;
+  height: 50px;
+  width: 150px;
+  border-radius: 15px;
+  background-color: purple;
+  color: white;
 }
