@@ -34,7 +34,7 @@ class App extends Component {
                     <button class="logout" onClick={this.Login.bind(this)}>Logout</button>
                     <button class="profile">View/Edit Your Profile</button>
                     <button class="chatroom">Make New Chatroom</button>
-                    <button class="chat" onClick={this.handleChat.bind(this)}>go to chatroom</button>
+                    <button class="chat" onClick={this.handleChat.bind(this)}>Go To Chatroom</button>
                   </header>
                </div>;
       }
