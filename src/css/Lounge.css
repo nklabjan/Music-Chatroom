@@ -1,11 +1,29 @@
-.top {
-    
+.centerElement{
+    border-style: solid;
+}
+.queue {
 }
 
-.middle {
-
+.list {
+}
+.display {
 }
 
-.bottom {
+.container {
+    display: inline-grid;
+    grid-template-columns: 25% 50% 25%;
+    grid-template-rows: 80% 20%;
+    width: 100%;
+    height: 99vh;
+    bottom: 0px;
+}
 
+.chatBar {
+    border-style: solid;
+    height: 100%;
+}
+
+.chatBarItem{
+    grid-column-start: 1;
+    grid-column-end: 4;
 }

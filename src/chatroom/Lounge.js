@@ -10,15 +10,14 @@ class Lounge extends Component {
     render() {
         return (
             <>
-                <div className="top">
-                    this is the top div
-                </div>
-                <div className="middle">
-                    this is the middle div
-                </div>
-                <div className="bottom">
-                    this is the bottom div
-                </div>
+                <div class="container">
+                    <Queue />
+                    <ChatDisplay />
+                    <UserList />
+                    <div class="chatBarItem">
+                        <ChatBar />
+                        </div>
+                </div>                 
             </>
         )
     }
