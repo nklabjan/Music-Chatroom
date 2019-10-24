@@ -1,0 +1,22 @@
+.HomePage {
+  text-align: left;
+}
+
+.Home-Page {
+  text-align: left;
+}
+
+.logout {
+  position: fixed;
+  height: 50px;
+  width: 100px;
+  border-radius: 15px;
+}
+
+.profile {
+  position: fixed;
+  margin-left: 125px;
+  height: 50px;
+  width: 100px;
+  border-radius: 15px;
+}
