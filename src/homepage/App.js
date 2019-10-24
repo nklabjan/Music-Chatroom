@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import '../css/App.css';
 import Lounge from '../chatroom/Lounge';
+const axios = require('axios');
 
 class App extends Component {
 
@@ -19,7 +20,14 @@ class App extends Component {
   }
 
   login() {
-    this.setState({loggedIn: true});
+    axios.get('/login')
+      .then(function (response) {
+        this.setState({loggedIn: true});
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+    })
   }
   
   handleChat() {
