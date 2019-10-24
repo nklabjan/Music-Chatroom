@@ -1,0 +1,54 @@
+.centerElement{
+    border-style: solid;
+}
+.queue {
+}
+
+.list {
+}
+.display {
+}
+
+.chatroom-header {
+    height: 50px; 
+    background-color: white;
+}
+
+.profile-chatroom {
+    position: fixed;
+    margin-top: 0px;
+    height: 50px;
+    width: 150px;
+    border-radius: 15px;
+    background-color: purple;
+    color: white;
+}
+
+.leave-chatroom {
+    position: fixed;
+    margin-left: 1290px;
+    margin-top: 0px;
+    height: 50px;
+    width: 150px;
+    border-radius: 15px;
+    background-color: purple;
+    color: white;
+  }
+.container {
+    display: inline-grid;
+    grid-template-columns: 25% 50% 25%;
+    grid-template-rows: 80% 20%;
+    width: 100%;
+    height: 99vh;
+    bottom: 0px;
+}
+
+.chatBar {
+    border-style: solid;
+    height: 100%;
+}
+
+.chatBarItem{
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
