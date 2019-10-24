@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import '../css/App.css';
-import Chat from '../chatroom/Chat';
+import Lounge from '../chatroom/Lounge';
 
 class App extends Component {
 
@@ -53,7 +53,7 @@ class App extends Component {
     else {
       return(
         <div>
-          <Chat></Chat>
+          <Lounge></Lounge>
         </div>
       )
     }
