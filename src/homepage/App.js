@@ -8,30 +8,41 @@ class App extends Component {
     super(props);
     this.state = {
         loggedIn: false,
+        loggedOut: true,
         displayChat: false
     }
   }
 
-  Login() {
+  logout() {
+    this.setState({loggedOut: true})
+    this.setState({loggedIn: false})
+  }
+
+  login() {
     this.setState({loggedIn: true});
   }
   
   handleChat() {
     this.setState({displayChat: true})
   }
+
   render() {
     if(this.state.displayChat === false) {
-      if(this.state.loggedIn === false) {
-        return <div className="HomePage">
-                  <header className="Home-Page">
-                    <button class="login" onClick={this.Login.bind(this)}>Login with Spotify</button>
-                  </header>
-              </div>;
+      if(this.state.loggedIn === false && this.state.loggedOut === true) {
+        return  <div className="HomePage">
+                  <header className="header">
+                  </header>  
+                  <div className="Home-Page">
+                    <button class="login" onClick={this.login.bind(this)}>Login with Spotify</button>
+                  </div>
+                </div>;
       }
       else {
         return <div className="HomePage">
+                  <header className="header">
+                  </header>  
                   <header className="Home-Page">
-                    <button class="logout" onClick={this.Login.bind(this)}>Logout</button>
+                    <button class="logout" onClick={this.logout.bind(this)}>Logout</button>
                     <button class="profile">View/Edit Your Profile</button>
                     <button class="chatroom">Make New Chatroom</button>
                     <button class="chat" onClick={this.handleChat.bind(this)}>Go To Chatroom</button>

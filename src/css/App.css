@@ -8,15 +8,25 @@
 
 .login {
   position: fixed;
+  margin-top: 5px;
   height: 50px;
-  width: 150px;
+  width: 125px;
   border-radius: 15px;
   background-color: purple;
   color: white;
 }
 
+.header {
+  height: 150px;
+  background-color: white;
+  background-image: url(../images/header.png);
+  background-repeat: no-repeat;
+  border-radius: 15px;
+}
+
 .logout {
   position: fixed;
+  margin-top: 5px;
   height: 50px;
   width: 100px;
   border-radius: 15px;
@@ -27,6 +37,7 @@
 .profile {
   position: fixed;
   margin-left: 125px;
+  margin-top: 5px;
   height: 50px;
   width: 150px;
   border-radius: 15px;
@@ -37,6 +48,7 @@
 .chatroom {
   position: fixed;
   margin-left: 1290px;
+  margin-top: 5px;
   height: 50px;
   width: 150px;
   border-radius: 15px;
