@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import '../css/App.css';
 import Lounge from '../chatroom/Lounge';
-const express = require('express');
-const app = express();
 
 class App extends Component {
 
@@ -21,9 +19,6 @@ class App extends Component {
   }
 
   login() {
-    app.get('/login', function(req, res) {
-
-    });
     this.setState({loggedIn: true});
   }
   
