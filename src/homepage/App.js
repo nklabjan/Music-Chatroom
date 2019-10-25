@@ -20,7 +20,7 @@ class App extends Component {
   }
 
   login() {
-    axios.get('http:localhost:3001/login')
+    axios.get('http://localhost:3001/login')
       .then(function (response) {
         this.setState({loggedIn: true});
         console.log(response);
