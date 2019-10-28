@@ -20,16 +20,16 @@ class App extends Component {
   }
 
   login() {
-    axios.get('/login')
+    axios.get('http://localhost:8080/login')
       .then(function (response) {
-        this.setState({loggedIn: true});
+        //this.setState({loggedIn: true});
         console.log(response);
       })
       .catch(function (error) {
         console.log(error);
     })
   }
-  
+
   handleChat() {
     this.setState({displayChat: true})
   }
@@ -39,7 +39,7 @@ class App extends Component {
       if(this.state.loggedIn === false && this.state.loggedOut === true) {
         return  <div className="HomePage">
                   <header className="header">
-                  </header>  
+                  </header>
                   <div className="Home-Page">
                     <button class="login" onClick={this.login.bind(this)}>Login with Spotify</button>
                   </div>
@@ -48,7 +48,7 @@ class App extends Component {
       else {
         return <div className="HomePage">
                   <header className="header">
-                  </header>  
+                  </header>
                   <header className="Home-Page">
                     <button class="logout" onClick={this.logout.bind(this)}>Logout</button>
                     <button class="profile">View/Edit Your Profile</button>
@@ -65,7 +65,7 @@ class App extends Component {
         </div>
       )
     }
-    
+
   };
 }
 
