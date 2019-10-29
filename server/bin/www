@@ -7,7 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('server:server');
 var http = require('http');
-
+var handlers = require('../chatroom/auth')
 /**
  * Get port from environment and store in Express.
  */
@@ -20,6 +20,15 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+
+/*
+ * register the websocket handlers here
+*/
+
+var io = require('socket.io')(server);
+
+io.on('connection', handlers.userConnected);
+
 
 /**
  * Listen on provided port, on all network interfaces.
