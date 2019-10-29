@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
 import '../css/App.css';
 import Lounge from '../chatroom/Lounge';
-const axios = require('axios');
+import axios from "axios";
+import queryString from "query-string";
+//Remove this and put into env file if it works
+const my_client_id= "0a1619391e204b8090a1b1adb5e19bca";
+const redirect_uri = "http://localhost:8080/"
 
 class App extends Component {
 
@@ -10,7 +14,8 @@ class App extends Component {
     this.state = {
         loggedIn: false,
         loggedOut: true,
-        displayChat: false
+        displayChat: false,
+        userInfo: {}
     }
   }
 
@@ -20,21 +25,32 @@ class App extends Component {
   }
 
   login() {
-    axios.get('http://localhost:8080/login')
-      .then(function (response) {
-        //this.setState({loggedIn: true});
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-    })*/
+    //What happens here? - User gets prompted to log into Spotify
+    //If user successfully logs into spotify then the token gets passed to the backend
+    //For verification and request for a refresh token etc etc
+    window.location = "http://localhost:8080/login/";
   }
 
   handleChat() {
     this.setState({displayChat: true})
   }
 
+  componentDidMount() {
+    let parsed = queryString.parse(window.location.search)
+    let access_token = parsed.access_token
+
+    if (access_token)
+    {
+      this.setState({loggedIn: true});
+    }
+    fetch("https://api.spotify.com/v1/me", {headers:
+      {'Authorization': 'Bearer ' + access_token}})
+      .then(response => response.json())
+      .then(data => console.log(data))
+  }
+
   render() {
+
     if(this.state.displayChat === false) {
       if(this.state.loggedIn === false && this.state.loggedOut === true) {
         return  <div className="HomePage">
@@ -49,6 +65,7 @@ class App extends Component {
         return <div className="HomePage">
                   <header className="header">
                   </header>
+
                   <header className="Home-Page">
                     <button class="logout" onClick={this.logout.bind(this)}>Logout</button>
                     <button class="profile">View/Edit Your Profile</button>
