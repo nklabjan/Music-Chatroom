@@ -25,15 +25,15 @@ class Lounge extends Component {
         if(this.state.leaveChat === false) {
             return (
                 <>
-                    <header class="chatroom-header">
-                        <button class="profile-chatroom">View/Edit Your Profile</button>
-                        <button class="leave-chatroom" onClick={this.leaveChat.bind(this)}>Leave Chatroom</button>
+                    <header className="chatroom-header">
+                        <button className="profile-chatroom">View/Edit Your Profile</button>
+                        <button className="leave-chatroom" onClick={this.leaveChat.bind(this)}>Leave Chatroom</button>
                     </header>
-                    <div class="container">
+                    <div className="container">
                         <Queue />
                         <ChatDisplay />
                         <UserList />
-                        <div class="chatBarItem">
+                        <div className="chatBarItem">
                             <ChatBar />
                             <Player access_token={this.props.access_token}/>
                             </div>

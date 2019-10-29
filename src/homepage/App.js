@@ -54,7 +54,7 @@ class App extends Component {
                   <header className="header">
                   </header>
                   <div className="Home-Page">
-                    <button class="login" onClick={this.login.bind(this)}>Login with Spotify</button>
+                    <button className="login" onClick={this.login.bind(this)}>Login with Spotify</button>
                   </div>
                 </div>;
       }
@@ -64,10 +64,10 @@ class App extends Component {
                   </header>
 
                   <header className="Home-Page">
-                    <button class="logout" onClick={this.logout.bind(this)}>Logout</button>
-                    <button class="profile">View/Edit Your Profile</button>
-                    <button class="chatroom">Make New Chatroom</button>
-                    <button class="chat" onClick={this.handleChat.bind(this)}>Go To Chatroom</button>
+                    <button className="logout" onClick={this.logout.bind(this)}>Logout</button>
+                    <button className="profile">View/Edit Your Profile</button>
+                    <button className="chatroom">Make New Chatroom</button>
+                    <button className="chat" onClick={this.handleChat.bind(this)}>Go To Chatroom</button>
                   </header>
                </div>;
       }
