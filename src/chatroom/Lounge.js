@@ -4,7 +4,8 @@ import Player from './Player/Player';
 import Chat from './Chat';
 import Queue from './Queue';
 import UserList from './UserList';
-import App from '../homepage/App'
+import App from '../homepage/App';
+import Button from 'react-bootstrap/Button';
 
 class Lounge extends Component {
 
