@@ -12,10 +12,10 @@ class Player extends Component {
   }
 
   createPlayerEventListeners() {
+      //Add event listeners to browser spotify player
         this.player.on('initialization_error', e => { console.error(e); });
         this.player.on('authentication_error', e => {
           console.error(e);
-
         });
         this.player.on('account_error', e => { console.error(e); });
         this.player.on('playback_error', e => { console.error(e); });
@@ -56,14 +56,14 @@ class Player extends Component {
   }
 
     onStateChanged(state) {
+      console.log(state);
       // if we're no longer listening to music, we'll get a null state.
-      console.log("test")
       if (state !== null) {
         const {
           current_track: currentTrack,
-          position,
-          duration,
         } = state.track_window;
+        const position = state.position;
+        const duration = state.duration;
         const trackName = currentTrack.name;
         const albumName = currentTrack.album.name;
         const artistName = currentTrack.artists
@@ -82,6 +82,7 @@ class Player extends Component {
     }
 
     transferPlaybackHere() {
+      console.log("playback transfered")
       console.log(this.state);
       const deviceId = this.state.deviceId;
       const access_token = this.props.access_token;
@@ -100,7 +101,6 @@ class Player extends Component {
     }
 
     onPlayClick() {
-      console.log(this.state);
       this.player.togglePlay();
     }
 
