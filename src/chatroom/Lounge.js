@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import '../css/Lounge.css';
-import ChatDisplay from './ChatDisplay';
-import ChatBar from './ChatBar';
-//import Player from './Player';
+import MusicPlayer from './MusicPlayer';
+import Chat from './Chat';
 import Queue from './Queue';
 import UserList from './UserList';
 import App from '../homepage/App'
@@ -31,11 +30,8 @@ class Lounge extends Component {
                     </header>
                     <div className="container">
                         <Queue />
-                        <ChatDisplay />
+                        <Chat />
                         <UserList />
-                        <div className="chatBarItem">
-                            <ChatBar />
-                            </div>
                     </div>
                 </>
             )
