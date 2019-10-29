@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../css/App.css';
 import Lounge from '../chatroom/Lounge';
-import axios from "axios";
+import Header from './header';
 import queryString from "query-string";
 //Remove this and put into env file if it works
 
@@ -24,9 +24,6 @@ class App extends Component {
   }
 
   login() {
-    //What happens here? - User gets prompted to log into Spotify
-    //If user successfully logs into spotify then the token gets passed to the backend
-    //For verification and request for a refresh token etc etc
     window.location = "http://localhost:8080/login/";
   }
 
@@ -38,12 +35,9 @@ class App extends Component {
     let parsed = queryString.parse(window.location.search)
     let access_token = parsed.access_token
 
-    if (access_token)
-    {
+    if (access_token) {
       this.setState({loggedIn: true, access_token: access_token});
-
     }
-
   }
 
   render() {
@@ -51,8 +45,7 @@ class App extends Component {
     if(this.state.displayChat === false) {
       if(this.state.loggedIn === false && this.state.loggedOut === true) {
         return  <div className="HomePage">
-                  <header className="header">
-                  </header>
+                  <Header />
                   <div className="Home-Page">
                     <button className="login" onClick={this.login.bind(this)}>Login with Spotify</button>
                   </div>
@@ -60,9 +53,7 @@ class App extends Component {
       }
       else {
         return <div className="HomePage">
-                  <header className="header">
-                  </header>
-
+                  <Header />
                   <header className="Home-Page">
                     <button className="logout" onClick={this.logout.bind(this)}>Logout</button>
                     <button className="profile">View/Edit Your Profile</button>
@@ -73,15 +64,10 @@ class App extends Component {
       }
     }
     else {
-      return(
-
-          <div>
-            <Lounge access_token={this.state.access_token}></Lounge>
-          </div>
-
-      )
+      return <div>
+              <Lounge access_token={this.state.access_token}></Lounge>
+            </div>;
     }
-
   };
 }
 
