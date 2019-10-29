@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import '../css/Lounge.css';
-import MusicPlayer from './MusicPlayer';
+import Player from './Player';
 import Chat from './Chat';
 import Queue from './Queue';
 import UserList from './UserList';
@@ -32,6 +32,7 @@ class Lounge extends Component {
                         <Queue />
                         <Chat />
                         <UserList />
+                        <Player access_token={this.props.access_token}/>
                     </div>
                 </>
             )
