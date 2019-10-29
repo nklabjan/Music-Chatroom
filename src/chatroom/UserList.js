@@ -1,12 +1,13 @@
 import React, {Component} from "react";
+import '../css/Lounge.css'
 
 class UserList extends Component {
 
     render() {
         return (
             <>
-            <div class="centerElement list">
-                This is a placeholder for the user list.
+            <div class="userList">
+                <div class="userListTitle"><b>Chatroom Members</b></div>
             </div>
             </>
         )
