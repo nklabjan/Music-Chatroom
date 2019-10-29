@@ -105,3 +105,24 @@
     height: 50px;
     color: purple;
 }
+
+.player {
+    height: 125px;
+}
+
+.play-pause {
+    margin:0 auto;
+    margin-top: 5px;
+    display: block;
+    background-color: purple;
+    color: white;
+    border-radius: 15px;
+    width: 100px;
+    height: 40px;
+}
+
+.sliderDiv {
+    margin:0 auto;
+    margin-top: 10px;
+    width: 700px;
+}

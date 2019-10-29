@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import SliderCom from './Slider';
 
 class Player extends Component {
 
@@ -105,10 +106,9 @@ class Player extends Component {
 
     render() {
         return (
-            <div class="music-player">
-              <div>
-                <button onClick={()=>{this.onPlayClick()}}>play/pause</button>
-              </div>
+            <div className="player">
+              <button className="play-pause" onClick={()=>{this.onPlayClick()}}>Play/Pause</button>
+              <SliderCom />
             </div>
         )
     }
