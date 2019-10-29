@@ -38,7 +38,6 @@ class Player extends Component {
       }
 
   checkForPlayer() {
-
     if (window.Spotify !== null) {
       this.player = new window.Spotify.Player({
         name: "Cadence Web Player",
@@ -52,7 +51,6 @@ class Player extends Component {
       }
       // finally, connect!
       console.log("Spotify Player connected!");
-
     }
   }
 
