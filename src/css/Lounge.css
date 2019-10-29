@@ -1,17 +1,16 @@
-.centerElement{
-    border-style: solid;
-}
-.queue {
-}
-
-.list {
-}
-.display {
-}
 
 .chatroom-header {
     height: 50px; 
     background-color: white;
+}
+
+.title {
+    position: fixed;
+    font-size: 50px;
+    width: 200px;
+    height: 50px;
+    margin-left: 40%;
+    color: purple;
 }
 
 .profile-chatroom {
@@ -34,21 +33,105 @@
     background-color: purple;
     color: white;
   }
+
 .container {
-    display: inline-grid;
-    grid-template-columns: 25% 50% 25%;
-    grid-template-rows: 80% 20%;
+    display: flex;
+}
+
+.queue {
+    border-bottom-color: white;
+    border-right-color: white;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    height: 600px;
+    width: 25%;
+}
+
+.queueTitle {
+    font-size: 35px;
     width: 100%;
-    height: 99vh;
-    bottom: 0px;
+    height: 50px;
+    text-align: center;
+    color: purple;
 }
 
-.chatBar {
+.chatDisplay {
+    border-bottom-color: white;
+    border-right-color: white;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    height: 600px;
+    width: 50%;
+}
+
+.text {
+    display: flex;
+}
+
+.inputMessage {
+    margin-top: 546px;
+    height: 50px;
+    width: 90%;
+    border-radius: 15px;
+    border-color: white;
     border-style: solid;
-    height: 100%;
+    background-color: white;
 }
 
-.chatBarItem{
-    grid-column-start: 1;
-    grid-column-end: 4;
+.textarea {
+    margin-left: 10%;
+    font-size: 20px;
+    border: none;
+    resize: none;
+    height: 45px;
+    width: 80%;
+}
+
+.sendMessage {
+    color: white;
+    margin-top: 550px;
+    height: 50px;
+    width: 10%;
+    border-radius: 15px;
+    border-color: white;
+    border-style: solid;
+    background-color: purple;
+}
+
+.userList {
+    border-bottom-color: white;
+    border-right-color: white;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    height: 600px;
+    width: 25%;
+}
+
+.userListTitle {
+    font-size: 35px;
+    text-align: center;
+    width: 100%;
+    height: 50px;
+    color: purple;
+}
+
+.player {
+    height: 125px;
+}
+
+.play-pause {
+    margin:0 auto;
+    margin-top: 5px;
+    display: block;
+    background-color: purple;
+    color: white;
+    border-radius: 15px;
+    width: 100px;
+    height: 40px;
+}
+
+.sliderDiv {
+    margin:0 auto;
+    margin-top: 10px;
+    width: 700px;
 }

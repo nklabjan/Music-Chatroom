@@ -6,8 +6,8 @@ class Queue extends Component {
     render() {
         return (
             <>
-                <div class="centerElement queue">
-                    This is a placeholder for the queue.
+                <div className="queue">
+                    <div className="queueTitle"><b>Queue</b></div>
                 </div>
             </>
         )
