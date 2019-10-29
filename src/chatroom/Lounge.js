@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import '../css/Lounge.css';
 import ChatDisplay from './ChatDisplay';
 import ChatBar from './ChatBar';
-import Player from './Player';
+//import Player from './Player';
 import Queue from './Queue';
 import UserList from './UserList';
 import App from '../homepage/App'
@@ -35,7 +35,6 @@ class Lounge extends Component {
                         <UserList />
                         <div class="chatBarItem">
                             <ChatBar />
-                            <Player access_token={this.props.access_token}/>
                             </div>
                     </div>
                 </>

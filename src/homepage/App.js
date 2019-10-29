@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import '../css/App.css';
 import Lounge from '../chatroom/Lounge';
-import axios from "axios";
 import queryString from "query-string";
 //Remove this and put into env file if it works
 
@@ -41,9 +40,7 @@ class App extends Component {
     if (access_token)
     {
       this.setState({loggedIn: true, access_token: access_token});
-
     }
-
   }
 
   render() {
