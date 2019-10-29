@@ -57,6 +57,7 @@ class Player extends Component {
 
     onStateChanged(state) {
       // if we're no longer listening to music, we'll get a null state.
+      console.log("test")
       if (state !== null) {
         const {
           current_track: currentTrack,
@@ -114,6 +115,8 @@ class Player extends Component {
     }
 
     componentWillUnmount(){
+
+      this.player.disconnect();
       this.player = null;
     }
 }
