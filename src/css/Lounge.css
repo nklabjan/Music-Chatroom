@@ -78,6 +78,15 @@
     background-color: white;
 }
 
+.textarea {
+    margin-left: 10%;
+    font-size: 20px;
+    border: none;
+    resize: none;
+    height: 45px;
+    width: 80%;
+}
+
 .sendMessage {
     color: white;
     margin-top: 550px;
