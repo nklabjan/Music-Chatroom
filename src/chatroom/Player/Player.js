@@ -14,10 +14,7 @@ class Player extends Component {
 
   createPlayerEventListeners() {
         this.player.on('initialization_error', e => { console.error(e); });
-        this.player.on('authentication_error', e => {
-          console.error(e);
-
-        });
+        this.player.on('authentication_error', e => { console.error(e); });
         this.player.on('account_error', e => { console.error(e); });
         this.player.on('playback_error', e => { console.error(e); });
 
@@ -38,7 +35,6 @@ class Player extends Component {
       }
 
   checkForPlayer() {
-
     if (window.Spotify !== null) {
       this.player = new window.Spotify.Player({
         name: "Cadence Web Player",
@@ -52,7 +48,6 @@ class Player extends Component {
       }
       // finally, connect!
       console.log("Spotify Player connected!");
-
     }
   }
 
