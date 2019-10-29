@@ -4,8 +4,6 @@ import Lounge from '../chatroom/Lounge';
 import axios from "axios";
 import queryString from "query-string";
 //Remove this and put into env file if it works
-const my_client_id= "0a1619391e204b8090a1b1adb5e19bca";
-const redirect_uri = "http://localhost:8080/"
 
 class App extends Component {
 
@@ -15,7 +13,8 @@ class App extends Component {
         loggedIn: false,
         loggedOut: true,
         displayChat: false,
-        userInfo: {}
+        access_token: null,
+        player_info: null
     }
   }
 
@@ -35,18 +34,16 @@ class App extends Component {
     this.setState({displayChat: true})
   }
 
-  componentDidMount() {
+  componentWillMount() {
     let parsed = queryString.parse(window.location.search)
     let access_token = parsed.access_token
 
     if (access_token)
     {
-      this.setState({loggedIn: true});
+      this.setState({loggedIn: true, access_token: access_token});
+
     }
-    fetch("https://api.spotify.com/v1/me", {headers:
-      {'Authorization': 'Bearer ' + access_token}})
-      .then(response => response.json())
-      .then(data => console.log(data))
+
   }
 
   render() {
@@ -77,9 +74,11 @@ class App extends Component {
     }
     else {
       return(
-        <div>
-          <Lounge></Lounge>
-        </div>
+
+          <div>
+            <Lounge access_token={this.state.access_token}></Lounge>
+          </div>
+
       )
     }
 

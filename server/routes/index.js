@@ -7,13 +7,14 @@ var dotenv = require('dotenv').config();
 var my_client_id = process.env.CLIENT_APP_ID;
 var redirect_uri = "http://localhost:8080/auth/"
 
+var userList = [];
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
 router.get('/login', function(req, res) {
-  var scopes = 'user-read-private user-read-email';
+  var scopes = 'user-read-private user-read-email user-read-playback-state streaming user-modify-playback-state';
 
   res.redirect('https://accounts.spotify.com/authorize' +
     '?response_type=code' +
@@ -42,7 +43,6 @@ router.get('/auth', function(req, res) {
   //Get spotify access token and refresh tokens
   request.post(authOptions, function(error, response, body) {
     var access_token = body.access_token
-    console.log(body)
     let uri = process.env.FRONTEND_URI || 'http://localhost:3000'
     res.redirect(uri + '?access_token=' + access_token)
   })
