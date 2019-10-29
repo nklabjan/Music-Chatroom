@@ -10,11 +10,11 @@ class Chat extends Component {
     render() {
         return (
             <>
-                <div class="chatDisplay">
-                    <div class="text">
-                        <div class="inputMessage">
+                <div className="chatDisplay">
+                    <div className="text">
+                        <div className="inputMessage">
                         </div>
-                        <button class="sendMessage" onClick={this.sendMessage.bind(this)}>Send</button>
+                        <button className="sendMessage" onClick={this.sendMessage.bind(this)}>Send</button>
                     </div>
                 </div>
             </>

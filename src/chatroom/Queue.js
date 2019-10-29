@@ -6,8 +6,8 @@ class Queue extends Component {
     render() {
         return (
             <>
-                <div class="queue">
-                    <div class="queueTitle"><b>Queue</b></div>
+                <div className="queue">
+                    <div className="queueTitle"><b>Queue</b></div>
                 </div>
             </>
         )
