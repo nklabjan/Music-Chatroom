@@ -30,7 +30,7 @@ var io = require('socket.io')(server);
 io.on('connection', function(socket) {
     socket.on('message_sent', function(msg) {
         handlers.chatMessage(msg);
-        io.emit("chat message", msg);
+        io.emit("message_sent", msg);
     });
 }
 
