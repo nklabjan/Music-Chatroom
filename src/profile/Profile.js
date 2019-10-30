@@ -46,7 +46,7 @@ class Profile extends Component {
                         {this.state.loading ? (
                             <p>Loading...</p>
                         ) : (
-                            <img src={this.state.userJson.images[0].url}></img>
+                            <img src={this.state.userJson.images[0].url} alt="Not Found"></img>
                         )}
                     </div>
                     <div className="details">
