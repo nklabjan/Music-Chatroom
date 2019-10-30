@@ -1,9 +1,28 @@
 import React, {Component} from "react";
 import '../css/Lounge.css'
 
-class Chat extends Component {
+const io = require('socket.io-client');
+const socket = io.connect('http://localhost:8080');
+socket.on('message_sent', function(msg) {
+    console.log(msg);
+    var message_tank = document.createElement("div");
+    var new_message = document.createElement("p");
+    new_message.innerHTML = msg;
+    message_tank.appendChild(new_message);
+    message_tank.appendChild(document.createElement("br"));
+    document.getElementById('chatdisplay').appendChild(message_tank);
+});
 
-    sendMessage() {
+/*socket.on('connection' function() {
+    
+});*/
+
+class Chat extends Component {
+    sendMessage()
+    {
+        socket.emit('message_sent', document.getElementById('textarea').value);
+
+
 
     }
 
@@ -11,12 +30,12 @@ class Chat extends Component {
         return (
             <>
                 <div className="chatDisplay">
-                    <div className="text">
+                    <div className="text" id="chatdisplay">
                         <div className="inputMessage">
-                            <textarea className="textarea">
+                            <textarea className="textarea" id="textarea">
                             </textarea>
                         </div>
-                        <button className="sendMessage" onClick={this.sendMessage.bind(this)}>Send</button>
+                <button className="sendMessage" onClick={this.sendMessage.bind(this)}>Send</button>
                     </div>
                 </div>
             </>
