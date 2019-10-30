@@ -114,9 +114,9 @@ class Player extends Component {
         return (
             <div className="player">
             <Row>
-              <button className="play-pause" onClick={()=>{this.onPrevClick()}}>Previous</button>
+              <button className="previous" onClick={()=>{this.onPrevClick()}}>Previous</button>
               <button className="play-pause" onClick={()=>{this.onPlayClick()}}>Play/Pause</button>
-              <button className="play-pause" onClick={()=>{this.onNextClick()}}>Next</button>
+              <button className="next" onClick={()=>{this.onNextClick()}}>Next</button>
             </Row>
               <SliderCom />
             </div>

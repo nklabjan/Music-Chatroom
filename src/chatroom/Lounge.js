@@ -32,7 +32,7 @@ class Lounge extends Component {
                 <>
                     <header className="chatroom-header">
                         <button className="profile-chatroom" onClick={this.handleProfile.bind(this)}>View/Edit Your Profile</button>
-                        <div className="title"><b>CHATROOM</b></div>
+                        <span className="title"><b>CHATROOM</b></span>
                         <button className="leave-chatroom" onClick={this.leaveChat.bind(this)}>Leave Chatroom</button>
                     </header>
                     <div className="container">

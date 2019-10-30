@@ -6,10 +6,9 @@
 
 .title {
     position: fixed;
-    font-size: 50px;
-    width: 200px;
-    height: 50px;
+    margin-top: 0%;
     margin-left: 40%;
+    font-size: 43px;
     color: purple;
 }
 
@@ -40,10 +39,12 @@
 }
 
 .queue {
-    border-color: white;
     border-right-color: white;
-    border-style: solid;
+    border-bottom-color: white;
+    border-left-color: white;
     border-bottom-style: solid;
+    border-right-style: solid;
+    border-left-style: solid;
     height: 600px;
     width: 25%;
 }
@@ -123,7 +124,26 @@
 .play-pause {
     margin:0 auto;
     margin-top: 5px;
-    display: block;
+    background-color: purple;
+    color: white;
+    border-radius: 15px;
+    width: 100px;
+    height: 40px;
+}
+
+.previous {
+    margin:0 auto;
+    margin-top: 5px;
+    background-color: purple;
+    color: white;
+    border-radius: 15px;
+    width: 100px;
+    height: 40px;
+}
+
+.next {
+    margin:0 auto;
+    margin-top: 5px;
     background-color: purple;
     color: white;
     border-radius: 15px;
