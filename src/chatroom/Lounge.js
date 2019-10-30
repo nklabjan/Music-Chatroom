@@ -11,7 +11,7 @@ class Lounge extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            leaveChat: false
+            leaveChat: false,
         }
     }
 

@@ -4,7 +4,6 @@ import '../css/Lounge.css'
 const io = require('socket.io-client');
 const socket = io.connect('http://localhost:8080');
 socket.on('message_sent', function(msg) {
-    console.log(msg);
     var message_tank = document.createElement("div");
     var new_message = document.createElement("p");
     new_message.innerHTML = msg;
@@ -14,16 +13,21 @@ socket.on('message_sent', function(msg) {
 });
 
 /*socket.on('connection' function() {
-    
+
 });*/
 
 class Chat extends Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+        messages: [] //format {user,msg} can add timestamp in the future
+      }
+  }
+
     sendMessage()
     {
+        console.log(socket);
         socket.emit('message_sent', document.getElementById('textarea').value);
-
-
-
     }
 
     render() {

@@ -1,7 +1,7 @@
 function userConnected(socket) {
 
     console.log('a new user has connected');
-    
+    console.log(socket);
 }
 
 function userDisconnected() {
@@ -9,9 +9,9 @@ function userDisconnected() {
     console.log('user has disconnected');
 
 }
-function chatMessage(message) {
+function chatMessage(message, user_id) {
 
-    console.log('user says: ' + message);
+    console.log(user_id +' says: ' + message);
 
 }
 

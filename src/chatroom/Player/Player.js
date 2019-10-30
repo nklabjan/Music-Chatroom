@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import SliderCom from './Slider';
-
+import {Row} from 'react-bootstrap';
 class Player extends Component {
 
   constructor(props) {
@@ -113,11 +113,11 @@ class Player extends Component {
     render() {
         return (
             <div className="player">
-            <span>
-              <button className="play-pause" onClick={()=>{this.onPreviousClick()}}>Previous</button>
+            <Row>
+              <button className="play-pause" onClick={()=>{this.onPrevClick()}}>Previous</button>
               <button className="play-pause" onClick={()=>{this.onPlayClick()}}>Play/Pause</button>
               <button className="play-pause" onClick={()=>{this.onNextClick()}}>Next</button>
-            </span>
+            </Row>
               <SliderCom />
             </div>
         )
