@@ -99,14 +99,25 @@ class Player extends Component {
       });
     }
 
+    onPrevClick() {
+      this.player.previousTrack();
+    }
+
     onPlayClick() {
       this.player.togglePlay();
     }
 
+    onNextClick() {
+      this.player.nextTrack();
+    }
     render() {
         return (
             <div className="player">
+            <span>
+              <button className="play-pause" onClick={()=>{this.onPreviousClick()}}>Previous</button>
               <button className="play-pause" onClick={()=>{this.onPlayClick()}}>Play/Pause</button>
+              <button className="play-pause" onClick={()=>{this.onNextClick()}}>Next</button>
+            </span>
               <SliderCom />
             </div>
         )
