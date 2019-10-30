@@ -3,6 +3,7 @@ import '../css/App.css';
 import Lounge from '../chatroom/Lounge';
 import Header from './header';
 import queryString from "query-string";
+import Profile from "../profile/Profile"
 //Remove this and put into env file if it works
 
 class App extends Component {
@@ -13,6 +14,7 @@ class App extends Component {
         loggedIn: false,
         loggedOut: true,
         displayChat: false,
+        displayProfile: false,
         access_token: null,
         player_info: null
     }
@@ -31,6 +33,10 @@ class App extends Component {
     this.setState({displayChat: true})
   }
 
+  handleProfile() {
+    this.setState({displayProfile: true})
+  }
+
   componentWillMount() {
     let parsed = queryString.parse(window.location.search)
     let access_token = parsed.access_token
@@ -42,7 +48,7 @@ class App extends Component {
 
   render() {
 
-    if(this.state.displayChat === false) {
+    if(this.state.displayChat === false && this.state.displayProfile === false) {
       if(this.state.loggedIn === false && this.state.loggedOut === true) {
         return  <div className="HomePage">
                   <Header />
@@ -56,17 +62,23 @@ class App extends Component {
                   <Header />
                   <header className="Home-Page">
                     <button className="logout" onClick={this.logout.bind(this)}>Logout</button>
-                    <button className="profile">View/Edit Your Profile</button>
+                    <button className="profile" onClick={this.handleProfile.bind(this)}>View/Edit Your Profile</button>
                     <button className="chatroom">Make New Chatroom</button>
                     <button className="chat" onClick={this.handleChat.bind(this)}>Go To Chatroom</button>
                   </header>
                </div>;
       }
     }
-    else {
+    else if(this.state.displayChat === true && this.state.displayProfile === false){
       return <div>
               <Lounge access_token={this.state.access_token}></Lounge>
             </div>;
+    }
+    else if(this.state.displayProfile === true)
+    {
+      return <div>
+        <Profile access_token={this.state.access_token}/>
+      </div>
     }
   };
 }
