@@ -15,7 +15,8 @@
 
 .profile-chatroom {
     position: fixed;
-    margin-top: 0px;
+    top: 0px;
+    left: 0px;
     height: 50px;
     width: 150px;
     border-radius: 15px;
@@ -25,8 +26,8 @@
 
 .leave-chatroom {
     position: fixed;
-    margin-left: 1290px;
-    margin-top: 0px;
+    top: 0px;
+    right: 0px;
     height: 50px;
     width: 150px;
     border-radius: 15px;
