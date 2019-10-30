@@ -47,8 +47,8 @@
 
 .chatroom {
   position: fixed;
-  margin-left: 1290px;
-  margin-top: 5px;
+  margin-left: 50%;
+  margin-top: 20%;
   height: 50px;
   width: 150px;
   border-radius: 15px;
@@ -58,8 +58,8 @@
 
 .chat {
   position: fixed;
-  margin-left: 600px;
-  margin-top: 350px;
+  margin-left: 50%;
+  margin-top: 15%;
   height: 50px;
   width: 150px;
   border-radius: 15px;
