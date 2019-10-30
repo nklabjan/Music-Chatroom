@@ -4,10 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Lounge from '../chatroom/Lounge';
 import Header from './header';
 import queryString from "query-string";
-import Profile from "../profile/Profile"
-//Remove this and put into env file if it works
-
-
+import Profile from "../profile/Profile";
 
 class App extends Component {
 
@@ -84,7 +81,7 @@ class App extends Component {
                </div>;
       }
     }
-    else if(this.state.displayChat === true && this.state.displayProfile === false){
+    else if(this.state.displayChat === true && this.state.displayProfile === false) {
       return <div>
               <link
                 rel="stylesheet"
@@ -95,11 +92,10 @@ class App extends Component {
               <Lounge access_token={this.state.access_token}></Lounge>
             </div>;
     }
-    else if(this.state.displayProfile === true)
-    {
+    else if(this.state.displayProfile === true) {
       return <div>
         <Profile access_token={this.state.access_token}/>
-      </div>
+      </div>;
     }
   };
 }

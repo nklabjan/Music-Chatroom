@@ -40,9 +40,9 @@
 }
 
 .queue {
-    border-bottom-color: white;
+    border-color: white;
     border-right-color: white;
-    border-right-style: solid;
+    border-style: solid;
     border-bottom-style: solid;
     height: 600px;
     width: 25%;

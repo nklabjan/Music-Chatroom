@@ -5,6 +5,7 @@ import Chat from './Chat';
 import Queue from './Queue';
 import UserList from './UserList';
 import App from '../homepage/App';
+import Profile from "../profile/Profile";
 
 class Lounge extends Component {
 
@@ -12,6 +13,7 @@ class Lounge extends Component {
         super(props);
         this.state = {
             leaveChat: false,
+            displayProfile: false
         }
     }
 
@@ -19,13 +21,17 @@ class Lounge extends Component {
         this.setState({leaveChat: true});
     }
 
+    handleProfile() {
+        this.setState({displayProfile: true})
+    }
+
     render() {
         console.log(this.props.playerInfo)
-        if(this.state.leaveChat === false) {
+        if(this.state.leaveChat === false && this.state.displayProfile === false) {
             return (
                 <>
                     <header className="chatroom-header">
-                        <button className="profile-chatroom">View/Edit Your Profile</button>
+                        <button className="profile-chatroom" onClick={this.handleProfile.bind(this)}>View/Edit Your Profile</button>
                         <div className="title"><b>CHATROOM</b></div>
                         <button className="leave-chatroom" onClick={this.leaveChat.bind(this)}>Leave Chatroom</button>
                     </header>
@@ -38,8 +44,14 @@ class Lounge extends Component {
                 </>
             )
         }
-        else {
+        else if (this.state.leaveChat === true) {
             return (<App />)
+        }
+
+        else if (this.state.displayProfile === true) {
+            return <div>
+                        <Profile access_token={this.state.access_token}/>
+                    </div>;
         }
     }
 }
