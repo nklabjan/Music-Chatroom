@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import '../../css/Lounge.css'
 
 class Messenger extends Component {
 

@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import ChatBubble from './ChatBubble';
-import '../../css/Lounge.css'
 
 class ChatWindow extends Component {
 

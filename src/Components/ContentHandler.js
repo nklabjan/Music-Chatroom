@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Lounge from './chatroom/Lounge';
-import HomePage from './chatroom/HomePage';
+import HomePage from './homepage/HomePage';
 import Profile from "./profile/Profile";
 
 import '../css/App.css';

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import '../../css/Lounge.css';
 import Player from './Player/Player';
-import Chat from './Chat';
+import Chat from './Chat/Chat';
 import Queue from './Queue';
 import UserList from './UserList';
 
