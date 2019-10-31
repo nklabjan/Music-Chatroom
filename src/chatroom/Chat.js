@@ -10,9 +10,9 @@ class Chat extends Component {
         messages: [] //format {user,msg} can add timestamp in the future
       }
       this.socket = io('localhost:8080');
+      var message_div = document.createElement("div");
       this.socket.on('message_received', function(msg, user) {
 
-          var message_div = document.createElement("div");
           message_div.className = "message";
           message_div.class = "chatarea";
           var new_message = document.createElement("p");
@@ -39,7 +39,7 @@ class Chat extends Component {
                 <>
                 <div className="chatDisplay">
                     <div className="text" id="chatdisplay">
-                        <div className="chatarea"></div>
+                        <div className="chatarea" id="chatarea"></div>
                         <textarea className="textarea" id="textarea"></textarea>      
                         <button className="sendMessage" onClick={this.sendMessage.bind(this)}>Send</button>
                     </div>
