@@ -4,7 +4,6 @@ class Player extends Component {
 
   constructor(props) {
       super(props);
-
       this.checkForPlayer = this.checkForPlayer.bind(this);
       this.createPlayerEventListeners = this.createPlayerEventListeners.bind(this);
 
@@ -46,11 +45,13 @@ class Player extends Component {
       this.player.connect();
       // finally, connect!
       console.log("Spotify Player connected!");
+      console.log(this.player)
     }
   }
 
     onStateChanged(state) {
       console.log(state);
+      console.log(this.state);
       // if we're no longer listening to music, we'll get a null state.
       if (state !== null) {
         const {
@@ -77,7 +78,6 @@ class Player extends Component {
 
     transferPlaybackHere() {
       console.log("playback transfered")
-      console.log(this.state);
       const deviceId = this.state.deviceId;
       const access_token = this.props.access_token;
 
@@ -105,6 +105,16 @@ class Player extends Component {
     onNextClick() {
       this.player.nextTrack();
     }
+
+    playSong() {
+      //Sends device ID and Access token to backend to play music
+      //through socket
+      //Hardcode to play "spotify:track:5bvNpG6wiIEf1PA13TkTu2" for now
+      let song = "spotify:track:5bvNpG6wiIEf1PA13TkTu2";
+      this.props.socket.emit('play_music', this.props.access_token, this.state.deviceId, song);
+      console.log("test")
+    }
+
     render() {
         return (
             <div className="player">
@@ -112,6 +122,7 @@ class Player extends Component {
                   <button className="previous" onClick={()=>{this.onPrevClick()}}>Previous</button>
                   <button className="play-pause" onClick={()=>{this.onPlayClick()}}>Play/Pause</button>
                   <button className="next" onClick={()=>{this.onNextClick()}}>Next</button>
+                  <button className="random-play" onClick={()=>{this.playSong()}}>Play Lost Kings</button>
               </div>
               <SliderCom />
             </div>
