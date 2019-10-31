@@ -12,7 +12,6 @@ class Chat extends Component {
       this.socket = io('localhost:8080');
       var message_div = document.createElement("div");
       this.socket.on('message_received', function(msg, user) {
-
           message_div.className = "message";
           message_div.class = "chatarea";
           var new_message = document.createElement("p");
