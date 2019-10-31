@@ -3,7 +3,7 @@ import '../css/Lounge.css'
 import io from "socket.io-client"
 
 class Chat extends Component {
-    
+
   constructor(props) {
       super(props);
       this.state = {
@@ -13,7 +13,8 @@ class Chat extends Component {
       this.socket.on('message_received', function(msg, user) {
 
           var message_div = document.createElement("div");
-          message_div.class = "text";
+          message_div.className = "message";
+          message_div.class = "chatarea";
           var new_message = document.createElement("p");
           new_message.innerHTML = user + ": " + msg;
           message_div.appendChild(new_message);
@@ -38,6 +39,7 @@ class Chat extends Component {
                 <>
                 <div className="chatDisplay">
                     <div className="text" id="chatdisplay">
+                        <div className="chatarea"></div>
                         <textarea className="textarea" id="textarea"></textarea>      
                         <button className="sendMessage" onClick={this.sendMessage.bind(this)}>Send</button>
                     </div>
