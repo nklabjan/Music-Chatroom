@@ -1,33 +1,35 @@
 import React, {Component} from "react";
 import '../css/Lounge.css'
-
-const io = require('socket.io-client');
-const socket = io.connect('http://localhost:8080');
-socket.on('message_sent', function(msg) {
-    var message_tank = document.createElement("div");
-    message_tank.class="text";
-    var new_message = document.createElement("p");
-    new_message.innerHTML = msg;
-    message_tank.appendChild(new_message);
-    message_tank.appendChild(document.createElement("br"));
-    document.getElementById('chatdisplay').appendChild(message_tank);
-});
-
-/*socket.on('connection' function() {
-
-});*/
+import io from "socket.io-client"
 
 class Chat extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            messages: [] //format {user,msg} can add timestamp in the future
-        }
-    }
+  constructor(props) {
+      super(props);
+      this.state = {
+        messages: [] //format {user,msg} can add timestamp in the future
+      }
+      this.socket = io('localhost:8080');
+      this.socket.on('message_received', function(msg, user) {
 
-    sendMessage(){
-        console.log(socket);
-        socket.emit('message_sent', document.getElementById('textarea').value);
+          var message_div = document.createElement("div");
+          message_div.class = "text";
+          var new_message = document.createElement("p");
+          new_message.innerHTML = user + ": " + msg;
+          message_div.appendChild(new_message);
+          document.getElementById('chatdisplay').appendChild(message_div);
+      })
+
+  }
+
+    
+    sendMessage()
+    {
+        this.socket.emit('message_sent', document.getElementById('textarea').value, this.getAuthToken());
+    }
+    getAuthToken() {
+        let search = window.location.search;
+        let params = new URLSearchParams(search);
+        return params.get('access_token');
     }
 
     render() {

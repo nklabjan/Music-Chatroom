@@ -29,9 +29,8 @@ var io = require('socket.io')(server);
 
 io.on('connection', function(socket) {
   
-    socket.on('message_sent', function(msg) {
-        handlers.chatMessage(msg,socket.id);
-        io.emit("message_sent", msg);
+    socket.on('message_sent', function(msg, auth_token) {
+        handlers.chatMessage(io, msg, auth_token);
     });
 }
 
