@@ -31,7 +31,7 @@ class Lounge extends Component {
                         <Chat />
                         <UserList />
                     </div>
-                    <Player />
+                    <Player access_token={this.props.access_token}/>
 
                 </div>
             )
