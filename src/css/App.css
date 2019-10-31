@@ -1,5 +1,6 @@
 .HomePage {
   text-align: left;
+
 }
 
 .Home-Page {
@@ -70,4 +71,58 @@
 .Wrapper {
   width: 100vw;
   height: 100vh;
+}
+
+.LandingWindow {
+  margin: auto;
+  width: 15%;
+  height: 25vh;
+  top: 0px;
+}
+
+.LandingPage {
+  width: 100vw;
+  height: 100vh;
+  background-image:url('https://media.giphy.com/media/n3xSURtNE62t2/giphy.gif');
+  background-repeat:no-repeat;
+  background-size:100% 100%
+
+}
+
+.LandingBtnBox {
+  margin-top: 55vh;
+
+}
+.CadenceNavBar{
+  background-color: rgba(0,0,0,0)
+}
+
+.new-login {
+  color: rgba(104, 82, 156, 1) !important;
+  background-color: rgba(1, 1, 1, 1) !important;
+  border-color: rgba(1,1,1,1) !important;
+  border: none;
+  top:50%;
+  left:50%;
+}
+
+.new-login:hover{
+  border-color: white ;
+  transition: all .2s ease-in-out;
+  transform: scale(1.1);
+}
+
+.TagLine {
+  position: fixed;
+  top: 45vh;
+  left: 30vw;
+  width: 40%;
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.TagLine:hover {
+  transition: all .2s ease-in-out;
+  transform: scale(1.2);
 }

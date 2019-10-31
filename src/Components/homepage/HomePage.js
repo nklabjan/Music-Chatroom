@@ -19,6 +19,8 @@ class HomePage extends Component {
       }
       else {
         return  ( <div>
+                    <Header />
+
                     <button className="logout" onClick={this.props.logout}>Logout</button>
                     <button className="profile" onClick={this.props.handleProfile}>View/Edit Your Profile</button>
                     <button className="chatroom">Make New Chatroom</button>
@@ -30,7 +32,6 @@ class HomePage extends Component {
 
     render() {
         return (<div className="HomePage">
-                  <Header />
                   <header className="Home-Page">
                     {this.renderPage()}
                   </header>

@@ -1,10 +1,13 @@
 import React, {Component} from "react";
+import LandingWindow from './LandingWindow';
+import CadenceNavBar from './CadenceNavBar'
 
 class LandingPage extends Component {
 
     render() {
         return  <div className="LandingPage">
-                    <button className="login" onClick={this.props.login}>Login with Spotify</button>
+                    <CadenceNavBar />
+                    <LandingWindow login={this.props.login}/>;
                 </div>
       }
 
