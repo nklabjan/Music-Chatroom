@@ -78,6 +78,13 @@
 
 .text {
     display: flex;
+    flexDirection: row;
+
+}
+.messageArea {
+    height: 1%;
+
+
 }
 
 .textarea {
