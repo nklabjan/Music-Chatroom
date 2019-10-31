@@ -39,14 +39,13 @@
 
 .loungeContainer {
     position: relative;
-    border-color: red;
-    border-style: solid;
     height: 80%;
     width:100vw;
     left: 0px;
 }
 
 .chatarea {
+    overflow: scroll;
     position: absolute;
     top: 0px;
     left: 0px;
@@ -61,6 +60,7 @@
   height: 10%;
   width: 100%;
 }
+
 .message {
     background-color: purple;
     border-radius: 15px;
@@ -118,6 +118,9 @@
 }
 
 .sendMessage {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
     color: white;
     width: 20%;
     border-radius: 15px;
