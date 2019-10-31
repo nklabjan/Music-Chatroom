@@ -70,9 +70,9 @@ class ContentHandler extends Component {
       }
     }
     else if(this.state.displayChat === true && this.state.displayProfile === false){
-      return <div>
+      return <>
               <Lounge access_token={this.state.access_token}></Lounge>
-            </div>;
+            </>;
     }
     else if(this.state.displayProfile === true)
     {

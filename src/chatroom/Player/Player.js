@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import SliderCom from './Slider';
-import {Row} from 'react-bootstrap';
 class Player extends Component {
 
   constructor(props) {
@@ -113,18 +112,17 @@ class Player extends Component {
     render() {
         return (
             <div className="player">
-            <Row>
-              <button className="previous" onClick={()=>{this.onPrevClick()}}>Previous</button>
-              <button className="play-pause" onClick={()=>{this.onPlayClick()}}>Play/Pause</button>
-              <button className="next" onClick={()=>{this.onNextClick()}}>Next</button>
-            </Row>
+              <div class="row">
+                  <button className="previous" onClick={()=>{this.onPrevClick()}}>Previous</button>
+                  <button className="play-pause" onClick={()=>{this.onPlayClick()}}>Play/Pause</button>
+                  <button className="next" onClick={()=>{this.onNextClick()}}>Next</button>
+              </div>
               <SliderCom />
             </div>
         )
     }
 
     componentWillUnmount(){
-
       this.player.disconnect();
       this.player = null;
     }

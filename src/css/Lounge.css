@@ -35,17 +35,25 @@
   }
 
 .container {
-    display: flex;
+    position: absolute;
+    border-color: red;
+    border-style: solid;
+    height: 80%;
+    width:100vw;
+    top: 50px;
+    left: 0px;
 }
 
 .queue {
+    position: absolute;
     border-right-color: white;
     border-bottom-color: white;
     border-left-color: white;
     border-bottom-style: solid;
     border-right-style: solid;
     border-left-style: solid;
-    height: 600px;
+    left:0px;
+    height: 100%;
     width: 25%;
 }
 
@@ -58,11 +66,13 @@
 }
 
 .chatDisplay {
+    position: absolute;
     border-bottom-color: white;
     border-right-color: white;
     border-right-style: solid;
     border-bottom-style: solid;
-    height: 600px;
+    left: 25%;
+    height: 100%;
     width: 50%;
 }
 
@@ -70,30 +80,26 @@
     display: flex;
 }
 
-.inputMessage {
-    margin-top: 546px;
-    height: 50px;
-    width: 90%;
-    border-radius: 15px;
-    border-color: white;
-    border-style: solid;
-    background-color: white;
-}
-
 .textarea {
-    margin-left: 10%;
+    position: absolute;
+    border-radius: 15px;
+    margin-left: 0%;
     font-size: 20px;
+    left: 0px;
+    bottom: 0px;
     border: none;
     resize: none;
-    height: 45px;
+    height: 10%;
     width: 80%;
 }
 
 .sendMessage {
+    position: absolute;
     color: white;
-    margin-top: 550px;
-    height: 50px;
-    width: 10%;
+    bottom: 0px;
+    right: 0px;
+    height: 10%;
+    width: 20%;
     border-radius: 15px;
     border-color: white;
     border-style: solid;
@@ -101,11 +107,14 @@
 }
 
 .userList {
+    position: absolute;
     border-bottom-color: white;
     border-right-color: white;
     border-right-style: solid;
     border-bottom-style: solid;
-    height: 600px;
+    top: 0px;
+    right: 0px;
+    height: 100%;
     width: 25%;
 }
 
@@ -118,41 +127,60 @@
 }
 
 .player {
-    height: 125px;
+    position: absolute;
+    border-color: purple;
+    border-style: bold;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 13%;
 }
 
-.play-pause {
-    margin:0 auto;
-    margin-top: 5px;
-    background-color: purple;
-    color: white;
-    border-radius: 15px;
-    width: 100px;
-    height: 40px;
+.row {
+    position: absolute;
+    text-align: justify;
+    top: 0px;
+    left: 25%;
+    height: 50%;
+    width: 50%;
 }
 
 .previous {
-    margin:0 auto;
-    margin-top: 5px;
+    position: absolute;
+    top: 5%;
+    left: 27%;
     background-color: purple;
     color: white;
     border-radius: 15px;
-    width: 100px;
-    height: 40px;
+    width: 10%;
+    height: 50%;
+}
+
+.play-pause {
+    position: absolute;
+    top: 5%;
+    left: 43%;
+    background-color: purple;
+    color: white;
+    border-radius: 15px;
+    width: 14%;
+    height: 50%;
 }
 
 .next {
-    margin:0 auto;
-    margin-top: 5px;
+    position: absolute;
+    top: 5%;
+    left: 62%;
     background-color: purple;
     color: white;
     border-radius: 15px;
-    width: 100px;
-    height: 40px;
+    width: 10%;
+    height: 50%;
 }
 
 .sliderDiv {
-    margin:0 auto;
-    margin-top: 10px;
-    width: 700px;
+    position: absolute;
+    top: 40%;
+    left: 25%;
+    width: 50%
 }

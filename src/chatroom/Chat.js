@@ -17,15 +17,14 @@ socket.on('message_sent', function(msg) {
 });*/
 
 class Chat extends Component {
-  constructor(props) {
-      super(props);
-      this.state = {
-        messages: [] //format {user,msg} can add timestamp in the future
-      }
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            messages: [] //format {user,msg} can add timestamp in the future
+        }
+    }
 
-    sendMessage()
-    {
+    sendMessage(){
         console.log(socket);
         socket.emit('message_sent', document.getElementById('textarea').value);
     }
@@ -35,11 +34,8 @@ class Chat extends Component {
             <>
                 <div className="chatDisplay">
                     <div className="text" id="chatdisplay">
-                        <div className="inputMessage">
-                            <textarea className="textarea" id="textarea">
-                            </textarea>
-                        </div>
-                <button className="sendMessage" onClick={this.sendMessage.bind(this)}>Send</button>
+                        <textarea className="textarea" id="textarea"></textarea>      
+                        <button className="sendMessage" onClick={this.sendMessage.bind(this)}>Send</button>
                     </div>
                 </div>
             </>
