@@ -199,6 +199,17 @@
     height: 50%;
 }
 
+.random-play {
+    position: absolute;
+    top: 5%;
+    left: 80%;
+    background-color: purple;
+    color: white;
+    border-radius: 15px;
+    width: 10%;
+    height: 50%;
+}
+
 .sliderDiv {
     position: absolute;
     top: 40%;
