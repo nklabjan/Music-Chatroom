@@ -3,6 +3,7 @@ import '../css/Lounge.css'
 import io from "socket.io-client"
 
 class Chat extends Component {
+    
   constructor(props) {
       super(props);
       this.state = {
@@ -22,10 +23,10 @@ class Chat extends Component {
   }
 
     
-    sendMessage()
-    {
+    sendMessage() {
         this.socket.emit('message_sent', document.getElementById('textarea').value, this.getAuthToken());
     }
+
     getAuthToken() {
         let search = window.location.search;
         let params = new URLSearchParams(search);
