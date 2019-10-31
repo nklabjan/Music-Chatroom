@@ -1,3 +1,4 @@
+var request = require('request');
 function userConnected(socket) {
 
     console.log('a new user has connected');
@@ -9,9 +10,14 @@ function userDisconnected() {
     console.log('user has disconnected');
 
 }
-function chatMessage(message, user_id) {
-
-    console.log(user_id +' says: ' + message);
+function chatMessage(io, message, auth_token) {
+    var url = 'https://api.spotify.com/v1/me?access_token=' + auth_token;
+    var username;
+    request(url, function(error, response, body) {
+        username = body.display_name;
+        body=JSON.parse(body);
+        io.emit("message_received", message, body["display_name"]);
+    })
 
 }
 
