@@ -45,8 +45,6 @@
 }
 
 .chatarea {
-    border-color: red;
-    border-style: solid;
     position: absolute;
     top: 0px;
     left: 0px;
@@ -58,6 +56,7 @@
     background-color: purple;
     border-radius: 15px;
     width: 100px;
+    color: white;
 }
 
 .queue {
