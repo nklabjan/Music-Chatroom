@@ -13,7 +13,7 @@ class Player extends Component {
 
   createPlayerEventListeners() {
       //Add event listeners to browser spotify player
-        this.player.on('initialization_error', e => { console.error(e); });
+        this.player.on('initialization_error', e => { console.error(e);});
         this.player.on('authentication_error', e => {
           console.error(e);
         });
@@ -44,10 +44,6 @@ class Player extends Component {
       });
       this.createPlayerEventListeners();
       this.player.connect();
-      if (this.player)
-      {
-        console.log(this.player)
-      }
       // finally, connect!
       console.log("Spotify Player connected!");
     }
@@ -112,7 +108,7 @@ class Player extends Component {
     render() {
         return (
             <div className="player">
-              <div class="row">
+              <div className="row">
                   <button className="previous" onClick={()=>{this.onPrevClick()}}>Previous</button>
                   <button className="play-pause" onClick={()=>{this.onPlayClick()}}>Play/Pause</button>
                   <button className="next" onClick={()=>{this.onNextClick()}}>Next</button>

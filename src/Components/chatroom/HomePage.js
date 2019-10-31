@@ -1,6 +1,4 @@
 import React, {Component} from "react";
-import App from '../homepage/App';
-import Profile from "../profile/Profile";
 import LandingPage from './LandingPage';
 import Header from '../homepage/header';
 

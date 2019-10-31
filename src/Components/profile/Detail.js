@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import '../css/Profile.css';
+import '../../css/Profile.css';
 
 class Detail extends Component {
     constructor(props) {
