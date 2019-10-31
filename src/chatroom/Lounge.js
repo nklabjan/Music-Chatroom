@@ -29,7 +29,7 @@ class Lounge extends Component {
         console.log(this.props.playerInfo)
         if(this.state.leaveChat === false && this.state.displayProfile === false) {
             return (
-                <>
+                <div>
                     <header className="chatroom-header">
                         <button className="profile-chatroom" onClick={this.handleProfile.bind(this)}>View/Edit Your Profile</button>
                         <span className="title"><b>CHATROOM</b></span>
@@ -41,8 +41,8 @@ class Lounge extends Component {
                         <UserList />
                     </div>
                     <Player />
-                        
-                </>
+
+                </div>
             )
         }
         else if (this.state.leaveChat === true) {
