@@ -66,3 +66,8 @@
   background-color: purple;
   color: white;
 }
+
+.Wrapper {
+  width: 100vw;
+  height: 100vh;
+}

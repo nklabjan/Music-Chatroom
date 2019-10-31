@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import '../css/App.css';
+import './css/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ContentHandler from '../ContentHandler';
+import ContentHandler from './Components/ContentHandler';
 
 class App extends Component {
 
@@ -9,10 +9,10 @@ class App extends Component {
       return (
         <>
           <link
-              rel="stylesheet"  
+              rel="stylesheet"
               href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-              crossorigin="anonymous"
+              crossOrigin="anonymous"
           />
           <ContentHandler />
         </>
