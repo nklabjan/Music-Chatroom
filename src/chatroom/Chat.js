@@ -1,10 +1,11 @@
-import React, {Component} from "react";
+import React, {Component, Row} from "react";
 import '../css/Lounge.css'
 
 const io = require('socket.io-client');
 const socket = io.connect('http://localhost:8080');
 socket.on('message_sent', function(msg) {
     var message_tank = document.createElement("div");
+    message_tank.class="text";
     var new_message = document.createElement("p");
     new_message.innerHTML = msg;
     message_tank.appendChild(new_message);
@@ -32,9 +33,11 @@ class Chat extends Component {
 
     render() {
         return (
-            <>
+                <>
                 <div className="chatDisplay">
-                    <div className="text" id="chatdisplay">
+                <div className="messageArea" id="chatdisplay">
+                </div>
+                <div className="text">
                         <div className="inputMessage">
                             <textarea className="textarea" id="textarea">
                             </textarea>
