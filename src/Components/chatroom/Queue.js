@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import '../../css/Lounge.css'
+import '../../css/chatroom/Queue.css'
 
 class Queue extends Component {
 

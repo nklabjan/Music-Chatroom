@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import SliderCom from './Slider';
+import '../../../css/chatroom/player/Player.css'
 class Player extends Component {
 
   constructor(props) {

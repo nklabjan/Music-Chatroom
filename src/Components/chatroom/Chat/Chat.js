@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import ChatWindow from './ChatWindow';
 import Messenger from './Messenger';
-
+import '../../../css/chatroom/chat/Chat.css'
 import io from "socket.io-client"
 
 class Chat extends Component {
