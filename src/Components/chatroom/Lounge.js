@@ -5,6 +5,7 @@ import Chat from './Chat/Chat';
 import Queue from './Queue';
 import UserList from './UserList';
 import io from "socket.io-client"
+var urls = require('../../constants.js');
 
 class Lounge extends Component {
 
@@ -19,7 +20,7 @@ class Lounge extends Component {
     }
 
     setUpSocket() {
-      this.socket = io('localhost:8080');
+      this.socket = io(urls.backend_url);
       this.socket.on('message_received', function(msg, user) {
 
           var message_div = document.createElement("div");
