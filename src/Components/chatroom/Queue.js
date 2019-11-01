@@ -1,13 +1,13 @@
 import React, {Component} from "react";
-import '../css/Lounge.css'
+import '../../css/chatroom/Queue.css'
 
 class Queue extends Component {
 
     render() {
         return (
             <>
-                <div class="centerElement queue">
-                    This is a placeholder for the queue.
+                <div className="queue">
+                    <div className="queueTitle"><b>Queue</b></div>
                 </div>
             </>
         )

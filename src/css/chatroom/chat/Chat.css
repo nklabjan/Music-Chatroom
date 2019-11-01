@@ -1,0 +1,28 @@
+.chatDisplay {
+    position: absolute;
+    border-bottom-color: white;
+    border-right-color: white;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    left: 25%;
+    height: 100%;
+    width: 50%;
+    display: flex;
+}
+
+.chatarea {
+    overflow: scroll;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 90%;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.message {
+    background-color: purple;
+    border-radius: 15px;
+    width: 100%;
+    color: white;
+}

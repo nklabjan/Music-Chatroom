@@ -1,0 +1,45 @@
+.lounge {
+    width: 100vw;
+    height: 100vh;
+  }
+  .chatroom-header {
+      height: 50px;
+      background-color: white;
+  }
+  
+  .title {
+      position: fixed;
+      margin-top: 0%;
+      margin-left: 40%;
+      font-size: 43px;
+      color: purple;
+  }
+  
+  .profile-chatroom {
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      height: 50px;
+      width: 150px;
+      border-radius: 15px;
+      background-color: purple;
+      color: white;
+  }
+  
+  .leave-chatroom {
+      position: fixed;
+      top: 0px;
+      right: 0px;
+      height: 50px;
+      width: 150px;
+      border-radius: 15px;
+      background-color: purple;
+      color: white;
+    }
+  
+  .loungeContainer {
+      position: relative;
+      height: 80%;
+      width:100vw;
+      left: 0px;
+  }
