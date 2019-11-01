@@ -12,6 +12,21 @@ var handlers = require('../chatroom/auth')
  * Get port from environment and store in Express.
  */
 
+/**
+ * Should move this into its own thing later
+ */
+
+/*if (app.get('env') == 'development') {
+    process.env['SERVER_URL'] = 'http://localhost:8080';
+    process.env['CLIENT_URL'] = 'http://localhost:3000';
+}
+else {
+    process.env['SERVER_URL'] = 'https://music-chatroom-server.herokuapp.com/'
+    process.env['CLIENT_URL'] = 'https://music-chatroom-client.herokuapp.com/'
+
+    }*/
+
+
 var port = normalizePort(process.env.PORT || '8080');
 app.set('port', port);
 

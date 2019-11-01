@@ -5,6 +5,7 @@ import Profile from "./profile/Profile";
 import '../css/ContentHandler.css';
 
 import queryString from "query-string";
+var urls = require('../constants.js');
 
 //Remove this and put into env file if it works
 
@@ -30,8 +31,9 @@ class ContentHandler extends Component {
     this.setState({loggedInStatus: false})
   }
 
-  login() {
-    window.location = "http://localhost:8080/login/";
+    login() {
+        console.log(urls.backend_url);
+    window.location = urls.backend_url + '/login';
   }
 
   handleHome() {
