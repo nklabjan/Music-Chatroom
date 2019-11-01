@@ -21,5 +21,26 @@ function chatMessage(io, message, auth_token) {
 
 }
 
+//maybe add io back in
+function playSong(access_token, deviceId, spotify_uri) {
+  const options = {
+  url: 'https://api.spotify.com/v1/me/player/play?device_id=' + deviceId,
+  body: JSON.stringify({ uris: [spotify_uri] }),
+  headers: {
+    "Authorization": `Bearer ${access_token}`,
+    "Content-Type": "application/json",
+  },
+};
+
+    request.put(options, function(error, response, body) {
+        // song_uri = body.display_name;
+        // body=JSON.parse(body);
+        // io.emit("play_song", message, body["display_name"]);
+        console.log("Playing lost kings")
+    })
+
+}
+
 module.exports.userConnected = userConnected;
 module.exports.chatMessage = chatMessage;
+module.exports.playSong = playSong;
