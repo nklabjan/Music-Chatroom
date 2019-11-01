@@ -124,7 +124,6 @@ class Player extends Component {
                   <button className="play-pause" onClick={()=>{this.onPlayClick()}}>Play/Pause</button>
                   <button className="next" onClick={()=>{this.onNextClick()}}>Next</button>
               </div>
-              <button className="random-play" onClick={()=>{this.playSong()}}>Play Lost Kings</button>
               <SliderCom />
             </div>
         )
