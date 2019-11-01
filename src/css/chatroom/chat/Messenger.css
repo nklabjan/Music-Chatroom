@@ -1,0 +1,28 @@
+.messenger {
+    position:absolute;
+    bottom: 0px;
+    height: 10%;
+    width: 100%;
+  }
+
+.textarea {
+    border-radius: 15px;
+    margin-left: 0%;
+    font-size: 20px;
+    border: none;
+    resize: none;
+    width: 80%;
+}
+
+.sendMessage {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    color: white;
+    width: 20%;
+    border-radius: 15px;
+    border-color: white;
+    border-style: solid;
+    background-color: purple;
+    height: 100%;
+}

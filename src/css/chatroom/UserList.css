@@ -1,0 +1,19 @@
+.userList {
+    position: absolute;
+    border-bottom-color: white;
+    border-right-color: white;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    top: 0px;
+    right: 0px;
+    height: 100%;
+    width: 25%;
+}
+
+.userListTitle {
+    font-size: 35px;
+    text-align: center;
+    width: 100%;
+    height: 50px;
+    color: purple;
+}
