@@ -13,12 +13,18 @@ class Player extends Component {
 
   createPlayerEventListeners() {
       //Add event listeners to browser spotify player
-        this.player.on('initialization_error', e => { console.error(e);});
+        this.player.on('initialization_error', e => { 
+          console.error(e);
+        });
         this.player.on('authentication_error', e => {
           console.error(e);
         });
-        this.player.on('account_error', e => { console.error(e); });
-        this.player.on('playback_error', e => { console.error(e); });
+        this.player.on('account_error', e => { 
+          console.error(e); 
+        });
+        this.player.on('playback_error', e => { 
+          console.error(e); 
+        });
 
         // Playback status updates
         this.player.on('player_state_changed', state => this.onStateChanged(state));
@@ -46,7 +52,7 @@ class Player extends Component {
       this.player.connect();
       // finally, connect!
       console.log("Spotify Player connected!");
-      console.log(this.player)
+      console.log(this.player);
     }
   }
 
