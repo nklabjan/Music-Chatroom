@@ -5,4 +5,4 @@
 /client/node_modules
 
 #ignore serverside .env file
-/server/.env
+#/server/.env
