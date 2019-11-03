@@ -3,6 +3,12 @@ import '../../css/chatroom/UserList.css';
 
 class UserList extends Component {
 
+    constructor(props){
+        super(props);
+        
+    }
+
+
     render() {
         return (
             <div className="userList">
