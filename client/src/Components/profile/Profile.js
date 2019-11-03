@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import '../../css/profile/Profile.css';
 import Detail from './Detail';
+import ContentHandler from '../ContentHandler';
 
 class Profile extends Component {
     constructor(props) {
@@ -9,6 +10,7 @@ class Profile extends Component {
             viewType: "display",
             userJson: "",
             display_name: "",
+            returnHome: false,
             loading: true
         }
     }
@@ -31,6 +33,10 @@ class Profile extends Component {
         });
     }
 
+    returnHome() {
+        this.setState({returnHome: true});
+    }
+
     editProfile() {
         this.setState({viewType: "edit"});
     }
@@ -43,11 +49,13 @@ class Profile extends Component {
         if(this.state.loading === false) {
             console.log(this.state.userJson.images);
         }
+        if (this.state.returnHome === false) {
             return(
                 <>
                     <div className="profileHeader">
                         <div className="profileTitle">{this.state.display_name}</div>
                     </div>
+                    <button className="returnHome" onClick={this.returnHome.bind(this)}>Home</button>
                     <div className="profilePic">
                         {this.state.loading ? (
                             <p>Loading...</p>
@@ -70,6 +78,10 @@ class Profile extends Component {
                     </div>
                 </>
             );
+        }
+        else {
+            return (<ContentHandler/>);
+        }
     }
 }
 

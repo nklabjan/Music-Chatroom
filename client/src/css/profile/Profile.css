@@ -33,3 +33,12 @@
     border-radius: 15px;
 
 }
+
+.returnHome {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    color: white;
+    background-color: purple;
+    border-radius: 15px;
+}
