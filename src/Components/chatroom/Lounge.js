@@ -20,8 +20,8 @@ class Lounge extends Component {
     }
 
     setUpSocket() {
-      this.socket = io(urls.backend_url);
-      this.socket.on('message_received', function(msg, user) {
+        this.socket = io(urls.backend_url);
+        this.socket.on('message_received', function(msg, user) {
 
           var message_div = document.createElement("div");
           message_div.className = "message";
@@ -30,11 +30,20 @@ class Lounge extends Component {
           new_message.innerHTML = user + ": " + msg;
           message_div.appendChild(new_message);
           document.getElementsByClassName('chatWindow')[0].appendChild(message_div);
-
+            
           //add ChatBubble to ChatList whenever there's new message
           // console.log(this.state.messages)
           //this.setState({messages: [...this.state.messages, {user:user,message:msg}]})
-      })
+        })
+
+        this.socket.on('user_connected', function(user) {
+            console.log(user);
+            var user_div = document.createElement("div");
+            var user_name = document.createElement("p");
+            user_name.innerHTML = user;
+            user_div.appendChild(user_name);
+            document.getElementsByClassName('userListTitle')[0].appendChild(user_div);
+        })
     }
 
     render() {
