@@ -6,13 +6,16 @@
 }
 
 .label {
-    
     color: white;
+    font-size: 30px;
 }
 
 .info {
     position: absolute;
     float: left;
-    margin-left: 10%;
+    font-size: 20px;
+    margin-top: 10px;
+    height: 20%;
+    margin-left: 15%;
     color: purple;
 }
