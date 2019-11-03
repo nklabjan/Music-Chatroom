@@ -33,7 +33,7 @@ class Detail extends Component {
                     <div className="detail">
                         <div className="label">{this.props.label}</div>
                         <div className="info">
-                            <input value={this.state.info} onChange={e => this.onDetailChange(e.target.value)}></input>
+                            <input className="input" size="40" value={this.state.info} onChange={e => this.onDetailChange(e.target.value)}></input>
                         </div>
                     </div>
                 </>
