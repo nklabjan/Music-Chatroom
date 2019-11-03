@@ -1,0 +1,35 @@
+.profileHeader {
+    position: absolute;
+    width: 100vw;
+    height: 10%;
+    text-align: center;
+}
+
+.profileTitle {
+    font-size: 50px;
+    color:purple;
+}
+
+.profilePic {
+    position: absolute;
+    width: 100vw;
+    height: 30%;
+    margin-top: 10%;
+    text-align: center;
+}
+
+.details {
+    position: absolute;
+    display: inline-block;
+    width: 100vw;
+    margin-top:30%;
+    height: 40%;
+}
+
+.editButton {
+    position: absolute;
+    color: white;
+    background-color: purple;
+    border-radius: 15px;
+
+}
