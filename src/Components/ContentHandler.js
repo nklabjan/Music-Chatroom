@@ -32,7 +32,7 @@ class ContentHandler extends Component {
   }
 
     login() {
-        console.log(urls.backend_url);
+        console.log("URL: ", urls.backend_url);
     window.location = urls.backend_url + '/login';
   }
 
