@@ -6,3 +6,4 @@
 
 #ignore serverside .env file
 /server/.env
+/client/src/.env
