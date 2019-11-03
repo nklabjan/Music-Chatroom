@@ -1,4 +1,3 @@
-var dotenv = require('dotenv').config();
 const frontend_uri = (process.env.FRONTEND_URI || 'http://localhost:3000');
 const backend_url = (process.env.BACKEND_URL || 'http://localhost:8080');
 

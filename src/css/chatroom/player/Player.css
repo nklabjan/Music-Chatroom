@@ -50,7 +50,44 @@
     height: 50%;
 }
 
-.random-play {
+.albumInfo {
     position: absolute;
-    
+    width: 22%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.albumName {
+    color: white;
+}
+
+.duration {
+    position: absolute;
+    top: 35%;
+    left: 76%;
+    color: white;
+}
+
+.position {
+    position: absolute;
+    top: 35%;
+    left: 22%;
+    color: white;
+}
+
+.trackInfo {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.trackName {
+    position:relative;
+    margin-top: 3.5%;
+    color: white;
+}
+
+.artistName {
+    color: purple;
 }
