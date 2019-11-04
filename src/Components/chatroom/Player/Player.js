@@ -7,18 +7,31 @@ class Player extends Component {
       super(props);
       this.checkForPlayer = this.checkForPlayer.bind(this);
       this.createPlayerEventListeners = this.createPlayerEventListeners.bind(this);
-
       this.checkForPlayer();
+      this.state = {
+        duration: "",
+        position: "",
+        trackName: "",
+        albumName: "",
+        artistName: "",
+        albumCover: ""
+      }
   }
 
   createPlayerEventListeners() {
       //Add event listeners to browser spotify player
-        this.player.on('initialization_error', e => { console.error(e);});
+        this.player.on('initialization_error', e => { 
+          console.error(e);
+        });
         this.player.on('authentication_error', e => {
           console.error(e);
         });
-        this.player.on('account_error', e => { console.error(e); });
-        this.player.on('playback_error', e => { console.error(e); });
+        this.player.on('account_error', e => { 
+          console.error(e); 
+        });
+        this.player.on('playback_error', e => { 
+          console.error(e); 
+        });
 
         // Playback status updates
         this.player.on('player_state_changed', state => this.onStateChanged(state));
@@ -36,35 +49,41 @@ class Player extends Component {
         });
       }
 
-  checkForPlayer() {
-    if (window.Spotify !== null) {
-      this.player = new window.Spotify.Player({
-        name: "Cadence Web Player",
-        getOAuthToken: cb => { cb(this.props.access_token); },
-      });
-      this.createPlayerEventListeners();
-      this.player.connect();
-      // finally, connect!
-      console.log("Spotify Player connected!");
-      console.log(this.player)
+    checkForPlayer() {
+      if (window.Spotify !== null) {
+        this.player = new window.Spotify.Player({
+          name: "Cadence Web Player",
+          getOAuthToken: cb => { cb(this.props.access_token); },
+        });
+        this.createPlayerEventListeners();
+        this.player.connect();
+        // finally, connect!
+        console.log("Spotify Player connected!");
+        console.log(this.player);
+      }
     }
-  }
+
+    millisToMinutesAndSeconds(millis) {
+      var minutes = Math.floor(millis / 60000);
+      var seconds = ((millis % 60000) / 1000).toFixed(0);
+      return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+    }
 
     onStateChanged(state) {
       console.log(state);
+      console.log("________________________________________________________");
       console.log(this.state);
       // if we're no longer listening to music, we'll get a null state.
       if (state !== null) {
         const {
           current_track: currentTrack,
         } = state.track_window;
-        const position = state.position;
-        const duration = state.duration;
+        const position = this.millisToMinutesAndSeconds(state.position);
+        const duration = this.millisToMinutesAndSeconds(state.duration);
         const trackName = currentTrack.name;
         const albumName = currentTrack.album.name;
-        const artistName = currentTrack.artists
-          .map(artist => artist.name)
-          .join(", ");
+        const albumCover = currentTrack.album.images[0].url;
+        const artistName = currentTrack.artists.map(artist => artist.name).join(", ");
         const playing = !state.paused;
         this.setState({
           position,
@@ -72,7 +91,8 @@ class Player extends Component {
           trackName,
           albumName,
           artistName,
-          playing
+          playing,
+          albumCover
         });
       }
     }
@@ -125,6 +145,16 @@ class Player extends Component {
                   <button className="next" onClick={()=>{this.onNextClick()}}>Next</button>
               </div>
               <SliderCom />
+              <div className="albumInfo">
+                <img className="albumCover" src={this.state.albumCover} style={{width:75, height:75}} alt="Album Cover Doesn't Exist"></img>
+                <div className="albumName">{this.state.albumName}</div>
+              </div>
+              <div className="position">{this.state.position}</div>
+              <div className="duration">{this.state.duration}</div>
+              <div className="trackInfo">
+                <div className="trackName">{this.state.trackName}</div>
+                <div className="artistName">{this.state.artistName}</div>
+              </div>
             </div>
         )
     }

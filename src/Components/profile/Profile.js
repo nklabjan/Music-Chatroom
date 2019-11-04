@@ -1,13 +1,16 @@
 import React, {Component} from "react";
 import '../../css/profile/Profile.css';
 import Detail from './Detail';
+import ContentHandler from '../ContentHandler';
 
 class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
             viewType: "display",
-            userJson: "temp",
+            userJson: "",
+            display_name: "",
+            returnHome: false,
             loading: true
         }
     }
@@ -21,7 +24,17 @@ class Profile extends Component {
             },
         });
         const myJson = await response.json();
-        this.setState({userJson: myJson, loading: false});
+        console.log("MyJson: ", myJson);
+        var displayName = myJson.display_name + "'s Profile"
+        this.setState({
+            userJson: myJson, 
+            display_name: displayName,
+            loading: false,
+        });
+    }
+
+    returnHome() {
+        this.setState({returnHome: true});
     }
 
     editProfile() {
@@ -33,16 +46,17 @@ class Profile extends Component {
     }
 
     render() {
-        if(this.state.loading === false)
-        {
+        if(this.state.loading === false) {
             console.log(this.state.userJson.images);
         }
+        if (this.state.returnHome === false) {
             return(
                 <>
-                    <h1 className="profileHeader">
-                        My Profile
-                    </h1>
-                    <div>
+                    <div className="profileHeader">
+                        <div className="profileTitle">{this.state.display_name}</div>
+                    </div>
+                    <button className="returnHome" onClick={this.returnHome.bind(this)}>Home</button>
+                    <div className="profilePic">
                         {this.state.loading ? (
                             <p>Loading...</p>
                         ) : (
@@ -50,10 +64,10 @@ class Profile extends Component {
                         )}
                     </div>
                     <div className="details">
-                        <h2>Bio</h2>
-                        <Detail viewType={this.state.viewType} label="About Me: " info="This is something about me"/>
-                        <Detail viewType={this.state.viewType} label="Music Taste: " info="This is my music taste"/>
-                        <Detail viewType={this.state.viewType} label="Location: " info="Madison, WI" />
+                        <Detail viewType={this.state.viewType} label="Username: " info=""/>
+                        <Detail viewType={this.state.viewType} label="About Me: " info=""/>
+                        <Detail viewType={this.state.viewType} label="Music Taste: " info=""/>
+                        <Detail viewType={this.state.viewType} label="Location: " info="" />
                     </div>
                     <div>
                         {this.state.viewType === "display" ? (
@@ -64,6 +78,10 @@ class Profile extends Component {
                     </div>
                 </>
             );
+        }
+        else {
+            return (<ContentHandler/>);
+        }
     }
 }
 

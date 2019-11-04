@@ -12,7 +12,7 @@ class Chat extends Component {
         messages: [] //format {user,msg} can add timestamp in the future
       }
       this.sendMessage = this.sendMessage.bind(this);
-
+      this.props.socket.emit('user_connected', this.getAuthToken()); 
   }
 
     sendMessage() {
