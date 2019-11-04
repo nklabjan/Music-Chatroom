@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import '../../css/Lounge.css'
+import '../../css/chatroom/UserList.css';
 
 class UserList extends Component {
 
