@@ -1,0 +1,21 @@
+.detail {
+    display: flex;
+    width: 100%;
+    margin-left: 35%;
+    margin-top: 2%;
+}
+
+.label {
+    color: white;
+    font-size: 30px;
+}
+
+.info {
+    position: absolute;
+    float: left;
+    font-size: 20px;
+    margin-top: 10px;
+    height: 20%;
+    margin-left: 15%;
+    color: purple;
+}
