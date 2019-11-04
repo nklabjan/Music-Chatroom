@@ -6,8 +6,10 @@
   }
 
 .textarea {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
     border-radius: 15px;
-    margin-left: 0%;
     font-size: 20px;
     border: none;
     resize: none;
