@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import ChatWindow from './ChatWindow';
 import Messenger from './Messenger';
+import '../../../css/chatroom/chat/Chat.css';
 
 
 class Chat extends Component {

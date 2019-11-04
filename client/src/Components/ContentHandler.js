@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import Lounge from './chatroom/Lounge';
 import HomePage from './homepage/HomePage';
 import Profile from "./profile/Profile";
-
-import '../css/App.css';
+import '../css/ContentHandler.css';
 
 import queryString from "query-string";
 

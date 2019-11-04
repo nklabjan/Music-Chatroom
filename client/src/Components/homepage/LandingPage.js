@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import LandingWindow from './LandingWindow';
 import CadenceNavBar from './CadenceNavBar'
+import '../../css/homepage/LandingPage.css';
 
 class LandingPage extends Component {
 

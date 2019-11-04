@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import SliderCom from './Slider';
+import '../../../css/chatroom/player/Player.css'
 class Player extends Component {
 
   constructor(props) {
@@ -122,7 +123,6 @@ class Player extends Component {
                   <button className="previous" onClick={()=>{this.onPrevClick()}}>Previous</button>
                   <button className="play-pause" onClick={()=>{this.onPlayClick()}}>Play/Pause</button>
                   <button className="next" onClick={()=>{this.onNextClick()}}>Next</button>
-                  <button className="random-play" onClick={()=>{this.playSong()}}>Play Lost Kings</button>
               </div>
               <SliderCom />
             </div>
