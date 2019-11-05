@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import '../../css/profile/Detail.css';
 
-class Detail extends Component {
+class ProfileDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -9,8 +9,7 @@ class Detail extends Component {
         }
     }
 
-    onDetailChange(value)
-    {
+    onDetailChange(value) {
         this.setState({info: value});
     }
 
@@ -42,4 +41,4 @@ class Detail extends Component {
     }
 }
 
-export default Detail;
+export default ProfileDetail;
