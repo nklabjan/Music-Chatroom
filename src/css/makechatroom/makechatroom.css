@@ -1,0 +1,43 @@
+.topheader {
+    background-color: white;
+    width: 100vw;
+    height: 6.5%;
+    text-align: center;
+}
+
+.makechatroomtitle {
+    color: purple;
+    font-size: 43px;
+}
+
+.leavePage {
+    position: fixed;
+    height: 6.5%;
+    top: 0px;
+    right: 0px;
+    background-color: purple;
+    color: white;
+    border-radius: 15px;
+}
+
+.formdet {
+    border-color: purple;
+    border-style:solid;
+    position: absolute;
+    margin-top: 5%;
+    width: 40%;
+    height: 70%;
+}
+
+.title-header {
+    background-color: white;
+    text-align: center;
+    width: 100%;
+    height: 10%
+}
+
+.details-title {
+    color: purple;
+    font-size: 43px;
+}
+
