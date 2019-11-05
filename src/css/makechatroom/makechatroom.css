@@ -21,8 +21,6 @@
 }
 
 .formdet {
-    border-color: purple;
-    border-style:solid;
     position: absolute;
     margin-top: 5%;
     width: 40%;
@@ -30,7 +28,6 @@
 }
 
 .title-header {
-    background-color: white;
     text-align: center;
     width: 100%;
     height: 10%
@@ -39,5 +36,24 @@
 .details-title {
     color: purple;
     font-size: 43px;
+}
+
+.makeChatDetails {
+    border-color: green;
+    border-style: solid;
+    position: relative;
+    height: 90%;
+}
+
+.loungeMaster {
+    display: flex;
+    width: 100%;
+    background-color: purple;
+    height: 25%;
+}
+
+.loungeMasterDet {
+    color: white;
+    font-size: 20px;
 }
 
