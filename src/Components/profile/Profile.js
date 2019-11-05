@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import '../../css/profile/Profile.css';
-import Detail from './Detail';
+import ProfileDetail from './Detail';
 
 class Profile extends Component {
     constructor(props) {
@@ -57,10 +57,10 @@ class Profile extends Component {
                     )}
                 </div>
                 <div className="details">
-                    <Detail viewType={this.state.viewType} label="Username: " info=""/>
-                    <Detail viewType={this.state.viewType} label="About Me: " info=""/>
-                    <Detail viewType={this.state.viewType} label="Music Taste: " info=""/>
-                    <Detail viewType={this.state.viewType} label="Location: " info="" />
+                    <ProfileDetail viewType={this.state.viewType} label="Username: " info=""/>
+                    <ProfileDetail viewType={this.state.viewType} label="About Me: " info=""/>
+                    <ProfileDetail viewType={this.state.viewType} label="Music Taste: " info=""/>
+                    <ProfileDetail viewType={this.state.viewType} label="Location: " info="" />
                 </div>
                 <div>
                     {this.state.viewType === "display" ? (
