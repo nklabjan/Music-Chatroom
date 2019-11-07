@@ -13,8 +13,7 @@ class Profile extends Component {
         }
     }
 
-    async componentDidMount()
-    {
+    async componentDidMount() {
         const response = await fetch('https://api.spotify.com/v1/me', {
         method: "GET",
         headers: {
