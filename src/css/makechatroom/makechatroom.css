@@ -5,6 +5,16 @@
     text-align: center;
 }
 
+.saveChat {
+    position: fixed;
+    height: 6.5%;
+    top: 0px;
+    left: 0px;
+    background-color: purple;
+    color: white;
+    border-radius: 15px;
+}
+
 .makechatroomtitle {
     color: purple;
     font-size: 43px;
@@ -39,8 +49,6 @@
 }
 
 .makeChatDetails {
-    border-color: green;
-    border-style: solid;
     position: relative;
     height: 90%;
 }
@@ -48,12 +56,21 @@
 .loungeMaster {
     display: flex;
     width: 100%;
-    background-color: purple;
-    height: 25%;
+    height: 20%;
 }
 
 .loungeMasterDet {
+    margin-top: 7%;
+    margin-left: 10%;
+    width: 50%;
     color: white;
-    font-size: 20px;
+    font-size: 25px;
+}
+
+.loungeMasterInfo {
+    width: 50%;
+    margin-top: 7%;
+    color: purple;
+    font-size: 25px;
 }
 

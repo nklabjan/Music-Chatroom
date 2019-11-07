@@ -41,10 +41,20 @@
   .chat {
     position: fixed;
     margin-left: 50%;
-    margin-top: 15%;
+    margin-top: 5px;
     height: 50px;
     width: 150px;
     border-radius: 15px;
     background-color: purple;
     color: white;
+  }
+
+  .Chatrooms {
+    position: absolute;
+    margin-left: 25vw;
+    margin-top: 10vw;
+    height: 30vw;
+    width: 50vw;
+    border-color: green;
+    border-style: solid;
   }
