@@ -27,6 +27,7 @@ class HomePage extends Component {
                       <button className="chat" onClick={this.props.handleChat}>Go To Chatroom</button>
                     </div>
                     <div className="Chatrooms"> 
+                      
                     </div>
                   </> );
       }
