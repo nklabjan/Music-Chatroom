@@ -26,8 +26,8 @@ class HomePage extends Component {
                       <button className="chatroom" onClick={this.props.handleMakeChat}>Make New Chatroom</button>
                       <button className="chat" onClick={this.props.handleChat}>Go To Chatroom</button>
                     </div>
-                    <div className="Chatrooms"> 
-                      
+                    <div className="Chatrooms">
+
                     </div>
                   </> );
       }
@@ -35,7 +35,6 @@ class HomePage extends Component {
 
     render() {
         return (<div className="HomePage">
-                  <Header />
                   <header className="Home-Page">
                     {this.renderPage()}
                   </header>
