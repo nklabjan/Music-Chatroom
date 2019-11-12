@@ -27,15 +27,21 @@ class ContentHandler extends Component {
     this.handleMakeChat = this.handleMakeChat.bind(this);
     this.handleProfile = this.handleProfile.bind(this);
     this.handleHome = this.handleHome.bind(this);
+    this.saveChatRoom =this.saveChatRoom.bind(this);
   }
 
   logout() {
     this.setState({loggedInStatus: false});
   }
 
-    login() {
-        console.log("URL: ", urls.backend_url);
+  login() {
+    console.log("URL: ", urls.backend_url);
     window.location = urls.backend_url + '/login';
+  }
+
+  saveChatRoom() {
+    
+    this.setState({currDisplay: "home"});
   }
 
   handleHome() {
@@ -83,7 +89,8 @@ class ContentHandler extends Component {
     }
     else if(this.state.currDisplay === "makeChat") {
       return (<MakeChatRoom access_token={this.state.access_token} 
-                            handleHome={this.handleHome}/>);
+                            handleHome={this.handleHome} 
+                            saveChatRoom={this.saveChatRoom}/>);
     }
   }
   render() {

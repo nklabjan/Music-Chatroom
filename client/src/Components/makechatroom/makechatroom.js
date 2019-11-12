@@ -11,10 +11,6 @@ class MakeChatroom extends Component {
         }
     }
 
-    saveChat() {
-        
-    }
-
     async componentDidMount() {
         const response = await fetch('https://api.spotify.com/v1/me', {
         method: "GET",
@@ -34,7 +30,7 @@ class MakeChatroom extends Component {
         return (
             <>
                 <div className="topheader">
-                    <button className="saveChat" onClick={this.saveChat.bind(this)}>Create</button>
+                    <button className="saveChat" onClick={this.props.saveChatRoom}>Create</button>
                     <div className="makechatroomtitle">Create New Chatroom</div>
                     <button className="leavePage" onClick={this.props.handleHome}>Cancel</button>
                 </div>
