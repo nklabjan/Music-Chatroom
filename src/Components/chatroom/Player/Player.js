@@ -20,17 +20,17 @@ class Player extends Component {
 
   createPlayerEventListeners() {
       //Add event listeners to browser spotify player
-        this.player.on('initialization_error', e => { 
+        this.player.on('initialization_error', e => {
           console.error(e);
         });
         this.player.on('authentication_error', e => {
           console.error(e);
         });
-        this.player.on('account_error', e => { 
-          console.error(e); 
+        this.player.on('account_error', e => {
+          console.error(e);
         });
-        this.player.on('playback_error', e => { 
-          console.error(e); 
+        this.player.on('playback_error', e => {
+          console.error(e);
         });
 
         // Playback status updates
@@ -125,15 +125,6 @@ class Player extends Component {
 
     onNextClick() {
       this.player.nextTrack();
-    }
-
-    playSong() {
-      //Sends device ID and Access token to backend to play music
-      //through socket
-      //Hardcode to play "spotify:track:5bvNpG6wiIEf1PA13TkTu2" for now
-      let song = "spotify:track:5bvNpG6wiIEf1PA13TkTu2";
-      this.props.socket.emit('play_music', this.props.access_token, this.state.deviceId, song);
-      console.log("test")
     }
 
     render() {
