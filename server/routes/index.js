@@ -6,7 +6,7 @@ var router = express.Router();
 var urls = require('../constants.js');
 
 var my_client_id = process.env.CLIENT_APP_ID;
-var redirect_uri = urls.backend_url + 'auth/';
+var redirect_uri = urls.backend_url + '/auth/';
 //var redirect_uri = "http://localhost:8080/auth/"
 
 var userList = [];

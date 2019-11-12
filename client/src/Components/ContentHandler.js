@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Lounge from './chatroom/Lounge';
 import HomePage from './homepage/HomePage';
 import Profile from "./profile/Profile";
+import MakeChatRoom from "./makechatroom/makechatroom";
 import '../css/ContentHandler.css';
 
 import queryString from "query-string";
@@ -23,12 +24,13 @@ class ContentHandler extends Component {
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.handleChat = this.handleChat.bind(this);
+    this.handleMakeChat = this.handleMakeChat.bind(this);
     this.handleProfile = this.handleProfile.bind(this);
     this.handleHome = this.handleHome.bind(this);
   }
 
   logout() {
-    this.setState({loggedInStatus: false})
+    this.setState({loggedInStatus: false});
   }
 
     login() {
@@ -37,20 +39,24 @@ class ContentHandler extends Component {
   }
 
   handleHome() {
-    this.setState({currDisplay: "home"})
+    this.setState({currDisplay: "home"});
   }
 
   handleChat() {
-    this.setState({currDisplay: "lounge"})
+    this.setState({currDisplay: "lounge"});
   }
 
   handleProfile() {
-    this.setState({currDisplay: "profile"})
+    this.setState({currDisplay: "profile"});
+  }
+
+  handleMakeChat() {
+    this.setState({currDisplay: "makeChat"});
   }
 
   componentWillMount() {
-    let parsed = queryString.parse(window.location.search)
-    let access_token = parsed.access_token
+    let parsed = queryString.parse(window.location.search);
+    let access_token = parsed.access_token;
 
     if (access_token) {
       this.setState({loggedInStatus: true, access_token: access_token});
@@ -63,23 +69,27 @@ class ContentHandler extends Component {
                         login={this.login}
                         logout={this.logout}
                         handleChat={this.handleChat}
-                        handleProfile={this.handleProfile}/>)
+                        handleProfile={this.handleProfile}
+                        handleMakeChat={this.handleMakeChat}/>);
     }
     else if(this.state.currDisplay === "lounge"){
       return (<Lounge access_token={this.state.access_token}
                       handleProfile={this.handleProfile}
-                      handleHome={this.handleHome}/>)
+                      handleHome={this.handleHome}/>);
     }
-    else if(this.state.currDisplay === "profile")
-    {
-      return (<Profile access_token={this.state.access_token}/>)
+    else if(this.state.currDisplay === "profile") {
+      return (<Profile access_token={this.state.access_token}
+                        handleHome={this.handleHome}/>);
+    }
+    else if(this.state.currDisplay === "makeChat") {
+      return (<MakeChatRoom access_token={this.state.access_token} 
+                            handleHome={this.handleHome}/>);
     }
   }
   render() {
     return (<div className="Wrapper">
       {this.renderContent()}
-    </div>)
-
+    </div>);
   };
 }
 

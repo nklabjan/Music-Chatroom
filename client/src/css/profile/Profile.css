@@ -1,12 +1,13 @@
 .profileHeader {
     position: absolute;
     width: 100vw;
-    height: 10%;
+    height: 6.5%;
     text-align: center;
+    background-color: white;
 }
 
 .profileTitle {
-    font-size: 50px;
+    font-size: 43px;
     color:purple;
 }
 
@@ -29,6 +30,7 @@
 .editButton {
     position: absolute;
     color: white;
+    height:6.5%;
     background-color: purple;
     border-radius: 15px;
 
@@ -36,6 +38,7 @@
 
 .returnHome {
     position: absolute;
+    height:6.5%;
     top: 0px;
     right: 0px;
     color: white;
