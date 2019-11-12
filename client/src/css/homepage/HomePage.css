@@ -1,11 +1,15 @@
   .HomePage {
     text-align: left;
+    position: relative;
+    top: 0px;
   }
-  
+
   .Home-Page {
     text-align: left;
+    top: 0px;
+
   }
-  
+
   .logout {
     position: fixed;
     margin-top: 5px;
@@ -15,7 +19,7 @@
     background-color: purple;
     color: white;
   }
-  
+
   .profile {
     position: fixed;
     margin-left: 125px;
@@ -26,7 +30,7 @@
     background-color: purple;
     color: white;
   }
-  
+
   .chatroom {
     position: fixed;
     margin-left: 89.5%;
@@ -37,7 +41,7 @@
     background-color: purple;
     color: white;
   }
-  
+
   .chat {
     position: fixed;
     margin-left: 50%;
