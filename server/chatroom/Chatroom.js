@@ -5,7 +5,15 @@ class Chatroom {
         // cache of sockets against user info
         this.users = {};
         this.messageList = [];
+        this.queue = []; //Queue of songs
+        this.history = [];
+        this.loungeMaster = null;
     }
+
+    loadMockQueue() {
+      var mockQueue = [{uri:"spotify:track:2cbWaw8K4fKvR9kgBg3ugq"}];
+    }
+    
     userConnected(socket, accessToken) {
         // when a new user connects, get profile information
         console.log(socket.id);
@@ -26,7 +34,6 @@ class Chatroom {
                 socket.emit("user_connected", chatroom.users[userId]);
             }
 
-
         })
 
         for (var indx in this.messageList) {
@@ -41,7 +48,22 @@ class Chatroom {
 
     playSong(accessToken, deviceId, spotifyURI)
     {
-        
+        const options = {
+        url: 'https://api.spotify.com/v1/me/player/play?device_id=' + deviceId,
+        body: JSON.stringify({ uris: [spotifyURI] }),
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      };
+
+          this.request.put(options, function(error, response, body) {
+              // song_uri = body.display_name;
+              // body=JSON.parse(body);
+              // io.emit("play_song", message, body["display_name"]);
+              console.log("Playing lost kings")
+          })
+
     }
 
     chatMessage(socket, message) {
