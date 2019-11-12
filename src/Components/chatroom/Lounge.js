@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import '../../css/chatroom/Lounge.css';
 import Player from './Player/Player';
 import Chat from './Chat/Chat';
-import Queue from './Queue';
+import Queue from './Queue/Queue';
 import UserList from './UserList';
 import io from "socket.io-client"
 var urls = require('../../constants.js');
@@ -30,7 +30,7 @@ class Lounge extends Component {
           new_message.innerHTML = user + ": " + msg;
           message_div.appendChild(new_message);
           document.getElementsByClassName('chatWindow')[0].appendChild(message_div);
-            
+
           //add ChatBubble to ChatList whenever there's new message
           // console.log(this.state.messages)
           //this.setState({messages: [...this.state.messages, {user:user,message:msg}]})
@@ -44,6 +44,7 @@ class Lounge extends Component {
             user_div.appendChild(user_name);
             document.getElementsByClassName('userListTitle')[0].appendChild(user_div);
         })
+        this.forceUpdate();
     }
 
     render() {
@@ -57,7 +58,7 @@ class Lounge extends Component {
                     </header>
 
                     <div className="loungeContainer">
-                        <Queue />
+                        <Queue socket={this.socket}/>
                         <Chat socket={this.socket}/>
                         <UserList />
                     </div>
