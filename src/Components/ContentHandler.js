@@ -3,6 +3,7 @@ import Lounge from './chatroom/Lounge';
 import HomePage from './homepage/HomePage';
 import Profile from "./profile/Profile";
 import MakeChatRoom from "./makechatroom/makechatroom";
+import CadenceNavBar from './CadenceNavBar';
 import '../css/ContentHandler.css';
 
 import queryString from "query-string";
@@ -82,13 +83,31 @@ class ContentHandler extends Component {
                         handleHome={this.handleHome}/>);
     }
     else if(this.state.currDisplay === "makeChat") {
-      return (<MakeChatRoom access_token={this.state.access_token} 
+      return (<MakeChatRoom access_token={this.state.access_token}
                             handleHome={this.handleHome}/>);
     }
   }
+
+  renderNavBar() {
+    //If logged in show black bg for navbar with updated stuff
+    if (this.state.loggedInStatus)
+    {
+      return (
+        <CadenceNavBar scheme="CadenceNavBar"/>
+      )
+    }
+    else return (
+            <CadenceNavBar scheme="CadenceNavBarInit"/>
+          )
+
+  }
+
   render() {
     return (<div className="Wrapper">
-      {this.renderContent()}
+      {this.renderNavBar()}
+      <div className="Content">
+        {this.renderContent()}
+      </div>
     </div>);
   };
 }

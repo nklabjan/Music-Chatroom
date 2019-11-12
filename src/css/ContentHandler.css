@@ -2,3 +2,22 @@
     width: 100vw;
     height: 100vh;
   }
+
+  .CadenceNavBarInit{
+    background-color: rgba(0,0,0,0);
+
+  }
+
+  .CadenceNavBar{
+    background-color: rgba(0,0,0,1);
+  }
+
+  .NavBarWrapper{
+    height: 7vh;
+    width: 100vw;
+  }
+
+.Content{
+  height: 93vh;
+  width: 100vw;
+}
