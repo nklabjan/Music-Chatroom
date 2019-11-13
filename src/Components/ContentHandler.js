@@ -6,6 +6,7 @@ import MakeChatRoom from "./makechatroom/makechatroom";
 import '../css/ContentHandler.css';
 
 import queryString from "query-string";
+import { number } from 'prop-types';
 var urls = require('../constants.js');
 
 //Remove this and put into env file if it works
@@ -17,7 +18,8 @@ class ContentHandler extends Component {
     this.state = {
         loggedInStatus: false,
         access_token: null,
-        currDisplay: "home" //Chat,Profile,Home
+        currDisplay: "home", //Chat,Profile,Home
+        chatRooms: []
     }
 
     this.renderContent = this.renderContent.bind(this);
@@ -40,7 +42,8 @@ class ContentHandler extends Component {
   }
 
   saveChatRoom() {
-    
+    var chatname = "Chat";
+    this.setState({chatRooms: [...this.state.chatRooms, chatname]});
     this.setState({currDisplay: "home"});
   }
 
@@ -72,6 +75,7 @@ class ContentHandler extends Component {
   renderContent() {
     if(this.state.currDisplay === "home") {
       return (<HomePage loggedInStatus={this.state.loggedInStatus}
+                        chatRooms={this.state.chatRooms}
                         login={this.login}
                         logout={this.logout}
                         handleChat={this.handleChat}

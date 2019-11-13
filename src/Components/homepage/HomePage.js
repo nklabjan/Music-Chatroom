@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import LandingPage from './LandingPage';
-import Header from './header';
 import '../../css/homepage/HomePage.css';
 
 
@@ -26,8 +25,13 @@ class HomePage extends Component {
                       <button className="chatroom" onClick={this.props.handleMakeChat}>Make New Chatroom</button>
                       <button className="chat" onClick={this.props.handleChat}>Go To Chatroom</button>
                     </div>
-                    <div className="Chatrooms">
-
+                    <div className="Chatrooms"> {
+                      this.props.chatRooms.map((chatname, idx) => {
+                        return (
+                          <button className="createdChatRoom" onClick={this.props.handleChat} key={idx}>{chatname}</button>
+                        )
+                      })
+                    }
                     </div>
                   </> );
       }
