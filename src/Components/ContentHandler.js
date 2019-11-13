@@ -46,6 +46,9 @@ class ContentHandler extends Component {
     var chatname = "Chat";
     this.setState({chatRooms: [...this.state.chatRooms, chatname]});
     this.setState({currDisplay: "home"});
+    //Save Chatroom should create an instance of Chatroom on the serverside
+    //newInstance = {name,loungeMaster, ID, numUsers} (ID is obtained from the backend )
+    // this.setState({chatRooms: [...this.state.chatRooms, newInstance]})
   }
 
   handleHome() {

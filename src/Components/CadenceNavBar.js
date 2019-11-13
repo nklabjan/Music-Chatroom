@@ -24,7 +24,7 @@ class CadenceNavBar extends Component {
                           fixed={this.props.scheme === "CadenceNavBarInit" ? "top" : ""}>
                   <Navbar.Brand >Cadence</Navbar.Brand>
         <Nav className="mr-auto">
-          {this.props.currDisplay === "lounge" ? <Nav.Link onClick={this.props.handleHome}>Home</Nav.Link> : <></>}
+          {this.props.currDisplay !== "home" ? <Nav.Link onClick={this.props.handleHome}>Home</Nav.Link> : <></>}
           <Nav.Link onClick={this.props.handleProfile}>Profile</Nav.Link>
           {this.props.currDisplay === "home" ? <Nav.Link onClick={this.props.handleMakeChat}>Make Lounge</Nav.Link> : <></>}
           {this.props.currDisplay === "lounge" ? <Nav.Link onClick={this.props.handleHome}>Leave Lounge</Nav.Link> : <></>}
