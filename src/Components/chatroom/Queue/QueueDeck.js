@@ -1,10 +1,8 @@
 import React, {Component} from "react";
 import { Table } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import QueueCard from './QueueCard';
 import '../../../css/chatroom/Queue.css'
- 
+
 class QueueDeck extends Component {
 
     render() {
