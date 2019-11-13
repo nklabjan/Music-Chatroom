@@ -52,9 +52,7 @@ class Lounge extends Component {
             return (
                 <div className="lounge">
                     <header className="chatroom-header">
-                        <button className="profile-chatroom" onClick={this.props.handleProfile}>View/Edit Your Profile</button>
                         <span className="title"><b>CHATROOM</b></span>
-                        <button className="leave-chatroom" onClick={this.props.handleHome}>Leave Chatroom</button>
                     </header>
 
                     <div className="loungeContainer">
