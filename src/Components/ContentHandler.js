@@ -32,6 +32,7 @@ class ContentHandler extends Component {
 
   logout() {
     this.setState({loggedInStatus: false});
+    this.setState({currDisplay: "home"});
   }
 
     login() {
@@ -74,9 +75,7 @@ class ContentHandler extends Component {
                         handleMakeChat={this.handleMakeChat}/>);
     }
     else if(this.state.currDisplay === "lounge"){
-      return (<Lounge access_token={this.state.access_token}
-                      handleProfile={this.handleProfile}
-                      handleHome={this.handleHome}/>);
+      return (<Lounge access_token={this.state.access_token}/>);
     }
     else if(this.state.currDisplay === "profile") {
       return (<Profile access_token={this.state.access_token}
@@ -93,11 +92,17 @@ class ContentHandler extends Component {
     if (this.state.loggedInStatus)
     {
       return (
-        <CadenceNavBar scheme="CadenceNavBar"/>
+        <CadenceNavBar  scheme="CadenceNavBar"
+                        logout={this.logout}
+                        handleChat={this.handleChat}
+                        handleProfile={this.handleProfile}
+                        handleMakeChat={this.handleMakeChat}
+                        handleHome={this.handleHome}
+                        currDisplay={this.state.currDisplay}/>
       )
     }
     else return (
-            <CadenceNavBar scheme="CadenceNavBarInit"/>
+            <CadenceNavBar  scheme="CadenceNavBarInit" />
           )
 
   }

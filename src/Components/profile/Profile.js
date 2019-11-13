@@ -24,7 +24,7 @@ class Profile extends Component {
         console.log("MyJson: ", myJson);
         var displayName = myJson.display_name + "'s Profile"
         this.setState({
-            userJson: myJson, 
+            userJson: myJson,
             display_name: displayName,
             loading: false,
         });
@@ -47,7 +47,6 @@ class Profile extends Component {
                 <div className="profileHeader">
                     <div className="profileTitle">{this.state.display_name}</div>
                 </div>
-                <button className="returnHome" onClick={this.props.handleHome}>Home</button>
                 <div className="profilePic">
                     {this.state.loading ? (
                         <p>Loading...</p>
