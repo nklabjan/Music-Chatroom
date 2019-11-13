@@ -7,12 +7,8 @@ class MakeChatroom extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            display_name: ""
+            display_name: "",
         }
-    }
-
-    saveChat() {
-        
     }
 
     async componentDidMount() {
@@ -34,7 +30,7 @@ class MakeChatroom extends Component {
         return (
             <>
                 <div className="topheader">
-                    <button className="saveChat" onClick={this.saveChat.bind(this)}>Create</button>
+                    <button className="saveChat" onClick={this.props.saveChatRoom}>Create</button>
                     <div className="makechatroomtitle">Create New Chatroom</div>
                     <button className="leavePage" onClick={this.props.handleHome}>Cancel</button>
                 </div>
