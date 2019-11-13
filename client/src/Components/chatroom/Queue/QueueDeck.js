@@ -11,7 +11,7 @@ class QueueDeck extends Component {
         return (
                 <div className="QueueDeck">
                     <div className="QueueDeckTitle">Queue</div>
-                      <Table striped bordered hover variant="dark">
+                      <Table striped bordered hover variant="dark" className="queueTable">
                         <thead>
                           <tr>
                             <th></th>
