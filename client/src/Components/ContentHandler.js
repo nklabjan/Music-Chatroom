@@ -114,7 +114,7 @@ class ContentHandler extends Component {
     }
     else return (
             <CadenceNavBar  scheme="CadenceNavBarInit" />
-          )
+     )
 
   }
 

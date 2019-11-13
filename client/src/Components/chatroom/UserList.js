@@ -7,6 +7,7 @@ class UserList extends Component {
         return (
             <div className="userList">
                 <div className="userListTitle">Chatroom Members</div>
+                <div className="members"></div>
             </div>
         )
     }
