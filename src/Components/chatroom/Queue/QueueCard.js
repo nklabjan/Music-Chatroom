@@ -14,7 +14,7 @@ class QueueCard extends Component {
     //through socket
     //Hardcode to play "spotify:track:5bvNpG6wiIEf1PA13TkTu2" for now
     //console.log(this.props)
-    let song = this.props.uri;
+    //let song = this.props.uri;
     console.log(this.props);
   }
 
