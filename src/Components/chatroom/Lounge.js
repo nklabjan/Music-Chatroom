@@ -42,7 +42,7 @@ class Lounge extends Component {
             var user_name = document.createElement("p");
             user_name.innerHTML = user;
             user_div.appendChild(user_name);
-            document.getElementsByClassName('userListTitle')[0].appendChild(user_div);
+            document.getElementsByClassName('members')[0].appendChild(user_div);
         })
 
         this.socket.on('user_disconnected', function(user) {
