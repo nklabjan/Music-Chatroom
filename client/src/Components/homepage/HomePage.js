@@ -19,9 +19,15 @@ class HomePage extends Component {
       }
       else {
         return  (
-                    <div className="Chatrooms">
-                      
-                    </div>);
+                    <div className="Chatrooms"> {
+                      this.props.chatRooms.map((chatname, idx) => {
+                        return (
+                          <button className="createdChatRoom" onClick={this.props.handleChat} key={idx}>{chatname}</button>
+                        )
+                      })
+                    }
+                    </div>
+                  );
       }
     }
 
