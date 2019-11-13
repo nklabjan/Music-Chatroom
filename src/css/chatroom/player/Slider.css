@@ -1,6 +1,60 @@
 .sliderDiv {
-    position: absolute;
-    top: 40%;
-    left: 25%;
-    width: 50%
+    flex-grow: 1;
+    display: flex;
+    align-content: center;
+
+}
+.sliderContainer {
+  width: 70%;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mySlider {
+  position:relative;
+}
+
+.duration {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.position {
+  flex-grow: 1;
+  text-align: center;
+
+}
+
+.volSliderDiv {
+    flex-grow: 1;
+    display: flex;
+    align-content: center;
+
+}
+.volSliderContainer {
+  width: 10%;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.volSlider {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.rc-slider-track {
+    background-color: rgba(104, 82, 156, 1);
+    width: 80%;
+}
+
+.rc-slider-handle{
+  background-color: #83599c;
+  border: 0px;
+}
+
+.rc-slider-handle:focus{
+    border-color: #83599c;
 }

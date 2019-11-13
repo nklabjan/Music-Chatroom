@@ -1,5 +1,12 @@
 import React, {Component} from "react";
 import SliderCom from './Slider';
+import VolumeSlider from './VolumeSlider';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlayCircle, faPauseCircle, faTimesCircle} from '@fortawesome/free-regular-svg-icons'
+import { faStepForward, faStepBackward,faMusic,
+        faPlusCircle, faVolumeUp, faVolumeMute} from '@fortawesome/free-solid-svg-icons'
+
+
 import '../../../css/chatroom/player/Player.css'
 class Player extends Component {
 
@@ -130,22 +137,47 @@ class Player extends Component {
     render() {
         return (
             <div className="player">
-              <div className="row">
-                  <button className="previous" onClick={()=>{this.onPrevClick()}}>Previous</button>
-                  <button className="play-pause" onClick={()=>{this.onPlayClick()}}>Play/Pause</button>
-                  <button className="next" onClick={()=>{this.onNextClick()}}>Next</button>
-              </div>
-              <SliderCom />
+            <div className="playerLeft">
               <div className="albumInfo">
                 <img className="albumCover" src={this.state.albumCover} style={{width:75, height:75}} alt="Album Cover Doesn't Exist"></img>
                 <div className="albumName">{this.state.albumName}</div>
               </div>
-              <div className="position">{this.state.position}</div>
-              <div className="duration">{this.state.duration}</div>
+            </div>
+
+            <div className="playerMiddle">
+              <div className="controls">
+                  <button className="previous" onClick={()=>{this.onPrevClick()}}>
+                    <FontAwesomeIcon size="lg" icon={faStepBackward} />
+                  </button>
+                  <button className="play-pause" onClick={()=>{this.onPlayClick()}}>
+                    <FontAwesomeIcon size="2x" icon={ this.state.playing ? faPauseCircle : faPlayCircle} />
+                  </button>
+                  <button className="next" onClick={()=>{this.onNextClick()}}>
+                    <FontAwesomeIcon size="lg" icon={faStepForward} />
+                  </button>
+              </div>
+                <SliderCom position={this.state.position} duration={this.state.duration}/>
               <div className="trackInfo">
                 <div className="trackName">{this.state.trackName}</div>
                 <div className="artistName">{this.state.artistName}</div>
               </div>
+            </div>
+
+            <div className="playerRight">
+              <button className="add-song" onClick={()=>{console.log("chill")}}>
+                <FontAwesomeIcon size="lg" icon={faPlusCircle} />
+              </button>
+              <button className="queue-list" onClick={()=>{console.log("queue")}}>
+                <FontAwesomeIcon size="lg" icon={faMusic} />
+              </button>
+              <button className="volume" onClick={()=>{console.log("volume")}}>
+                <FontAwesomeIcon size="lg" icon={faVolumeUp} />
+              </button>
+              <VolumeSlider />
+              <button className="leave-room" onClick={()=>{this.props.handleHome()}}>
+                <FontAwesomeIcon size="2x" icon={faTimesCircle} />
+              </button>
+            </div>
             </div>
         )
     }

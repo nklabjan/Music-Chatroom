@@ -12,6 +12,17 @@
     background-color: rgba(0,0,0,1);
   }
 
+  .CadenceNavBar button{
+    background-color: rgba(1, 1, 1, 1);
+    border-color: white;
+  }
+
+  .CadenceNavBar button:hover{
+    border-color: white;
+    transition: all .2s ease-in-out;
+    background-color: rgba(104, 82, 156, 1);
+    transform: scale(1.1);
+  }
   .NavBarWrapper{
     height: 7vh;
     width: 100vw;
