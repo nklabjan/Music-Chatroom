@@ -6,6 +6,7 @@ import MakeChatRoom from "./makechatroom/makechatroom";
 import '../css/ContentHandler.css';
 
 import queryString from "query-string";
+import { number } from 'prop-types';
 var urls = require('../constants.js');
 
 //Remove this and put into env file if it works
@@ -17,7 +18,8 @@ class ContentHandler extends Component {
     this.state = {
         loggedInStatus: false,
         access_token: null,
-        currDisplay: "home" //Chat,Profile,Home
+        currDisplay: "home", //Chat,Profile,Home
+        chatRooms: []
     }
 
     this.renderContent = this.renderContent.bind(this);
@@ -27,15 +29,22 @@ class ContentHandler extends Component {
     this.handleMakeChat = this.handleMakeChat.bind(this);
     this.handleProfile = this.handleProfile.bind(this);
     this.handleHome = this.handleHome.bind(this);
+    this.saveChatRoom =this.saveChatRoom.bind(this);
   }
 
   logout() {
     this.setState({loggedInStatus: false});
   }
 
-    login() {
-        console.log("URL: ", urls.backend_url);
+  login() {
+    console.log("URL: ", urls.backend_url);
     window.location = urls.backend_url + '/login';
+  }
+
+  saveChatRoom() {
+    var chatname = "Chat";
+    this.setState({chatRooms: [...this.state.chatRooms, chatname]});
+    this.setState({currDisplay: "home"});
   }
 
   handleHome() {
@@ -66,6 +75,7 @@ class ContentHandler extends Component {
   renderContent() {
     if(this.state.currDisplay === "home") {
       return (<HomePage loggedInStatus={this.state.loggedInStatus}
+                        chatRooms={this.state.chatRooms}
                         login={this.login}
                         logout={this.logout}
                         handleChat={this.handleChat}
@@ -83,7 +93,8 @@ class ContentHandler extends Component {
     }
     else if(this.state.currDisplay === "makeChat") {
       return (<MakeChatRoom access_token={this.state.access_token} 
-                            handleHome={this.handleHome}/>);
+                            handleHome={this.handleHome} 
+                            saveChatRoom={this.saveChatRoom}/>);
     }
   }
   render() {
