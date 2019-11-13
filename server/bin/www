@@ -34,13 +34,17 @@ var server = http.createServer(app);
 var io = require('socket.io')(server);
 var chatroom = new chatroom.Chatroom(io);
 
-//Store client information 
+//Store client information
 var clients =[];
 
 io.on('connection', function(socket) {
 
     socket.on('user_connected', function(accessToken) {
         chatroom.userConnected(socket, accessToken, chatroom);
+    });
+
+    socket.on('user_disconnected', function(accessToken) {
+        chatroom.userDisconnected(socket, accessToken, chatroom);
     });
 
     socket.on('message_sent', function(msg, accessToken) {

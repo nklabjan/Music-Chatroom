@@ -13,7 +13,7 @@ class Chatroom {
     loadMockQueue() {
       var mockQueue = [{uri:"spotify:track:2cbWaw8K4fKvR9kgBg3ugq"}];
     }
-    
+
     userConnected(socket, accessToken) {
         // when a new user connects, get profile information
         console.log(socket.id);
@@ -45,6 +45,17 @@ class Chatroom {
 
     }
 
+    userDisconnected(socket)
+    {
+      console.log("user " + socket.id + " has disconnected.");
+      delete this.users[socket.id];
+      for( var key in this.users ) {
+          //var value = this.users[key];
+        }
+      console.log("Users left in lounge:" + Object.keys(this.users).length
+)
+
+    }
 
     playSong(accessToken, deviceId, spotifyURI)
     {

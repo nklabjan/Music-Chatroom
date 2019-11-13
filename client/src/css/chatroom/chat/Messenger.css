@@ -1,12 +1,11 @@
 .messenger {
-    position:absolute;
     bottom: 0px;
-    height: 10%;
-    width: 100%;
+    height: 8vh;
+    width: 50vw;
+    display: flex;
   }
 
 .textarea {
-    position: absolute;
     bottom: 0px;
     left: 0px;
     border-radius: 15px;
@@ -17,7 +16,6 @@
 }
 
 .sendMessage {
-    position: absolute;
     bottom: 0px;
     right: 0px;
     color: white;
@@ -25,6 +23,6 @@
     border-radius: 15px;
     border-color: white;
     border-style: solid;
-    background-color: purple;
+    background-color: rgba(104, 82, 156, 1) !important;
     height: 100%;
 }
