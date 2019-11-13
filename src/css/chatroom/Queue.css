@@ -11,6 +11,7 @@
 
 .QueueDeckTitle {
     font-size: 20px;
+    text-align: center;
     width: 100%;
-    color: white;
+    color: rgba(104, 82, 156, 1);
 }
