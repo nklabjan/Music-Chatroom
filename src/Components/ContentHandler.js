@@ -5,9 +5,7 @@ import Profile from "./profile/Profile";
 import MakeChatRoom from "./makechatroom/makechatroom";
 import CadenceNavBar from './CadenceNavBar';
 import '../css/ContentHandler.css';
-
 import queryString from "query-string";
-import { number } from 'prop-types';
 var urls = require('../constants.js');
 
 //Remove this and put into env file if it works

@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import '../../css/makechatroom/makechatroom.css';
 import MakeChatDetails from './MakeChatDetails';
+import {Modal} from 'react-bootstrap';
 
 class MakeChatroom extends Component {
 
@@ -29,6 +30,10 @@ class MakeChatroom extends Component {
     render() {
         return (
             <>
+                <Modal>
+
+                </Modal>
+                
                 <div className="topheader">
                     <button className="saveChat" onClick={this.props.saveChatRoom}>Create</button>
                     <div className="makechatroomtitle">Create New Chatroom</div>
