@@ -44,6 +44,12 @@ class Lounge extends Component {
             user_div.appendChild(user_name);
             document.getElementsByClassName('userListTitle')[0].appendChild(user_div);
         })
+
+        this.socket.on('user_disconnected', function(user) {
+            console.log(user);
+            //Handle removing users from list
+
+        })
         this.forceUpdate();
     }
 
@@ -51,21 +57,24 @@ class Lounge extends Component {
 
             return (
                 <div className="lounge">
-                    <header className="chatroom-header">
-                        <span className="title"><b>CHATROOM</b></span>
-                    </header>
 
                     <div className="loungeContainer">
                         <Queue socket={this.socket}/>
                         <Chat socket={this.socket}/>
                         <UserList />
                     </div>
-                    <Player access_token={this.props.access_token} socket={this.socket}/>
+                    <Player access_token={this.props.access_token}
+                            socket={this.socket}
+                            handleHome={this.props.handleHome}/>
 
                 </div>
             )
         }
 
+    componentWillUnmount(){
+      this.socket.emit('user_disconnected', this.props.access_token);
+
+    }
 }
 
 export default Lounge;

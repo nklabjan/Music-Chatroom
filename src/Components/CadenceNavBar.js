@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Navbar, Nav} from 'react-bootstrap';
+import {Navbar, Nav, Button} from 'react-bootstrap';
 
 class CadenceNavBar extends Component {
     //Include selective rendering for content
@@ -33,7 +33,9 @@ class CadenceNavBar extends Component {
           </Nav.Link>
         </Nav>
         <Nav id="outline-info">
-          <Nav.Link onClick={this.props.logout}>Logout</Nav.Link>
+          <Nav.Link >
+            <Button onClick={this.props.logout}> Logout </Button>
+          </Nav.Link>
         </Nav>
         </Navbar>
 )

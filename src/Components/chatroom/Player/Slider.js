@@ -8,7 +8,9 @@ class SliderCom extends Component {
     render() {
         return (
               <div className="sliderDiv">
-                <Slider />
+                <div className="position">{this.props.position}</div>
+                <div className="sliderContainer"><Slider className="mySlider"/></div>
+                <div className="duration">{this.props.duration}</div>
               </div>
         )
     }

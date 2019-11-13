@@ -85,7 +85,8 @@ class ContentHandler extends Component {
                         handleMakeChat={this.handleMakeChat}/>);
     }
     else if(this.state.currDisplay === "lounge"){
-      return (<Lounge access_token={this.state.access_token}/>);
+      return (<Lounge access_token={this.state.access_token}
+                      handleHome={this.handleHome}/>);
     }
     else if(this.state.currDisplay === "profile") {
       return (<Profile access_token={this.state.access_token}
