@@ -13,10 +13,7 @@ class ChatWindow extends Component {
   }
 
     render() {
-      if (this.props.messages !== null &&
-            this.props.messages !== undefined &&
-            this.props.messages.length >0 )
-            {
+      if (this.props.messages !== null && this.props.messages !== undefined && this.props.messages.length >0 ) {
             return (<div className="chatWindow">
               {
                       this.props.messages.map((msg, msgIndex) => {
@@ -32,8 +29,8 @@ class ChatWindow extends Component {
                 </div>
               )
             }
-            else
-            {return (<div className="chatWindow">
+            else {
+              return (<div className="chatWindow">
 
             </div>)
             }

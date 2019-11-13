@@ -7,7 +7,7 @@ class MakeChatroom extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            display_name: ""
+            display_name: "",
         }
     }
 
