@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import '../../../css/chatroom/chat/Messenger.css';
+import {Button} from 'react-bootstrap';
 
 class Messenger extends Component {
 
@@ -19,12 +20,12 @@ class Messenger extends Component {
     clearForm() {
         document.getElementsByClassName('textarea')[0].value = "";
     }
-    
+
     render() {
         return (
           <div className="messenger">
               <textarea className="textarea" id="textarea" onKeyDown={this.onEnterPress}></textarea>
-              <button className="sendMessage" onClick={this.handleClick}>Send</button>
+              <Button className="sendMessage" onClick={this.handleClick}>Send</Button>
           </div>
         )
     }

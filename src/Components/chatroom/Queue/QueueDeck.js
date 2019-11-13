@@ -3,13 +3,14 @@ import { Table } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import QueueCard from './QueueCard';
-
+import '../../../css/chatroom/Queue.css'
+ 
 class QueueDeck extends Component {
 
     render() {
         return (
                 <div className="QueueDeck">
-                    <div className="QueueDeckTitle"><b>Queue Deck</b></div>
+                    <div className="QueueDeckTitle">Queue Deck</div>
 
                     <Table striped bordered hover variant="dark">
                       <thead>

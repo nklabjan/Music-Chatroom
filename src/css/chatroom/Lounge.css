@@ -8,42 +8,21 @@
       height: 7vh;
       width: 100%;
       border-bottom: 2px solid black;
-      margin-left: 2%;
-      margin-right: 2%;
       position: relative;
   }
 
   .title {
-      font-size: 30px;
+      font-size: 20px;
       color: white;
       bottom: 1px;
   }
 
-  .profile-chatroom {
-      position: fixed;
-      top: 0px;
-      left: 0px;
-      height: 6.5%;
-      width: 150px;
-      border-radius: 15px;
-      background-color: purple;
-      color: white;
-  }
-
-  .leave-chatroom {
-      position: fixed;
-      top: 0px;
-      right: 0px;
-      height: 6.5%;
-      width: 150px;
-      border-radius: 15px;
-      background-color: purple;
-      color: white;
-    }
 
   .loungeContainer {
       position: relative;
-      height: 80%;
+      height: 78vh;
       width:100vw;
       left: 0px;
+      display: flex;
+      flex-direction: row;
   }
