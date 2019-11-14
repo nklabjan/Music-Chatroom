@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import '../../css/profile/Detail.css';
 
-class Detail extends Component {
+class ProfileDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -9,8 +9,7 @@ class Detail extends Component {
         }
     }
 
-    onDetailChange(value)
-    {
+    onDetailChange(value) {
         this.setState({info: value});
     }
 
@@ -19,9 +18,9 @@ class Detail extends Component {
         {
             return (
                 <>
-                    <div className="detailDisplay">
-                        <h4>{this.props.label}</h4>
-                        <p>{this.state.info}</p>
+                    <div className="detail">
+                        <div className="label">{this.props.label}</div>
+                        <div className="info">{this.state.info}</div>
                     </div>
                 </>
             );
@@ -30,9 +29,11 @@ class Detail extends Component {
         {
             return (
                 <>
-                    <div className="detailEdit">
-                        <h4>{this.props.label}</h4>
-                        <input value={this.state.info} onChange={e => this.onDetailChange(e.target.value)}></input>
+                    <div className="detail">
+                        <div className="label">{this.props.label}</div>
+                        <div className="info">
+                            <input className="input" size="40" value={this.state.info} onChange={e => this.onDetailChange(e.target.value)}></input>
+                        </div>
                     </div>
                 </>
             );
@@ -40,4 +41,4 @@ class Detail extends Component {
     }
 }
 
-export default Detail;
+export default ProfileDetail;

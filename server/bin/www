@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 /**
  * Module dependencies.
  */
@@ -7,7 +6,12 @@
 var app = require('../app');
 var debug = require('debug')('server:server');
 var http = require('http');
-var handlers = require('../chatroom/auth')
+//var handlers = require('../chatroom/auth')
+
+
+var chatroom = require('../chatroom/Chatroom.js')
+
+
 /**
  * Get port from environment and store in Express.
  */
@@ -16,15 +20,6 @@ var handlers = require('../chatroom/auth')
  * Should move this into its own thing later
  */
 
-/*if (app.get('env') == 'development') {
-    process.env['SERVER_URL'] = 'http://localhost:8080';
-    process.env['CLIENT_URL'] = 'http://localhost:3000';
-}
-else {
-    process.env['SERVER_URL'] = 'https://music-chatroom-server.herokuapp.com/'
-    process.env['CLIENT_URL'] = 'https://music-chatroom-client.herokuapp.com/'
-
-    }*/
 
 
 var port = normalizePort(process.env.PORT || '8080');
@@ -36,24 +31,28 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
-/*
- * register the websocket handlers here
-*/
-
 var io = require('socket.io')(server);
+var chatroom = new chatroom.Chatroom(io);
 
-//Store client information 
+//Store client information
 var clients =[];
 
 io.on('connection', function(socket) {
-    console.log(socket);
 
-    socket.on('message_sent', function(msg, auth_token) {
-        handlers.chatMessage(io, msg, auth_token);
+    socket.on('user_connected', function(accessToken) {
+        chatroom.userConnected(socket, accessToken, chatroom);
+    });
+
+    socket.on('user_disconnected', function(accessToken) {
+        chatroom.userDisconnected(socket, accessToken, chatroom);
+    });
+
+    socket.on('message_sent', function(msg, accessToken) {
+        chatroom.chatMessage(socket, msg);
     });
 
     socket.on('play_music', function(access_token, deviceId, spotify_uri) {
-        handlers.playSong(access_token, deviceId, spotify_uri);
+        chatroom.playSong(access_token, deviceId, spotify_uri);
     });
 }
 

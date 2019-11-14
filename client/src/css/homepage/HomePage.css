@@ -1,21 +1,24 @@
   .HomePage {
     text-align: left;
+    position: relative;
+    top: 0px;
   }
-  
+
   .Home-Page {
     text-align: left;
+    top: 0px;
   }
-  
+
   .logout {
     position: fixed;
     margin-top: 5px;
     height: 50px;
     width: 100px;
     border-radius: 15px;
-    background-color: purple;
+    background-color: rgba(104, 82, 156, 1);
     color: white;
   }
-  
+
   .profile {
     position: fixed;
     margin-left: 125px;
@@ -23,10 +26,10 @@
     height: 50px;
     width: 150px;
     border-radius: 15px;
-    background-color: purple;
+    background-color: rgba(104, 82, 156, 1);
     color: white;
   }
-  
+
   .chatroom {
     position: fixed;
     margin-left: 89.5%;
@@ -34,17 +37,57 @@
     height: 50px;
     width: 150px;
     border-radius: 15px;
-    background-color: purple;
+    background-color: rgba(104, 82, 156, 1);
     color: white;
   }
-  
+
   .chat {
     position: fixed;
     margin-left: 50%;
-    margin-top: 15%;
+    margin-top: 5px;
     height: 50px;
     width: 150px;
     border-radius: 15px;
-    background-color: purple;
+    background-color: rgba(104, 82, 156, 1);
     color: white;
   }
+
+  .Chatrooms {
+    position: absolute;
+    overflow-y: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 10vw;
+    margin-top: 20vh;
+    height: 70vh;
+    width: 80vw;
+    border-color: white;
+    border-style: solid;
+  }
+
+  .createdChatRoom {
+    width: 25%;
+    height: 50%;
+    border-radius: 15px;
+  }
+
+  .homeTitle {
+    position: absolute;
+    text-align: center;
+    color: rgba(104, 82, 156, 1);
+    font-size: 80px;
+    height: 20vh;
+    width: 50vw;
+    margin-left: 25vw;
+    margin-top: 5vh;
+  }
+
+  .homeTitle:hover {
+    transition: all .2s ease-in-out;
+    transform: scale(1.2);
+  }
+
+  .enterBtn {
+    background-color: rgba(104, 82, 156, 1) !important;
+  }
+

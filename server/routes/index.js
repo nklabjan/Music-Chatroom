@@ -2,7 +2,7 @@ var express = require('express');
 var request = require('request');
 var router = express.Router();
 //Retrieves env variables from .env file
-var dotenv = require('dotenv').config();
+//var dotenv = require('dotenv').config();
 var urls = require('../constants.js');
 
 var my_client_id = process.env.CLIENT_APP_ID;

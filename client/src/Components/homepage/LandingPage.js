@@ -1,11 +1,12 @@
 import React, {Component} from "react";
+import LandingWindow from './LandingWindow';
 import '../../css/homepage/LandingPage.css';
 
 class LandingPage extends Component {
 
     render() {
         return  <div className="LandingPage">
-                    <button className="login" onClick={this.props.login}>Login with Spotify</button>
+                    <LandingWindow login={this.props.login}/>;
                 </div>
       }
 

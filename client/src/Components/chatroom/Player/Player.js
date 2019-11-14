@@ -1,5 +1,12 @@
 import React, {Component} from "react";
 import SliderCom from './Slider';
+import VolumeSlider from './VolumeSlider';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlayCircle, faPauseCircle, faTimesCircle} from '@fortawesome/free-regular-svg-icons'
+import { faStepForward, faStepBackward,faMusic,
+        faPlusCircle, faVolumeUp, faVolumeMute} from '@fortawesome/free-solid-svg-icons'
+
+
 import '../../../css/chatroom/player/Player.css'
 class Player extends Component {
 
@@ -7,23 +14,30 @@ class Player extends Component {
       super(props);
       this.checkForPlayer = this.checkForPlayer.bind(this);
       this.createPlayerEventListeners = this.createPlayerEventListeners.bind(this);
-
       this.checkForPlayer();
+      this.state = {
+        duration: "",
+        position: "",
+        trackName: "",
+        albumName: "",
+        artistName: "",
+        albumCover: ""
+      }
   }
 
   createPlayerEventListeners() {
       //Add event listeners to browser spotify player
-        this.player.on('initialization_error', e => { 
+        this.player.on('initialization_error', e => {
           console.error(e);
         });
         this.player.on('authentication_error', e => {
           console.error(e);
         });
-        this.player.on('account_error', e => { 
-          console.error(e); 
+        this.player.on('account_error', e => {
+          console.error(e);
         });
-        this.player.on('playback_error', e => { 
-          console.error(e); 
+        this.player.on('playback_error', e => {
+          console.error(e);
         });
 
         // Playback status updates
@@ -42,35 +56,41 @@ class Player extends Component {
         });
       }
 
-  checkForPlayer() {
-    if (window.Spotify !== null) {
-      this.player = new window.Spotify.Player({
-        name: "Cadence Web Player",
-        getOAuthToken: cb => { cb(this.props.access_token); },
-      });
-      this.createPlayerEventListeners();
-      this.player.connect();
-      // finally, connect!
-      console.log("Spotify Player connected!");
-      console.log(this.player);
+    checkForPlayer() {
+      if (window.Spotify !== null) {
+        this.player = new window.Spotify.Player({
+          name: "Cadence Web Player",
+          getOAuthToken: cb => { cb(this.props.access_token); },
+        });
+        this.createPlayerEventListeners();
+        this.player.connect();
+        // finally, connect!
+        console.log("Spotify Player connected!");
+        console.log(this.player);
+      }
     }
-  }
+
+    millisToMinutesAndSeconds(millis) {
+      var minutes = Math.floor(millis / 60000);
+      var seconds = ((millis % 60000) / 1000).toFixed(0);
+      return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+    }
 
     onStateChanged(state) {
       console.log(state);
+      console.log("________________________________________________________");
       console.log(this.state);
       // if we're no longer listening to music, we'll get a null state.
       if (state !== null) {
         const {
           current_track: currentTrack,
         } = state.track_window;
-        const position = state.position;
-        const duration = state.duration;
+        const position = this.millisToMinutesAndSeconds(state.position);
+        const duration = this.millisToMinutesAndSeconds(state.duration);
         const trackName = currentTrack.name;
         const albumName = currentTrack.album.name;
-        const artistName = currentTrack.artists
-          .map(artist => artist.name)
-          .join(", ");
+        const albumCover = currentTrack.album.images[0].url;
+        const artistName = currentTrack.artists.map(artist => artist.name).join(", ");
         const playing = !state.paused;
         this.setState({
           position,
@@ -78,7 +98,8 @@ class Player extends Component {
           trackName,
           albumName,
           artistName,
-          playing
+          playing,
+          albumCover
         });
       }
     }
@@ -113,24 +134,50 @@ class Player extends Component {
       this.player.nextTrack();
     }
 
-    playSong() {
-      //Sends device ID and Access token to backend to play music
-      //through socket
-      //Hardcode to play "spotify:track:5bvNpG6wiIEf1PA13TkTu2" for now
-      let song = "spotify:track:5bvNpG6wiIEf1PA13TkTu2";
-      this.props.socket.emit('play_music', this.props.access_token, this.state.deviceId, song);
-      console.log("test")
-    }
-
     render() {
         return (
             <div className="player">
-              <div className="row">
-                  <button className="previous" onClick={()=>{this.onPrevClick()}}>Previous</button>
-                  <button className="play-pause" onClick={()=>{this.onPlayClick()}}>Play/Pause</button>
-                  <button className="next" onClick={()=>{this.onNextClick()}}>Next</button>
+            <div className="playerLeft">
+              <div className="albumInfo">
+                <img className="albumCover" src={this.state.albumCover} style={{width:75, height:75}} alt="Album Cover Doesn't Exist"></img>
+                <div className="albumName">{this.state.albumName}</div>
               </div>
-              <SliderCom />
+            </div>
+
+            <div className="playerMiddle">
+              <div className="controls">
+                  <button className="previous" onClick={()=>{this.onPrevClick()}}>
+                    <FontAwesomeIcon size="lg" icon={faStepBackward} />
+                  </button>
+                  <button className="play-pause" onClick={()=>{this.onPlayClick()}}>
+                    <FontAwesomeIcon size="2x" icon={ this.state.playing ? faPauseCircle : faPlayCircle} />
+                  </button>
+                  <button className="next" onClick={()=>{this.onNextClick()}}>
+                    <FontAwesomeIcon size="lg" icon={faStepForward} />
+                  </button>
+              </div>
+                <SliderCom position={this.state.position} duration={this.state.duration}/>
+              <div className="trackInfo">
+                <div className="trackName">{this.state.trackName}</div>
+                <div className="artistName">{this.state.artistName}</div>
+              </div>
+            </div>
+
+            <div className="playerRight">
+              <button className="add-song" onClick={()=>{console.log("chill")}}>
+                <FontAwesomeIcon size="lg" icon={faPlusCircle} />
+              </button>
+              <button className="queue-list" onClick={()=>{console.log("queue")}}>
+                <FontAwesomeIcon size="lg" icon={faMusic} />
+              </button>
+              <button className="volume" onClick={()=>{console.log("volume")}}>
+                <FontAwesomeIcon size="lg" icon={faVolumeUp} />
+              </button>
+              <VolumeSlider />
+              <button className="leave-room" onClick={()=>{this.props.handleHome()}}>
+                <FontAwesomeIcon size="2x" icon={faTimesCircle} />
+              </button>
+            </div>
             </div>
         )
     }

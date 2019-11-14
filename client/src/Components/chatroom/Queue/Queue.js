@@ -1,15 +1,14 @@
 import React, {Component} from "react";
-import '../../css/chatroom/Queue.css'
+import '../../../css/chatroom/Queue.css'
+import QueueDeck from './QueueDeck';
 
 class Queue extends Component {
 
     render() {
         return (
-            <>
                 <div className="queue">
-                    <div className="queueTitle"><b>Queue</b></div>
+                    <QueueDeck socket={this.socket}/>
                 </div>
-            </>
         )
     }
 }

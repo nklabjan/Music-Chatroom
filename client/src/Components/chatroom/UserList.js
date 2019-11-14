@@ -6,7 +6,8 @@ class UserList extends Component {
     render() {
         return (
             <div className="userList">
-                <div className="userListTitle"><b>Chatroom Members</b></div>
+                <div className="userListTitle">Chatroom Members</div>
+                <div className="members"></div>
             </div>
         )
     }

@@ -1,45 +1,28 @@
 .lounge {
     width: 100vw;
     height: 100vh;
+    font-family: "Helvetica Neue";
   }
+
   .chatroom-header {
-      height: 50px;
-      background-color: white;
+      height: 7vh;
+      width: 100%;
+      border-bottom: 2px solid rgba(1, 1, 1, 1);
+      position: relative;
   }
-  
+
   .title {
-      position: fixed;
-      margin-top: 0%;
-      margin-left: 40%;
-      font-size: 43px;
-      color: purple;
-  }
-  
-  .profile-chatroom {
-      position: fixed;
-      top: 0px;
-      left: 0px;
-      height: 50px;
-      width: 150px;
-      border-radius: 15px;
-      background-color: purple;
+      font-size: 20px;
       color: white;
+      bottom: 1px;
   }
-  
-  .leave-chatroom {
-      position: fixed;
-      top: 0px;
-      right: 0px;
-      height: 50px;
-      width: 150px;
-      border-radius: 15px;
-      background-color: purple;
-      color: white;
-    }
-  
+
+
   .loungeContainer {
       position: relative;
-      height: 80%;
+      height: 78vh;
       width:100vw;
       left: 0px;
+      display: flex;
+      flex-direction: row;
   }

@@ -1,6 +1,6 @@
 .chatWindow {
     overflow-y: scroll;
-    width: 100%;
+    position: relative;
     height: 90%;
-
+    width: 100%;
 }

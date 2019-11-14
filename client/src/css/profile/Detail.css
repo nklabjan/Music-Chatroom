@@ -1,0 +1,21 @@
+.detail {
+    display: flex;
+    width: 100%;
+    margin-left: 5vw;
+    margin-top: 5vh;
+}
+
+.label {
+    color: rgba(104, 82, 156, 1);
+    font-size: 30px;
+}
+
+.info {
+    position: absolute;
+    margin-top: 1.5vh;
+    margin-left: 15vw;
+}
+
+.input {
+    color: rgba(49, 47, 54, 1);
+}

@@ -1,19 +1,20 @@
 import React, {Component} from "react";
 import '../../css/profile/Profile.css';
-import Detail from './Detail';
+import ProfileDetail from './Detail';
+import {Modal, Button} from 'react-bootstrap';
 
 class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
             viewType: "display",
-            userJson: "temp",
+            userJson: "",
+            display_name: "",
             loading: true
         }
     }
 
-    async componentDidMount()
-    {
+    async componentDidMount() {
         const response = await fetch('https://api.spotify.com/v1/me', {
         method: "GET",
         headers: {
@@ -21,7 +22,13 @@ class Profile extends Component {
             },
         });
         const myJson = await response.json();
-        this.setState({userJson: myJson, loading: false});
+        console.log("MyJson: ", myJson);
+        var displayName = myJson.display_name + "'s Profile"
+        this.setState({
+            userJson: myJson,
+            display_name: displayName,
+            loading: false,
+        });
     }
 
     editProfile() {
@@ -33,37 +40,40 @@ class Profile extends Component {
     }
 
     render() {
-        if(this.state.loading === false)
-        {
+        if(this.state.loading === false) {
             console.log(this.state.userJson.images);
         }
-            return(
-                <>
-                    <h1 className="profileHeader">
-                        My Profile
-                    </h1>
-                    <div>
-                        {this.state.loading ? (
+        return(
+            <>
+                <Modal className="modalProf" show={this.props.showModalProfile} onHide={this.props.closeProfile} size="lg" 
+                        aria-labelledby="contained-modal-title-vcenter" centered>
+                    <Modal.Header className="modHeaderProf" closeButton>
+                    {this.state.loading ? (
                             <p>Loading...</p>
                         ) : (
-                            <img src={this.state.userJson.images[0].url} alt="Not Found"></img>
+                            <img src={this.state.userJson.images[0].url} alt="Not Found" width="90vw" height="70vh"></img>
                         )}
-                    </div>
-                    <div className="details">
-                        <h2>Bio</h2>
-                        <Detail viewType={this.state.viewType} label="About Me: " info="This is something about me"/>
-                        <Detail viewType={this.state.viewType} label="Music Taste: " info="This is my music taste"/>
-                        <Detail viewType={this.state.viewType} label="Location: " info="Madison, WI" />
-                    </div>
-                    <div>
-                        {this.state.viewType === "display" ? (
-                            <button className="editButton" onClick={this.editProfile.bind(this)}>Edit Profile</button>
+                    <Modal.Title className="modTitleProf">{this.state.display_name}</Modal.Title>
+                        </Modal.Header>
+                    <Modal.Body className="modBodyProf">
+                        <ProfileDetail viewType={this.state.viewType} label="Username: " info=""/>
+                        <ProfileDetail viewType={this.state.viewType} label="About Me: " info=""/>
+                        <ProfileDetail viewType={this.state.viewType} label="Music Taste: " info=""/>
+                        <ProfileDetail viewType={this.state.viewType} label="Location: " info="" />
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <Button className="createBtnCloseProf" variant="secondary" onClick={this.props.handleClose}>
+                        Close
+                    </Button>
+                    {this.state.viewType === "display" ? (
+                            <Button className="createBtnProf" variant="primary" onClick={this.editProfile.bind(this)}>Edit Profile</Button>
                         ) : (
-                            <button className="editButton" onClick={this.saveChanges.bind(this)}>Save Changes</button>
+                            <Button className="createBtnProf" variant="primary" onClick={this.saveChanges.bind(this)}>Save Profile</Button>
                         )}
-                    </div>
-                </>
-            );
+                    </Modal.Footer>
+                </Modal>
+            </>
+        );
     }
 }
 
