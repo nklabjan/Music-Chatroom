@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import '../../css/makechatroom/makechatroom.css';
+import {Modal, Button} from 'react-bootstrap';
 import MakeChatDetails from './MakeChatDetails';
-import {Modal} from 'react-bootstrap';
 
 class MakeChatroom extends Component {
 
@@ -30,29 +30,29 @@ class MakeChatroom extends Component {
     render() {
         return (
             <>
-                <Modal>
-
-                </Modal>
-                
-                <div className="topheader">
-                    <button className="saveChat" onClick={this.props.saveChatRoom}>Create</button>
-                    <div className="makechatroomtitle">Create New Chatroom</div>
-                    <button className="leavePage" onClick={this.props.handleHome}>Cancel</button>
-                </div>
-                <div className="formdet">
-                    <div className="title-header">
-                        <div className="details-title">Chatroom Details</div>
-                    </div>
-                    <div className="makeChatDetails">
+                <Modal className="modal" show={this.props.showModal} onHide={this.props.handleClose} size="lg" 
+                        aria-labelledby="contained-modal-title-vcenter" centered background-color="purple">
+                    <Modal.Header className="modHeader" closeButton>
+                    <Modal.Title className="modTitle">Create Your Own Lounge</Modal.Title>
                         <div className="loungeMaster">
-                            <div className="loungeMasterDet">Lounge Master:</div>
-                            <div className="loungeMasterInfo">{this.state.display_name}</div>
+                            <p>Lounge Master: {this.state.display_name}</p>
                         </div>
+                    </Modal.Header>
+                    <Modal.Body className="modBody">
                         <MakeChatDetails label="Room Name:"/>
                         <MakeChatDetails label="Description:"/>
                         <MakeChatDetails label="Genres:"/>
-                    </div>
-                </div>
+
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <Button variant="secondary" onClick={this.props.handleClose}>
+                        Close
+                    </Button>
+                    <Button className="createBtn" variant="primary" onClick={this.props.saveChatRoom}>
+                        Create Lounge
+                    </Button>
+                    </Modal.Footer>
+                </Modal>
             </>
         );
     }
