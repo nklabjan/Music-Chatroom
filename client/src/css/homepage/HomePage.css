@@ -7,7 +7,6 @@
   .Home-Page {
     text-align: left;
     top: 0px;
-
   }
 
   .logout {
@@ -56,10 +55,12 @@
   .Chatrooms {
     position: absolute;
     overflow-y: scroll;
-    margin-left: 25vw;
-    margin-top: 30vh;
-    height: 50vh;
-    width: 50vw;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 10vw;
+    margin-top: 20vh;
+    height: 70vh;
+    width: 80vw;
     border-color: white;
     border-style: solid;
   }
@@ -67,7 +68,6 @@
   .createdChatRoom {
     width: 25%;
     height: 50%;
-    padding: 5px;
     border-radius: 15px;
   }
 
@@ -79,11 +79,15 @@
     height: 20vh;
     width: 50vw;
     margin-left: 25vw;
-    margin-top: 10vh;
+    margin-top: 5vh;
   }
 
   .homeTitle:hover {
     transition: all .2s ease-in-out;
     transform: scale(1.2);
+  }
+
+  .enterBtn {
+    background-color: rgba(104, 82, 156, 1) !important;
   }
 
