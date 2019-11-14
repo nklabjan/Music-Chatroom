@@ -6,18 +6,19 @@
 .makeChatLabel {
     margin-top: 7%;
     margin-left: 10%;
-    width: 60%;
-    color: white;
+    width: 50%;
+    color: purple;
     font-size: 25px;
 }
 
 .makeChatInfo { 
-    width: 45%;
+    width: 60%;
     margin-top: 7%;
     font-size: 25px;
 }
 
 .makeChatInput {
     color: purple;
+    resize: none;
     height: 100%;
 }

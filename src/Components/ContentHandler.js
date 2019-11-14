@@ -18,17 +18,18 @@ class ContentHandler extends Component {
         loggedInStatus: false,
         access_token: null,
         currDisplay: "home", //Chat,Profile,Home
-        chatRooms: []
+        chatRooms: [],
+        showModal: false
     }
-
     this.renderContent = this.renderContent.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.handleChat = this.handleChat.bind(this);
-    this.handleMakeChat = this.handleMakeChat.bind(this);
     this.handleProfile = this.handleProfile.bind(this);
     this.handleHome = this.handleHome.bind(this);
-    this.saveChatRoom =this.saveChatRoom.bind(this);
+    this.saveChatRoom = this.saveChatRoom.bind(this);
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   logout() {
@@ -62,7 +63,13 @@ class ContentHandler extends Component {
     this.setState({currDisplay: "profile"});
   }
 
-  handleMakeChat() {
+  handleClose() {
+    this.setState({showModal: false});
+    this.setState({currDisplay: "home"});
+  }
+
+  handleShow() {
+    this.setState({showModal: true});
     this.setState({currDisplay: "makeChat"});
   }
 
@@ -96,7 +103,10 @@ class ContentHandler extends Component {
     else if(this.state.currDisplay === "makeChat") {
       return (<MakeChatRoom access_token={this.state.access_token}
                             handleHome={this.handleHome}
-                            saveChatRoom={this.saveChatRoom}/>);
+                            saveChatRoom={this.saveChatRoom}
+                            handleShow={this.handleShow}
+                            handleClose={this.handleClose}
+                            showModal={this.state.showModal}/>);
     }
   }
 
@@ -109,9 +119,9 @@ class ContentHandler extends Component {
                         logout={this.logout}
                         handleChat={this.handleChat}
                         handleProfile={this.handleProfile}
-                        handleMakeChat={this.handleMakeChat}
                         handleHome={this.handleHome}
-                        currDisplay={this.state.currDisplay}/>
+                        currDisplay={this.state.currDisplay}
+                        handleShow={this.handleShow}/>
       )
     }
     else return (
