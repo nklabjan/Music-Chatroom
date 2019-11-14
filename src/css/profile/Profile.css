@@ -3,15 +3,21 @@
 }
 
 .modTitleProf {
-    width: 100%;
-    color: purple;
+    font-size: 60px;
+    color: rgba(104, 82, 156, 1);
+    margin-left: 5vw;
+    margin-top: 2vh;
 }
 
 .modBodyProf {
     height: 50vh;
 }
 
+.createBtnCloseProf {
+    background: rgba(49, 47, 54, 1) !important;
+}
+
 .createBtnProf {
-    background: purple;
+    background: rgba(104, 82, 156, 1) !important;
 }
 

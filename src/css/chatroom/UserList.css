@@ -1,6 +1,6 @@
 .userList {
-    border-bottom-color: black;
-    border-right-color: black;
+    border-bottom-color: rgba(1, 1, 1, 1);
+    border-right-color: rgba(1, 1, 1, 1);
     border-right-style: solid;
     border-bottom-style: solid;
     height: 78vw;
@@ -17,7 +17,7 @@
 
 .members {
     position: relative;
-    border-top-color: black;
+    border-top-color: rgba(1, 1, 1, 1);
     border-top-style: solid;
     width: 100%;
     height: 50%;

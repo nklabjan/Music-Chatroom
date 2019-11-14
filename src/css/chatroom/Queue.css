@@ -1,7 +1,7 @@
 .queue {
-    border-right-color: black;
-    border-bottom-color: black;
-    border-left-color: black;
+    border-right-color: rgba(1, 1, 1, 1);
+    border-bottom-color: rgba(1, 1, 1, 1);
+    border-left-color: rgba(1, 1, 1, 1);
     border-bottom-style: solid;
     border-right-style: solid;
     border-left-style: solid;
