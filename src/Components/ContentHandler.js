@@ -19,17 +19,19 @@ class ContentHandler extends Component {
         access_token: null,
         currDisplay: "home", //Chat,Profile,Home
         chatRooms: [],
-        showModal: false
+        showModalChat: false,
+        showModalProfile: false
     }
     this.renderContent = this.renderContent.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.handleChat = this.handleChat.bind(this);
-    this.handleProfile = this.handleProfile.bind(this);
     this.handleHome = this.handleHome.bind(this);
     this.saveChatRoom = this.saveChatRoom.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.showProfile = this.showProfile.bind(this);
+    this.closeProfile = this.closeProfile.bind(this);
   }
 
   logout() {
@@ -59,17 +61,23 @@ class ContentHandler extends Component {
     this.setState({currDisplay: "lounge"});
   }
 
-  handleProfile() {
+  showProfile() {
+    this.setState({showModalProfile: true});
     this.setState({currDisplay: "profile"});
   }
 
+  closeProfile() {
+    this.setState({showModalProfile: false});
+    this.setState({currDisplay: "home"});  
+  }
+
   handleClose() {
-    this.setState({showModal: false});
+    this.setState({showModalChat: false});
     this.setState({currDisplay: "home"});
   }
 
   handleShow() {
-    this.setState({showModal: true});
+    this.setState({showModalChat: true});
     this.setState({currDisplay: "makeChat"});
   }
 
@@ -98,7 +106,9 @@ class ContentHandler extends Component {
     }
     else if(this.state.currDisplay === "profile") {
       return (<Profile access_token={this.state.access_token}
-                        handleHome={this.handleHome}/>);
+                        showProfile={this.showProfile}
+                        closeProfile={this.closeProfile}
+                        showModalProfile={this.state.showModalProfile}/>);
     }
     else if(this.state.currDisplay === "makeChat") {
       return (<MakeChatRoom access_token={this.state.access_token}
@@ -106,7 +116,7 @@ class ContentHandler extends Component {
                             saveChatRoom={this.saveChatRoom}
                             handleShow={this.handleShow}
                             handleClose={this.handleClose}
-                            showModal={this.state.showModal}/>);
+                            showModalChat={this.state.showModalChat}/>);
     }
   }
 
@@ -118,7 +128,7 @@ class ContentHandler extends Component {
         <CadenceNavBar  scheme="CadenceNavBar"
                         logout={this.logout}
                         handleChat={this.handleChat}
-                        handleProfile={this.handleProfile}
+                        showProfile={this.showProfile}
                         handleHome={this.handleHome}
                         currDisplay={this.state.currDisplay}
                         handleShow={this.handleShow}/>
