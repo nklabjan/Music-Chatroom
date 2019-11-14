@@ -45,7 +45,7 @@ class MakeChatroom extends Component {
 
                     </Modal.Body>
                     <Modal.Footer>
-                    <Button variant="secondary" onClick={this.props.handleClose}>
+                    <Button className="createBtnClose" variant="secondary" onClick={this.props.handleClose}>
                         Close
                     </Button>
                     <Button className="createBtn" variant="primary" onClick={this.props.saveChatRoom}>

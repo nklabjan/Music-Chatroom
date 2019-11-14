@@ -7,7 +7,7 @@
     margin-top: 7%;
     margin-left: 10%;
     width: 50%;
-    color: purple;
+    color: rgba(104, 82, 156, 1);
     font-size: 25px;
 }
 
@@ -18,7 +18,7 @@
 }
 
 .makeChatInput {
-    color: purple;
+    color: rgba(104, 82, 156, 1);
     resize: none;
     height: 100%;
 }

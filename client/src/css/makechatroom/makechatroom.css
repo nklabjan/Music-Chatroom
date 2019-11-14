@@ -4,7 +4,7 @@
 
 .modTitle {
     width: 100%;
-    color: purple;
+    color: rgba(104, 82, 156, 1);
 }
 
 .loungeMaster {
@@ -18,7 +18,11 @@
     height: 50vh;
 }
 
+.createBtnClose {
+    background: rgba(49, 47, 54, 1) !important;
+}
+
 .createBtn {
-    background: purple;
+    background: rgba(104, 82, 156, 1) !important;
 }
 
