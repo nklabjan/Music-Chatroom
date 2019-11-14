@@ -19,7 +19,8 @@ class ContentHandler extends Component {
         loggedInStatus: false,
         access_token: null,
         currDisplay: "home", //Chat,Profile,Home
-        chatRooms: []
+        chatRooms: [],
+        curr_lounge: null, //curr lounge is gonna keep track of
     }
 
     this.renderContent = this.renderContent.bind(this);
@@ -45,7 +46,9 @@ class ContentHandler extends Component {
   saveChatRoom() {
     var chatname = "Chat";
     this.setState({chatRooms: [...this.state.chatRooms, chatname]});
-    this.setState({currDisplay: "home"});
+    // if curr_lounge is null -> create new chatroom when get into lounge
+    this.setState({curr_lounge: null})
+    this.setState({currDisplay: "lounge"});
     //Save Chatroom should create an instance of Chatroom on the serverside
     //newInstance = {name,loungeMaster, ID, numUsers} (ID is obtained from the backend )
     // this.setState({chatRooms: [...this.state.chatRooms, newInstance]})
@@ -88,7 +91,8 @@ class ContentHandler extends Component {
     }
     else if(this.state.currDisplay === "lounge"){
       return (<Lounge access_token={this.state.access_token}
-                      handleHome={this.handleHome}/>);
+                      handleHome={this.handleHome}
+                      loungeID={this.state.curr_lounge}/>);
     }
     else if(this.state.currDisplay === "profile") {
       return (<Profile access_token={this.state.access_token}

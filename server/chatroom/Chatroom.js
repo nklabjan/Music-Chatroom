@@ -1,13 +1,14 @@
 class Chatroom {
-    constructor(io) {
+    constructor(io, id, loungeMaster) {
         this.request = require('request');
         this.io = io;
+        this.id = id; //Chatroom unique ID
         // cache of sockets against user info
         this.users = {};
         this.messageList = [];
         this.queue = []; //Queue of songs
+        this.currentSong = null;
         this.history = [];
-        this.loungeMaster = null;
     }
 
     loadMockQueue() {
@@ -27,7 +28,9 @@ class Chatroom {
             // and emit a join message to everyone else
             if (chatroom.users[socket.id] === undefined) {
                 chatroom.users[socket.id] = body["display_name"];
-                socket.broadcast.emit("user_connected", body["display_name"]);
+                io.to(this.id).emit("user_connected", body["display_name"]);
+
+                //socket.broadcast.emit("user_connected", body["display_name"]);
             }
             // regardless, load the member list
             for(var userId in chatroom.users) {
@@ -41,8 +44,6 @@ class Chatroom {
             //this.io.emit("message_received", msgPayload['msg'], msgPayload['user']);
             socket.emit("message_received", msgPayload['msg'], msgPayload['user']);
         }
-
-
     }
 
     userDisconnected(socket)
