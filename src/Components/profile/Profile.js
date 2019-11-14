@@ -48,6 +48,11 @@ class Profile extends Component {
                 <Modal className="modalProf" show={this.props.showModalProfile} onHide={this.props.closeProfile} size="lg" 
                         aria-labelledby="contained-modal-title-vcenter" centered>
                     <Modal.Header className="modHeaderProf" closeButton>
+                    {this.state.loading ? (
+                            <p>Loading...</p>
+                        ) : (
+                            <img src={this.state.userJson.images[0].url} alt="Not Found" width="90vw" height="70vh"></img>
+                        )}
                     <Modal.Title className="modTitleProf">{this.state.display_name}</Modal.Title>
                         </Modal.Header>
                     <Modal.Body className="modBodyProf">
@@ -57,9 +62,14 @@ class Profile extends Component {
                         <ProfileDetail viewType={this.state.viewType} label="Location: " info="" />
                     </Modal.Body>
                     <Modal.Footer>
-                    <Button className="createBtnProf" variant="primary" onClick={this.props.showProfile}>
-                        Save Profile
+                    <Button className="createBtnCloseProf" variant="secondary" onClick={this.props.handleClose}>
+                        Close
                     </Button>
+                    {this.state.viewType === "display" ? (
+                            <Button className="createBtnProf" variant="primary" onClick={this.editProfile.bind(this)}>Edit Profile</Button>
+                        ) : (
+                            <Button className="createBtnProf" variant="primary" onClick={this.saveChanges.bind(this)}>Save Profile</Button>
+                        )}
                     </Modal.Footer>
                 </Modal>
             </>
