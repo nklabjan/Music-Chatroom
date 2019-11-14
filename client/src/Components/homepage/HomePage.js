@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import LandingPage from './LandingPage';
-import Header from './header';
 import '../../css/homepage/HomePage.css';
+import {Card, Button} from 'react-bootstrap';
 
 
 class HomePage extends Component {
@@ -19,19 +19,32 @@ class HomePage extends Component {
         return  (<LandingPage login={this.props.login}/>)
       }
       else {
-        return  ( <div>
-                    <button className="logout" onClick={this.props.logout}>Logout</button>
-                    <button className="profile" onClick={this.props.handleProfile}>View/Edit Your Profile</button>
-                    <button className="chatroom">Make New Chatroom</button>
-                    <button className="chat" onClick={this.props.handleChat}>Go To Chatroom</button>
-                  </div>)
-
+        return  (   <>
+                    <div className="homeTitle">Lounges</div>
+                    <div className="Chatrooms"> {
+                      this.props.chatRooms.map((chatname, idx) => {
+                        return (
+                          <Card className="createdChatRoom" key={idx}>
+                            <Card.Body>
+                              <Card.Title>Lounge Name</Card.Title>
+                              <Card.Subtitle className="mb-2 text-muted">Master: </Card.Subtitle>
+                              <Card.Text>
+                                This is the description the lounge master has set for this lounge.
+                              </Card.Text>
+                              <Button className="enterBtn" onClick={this.props.handleChat} variant="primary">Enter Lounge</Button>
+                            </Card.Body>
+                          </Card>
+                        )
+                      })
+                    }
+                    </div>
+                    </>
+                  );
       }
     }
 
     render() {
         return (<div className="HomePage">
-                  <Header />
                   <header className="Home-Page">
                     {this.renderPage()}
                   </header>

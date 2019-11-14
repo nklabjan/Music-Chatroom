@@ -1,13 +1,12 @@
 .chatDisplay {
-    position: absolute;
-    border-bottom-color: white;
-    border-right-color: white;
+    border-bottom-color: rgba(1, 1, 1, 1);
+    border-right-color: rgba(1, 1, 1, 1);
     border-right-style: solid;
     border-bottom-style: solid;
-    left: 25%;
-    height: 100%;
-    width: 50%;
+    width: 50vw;
+    height: 78vh;
     display: flex;
+    flex-direction: column;
 }
 
 .chatarea {
@@ -21,8 +20,15 @@
 }
 
 .message {
-    background-color: purple;
+    background-color: rgba(104, 82, 156, 1);
     border-radius: 15px;
     width: 100%;
     color: white;
+}
+
+.title {
+    font-size: 40px;
+    text-align: center;
+    width: 100%;
+    color: rgba(104, 82, 156, 1);
 }

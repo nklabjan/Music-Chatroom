@@ -1,23 +1,28 @@
-.modHeaderProf {
+.modHeader {
     height: 12vh;
 }
 
-.modTitleProf {
-    font-size: 60px;
+.modTitle {
+    width: 100%;
     color: rgba(104, 82, 156, 1);
-    margin-left: 5vw;
-    margin-top: 2vh;
 }
 
-.modBodyProf {
+.loungeMaster {
+    position: absolute;
+    display: flex;
+    top:7vh;
+    left:1.25vw;
+}
+
+.modBody {
     height: 50vh;
 }
 
-.createBtnCloseProf {
+.createBtnClose {
     background: rgba(49, 47, 54, 1) !important;
 }
 
-.createBtnProf {
+.createBtn {
     background: rgba(104, 82, 156, 1) !important;
 }
 

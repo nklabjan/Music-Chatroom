@@ -3,19 +3,24 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+      "start": "node ./bin/www",
+      "test": "nyc --reporter=text mocha"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jstransformer": "^1.0.0",
+    "mocha": "^6.2.2",
     "morgan": "~1.9.1",
+    "nyc": "^14.1.1",
     "pug": "^2.0.4",
     "request": "^2.88.0",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.3.0",
+    "supertest": "^4.0.2"
   },
   "devDependencies": {
     "dotenv": "^8.2.0"

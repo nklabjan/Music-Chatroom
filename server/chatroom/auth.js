@@ -5,11 +5,10 @@ function userConnected(socket) {
     console.log(socket);
 }
 
-function userDisconnected() {
-
+function userDisconnected(socket) {
     console.log('user has disconnected');
-
 }
+
 function chatMessage(io, message, auth_token) {
     var url = 'https://api.spotify.com/v1/me?access_token=' + auth_token;
     var username;
