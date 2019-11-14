@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import '../../css/profile/Profile.css';
 import ProfileDetail from './Detail';
+import {Modal, Button} from 'react-bootstrap';
 
 class Profile extends Component {
     constructor(props) {
@@ -44,29 +45,23 @@ class Profile extends Component {
         }
         return(
             <>
-                <div className="profileHeader">
-                    <div className="profileTitle">{this.state.display_name}</div>
-                </div>
-                <div className="profilePic">
-                    {this.state.loading ? (
-                        <p>Loading...</p>
-                    ) : (
-                        <img src={this.state.userJson.images[0].url} alt="Not Found"></img>
-                    )}
-                </div>
-                <div className="details">
-                    <ProfileDetail viewType={this.state.viewType} label="Username: " info=""/>
-                    <ProfileDetail viewType={this.state.viewType} label="About Me: " info=""/>
-                    <ProfileDetail viewType={this.state.viewType} label="Music Taste: " info=""/>
-                    <ProfileDetail viewType={this.state.viewType} label="Location: " info="" />
-                </div>
-                <div>
-                    {this.state.viewType === "display" ? (
-                        <button className="editButton" onClick={this.editProfile.bind(this)}>Edit Profile</button>
-                    ) : (
-                        <button className="editButton" onClick={this.saveChanges.bind(this)}>Save Changes</button>
-                    )}
-                </div>
+                <Modal className="modalProf" show={this.props.showModalProfile} onHide={this.props.closeProfile} size="lg" 
+                        aria-labelledby="contained-modal-title-vcenter" centered>
+                    <Modal.Header className="modHeaderProf" closeButton>
+                    <Modal.Title className="modTitleProf">{this.state.display_name}</Modal.Title>
+                        </Modal.Header>
+                    <Modal.Body className="modBodyProf">
+                        <ProfileDetail viewType={this.state.viewType} label="Username: " info=""/>
+                        <ProfileDetail viewType={this.state.viewType} label="About Me: " info=""/>
+                        <ProfileDetail viewType={this.state.viewType} label="Music Taste: " info=""/>
+                        <ProfileDetail viewType={this.state.viewType} label="Location: " info="" />
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <Button className="createBtnProf" variant="primary" onClick={this.props.showProfile}>
+                        Save Profile
+                    </Button>
+                    </Modal.Footer>
+                </Modal>
             </>
         );
     }
