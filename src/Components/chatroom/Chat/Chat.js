@@ -12,30 +12,29 @@ class Chat extends Component {
         messages: [] //format {user,msg} can add timestamp in the future
       }
       this.sendMessage = this.sendMessage.bind(this);
-      this.props.socket.emit('user_connected', this.getAuthToken());
   }
 
-    sendMessage() {
-        this.props.socket.emit('message_sent', document.getElementById('textarea').value, this.getAuthToken());
-    }
+  sendMessage() {
+      this.props.socket.emit('message_sent', document.getElementById('textarea').value, this.getAuthToken());
+  }
 
-    getAuthToken() {
-        let search = window.location.search;
-        let params = new URLSearchParams(search);
-        return params.get('access_token');
-    }
+  getAuthToken() {
+      let search = window.location.search;
+      let params = new URLSearchParams(search);
+      return params.get('access_token');
+  }
 
-    render() {
-        return (
-                <div className="chatDisplay">
-                <header className="chatroom-header">
-                    <div className="title"> Lounge </div>
-                </header>
-                        <ChatWindow messages={this.state.messages}/>
-                        <Messenger sendMessage={this.sendMessage}/>
-                </div>
-        )
-    }
+  render() {
+      return (
+              <div className="chatDisplay">
+              <header className="chatroom-header">
+                  <div className="title"> Lounge </div>
+              </header>
+                      <ChatWindow messages={this.state.messages}/>
+                      <Messenger sendMessage={this.sendMessage}/>
+              </div>
+      )
+  }
 }
 
 export default Chat;
