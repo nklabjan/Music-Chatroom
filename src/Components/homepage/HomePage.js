@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import LandingPage from './LandingPage';
 import '../../css/homepage/HomePage.css';
+import {Card, Button} from 'react-bootstrap';
 
 
 class HomePage extends Component {
@@ -23,7 +24,16 @@ class HomePage extends Component {
                     <div className="Chatrooms"> {
                       this.props.chatRooms.map((chatname, idx) => {
                         return (
-                          <button className="createdChatRoom" onClick={this.props.handleChat} key={idx}>{chatname}</button>
+                          <Card className="createdChatRoom" key={idx}>
+                            <Card.Body>
+                              <Card.Title>Lounge Name</Card.Title>
+                              <Card.Subtitle className="mb-2 text-muted">Master: </Card.Subtitle>
+                              <Card.Text>
+                                This is the description the lounge master has set for this lounge.
+                              </Card.Text>
+                              <Button className="enterBtn" variant="primary">Enter Lounge</Button>
+                            </Card.Body>
+                          </Card>
                         )
                       })
                     }
