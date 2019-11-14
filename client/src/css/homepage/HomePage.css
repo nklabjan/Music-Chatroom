@@ -57,10 +57,10 @@
     position: absolute;
     overflow-y: scroll;
     margin-left: 25vw;
-    margin-top: 10vw;
-    height: 30vw;
+    margin-top: 30vh;
+    height: 50vh;
     width: 50vw;
-    border-color: rgba(104, 82, 156, 1);
+    border-color: white;
     border-style: solid;
   }
 
@@ -70,3 +70,20 @@
     padding: 5px;
     border-radius: 15px;
   }
+
+  .homeTitle {
+    position: absolute;
+    text-align: center;
+    color: rgba(104, 82, 156, 1);
+    font-size: 80px;
+    height: 20vh;
+    width: 50vw;
+    margin-left: 25vw;
+    margin-top: 10vh;
+  }
+
+  .homeTitle:hover {
+    transition: all .2s ease-in-out;
+    transform: scale(1.2);
+  }
+
