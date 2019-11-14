@@ -16,7 +16,7 @@
     height: 50px;
     width: 100px;
     border-radius: 15px;
-    background-color: purple;
+    background-color: rgba(104, 82, 156, 1);
     color: white;
   }
 
@@ -27,7 +27,7 @@
     height: 50px;
     width: 150px;
     border-radius: 15px;
-    background-color: purple;
+    background-color: rgba(104, 82, 156, 1);
     color: white;
   }
 
@@ -38,7 +38,7 @@
     height: 50px;
     width: 150px;
     border-radius: 15px;
-    background-color: purple;
+    background-color: rgba(104, 82, 156, 1);
     color: white;
   }
 
@@ -49,7 +49,7 @@
     height: 50px;
     width: 150px;
     border-radius: 15px;
-    background-color: purple;
+    background-color: rgba(104, 82, 156, 1);
     color: white;
   }
 
@@ -60,7 +60,7 @@
     margin-top: 10vw;
     height: 30vw;
     width: 50vw;
-    border-color: purple;
+    border-color: rgba(104, 82, 156, 1);
     border-style: solid;
   }
 
