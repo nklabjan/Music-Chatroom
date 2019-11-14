@@ -18,7 +18,8 @@ class HomePage extends Component {
         return  (<LandingPage login={this.props.login}/>)
       }
       else {
-        return  (
+        return  (   <>
+                    <div className="homeTitle">Lounges</div>
                     <div className="Chatrooms"> {
                       this.props.chatRooms.map((chatname, idx) => {
                         return (
@@ -27,6 +28,7 @@ class HomePage extends Component {
                       })
                     }
                     </div>
+                    </>
                   );
       }
     }
