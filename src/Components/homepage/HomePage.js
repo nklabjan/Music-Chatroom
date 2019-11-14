@@ -31,7 +31,7 @@ class HomePage extends Component {
                               <Card.Text>
                                 This is the description the lounge master has set for this lounge.
                               </Card.Text>
-                              <Button className="enterBtn" variant="primary">Enter Lounge</Button>
+                              <Button className="enterBtn" onClick={this.props.handleChat} variant="primary">Enter Lounge</Button>
                             </Card.Body>
                           </Card>
                         )
