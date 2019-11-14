@@ -11,12 +11,15 @@ class Lounge extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             leaveChat: false,
-            displayProfile: false
+            displayProfile: false,
         }
+        this.id = this.props.loungeID
         this.socket = null;
         this.setUpSocket();
+
     }
 
     setUpSocket() {
@@ -50,9 +53,18 @@ class Lounge extends Component {
             //Handle removing users from list
 
         })
+
+        this.socket.on('new_room', function(user) {
+            console.log(user);
+            //Handle removing users from list
+
+        })
         this.forceUpdate();
     }
 
+    componentWillMount(){
+      this.socket.emit('user_connected', this.props.access_token, this.id);
+    }
     render() {
 
             return (
@@ -72,8 +84,8 @@ class Lounge extends Component {
         }
 
     componentWillUnmount(){
+      console.log(this.props.loungeID);
       this.socket.emit('user_disconnected', this.props.access_token);
-
     }
 }
 
