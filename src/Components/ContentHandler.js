@@ -5,7 +5,6 @@ import Profile from "./profile/Profile";
 import MakeChatRoom from "./makechatroom/makechatroom";
 import CadenceNavBar from './CadenceNavBar';
 import '../css/ContentHandler.css';
-
 import queryString from "query-string";
 var urls = require('../constants.js');
 
@@ -21,16 +20,19 @@ class ContentHandler extends Component {
         currDisplay: "home", //Chat,Profile,Home
         chatRooms: [],
         curr_lounge: null, //curr lounge is gonna keep track of
+        showModalChat: false,
+        showModalProfile: false
     }
-
     this.renderContent = this.renderContent.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.handleChat = this.handleChat.bind(this);
-    this.handleMakeChat = this.handleMakeChat.bind(this);
-    this.handleProfile = this.handleProfile.bind(this);
     this.handleHome = this.handleHome.bind(this);
-    this.saveChatRoom =this.saveChatRoom.bind(this);
+    this.saveChatRoom = this.saveChatRoom.bind(this);
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.showProfile = this.showProfile.bind(this);
+    this.closeProfile = this.closeProfile.bind(this);
   }
 
   logout() {
@@ -62,11 +64,23 @@ class ContentHandler extends Component {
     this.setState({currDisplay: "lounge"});
   }
 
-  handleProfile() {
+  showProfile() {
+    this.setState({showModalProfile: true});
     this.setState({currDisplay: "profile"});
   }
 
-  handleMakeChat() {
+  closeProfile() {
+    this.setState({showModalProfile: false});
+    this.setState({currDisplay: "home"});
+  }
+
+  handleClose() {
+    this.setState({showModalChat: false});
+    this.setState({currDisplay: "home"});
+  }
+
+  handleShow() {
+    this.setState({showModalChat: true});
     this.setState({currDisplay: "makeChat"});
   }
 
@@ -96,12 +110,17 @@ class ContentHandler extends Component {
     }
     else if(this.state.currDisplay === "profile") {
       return (<Profile access_token={this.state.access_token}
-                        handleHome={this.handleHome}/>);
+                        showProfile={this.showProfile}
+                        closeProfile={this.closeProfile}
+                        showModalProfile={this.state.showModalProfile}/>);
     }
     else if(this.state.currDisplay === "makeChat") {
       return (<MakeChatRoom access_token={this.state.access_token}
                             handleHome={this.handleHome}
-                            saveChatRoom={this.saveChatRoom}/>);
+                            saveChatRoom={this.saveChatRoom}
+                            handleShow={this.handleShow}
+                            handleClose={this.handleClose}
+                            showModalChat={this.state.showModalChat}/>);
     }
   }
 
@@ -113,10 +132,10 @@ class ContentHandler extends Component {
         <CadenceNavBar  scheme="CadenceNavBar"
                         logout={this.logout}
                         handleChat={this.handleChat}
-                        handleProfile={this.handleProfile}
-                        handleMakeChat={this.handleMakeChat}
+                        showProfile={this.showProfile}
                         handleHome={this.handleHome}
-                        currDisplay={this.state.currDisplay}/>
+                        currDisplay={this.state.currDisplay}
+                        handleShow={this.handleShow}/>
       )
     }
     else return (
