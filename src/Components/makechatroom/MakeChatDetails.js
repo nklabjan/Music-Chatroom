@@ -9,7 +9,7 @@ class MakeChatDetails extends Component {
                 <div className="makeChatDet">
                     <div className="makeChatLabel">{this.props.label}</div>
                     <div className="makeChatInfo">
-                            <textarea className="makeChatInput" cols="20" rows="2"></textarea>
+                            <textarea className="makeChatInput" cols="30" rows="4"></textarea>
                     </div>
                 </div>
             </>
