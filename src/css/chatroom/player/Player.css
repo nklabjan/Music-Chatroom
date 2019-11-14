@@ -3,7 +3,7 @@
     bottom: 0px;
     width: 100vw;
     height: 14vh;
-    background-color: black;
+    background-color: rgba(1, 1, 1, 1);
     color: white;
     display: flex;
     flex-direction: row;
@@ -70,7 +70,7 @@
 }
 
 .next {
-    background-color: purple;
+    background-color: rgba(104, 82, 156, 1);
     color: white;
     background-color: rgba(1, 1, 1, 0);
     border-color: rgba(1,1,1, 0);
