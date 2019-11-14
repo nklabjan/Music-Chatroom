@@ -30,8 +30,8 @@ class MakeChatroom extends Component {
     render() {
         return (
             <>
-                <Modal className="modal" show={this.props.showModal} onHide={this.props.handleClose} size="lg" 
-                        aria-labelledby="contained-modal-title-vcenter" centered background-color="purple">
+                <Modal className="modal" show={this.props.showModalChat} onHide={this.props.handleClose} size="lg" 
+                        aria-labelledby="contained-modal-title-vcenter" centered>
                     <Modal.Header className="modHeader" closeButton>
                     <Modal.Title className="modTitle">Create Your Own Lounge</Modal.Title>
                         <div className="loungeMaster">
