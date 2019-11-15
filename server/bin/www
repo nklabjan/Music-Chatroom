@@ -94,13 +94,13 @@ io.on('connection', function(socket) {
         }
     });
 
-    socket.on('play_music', function(access_token, deviceId, spotify_uri, loungeID) {
+    socket.on('play_song', function(access_token, deviceId, spotify_uri, loungeID) {
       if (chatrooms[loungeID] !== undefined)
       {
         chatrooms[loungeID].playSong(access_token, deviceId, spotify_uri);
       }
       else {
-        console.log("Music played in non-existing chatroom")
+        console.log("Music attempted to be played in non-existing chatroom")
       }
     });
 

@@ -23,12 +23,26 @@ class QueueDeck extends Component {
                                         artist={"Smash Mouth"}
                                         album={"Astro Lounge"}
                                         uri={"spotify:track:3cfOd4CMv2snFaKAnMdnvK"}
-                                        socket={this.socket}/>
+                                        socket={this.props.socket}
+                                        playSong={this.props.playSong}/>
                             <QueueCard  title={"Stacy's Mom"}
                                         artist={"Fountain of Wayne"}
                                         album={"Welcome interstate Manager"}
                                         uri={"spotify:track:27L8sESb3KR79asDUBu8nW"}
-                                        socket={this.socket}/>
+                                        socket={this.props.socket}
+                                        playSong={this.props.playSong}/>
+                            <QueueCard  title={"In My Room"}
+                                        artist={"Frank Ocean"}
+                                        album={"In My Room"}
+                                        uri={"spotify:track:4S4Mfvv03M1cHgIOJcbUCL"}
+                                        socket={this.props.socket}
+                                        playSong={this.props.playSong}/>
+                            <QueueCard  title={"The Other Side of Paradise"}
+                                        artist={"Glass Animals"}
+                                        album={"How To Be a Human Being"}
+                                        uri={"spotify:track:0rRjGruFonCGOt0S5zAJNQ"}
+                                        socket={this.props.socket}
+                                        playSong={this.props.playSong}/>
                         </tbody>
                       </Table>
                 </div>

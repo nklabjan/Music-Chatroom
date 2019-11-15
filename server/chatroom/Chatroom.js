@@ -28,7 +28,7 @@ class Chatroom {
         var io = this.io;
         this.request(url, function(error, response, body) {
             body = JSON.parse(body);
-            console.log(chatroom.users[socket] !== undefined);
+            //console.log(chatroom.users[socket] !== undefined);
             // if this is a socket we haven't seen before, add it to the user list
             // and emit a join message to everyone else
             if (chatroom.users[socket.id] === undefined) {
@@ -58,14 +58,14 @@ class Chatroom {
       for( var key in this.users ) {
           //var value = this.users[key];
         }
-      console.log("Users left in lounge:" + Object.keys(this.users).length
-)
+      console.log("Users left in lounge:" + Object.keys(this.users).length)
 
     }
 
     playSong(accessToken, deviceId, spotifyURI)
     {
-        const options = {
+      console.log("Attempting to play " + spotifyURI)
+      const options = {
         url: 'https://api.spotify.com/v1/me/player/play?device_id=' + deviceId,
         body: JSON.stringify({ uris: [spotifyURI] }),
         headers: {
@@ -74,13 +74,16 @@ class Chatroom {
         },
       };
 
-          this.request.put(options, function(error, response, body) {
-              // song_uri = body.display_name;
-              // body=JSON.parse(body);
-              // io.emit("play_song", message, body["display_name"]);
-              console.log("Playing lost kings")
-          })
+      this.io.to(this.id).emit("play_song", spotifyURI);
 
+      this.request.put(options, function(error, response, body) {
+          // song_uri = body.display_name;
+          // body=JSON.parse(body);
+          // io.emit("play_song", message, body["display_name"]);
+          console.log(response.body);
+          //console.log(body);
+          //have everyone play this song on their devices too
+      })
     }
 
     chatMessage(socket, message) {
