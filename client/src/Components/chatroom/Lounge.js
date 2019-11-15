@@ -71,7 +71,7 @@ class Lounge extends Component {
 
                     <div className="loungeContainer">
                         <Queue socket={this.socket}/>
-                        <Chat socket={this.socket}/>
+                        <Chat socket={this.socket} loungeID={this.id}/>
                         <UserList />
                     </div>
                     <Player access_token={this.props.access_token}

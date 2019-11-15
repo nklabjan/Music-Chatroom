@@ -90,7 +90,7 @@ io.on('connection', function(socket) {
           chatrooms[loungeID].chatMessage(socket, msg);
         }
         else {
-          console.log("Chatroom does not exist")
+          console.log("Message sent in non-existing chatroom")
         }
     });
 
@@ -100,7 +100,7 @@ io.on('connection', function(socket) {
         chatrooms[loungeID].playSong(access_token, deviceId, spotify_uri);
       }
       else {
-        console.log("Chatroom does not exist")
+        console.log("Music played in non-existing chatroom")
       }
     });
 
