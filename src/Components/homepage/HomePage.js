@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import LandingPage from './LandingPage';
 import '../../css/homepage/HomePage.css';
+import {Card, Button} from 'react-bootstrap';
 
 
 class HomePage extends Component {
@@ -28,17 +29,26 @@ class HomePage extends Component {
         return  (<LandingPage login={this.props.login}/>)
       }
       else {
-        return  (
+        return  (   <>
+                    <div className="homeTitle">Lounges</div>
                     <div className="Chatrooms"> {
                       this.props.chatRooms.map((chatroom, idx) => {
                         return (
-                          <button className="createdChatRoom" onClick={()=> this.joinRoom(chatroom.id)} key={idx}>
-                            Room {chatroom.id} by {chatroom.loungeMaster}
-                          </button>
+                          <Card className="createdChatRoom" key={idx}>
+                            <Card.Body>
+                              <Card.Title>Lounge Name</Card.Title>
+                              <Card.Subtitle className="mb-2 text-muted">Master: </Card.Subtitle>
+                              <Card.Text>
+                                This is the description the lounge master has set for this lounge.
+                              </Card.Text>
+                              <Button className="enterBtn" onClick={()=> this.joinRoom(chatroom.id)} variant="primary">Enter Lounge</Button>
+                            </Card.Body>
+                          </Card>
                         )
                       })
                     }
                     </div>
+                    </>
                   );
       }
     }

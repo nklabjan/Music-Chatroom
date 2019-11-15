@@ -62,8 +62,8 @@ class Profile extends Component {
                         <ProfileDetail viewType={this.state.viewType} label="Location: " info="" />
                     </Modal.Body>
                     <Modal.Footer>
-                    <Button className="createBtnCloseProf" variant="secondary" onClick={this.props.handleClose}>
-                        Cancel
+                    <Button className="createBtnCloseProf" variant="secondary" onClick={this.props.closeProfile}>
+                        Close
                     </Button>
                     {this.state.viewType === "display" ? (
                             <Button className="createBtnProf" variant="primary" onClick={this.editProfile.bind(this)}>Edit Profile</Button>
