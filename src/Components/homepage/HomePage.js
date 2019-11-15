@@ -37,7 +37,7 @@ class HomePage extends Component {
                           <Card className="createdChatRoom" key={idx}>
                             <Card.Body>
                               <Card.Title>Lounge Name</Card.Title>
-                              <Card.Subtitle className="mb-2 text-muted">Master: </Card.Subtitle>
+                              <Card.Subtitle className="mb-2 text-muted">Master: {chatroom.loungeMaster} </Card.Subtitle>
                               <Card.Text>
                                 This is the description the lounge master has set for this lounge.
                               </Card.Text>
