@@ -1,18 +1,19 @@
 class Chatroom {
-    constructor(io, id, loungeMaster) {
+    constructor(io, id, loungeInfo) {
         this.request = require('request');
         this.io = io;
         this.id = id; //Chatroom unique ID
         // cache of sockets against user info
+        this.name = loungeInfo.name;
+        this.loungeMasterName = loungeInfo.loungeMasterName;
+        this.loungeMasterID = loungeInfo.loungeMasterID;
+        this.desc = loungeInfo.desc;
+        this.genres = loungeInfo.genres;
         this.users = {};
         this.messageList = [];
-        this.loungeMaster = loungeMaster;
-        this.desc = "";
-
         this.queue = []; //Queue of songs
         this.currentSong = null;
         this.history = [];
-
     }
 
     loadMockQueue() {
@@ -91,9 +92,11 @@ class Chatroom {
     minimalInfo() {
       //return id, loungeMaster, numUsers, currSong, description
       var info = {id: this.id,
-                  loungeMaster: this.loungeMaster,
+                  name: this.name,
+                  loungeMasterName: this.loungeMasterName,
                   numUsers: Object.keys(this.users).length,
                   currSong: this.currSong,
+                  genres: this.genres,
                   desc: this.desc};
       return info;
     }

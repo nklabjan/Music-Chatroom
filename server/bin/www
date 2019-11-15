@@ -32,19 +32,27 @@ app.set('port', port);
 var server = http.createServer(app);
 
 var io = require('socket.io')(server);
-var master_chatroom = new Chatroom.Chatroom(io, 0, "admin");
+app.locals.io = io;
+var fake_news = { loungeMasterName: "admin",
+                  loungeMasterID: "admin",
+                  name: "test room",
+                  desc: "this is random crap that i'm writing",
+                  genres: "toddler rock"
+                  }
+var master_chatroom = new Chatroom.Chatroom(io, 0, fake_news);
 
 //Store client information
 var chatrooms = app.locals.chatrooms; //So that it can be accessed by other ports
 //app.locals.chatrooms keeps track of all the chatrooms
 chatrooms[0] = master_chatroom;
 
-var idCounter = 1;
+var idCounter = app.locals.idCounter;
 
 io.on('connection', function(socket) {
 
     //Handle create lounge in here too
     socket.on('user_connected', function(accessToken, loungeID) {
+      //TODO: REMOVE THIS SHIT
       if (loungeID == null)
       {
         //use chatrooms.length for the id and append to the list

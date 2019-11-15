@@ -4,6 +4,8 @@ var router = express.Router();
 //Retrieves env variables from .env file
 //var dotenv = require('dotenv').config();
 var urls = require('../constants.js');
+var Chatroom = require('../chatroom/Chatroom.js')
+
 
 var my_client_id = process.env.CLIENT_APP_ID;
 var redirect_uri = urls.backend_url + '/auth/';
@@ -62,4 +64,20 @@ router.get('/auth', function(req, res) {
 
     res.json({lounges: lounges})
     });
+
+  router.post('/createLounge', function(req,res) {
+    //use chatrooms.length for the id and append to the list
+    var new_id = req.app.locals.idCounter;
+    var request = req.body
+    var new_chatroom = new Chatroom.Chatroom(req.app.locals.io, new_id, request);
+
+    req.app.locals.chatrooms[new_id] = new_chatroom;
+
+    //Only increment when new chatroom is created
+    req.app.locals.idCounter++;
+    console.log("new room created");
+
+    res.json({lounge_info: new_chatroom.minimalInfo()})
+
+  })
 module.exports = router;

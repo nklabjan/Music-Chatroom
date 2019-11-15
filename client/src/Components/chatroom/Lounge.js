@@ -59,7 +59,6 @@ class Lounge extends Component {
             //Handle removing users from list
 
         })
-        this.forceUpdate();
     }
 
     componentWillMount(){

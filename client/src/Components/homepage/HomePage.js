@@ -36,10 +36,11 @@ class HomePage extends Component {
                         return (
                           <Card className="createdChatRoom" key={idx}>
                             <Card.Body>
-                              <Card.Title>Lounge Name</Card.Title>
-                              <Card.Subtitle className="mb-2 text-muted">Master: {chatroom.loungeMaster} </Card.Subtitle>
+                              <Card.Title>{chatroom.name}</Card.Title>
+                              <Card.Subtitle className="mb-2 text-muted">Master: {chatroom.loungeMasterName} </Card.Subtitle>
                               <Card.Text>
-                                This is the description the lounge master has set for this lounge.
+                                <div className="loungeDesc"> {chatroom.desc} </div>
+                                <div className="loungeGenres"> {"Genre(s): " + chatroom.genres} </div>
                               </Card.Text>
                               <Button className="enterBtn" onClick={()=> this.joinRoom(chatroom.id)} variant="primary">Enter Lounge</Button>
                             </Card.Body>
