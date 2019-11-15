@@ -84,7 +84,7 @@ class Chatroom {
 
     chatMessage(socket, message) {
         this.messageList.push({'user': this.users[socket.id], 'msg' : message });
-        this.io.emit("message_received", message, this.users[socket.id]);
+        this.io.to(this.id).emit("message_received", message, this.users[socket.id]);
     }
 
     //user this function to get limited info on the chatroom
