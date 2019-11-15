@@ -29,7 +29,7 @@ class Profile extends Component {
                         aria-labelledby="contained-modal-title-vcenter" centered>
                     <Modal.Header className="modHeaderProf" closeButton>
                             <img src={this.props.userInfo.images[0].url} alt="Not Found" width="90vw" height="70vh"></img>
-                    <Modal.Title className="modTitleProf">{this.props.userInfo.display_name}</Modal.Title>
+                    <Modal.Title className="modTitleProf">{this.props.userInfo.display_name}'s Profile</Modal.Title>
                         </Modal.Header>
                     <Modal.Body className="modBodyProf">
                         <ProfileDetail viewType={this.state.viewType} label="Username: " info=""/>
