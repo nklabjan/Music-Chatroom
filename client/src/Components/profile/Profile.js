@@ -11,23 +11,6 @@ class Profile extends Component {
         }
     }
 
-    // async componentDidMount() {
-    //     const response = await fetch('https://api.spotify.com/v1/me', {
-    //     method: "GET",
-    //     headers: {
-    //         authorization: `Bearer ${this.props.access_token}`,
-    //         },
-    //     });
-    //     const myJson = await response.json();
-    //     console.log("MyJson: ", myJson);
-    //     var displayName = myJson.display_name + "'s Profile"
-    //     this.setState({
-    //         userJson: myJson,
-    //         display_name: displayName,
-    //         loading: false,
-    //     });
-    // }
-
     editProfile() {
         this.setState({viewType: "edit"});
     }
@@ -42,7 +25,7 @@ class Profile extends Component {
         }
         return(
             <>
-                <Modal className="modalProf" show={this.props.showModalProfile} onHide={this.props.handleClose} size="lg"
+                <Modal className="modalProf" show={this.props.showModalProfile} onHide={this.props.profileClose} size="lg"
                         aria-labelledby="contained-modal-title-vcenter" centered>
                     <Modal.Header className="modHeaderProf" closeButton>
                             <img src={this.props.userInfo.images[0].url} alt="Not Found" width="90vw" height="70vh"></img>
@@ -55,7 +38,7 @@ class Profile extends Component {
                         <ProfileDetail viewType={this.state.viewType} label="Location: " info="" />
                     </Modal.Body>
                     <Modal.Footer>
-                    <Button className="createBtnCloseProf" variant="secondary" onClick={this.props.closeProfile}>
+                    <Button className="createBtnCloseProf" variant="secondary" onClick={this.props.profileClose}>
                         Close
                     </Button>
                     {this.state.viewType === "display" ? (
