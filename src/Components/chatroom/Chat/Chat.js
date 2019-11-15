@@ -15,7 +15,10 @@ class Chat extends Component {
   }
 
   sendMessage() {
-      this.props.socket.emit('message_sent', document.getElementById('textarea').value, this.getAuthToken());
+      this.props.socket.emit('message_sent',
+                              document.getElementById('textarea').value,
+                              this.getAuthToken(),
+                              this.props.loungeID);
   }
 
   getAuthToken() {
