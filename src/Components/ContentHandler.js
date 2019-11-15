@@ -156,7 +156,8 @@ class ContentHandler extends Component {
                         joinChatRoom = {this.joinChatRoom}
                         handleProfile={this.handleProfile}
                         handleMakeChat={this.handleMakeChat}
-                        getLounges={this.getLounges}/>);
+                        getLounges={this.getLounges}
+                        access_token={this.state.access_token}/>);
     }
     else if(this.state.currDisplay === "lounge"){
       return (<Lounge access_token={this.state.access_token}
