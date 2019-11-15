@@ -10,7 +10,8 @@ class HomePage extends Component {
         super(props);
         this.state = {
             leaveChat: false,
-            displayProfile: false
+            displayProfile: false,
+            display_name: ""
         }
         this.joinRoom = this.joinRoom.bind(this);
     }
@@ -24,6 +25,22 @@ class HomePage extends Component {
     componentWillMount(){
       this.props.getLounges();
     }
+
+    async componentDidMount() {
+      const response = await fetch('https://api.spotify.com/v1/me', {
+      method: "GET",
+      headers: {
+          authorization: `Bearer ${this.props.access_token}`,
+          },
+      });
+      const myJson = await response.json();
+      console.log("MyJson: ", myJson);
+      var displayName = myJson.display_name;
+      this.setState({
+          display_name: displayName
+      });
+  }
+
     renderPage(){
       if(this.props.loggedInStatus === false) {
         return  (<LandingPage login={this.props.login}/>)
