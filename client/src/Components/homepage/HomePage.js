@@ -54,10 +54,12 @@ class HomePage extends Component {
                           <Card className="createdChatRoom" key={idx}>
                             <Card.Body>
                               <Card.Title>{chatroom.name}</Card.Title>
-                              <Card.Subtitle className="mb-2 text-muted">Master: {chatroom.loungeMasterName} </Card.Subtitle>
-                              <Card.Text>
-                                <div className="loungeDesc"> {chatroom.desc} </div>
+                              <Card.Subtitle className="mb-2 text-muted">
+                                Master: {chatroom.loungeMasterName} 
                                 <div className="loungeGenres"> {"Genre(s): " + chatroom.genres} </div>
+                              </Card.Subtitle>
+                              <Card.Text className="cardText">
+                                <div className="loungeDesc"> {chatroom.desc} </div>
                               </Card.Text>
                               <Button className="enterBtn" onClick={()=> this.joinRoom(chatroom.id)} variant="primary">Enter Lounge</Button>
                             </Card.Body>

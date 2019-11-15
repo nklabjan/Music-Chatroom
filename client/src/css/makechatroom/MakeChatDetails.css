@@ -3,6 +3,15 @@
     height: 25%;
 }
 
+.testing {
+    position: absolute;
+    border-color: green;
+    border-style: solid;
+    height: 40px;
+    width: 50%;
+    color:purple;
+}
+
 .makeChatLabel {
     margin-top: 7%;
     margin-left: 10%;
