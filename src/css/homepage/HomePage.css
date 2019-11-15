@@ -68,7 +68,9 @@
   .createdChatRoom {
     width: 25%;
     height: 50%;
-    border-radius: 15px;
+    border-radius: 15px !important;
+    border-style: solid !important;
+    border-color: black !important;
   }
 
   .homeTitle {
@@ -87,7 +89,12 @@
     transform: scale(1.2);
   }
 
+  .cardText {
+    height: 15vh;
+  }
+
   .enterBtn {
+    margin-left: 25%;
     background-color: rgba(104, 82, 156, 1) !important;
   }
 
