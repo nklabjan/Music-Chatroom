@@ -22,8 +22,10 @@ class ContentHandler extends Component {
         chatRooms: [],
         curr_lounge: null, //curr lounge is gonna keep track of
         showModalChat: false,
-        showModalProfile: false
+        showModalProfile: false,
+        userInfo: null
     }
+
     this.renderContent = this.renderContent.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
@@ -49,16 +51,26 @@ class ContentHandler extends Component {
     window.location = urls.backend_url + '/login';
   }
 
-  saveChatRoom() {
-    var new_chatroom = "Chat";
+  saveChatRoom(name,desc, genres) {
     //TODO: Probably not update the rooms on clientside this way
     //this.setState({chatRooms: [...this.state.chatRooms, new_chatroom]});
     // if curr_lounge is null -> create new chatroom when get into lounge
-    this.setState({curr_lounge: null})
-    this.setState({currDisplay: "lounge"});
-    //Save Chatroom should create an instance of Chatroom on the serverside
     //newInstance = {name,loungeMaster, ID, numUsers} (ID is obtained from the backend )
     // this.setState({chatRooms: [...this.state.chatRooms, newInstance]})
+
+    axios.post(urls.backend_url + '/createLounge', {"name": name,
+                                                    "loungeMasterName": this.state.userInfo.display_name,
+                                                    "loungeMasterID": this.state.userInfo.id,
+                                                    "desc": desc,
+                                                    "genres": genres,
+                                                    })
+      .then(res => {
+        console.log(res.data)
+        var lounge_info = res.data.lounge_info
+        //Handle lounge information
+        this.setState({curr_lounge: lounge_info.id})
+        this.setState({currDisplay: "lounge"});
+      })
   }
 
   joinChatRoom(chatroom_id) {
@@ -119,6 +131,21 @@ class ContentHandler extends Component {
     }
   }
 
+  async componentDidMount() {
+      const response = await fetch('https://api.spotify.com/v1/me', {
+      method: "GET",
+      headers: {
+          authorization: `Bearer ${this.state.access_token}`,
+          },
+      });
+      const myJson = await response.json();
+      console.log("MyJson: ", myJson);
+      //set state with user info
+      this.setState({
+        userInfo: myJson
+      });
+  }
+
   renderContent() {
     if(this.state.currDisplay === "home") {
       return (<HomePage loggedInStatus={this.state.loggedInStatus}
@@ -141,7 +168,8 @@ class ContentHandler extends Component {
       return (<Profile access_token={this.state.access_token}
                         showProfile={this.showProfile}
                         handleClose={this.closeProfile}
-                        showModalProfile={this.state.showModalProfile}/>);
+                        showModalProfile={this.state.showModalProfile}
+                        userInfo={this.state.userInfo}/>);
     }
     else if(this.state.currDisplay === "makeChat") {
       return (<MakeChatRoom access_token={this.state.access_token}
@@ -149,7 +177,8 @@ class ContentHandler extends Component {
                             saveChatRoom={this.saveChatRoom}
                             handleShow={this.handleShow}
                             handleClose={this.handleClose}
-                            showModalChat={this.state.showModalChat}/>);
+                            showModalChat={this.state.showModalChat}
+                            userInfo={this.state.userInfo}/>);
     }
   }
 

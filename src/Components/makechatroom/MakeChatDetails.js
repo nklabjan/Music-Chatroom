@@ -7,9 +7,12 @@ class MakeChatDetails extends Component {
         return (
             <>
                 <div className="makeChatDet">
-                    <div className="makeChatLabel">{this.props.label}</div>
+                    <div className="makeChatLabel">{this.props.display + ":"}</div>
                     <div className="makeChatInfo">
-                            <textarea className="makeChatInput" cols="30" rows="4"></textarea>
+                            <textarea className="makeChatInput"
+                                      id={this.props.label}
+                                      cols="30"
+                                      rows="4"></textarea>
                     </div>
                 </div>
             </>
