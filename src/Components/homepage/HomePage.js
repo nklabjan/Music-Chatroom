@@ -51,16 +51,22 @@ class HomePage extends Component {
                     <div className="Chatrooms"> {
                       this.props.chatRooms.map((chatroom, idx) => {
                         return (
-                          <Card className="createdChatRoom" key={idx}>
-                            <Card.Body>
+                          <Card className="createdChatRoom" key={idx} bg="dark" text="white">
+                            <Card.Header>
                               <Card.Title>{chatroom.name}</Card.Title>
-                              <Card.Subtitle className="mb-2 text-muted">Master: {chatroom.loungeMasterName} </Card.Subtitle>
-                              <Card.Text>
-                                <div className="loungeDesc"> {chatroom.desc} </div>
-                                <div className="loungeGenres"> {"Genre(s): " + chatroom.genres} </div>
-                              </Card.Text>
-                              <Button className="enterBtn" onClick={()=> this.joinRoom(chatroom.id)} variant="primary">Enter Lounge</Button>
+                            </Card.Header>
+                            <Card.Body>
+                                <Card.Subtitle className="mb-2 text-muted">Master: {chatroom.loungeMasterName} </Card.Subtitle>
+                                <Card.Text>
+                                  <div className="loungeDesc"> {chatroom.desc} </div>
+                                  <div className="loungeGenres"> {"Genre(s): " + chatroom.genres} </div>
+                                </Card.Text>
                             </Card.Body>
+                            <Card.Footer>
+                              <Button className="enterBtn" onClick={()=> this.joinRoom(chatroom.id)} variant="primary">
+                                Enter Lounge
+                              </Button>
+                            </Card.Footer>
                           </Card>
                         )
                       })

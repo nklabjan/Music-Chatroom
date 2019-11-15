@@ -15,10 +15,13 @@ class Lounge extends Component {
         this.state = {
             leaveChat: false,
             displayProfile: false,
+            deviceId: null,
         }
         this.id = this.props.loungeID
         this.socket = null;
+        this.playSong = this.playSong.bind(this);
         this.setUpSocket();
+        this.setDeviceId = this.setDeviceId.bind(this);
 
     }
 
@@ -59,6 +62,42 @@ class Lounge extends Component {
             //Handle removing users from list
 
         })
+
+        this.socket.on('play_song', function(song_uri) {
+            console.log("Room is now playing " + song_uri);
+            //Handle removing users from list
+            
+            fetch('https://api.spotify.com/v1/me/player/play?device_id=' + this.state.deviceId, {
+              method: "PUT",
+              headers: {
+                authorization: `Bearer ${this.props.access_token}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                "device_ids": [ this.state.deviceId ],
+                "play": true,
+              }),
+            });
+
+        })
+    }
+
+    setDeviceId(device_id){
+      this.setState({deviceId: device_id});
+    }
+
+    playSong(song_uri) {
+    //Sends device ID and Access token to backend to play music
+    //through socket
+    //Hardcode to play "spotify:track:5bvNpG6wiIEf1PA13TkTu2" for now
+    //console.log(this.props)
+    //let song = this.props.uri;
+    console.log(this.state);
+    this.socket.emit( 'play_song',
+                      this.props.access_token,
+                      this.state.deviceId,
+                      song_uri,
+                      this.id)
     }
 
     componentWillMount(){
@@ -70,13 +109,15 @@ class Lounge extends Component {
                 <div className="lounge">
 
                     <div className="loungeContainer">
-                        <Queue socket={this.socket}/>
+                        <Queue socket={this.socket} playSong={this.playSong} />
                         <Chat socket={this.socket} loungeID={this.id}/>
                         <UserList />
                     </div>
                     <Player access_token={this.props.access_token}
                             socket={this.socket}
-                            handleHome={this.props.handleHome}/>
+                            handleHome={this.props.handleHome}
+                            setDeviceId={this.setDeviceId}
+                            />
 
                 </div>
             )
