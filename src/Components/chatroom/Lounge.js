@@ -85,7 +85,7 @@ class Lounge extends Component {
 
     componentWillUnmount(){
       console.log(this.props.loungeID);
-      this.socket.emit('user_disconnected', this.props.access_token);
+      this.socket.emit('user_disconnected', this.props.access_token, this.id);
     }
 }
 
