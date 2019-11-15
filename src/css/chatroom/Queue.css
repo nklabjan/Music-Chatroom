@@ -14,11 +14,12 @@
     text-align: center;
     width: 100%;
     color: #83599c;
+    height: 7vh;
 }
 
 .queueTable {
     position: relative;
-    width: 100%;
+    width: 25vw;
     height: 50%;
     color: white;
     font-size: 15px;
