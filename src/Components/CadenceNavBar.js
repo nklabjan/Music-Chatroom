@@ -1,7 +1,25 @@
 import React, {Component} from "react";
 import {Navbar, Nav, Button} from 'react-bootstrap';
-
+import Profile from "./profile/Profile";
 class CadenceNavBar extends Component {
+
+    constructor(props) {
+      super(props);
+      this.state = {
+        showModalProfile: false
+      };
+
+      this.profileRender = this.profileRender.bind(this);
+      this.profileClose = this.profileClose.bind(this);
+    }
+
+    profileRender() {
+      this.setState({showModalProfile: true});
+    }
+
+    profileClose() {
+      this.setState({showModalProfile: false});
+    }
 
     //Include selective rendering for content
     selectivelyRender(){
@@ -28,7 +46,7 @@ class CadenceNavBar extends Component {
           <Nav.Link onClick={this.props.handleHome}>Home</Nav.Link>
            : <></>}
            
-          <Nav.Link onClick={this.props.showProfile}>Profile</Nav.Link>
+          <Nav.Link onClick={() => this.profileRender()}>Profile</Nav.Link>
           {this.props.currDisplay === "lounge" ? <Nav.Link onClick={this.props.handleHome}>Leave Lounge</Nav.Link> :
                   <Nav.Link onClick={this.props.handleShow}>Make Lounge</Nav.Link>}
         </Nav>
@@ -44,7 +62,11 @@ class CadenceNavBar extends Component {
 
     render() {
         return  (<div >
-          {this.selectivelyRender()}
+              {this.selectivelyRender()}
+              {this.state.showModalProfile === true ? <Profile access_token={this.props.access_token}
+                userInfo={this.props.userInfo}
+                showModalProfile={this.state.showModalProfile}
+                profileClose={() => this.profileClose()}/> : <></>}
           </div>)
       }
 
