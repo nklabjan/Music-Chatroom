@@ -33,13 +33,14 @@ class Chatroom {
             // and emit a join message to everyone else
             if (chatroom.users[socket.id] === undefined) {
                 chatroom.users[socket.id] = body["display_name"];
-                io.to(this.id).emit("user_connected", body["display_name"]);
+                io.to(chatroom.id).emit("user_connected", body["display_name"]);
 
                 //socket.broadcast.emit("user_connected", body["display_name"]);
             }
             // regardless, load the member list
             for(var userId in chatroom.users) {
-                socket.emit("user_connected", chatroom.users[userId]);
+              //console.log("it does this")
+                //socket.emit("user_connected", chatroom.users[userId]);
             }
 
         })
@@ -64,6 +65,8 @@ class Chatroom {
 
     playSong(accessToken, deviceId, spotifyURI)
     {
+      var chatroom = this; // alias this as chatroom so it can be referenced in async call
+      var io = this.io
       console.log("Attempting to play " + spotifyURI)
       const options = {
         url: 'https://api.spotify.com/v1/me/player/play?device_id=' + deviceId,
@@ -74,21 +77,24 @@ class Chatroom {
         },
       };
 
+      console.log(chatroom.id)
       this.io.to(this.id).emit("play_song", spotifyURI);
 
       this.request.put(options, function(error, response, body) {
           // song_uri = body.display_name;
           // body=JSON.parse(body);
-          // io.emit("play_song", message, body["display_name"]);
-          console.log(response.body);
+          //console.log(response.body);
           //console.log(body);
           //have everyone play this song on their devices too
+          //io.to(chatroom.id).emit("play_song", spotifyURI);
+
       })
     }
 
     chatMessage(socket, message) {
         this.messageList.push({'user': this.users[socket.id], 'msg' : message });
         this.io.to(this.id).emit("message_received", message, this.users[socket.id]);
+        console.log(this.id)
     }
 
     //user this function to get limited info on the chatroom

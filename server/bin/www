@@ -64,10 +64,12 @@ io.on('connection', function(socket) {
         //Only increment when new chatroom is created
         idCounter++;
         chatrooms[new_id].userConnected(socket, accessToken);
-        console.log("new room created");
+        //handle error
+        console.log("room does not exist.");
       }
       else
       {
+        socket.join(loungeID)
         chatrooms[loungeID].userConnected(socket,accessToken);
         console.log("existing room joined");
 
