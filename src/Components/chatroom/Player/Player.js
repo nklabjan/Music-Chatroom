@@ -4,7 +4,7 @@ import VolumeSlider from './VolumeSlider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlayCircle, faPauseCircle, faTimesCircle} from '@fortawesome/free-regular-svg-icons'
 import { faStepForward, faStepBackward,faMusic,
-        faPlusCircle, faVolumeUp, faVolumeMute} from '@fortawesome/free-solid-svg-icons'
+        faPlusCircle, faVolumeUp} from '@fortawesome/free-solid-svg-icons'
 
 
 import '../../../css/chatroom/player/Player.css'

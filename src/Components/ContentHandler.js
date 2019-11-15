@@ -163,6 +163,7 @@ class ContentHandler extends Component {
       return (<Lounge access_token={this.state.access_token}
                       handleHome={this.handleHome}
                       loungeID={this.state.curr_lounge}
+                      userInfo={this.state.userInfo}
                       />);
     }
     else if(this.state.currDisplay === "profile") {

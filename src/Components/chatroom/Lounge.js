@@ -25,8 +25,10 @@ class Lounge extends Component {
 
     }
 
-    setUpSocket() {
+    async setUpSocket() {
         this.socket = io(urls.backend_url);
+        var lounge = this;
+
         this.socket.on('message_received', function(msg, user) {
 
           var message_div = document.createElement("div");
@@ -40,6 +42,7 @@ class Lounge extends Component {
           //add ChatBubble to ChatList whenever there's new message
           // console.log(this.state.messages)
           //this.setState({messages: [...this.state.messages, {user:user,message:msg}]})
+          console.log("received a message from server")
         })
 
         this.socket.on('user_connected', function(user) {
@@ -57,26 +60,17 @@ class Lounge extends Component {
 
         })
 
-        this.socket.on('new_room', function(user) {
-            console.log(user);
-            //Handle removing users from list
-
-        })
-
         this.socket.on('play_song', function(song_uri) {
             console.log("Room is now playing " + song_uri);
             //Handle removing users from list
-            
-            fetch('https://api.spotify.com/v1/me/player/play?device_id=' + this.state.deviceId, {
+
+            fetch('https://api.spotify.com/v1/me/player/play?device_id=' + lounge.state.deviceId, {
               method: "PUT",
               headers: {
-                authorization: `Bearer ${this.props.access_token}`,
+                authorization: `Bearer ${lounge.props.access_token}`,
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({
-                "device_ids": [ this.state.deviceId ],
-                "play": true,
-              }),
+              body: JSON.stringify({ uris: [song_uri] }),
             });
 
         })
@@ -92,7 +86,6 @@ class Lounge extends Component {
     //Hardcode to play "spotify:track:5bvNpG6wiIEf1PA13TkTu2" for now
     //console.log(this.props)
     //let song = this.props.uri;
-    console.log(this.state);
     this.socket.emit( 'play_song',
                       this.props.access_token,
                       this.state.deviceId,
