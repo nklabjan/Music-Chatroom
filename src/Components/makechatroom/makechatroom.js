@@ -22,7 +22,7 @@ class MakeChatroom extends Component {
         const myJson = await response.json();
         console.log("MyJson: ", myJson);
         var displayName = myJson.display_name;
-        this.setState({ 
+        this.setState({
             display_name: displayName
         });
     }
@@ -30,7 +30,7 @@ class MakeChatroom extends Component {
     render() {
         return (
             <>
-                <Modal className="modal" show={this.props.showModalChat} onHide={this.props.handleClose} size="lg" 
+                <Modal className="modal" show={this.props.showModalChat} onHide={this.props.handleClose} size="lg"
                         aria-labelledby="contained-modal-title-vcenter" centered>
                     <Modal.Header className="modHeader" closeButton>
                     <Modal.Title className="modTitle">Create Your Own Lounge</Modal.Title>
@@ -46,7 +46,7 @@ class MakeChatroom extends Component {
                     </Modal.Body>
                     <Modal.Footer>
                     <Button className="createBtnClose" variant="secondary" onClick={this.props.handleClose}>
-                        Close
+                        Cancel
                     </Button>
                     <Button className="createBtn" variant="primary" onClick={this.props.saveChatRoom}>
                         Create Lounge
