@@ -4,6 +4,13 @@ import {Form} from 'react-bootstrap';
 
 class MakeChatDetails extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            mssge: ""
+        }
+    }
+
     render() {
         return (
             <>
@@ -23,7 +30,8 @@ class MakeChatDetails extends Component {
                                 <option>R&B/Soul</option>
                                 <option>Rock</option>
                                 </Form.Control>) :
-                            (<textarea className="makeChatInput" id={this.props.label} cols="30" rows="4"></textarea>)}
+                            ( this.props.label === "formDescription" ? <textarea className="makeChatInput" maxlength="100" id={this.props.label} cols="30" rows="4"></textarea> : 
+                            <textarea className="makeChatInput" maxlength="20" id={this.props.label} cols="30" rows="4"></textarea> )}
                     </div>
                 </div>
             </>
