@@ -61,14 +61,17 @@
     margin-top: 20vh;
     height: 70vh;
     width: 80vw;
-    border-color: white;
+    border-color: black;
     border-style: solid;
   }
 
   .createdChatRoom {
     width: 25%;
     height: 50%;
-    border-radius: 15px;
+    border-radius: 15px !important;
+    border-style: solid !important;
+    border-color: black !important;
+    border-width: 3px !important;
   }
 
   .homeTitle {
@@ -87,7 +90,12 @@
     transform: scale(1.2);
   }
 
-  .enterBtn {
-    background-color: rgba(104, 82, 156, 1) !important;
+  .cardText {
+    height: 13vh;
   }
 
+  .enterBtn {
+    margin-top: -10%;
+    margin-left: 25%;
+    background-color: rgba(104, 82, 156, 1) !important;
+  }
