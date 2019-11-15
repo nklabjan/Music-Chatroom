@@ -8,28 +8,25 @@ class Profile extends Component {
         super(props);
         this.state = {
             viewType: "display",
-            userJson: "",
-            display_name: "",
-            loading: true
         }
     }
 
-    async componentDidMount() {
-        const response = await fetch('https://api.spotify.com/v1/me', {
-        method: "GET",
-        headers: {
-            authorization: `Bearer ${this.props.access_token}`,
-            },
-        });
-        const myJson = await response.json();
-        console.log("MyJson: ", myJson);
-        var displayName = myJson.display_name + "'s Profile"
-        this.setState({
-            userJson: myJson,
-            display_name: displayName,
-            loading: false,
-        });
-    }
+    // async componentDidMount() {
+    //     const response = await fetch('https://api.spotify.com/v1/me', {
+    //     method: "GET",
+    //     headers: {
+    //         authorization: `Bearer ${this.props.access_token}`,
+    //         },
+    //     });
+    //     const myJson = await response.json();
+    //     console.log("MyJson: ", myJson);
+    //     var displayName = myJson.display_name + "'s Profile"
+    //     this.setState({
+    //         userJson: myJson,
+    //         display_name: displayName,
+    //         loading: false,
+    //     });
+    // }
 
     editProfile() {
         this.setState({viewType: "edit"});
@@ -41,19 +38,15 @@ class Profile extends Component {
 
     render() {
         if(this.state.loading === false) {
-            console.log(this.state.userJson.images);
+            console.log(this.props.userInfo.images);
         }
         return(
             <>
                 <Modal className="modalProf" show={this.props.showModalProfile} onHide={this.props.handleClose} size="lg"
                         aria-labelledby="contained-modal-title-vcenter" centered>
                     <Modal.Header className="modHeaderProf" closeButton>
-                    {this.state.loading ? (
-                            <p>Loading...</p>
-                        ) : (
-                            <img src={this.state.userJson.images[0].url} alt="Not Found" width="90vw" height="70vh"></img>
-                        )}
-                    <Modal.Title className="modTitleProf">{this.state.display_name}</Modal.Title>
+                            <img src={this.props.userInfo.images[0].url} alt="Not Found" width="90vw" height="70vh"></img>
+                    <Modal.Title className="modTitleProf">{this.props.userInfo.display_name}</Modal.Title>
                         </Modal.Header>
                     <Modal.Body className="modBodyProf">
                         <ProfileDetail viewType={this.state.viewType} label="Username: " info=""/>
