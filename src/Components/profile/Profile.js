@@ -45,7 +45,7 @@ class Profile extends Component {
         }
         return(
             <>
-                <Modal className="modalProf" show={this.props.showModalProfile} onHide={this.props.closeProfile} size="lg" 
+                <Modal className="modalProf" show={this.props.showModalProfile} onHide={this.props.handleClose} size="lg"
                         aria-labelledby="contained-modal-title-vcenter" centered>
                     <Modal.Header className="modHeaderProf" closeButton>
                     {this.state.loading ? (
@@ -63,7 +63,7 @@ class Profile extends Component {
                     </Modal.Body>
                     <Modal.Footer>
                     <Button className="createBtnCloseProf" variant="secondary" onClick={this.props.handleClose}>
-                        Close
+                        Cancel
                     </Button>
                     {this.state.viewType === "display" ? (
                             <Button className="createBtnProf" variant="primary" onClick={this.editProfile.bind(this)}>Edit Profile</Button>
