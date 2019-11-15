@@ -71,6 +71,7 @@
     border-radius: 15px !important;
     border-style: solid !important;
     border-color: black !important;
+    border-width: 3px !important;
   }
 
   .homeTitle {
@@ -90,11 +91,12 @@
   }
 
   .cardText {
-    height: 15vh;
+    height: 13vh;
   }
 
   .enterBtn {
     margin-left: 25%;
     background-color: rgba(104, 82, 156, 1) !important;
   }
+
 
