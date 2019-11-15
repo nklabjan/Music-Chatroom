@@ -15,7 +15,8 @@ class Player extends Component {
       this.checkForPlayer = this.checkForPlayer.bind(this);
       this.createPlayerEventListeners = this.createPlayerEventListeners.bind(this);
       this.handleShow = this.handleShow.bind(this);
-      this.handleClose = this.handleClose.bind(this)
+      this.handleClose = this.handleClose.bind(this);
+      this.handleVolume = this.handleVolume.bind(this);
       this.checkForPlayer();
       this.state = {
         duration: "",
@@ -24,7 +25,8 @@ class Player extends Component {
         albumName: "",
         artistName: "",
         albumCover: "",
-        show: false
+        show: false,
+        value: 10
       }
   }
 
@@ -146,6 +148,20 @@ class Player extends Component {
       this.setState({show: false});
     }
 
+    handleVolume = value => {
+      this.setState({ value });
+      if(this.state.value/100 <= 0.05) {
+        this.player.setVolume(0).then(() => {
+          console.log("volume at 0");
+        });
+      }
+      else {
+        this.player.setVolume(this.state.value/100).then(() => {
+          console.log("volume updated to: " + this.state.value / 100);
+        });
+      }
+    }
+
     render() {
         return (
             <div className="player">
@@ -185,7 +201,7 @@ class Player extends Component {
               <button className="volume" onClick={()=>{console.log("volume")}}>
                 <FontAwesomeIcon size="lg" icon={faVolumeUp} />
               </button>
-              <VolumeSlider />
+              <VolumeSlider value={this.state.value} handleVolume={this.handleVolume}/>
               <button className="leave-room" onClick={()=>{this.props.handleHome()}}>
                 <FontAwesomeIcon size="2x" icon={faTimesCircle} />
               </button>
