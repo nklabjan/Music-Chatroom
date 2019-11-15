@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlayCircle, faPauseCircle, faTimesCircle} from '@fortawesome/free-regular-svg-icons'
 import { faStepForward, faStepBackward,faMusic,
         faPlusCircle, faVolumeUp, faVolumeMute} from '@fortawesome/free-solid-svg-icons'
+import Overlay from 'react-bootstrap/Overlay';
 
 
 import '../../../css/chatroom/player/Player.css'
@@ -46,13 +47,13 @@ class Player extends Component {
         // Ready
         this.player.on('ready', async data => {
           let { device_id } = data;
-          console.log("Let the music play on!");
+          //console.log("Let the music play on!");
           await this.setState({ deviceId: device_id });
           this.transferPlaybackHere();
         });
 
         this.player.addListener('not_ready', ({ device_id }) => {
-        console.log('Device ID has gone offline', device_id);
+        //console.log('Device ID has gone offline', device_id);
         });
       }
 
@@ -65,8 +66,8 @@ class Player extends Component {
         this.createPlayerEventListeners();
         this.player.connect();
         // finally, connect!
-        console.log("Spotify Player connected!");
-        console.log(this.player);
+        //console.log("Spotify Player connected!");
+        //console.log(this.player);
       }
     }
 
@@ -77,9 +78,9 @@ class Player extends Component {
     }
 
     onStateChanged(state) {
-      console.log(state);
-      console.log("________________________________________________________");
-      console.log(this.state);
+      //console.log(state);
+      //console.log("________________________________________________________");
+      //console.log(this.state);
       // if we're no longer listening to music, we'll get a null state.
       if (state !== null) {
         const {
@@ -105,7 +106,7 @@ class Player extends Component {
     }
 
     transferPlaybackHere() {
-      console.log("playback transfered")
+      //console.log("playback transfered")
       const deviceId = this.state.deviceId;
       const access_token = this.props.access_token;
 
@@ -117,7 +118,7 @@ class Player extends Component {
         },
         body: JSON.stringify({
           "device_ids": [ deviceId ],
-          "play": true,
+          "play": false,
         }),
       });
     }
