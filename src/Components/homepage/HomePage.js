@@ -56,11 +56,6 @@ class HomePage extends Component {
                               <Card.Title>{chatroom.name}</Card.Title>
                             </Card.Header>
                             <Card.Body>
-                                <Card.Subtitle className="mb-2 text-muted">Master: {chatroom.loungeMasterName} </Card.Subtitle>
-                                <Card.Text>
-                                  <div className="loungeDesc"> {chatroom.desc} </div>
-                                  <div className="loungeGenres"> {"Genre(s): " + chatroom.genres} </div>
-                                </Card.Text>
                               <Card.Subtitle className="mb-2 text-muted">
                                 Master: {chatroom.loungeMasterName} 
                                 <div className="loungeGenres"> {"Genre(s): " + chatroom.genres} </div>
@@ -68,13 +63,10 @@ class HomePage extends Component {
                               <Card.Text className="cardText">
                                 <div className="loungeDesc"> {chatroom.desc} </div>
                               </Card.Text>
-                              <Button className="enterBtn" onClick={()=> this.joinRoom(chatroom.id)} variant="primary">Enter Lounge</Button>
-                            </Card.Body>
-                            <Card.Footer>
                               <Button className="enterBtn" onClick={()=> this.joinRoom(chatroom.id)} variant="primary">
                                 Enter Lounge
                               </Button>
-                            </Card.Footer>
+                            </Card.Body>
                           </Card>
                         )
                       })
