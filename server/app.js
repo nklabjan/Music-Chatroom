@@ -13,8 +13,11 @@ var playerRouter = require('./routes/player');
 
 
 var app = express();
-
 // view engine setup
+app.locals.chatrooms = {};
+app.locals.test = "test";
+
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 

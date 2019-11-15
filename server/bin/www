@@ -32,11 +32,14 @@ app.set('port', port);
 var server = http.createServer(app);
 
 var io = require('socket.io')(server);
-var chatroom = new Chatroom.Chatroom(io);
+var master_chatroom = new Chatroom.Chatroom(io, 0, "admin");
 
 //Store client information
-export var chatrooms = []; //So that it can be accessed by other ports
-var idCounter = 0;
+var chatrooms = app.locals.chatrooms; //So that it can be accessed by other ports
+//app.locals.chatrooms keeps track of all the chatrooms
+chatrooms[0] = master_chatroom;
+
+var idCounter = 1;
 
 io.on('connection', function(socket) {
 
@@ -46,8 +49,8 @@ io.on('connection', function(socket) {
       {
         //use chatrooms.length for the id and append to the list
         var new_id = idCounter;
-        var new_chatroom = new Chatroom.Chatroom(io, new_id, socket);
-        chatrooms.push(new_chatroom);
+        var new_chatroom = new Chatroom.Chatroom(io, new_id, socket.id);
+        chatrooms[new_id] = new_chatroom;
         socket.join(new_id)
 
         //Only increment when new chatroom is created
@@ -66,7 +69,7 @@ io.on('connection', function(socket) {
     socket.on('user_disconnected', function(accessToken, loungeID) {
       if (chatrooms[loungeID] !== undefined)
       {
-        chatrooms[loungeID].userDisconnected(socket, accessToken, chatroom);
+        chatrooms[loungeID].userDisconnected(socket, accessToken);
       }
       else {
         console.log("Chatroom does not exist")
@@ -84,7 +87,13 @@ io.on('connection', function(socket) {
     });
 
     socket.on('play_music', function(access_token, deviceId, spotify_uri, loungeID) {
+      if (chatrooms[loungeID] !== undefined)
+      {
         chatrooms[loungeID].playSong(access_token, deviceId, spotify_uri);
+      }
+      else {
+        console.log("Chatroom does not exist")
+      }
     });
 
 }

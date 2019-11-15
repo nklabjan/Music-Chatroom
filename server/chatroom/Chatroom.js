@@ -6,9 +6,13 @@ class Chatroom {
         // cache of sockets against user info
         this.users = {};
         this.messageList = [];
+        this.loungeMaster = loungeMaster;
+        this.desc = "";
+
         this.queue = []; //Queue of songs
         this.currentSong = null;
         this.history = [];
+
     }
 
     loadMockQueue() {
@@ -81,6 +85,17 @@ class Chatroom {
     chatMessage(socket, message) {
         this.messageList.push({'user': this.users[socket.id], 'msg' : message });
         this.io.emit("message_received", message, this.users[socket.id]);
+    }
+
+    //user this function to get limited info on the chatroom
+    minimalInfo() {
+      //return id, loungeMaster, numUsers, currSong, description
+      var info = {id: this.id,
+                  loungeMaster: this.loungeMaster,
+                  numUsers: Object.keys(this.users).length,
+                  currSong: this.currSong,
+                  desc: this.desc};
+      return info;
     }
 }
 

@@ -6,6 +6,7 @@ import MakeChatRoom from "./makechatroom/makechatroom";
 import CadenceNavBar from './CadenceNavBar';
 import '../css/ContentHandler.css';
 import queryString from "query-string";
+import axios from 'axios';
 var urls = require('../constants.js');
 
 //Remove this and put into env file if it works
@@ -29,10 +30,13 @@ class ContentHandler extends Component {
     this.handleChat = this.handleChat.bind(this);
     this.handleHome = this.handleHome.bind(this);
     this.saveChatRoom = this.saveChatRoom.bind(this);
+    this.joinChatRoom = this.joinChatRoom.bind(this);
+    this.leaveChatRoom = this.leaveChatRoom.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.showProfile = this.showProfile.bind(this);
     this.closeProfile = this.closeProfile.bind(this);
+    this.getLounges = this.getLounges.bind(this);
   }
 
   logout() {
@@ -46,8 +50,9 @@ class ContentHandler extends Component {
   }
 
   saveChatRoom() {
-    var chatname = "Chat";
-    this.setState({chatRooms: [...this.state.chatRooms, chatname]});
+    var new_chatroom = "Chat";
+    //TODO: Probably not update the rooms on clientside this way
+    //this.setState({chatRooms: [...this.state.chatRooms, new_chatroom]});
     // if curr_lounge is null -> create new chatroom when get into lounge
     this.setState({curr_lounge: null})
     this.setState({currDisplay: "lounge"});
@@ -56,8 +61,17 @@ class ContentHandler extends Component {
     // this.setState({chatRooms: [...this.state.chatRooms, newInstance]})
   }
 
+  joinChatRoom(chatroom_id) {
+    this.setState({curr_lounge: chatroom_id})
+  }
+
+  leaveChatRoom() {
+    this.setState({curr_lounge: null})
+  }
+  //This also now handles leave chatroom
   handleHome() {
     this.setState({currDisplay: "home"});
+    this.leaveChatRoom();
   }
 
   handleChat() {
@@ -84,6 +98,18 @@ class ContentHandler extends Component {
     this.setState({currDisplay: "makeChat"});
   }
 
+  //Retrieves lounges from the server and updates this.state.chatRooms
+  //Should be called everytime the homepage is accessed.
+  getLounges() {
+    //do an axios get to the backend
+    axios.get(urls.backend_url + '/getLounges')
+      .then(res => {
+        console.log(res.data)
+        this.setState({chatRooms: res.data.lounges})
+      })
+    this.forceUpdate();
+  }
+
   componentWillMount() {
     let parsed = queryString.parse(window.location.search);
     let access_token = parsed.access_token;
@@ -100,18 +126,21 @@ class ContentHandler extends Component {
                         login={this.login}
                         logout={this.logout}
                         handleChat={this.handleChat}
+                        joinChatRoom = {this.joinChatRoom}
                         handleProfile={this.handleProfile}
-                        handleMakeChat={this.handleMakeChat}/>);
+                        handleMakeChat={this.handleMakeChat}
+                        getLounges={this.getLounges}/>);
     }
     else if(this.state.currDisplay === "lounge"){
       return (<Lounge access_token={this.state.access_token}
                       handleHome={this.handleHome}
-                      loungeID={this.state.curr_lounge}/>);
+                      loungeID={this.state.curr_lounge}
+                      />);
     }
     else if(this.state.currDisplay === "profile") {
       return (<Profile access_token={this.state.access_token}
                         showProfile={this.showProfile}
-                        closeProfile={this.closeProfile}
+                        handleClose={this.closeProfile}
                         showModalProfile={this.state.showModalProfile}/>);
     }
     else if(this.state.currDisplay === "makeChat") {
@@ -131,7 +160,6 @@ class ContentHandler extends Component {
       return (
         <CadenceNavBar  scheme="CadenceNavBar"
                         logout={this.logout}
-                        handleChat={this.handleChat}
                         showProfile={this.showProfile}
                         handleHome={this.handleHome}
                         currDisplay={this.state.currDisplay}
