@@ -42,7 +42,6 @@ class MakeChatroom extends Component {
                         <MakeChatDetails label="Room Name:"/>
                         <MakeChatDetails label="Description:"/>
                         <MakeChatDetails label="Genres:"/>
-
                     </Modal.Body>
                     <Modal.Footer>
                     <Button className="createBtnClose" variant="secondary" onClick={this.props.handleClose}>
