@@ -12,43 +12,50 @@ class MakeChatroom extends Component {
         }
     }
 
-    async componentDidMount() {
-        const response = await fetch('https://api.spotify.com/v1/me', {
-        method: "GET",
-        headers: {
-            authorization: `Bearer ${this.props.access_token}`,
-            },
-        });
-        const myJson = await response.json();
-        console.log("MyJson: ", myJson);
-        var displayName = myJson.display_name;
-        this.setState({ 
-            display_name: displayName
-        });
+    // async componentDidMount() {
+    //     const response = await fetch('https://api.spotify.com/v1/me', {
+    //     method: "GET",
+    //     headers: {
+    //         authorization: `Bearer ${this.props.access_token}`,
+    //         },
+    //     });
+    //     const myJson = await response.json();
+    //     console.log("MyJson: ", myJson);
+    //     var displayName = myJson.display_name;
+    //     this.setState({
+    //         display_name: displayName
+    //     });
+    // }
+
+    handleChatroomInfo() {
+      let loungeName = document.getElementById('formLoungeName').value;
+      let description = document.getElementById('formDescription').value;
+      let genres = document.getElementById('formGenres').value;
+
+      this.props.saveChatRoom(loungeName,description,genres);
     }
 
     render() {
         return (
             <>
-                <Modal className="modal" show={this.props.showModalChat} onHide={this.props.handleClose} size="lg" 
+                <Modal className="modal" show={this.props.showModalChat} onHide={this.props.handleClose} size="lg"
                         aria-labelledby="contained-modal-title-vcenter" centered>
                     <Modal.Header className="modHeader" closeButton>
                     <Modal.Title className="modTitle">Create Your Own Lounge</Modal.Title>
                         <div className="loungeMaster">
-                            <p>Lounge Master: {this.state.display_name}</p>
+                            <p>Lounge Master: {this.props.userInfo.display_name}</p>
                         </div>
                     </Modal.Header>
                     <Modal.Body className="modBody">
-                        <MakeChatDetails label="Room Name:"/>
-                        <MakeChatDetails label="Description:"/>
-                        <MakeChatDetails label="Genres:"/>
-
+                        <MakeChatDetails label="formLoungeName" display="Lounge Name"/>
+                        <MakeChatDetails label="formDescription" display="Description"/>
+                        <MakeChatDetails label="formGenres" display="Genres"/>
                     </Modal.Body>
                     <Modal.Footer>
                     <Button className="createBtnClose" variant="secondary" onClick={this.props.handleClose}>
-                        Close
+                        Cancel
                     </Button>
-                    <Button className="createBtn" variant="primary" onClick={this.props.saveChatRoom}>
+                    <Button className="createBtn" variant="primary" onClick={()=>this.handleChatroomInfo()}>
                         Create Lounge
                     </Button>
                     </Modal.Footer>

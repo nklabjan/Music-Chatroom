@@ -48,6 +48,7 @@ class Player extends Component {
 
         // Ready
         this.player.on('ready', async data => {
+
           let { device_id } = data;
           //console.log("Let the music play on!");
           await this.setState({ deviceId: device_id });
@@ -111,7 +112,7 @@ class Player extends Component {
       //console.log("playback transfered")
       const deviceId = this.state.deviceId;
       const access_token = this.props.access_token;
-
+      this.props.setDeviceId(deviceId);
       fetch("https://api.spotify.com/v1/me/player", {
         method: "PUT",
         headers: {

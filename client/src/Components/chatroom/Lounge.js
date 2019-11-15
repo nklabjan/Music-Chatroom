@@ -11,12 +11,18 @@ class Lounge extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             leaveChat: false,
-            displayProfile: false
+            displayProfile: false,
+            deviceId: null,
         }
+        this.id = this.props.loungeID
         this.socket = null;
+        this.playSong = this.playSong.bind(this);
         this.setUpSocket();
+        this.setDeviceId = this.setDeviceId.bind(this);
+
     }
 
     setUpSocket() {
@@ -50,31 +56,82 @@ class Lounge extends Component {
             //Handle removing users from list
 
         })
-        this.forceUpdate();
+
+        this.socket.on('new_room', function(user) {
+            console.log(user);
+            //Handle removing users from list
+
+        })
+
+        this.socket.on('play_song', function(song_uri) {
+            console.log("Room is now playing " + song_uri);
+            //Handle removing users from list
+            
+            fetch('https://api.spotify.com/v1/me/player/play?device_id=' + this.state.deviceId, {
+              method: "PUT",
+              headers: {
+                authorization: `Bearer ${this.props.access_token}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                "device_ids": [ this.state.deviceId ],
+                "play": true,
+              }),
+            });
+
+        })
     }
 
+    setDeviceId(device_id){
+      this.setState({deviceId: device_id});
+    }
+
+    playSong(song_uri) {
+    //Sends device ID and Access token to backend to play music
+    //through socket
+    //Hardcode to play "spotify:track:5bvNpG6wiIEf1PA13TkTu2" for now
+    //console.log(this.props)
+    //let song = this.props.uri;
+    console.log(this.state);
+    this.socket.emit( 'play_song',
+                      this.props.access_token,
+                      this.state.deviceId,
+                      song_uri,
+                      this.id)
+    }
+
+    componentWillMount(){
+      this.socket.emit('user_connected', this.props.access_token, this.id);
+    }
     render() {
 
             return (
                 <div className="lounge">
 
                     <div className="loungeContainer">
+<<<<<<< HEAD
                         <Queue socket={this.socket}
                                access_token={this.props.access_token}/>
                         <Chat socket={this.socket}/>
+=======
+                        <Queue socket={this.socket} playSong={this.playSong} />
+                        <Chat socket={this.socket} loungeID={this.id}/>
+>>>>>>> 47ecd5d1eb6aaec42f92df4caebdcd1bb05cf768
                         <UserList />
                     </div>
                     <Player access_token={this.props.access_token}
                             socket={this.socket}
-                            handleHome={this.props.handleHome}/>
+                            handleHome={this.props.handleHome}
+                            setDeviceId={this.setDeviceId}
+                            />
 
                 </div>
             )
         }
 
     componentWillUnmount(){
-      this.socket.emit('user_disconnected', this.props.access_token);
-
+      console.log(this.props.loungeID);
+      this.socket.emit('user_disconnected', this.props.access_token, this.id);
     }
 }
 

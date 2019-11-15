@@ -6,6 +6,7 @@ import MakeChatRoom from "./makechatroom/makechatroom";
 import CadenceNavBar from './CadenceNavBar';
 import '../css/ContentHandler.css';
 import queryString from "query-string";
+import axios from 'axios';
 var urls = require('../constants.js');
 
 //Remove this and put into env file if it works
@@ -19,19 +20,25 @@ class ContentHandler extends Component {
         access_token: null,
         currDisplay: "home", //Chat,Profile,Home
         chatRooms: [],
+        curr_lounge: null, //curr lounge is gonna keep track of
         showModalChat: false,
-        showModalProfile: false
+        showModalProfile: false,
+        userInfo: null
     }
+
     this.renderContent = this.renderContent.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.handleChat = this.handleChat.bind(this);
     this.handleHome = this.handleHome.bind(this);
     this.saveChatRoom = this.saveChatRoom.bind(this);
+    this.joinChatRoom = this.joinChatRoom.bind(this);
+    this.leaveChatRoom = this.leaveChatRoom.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.showProfile = this.showProfile.bind(this);
     this.closeProfile = this.closeProfile.bind(this);
+    this.getLounges = this.getLounges.bind(this);
   }
 
   logout() {
@@ -44,17 +51,39 @@ class ContentHandler extends Component {
     window.location = urls.backend_url + '/login';
   }
 
-  saveChatRoom() {
-    var chatname = "Chat";
-    this.setState({chatRooms: [...this.state.chatRooms, chatname]});
-    this.setState({currDisplay: "home"});
-    //Save Chatroom should create an instance of Chatroom on the serverside
+  saveChatRoom(name,desc, genres) {
+    //TODO: Probably not update the rooms on clientside this way
+    //this.setState({chatRooms: [...this.state.chatRooms, new_chatroom]});
+    // if curr_lounge is null -> create new chatroom when get into lounge
     //newInstance = {name,loungeMaster, ID, numUsers} (ID is obtained from the backend )
     // this.setState({chatRooms: [...this.state.chatRooms, newInstance]})
+
+    axios.post(urls.backend_url + '/createLounge', {"name": name,
+                                                    "loungeMasterName": this.state.userInfo.display_name,
+                                                    "loungeMasterID": this.state.userInfo.id,
+                                                    "desc": desc,
+                                                    "genres": genres,
+                                                    })
+      .then(res => {
+        console.log(res.data)
+        var lounge_info = res.data.lounge_info
+        //Handle lounge information
+        this.setState({curr_lounge: lounge_info.id})
+        this.setState({currDisplay: "lounge"});
+      })
   }
 
+  joinChatRoom(chatroom_id) {
+    this.setState({curr_lounge: chatroom_id})
+  }
+
+  leaveChatRoom() {
+    this.setState({curr_lounge: null})
+  }
+  //This also now handles leave chatroom
   handleHome() {
     this.setState({currDisplay: "home"});
+    this.leaveChatRoom();
   }
 
   handleChat() {
@@ -68,7 +97,7 @@ class ContentHandler extends Component {
 
   closeProfile() {
     this.setState({showModalProfile: false});
-    this.setState({currDisplay: "home"});  
+    this.setState({currDisplay: "home"});
   }
 
   handleClose() {
@@ -81,6 +110,18 @@ class ContentHandler extends Component {
     this.setState({currDisplay: "makeChat"});
   }
 
+  //Retrieves lounges from the server and updates this.state.chatRooms
+  //Should be called everytime the homepage is accessed.
+  getLounges() {
+    //do an axios get to the backend
+    axios.get(urls.backend_url + '/getLounges')
+      .then(res => {
+        console.log(res.data)
+        this.setState({chatRooms: res.data.lounges})
+      })
+    this.forceUpdate();
+  }
+
   componentWillMount() {
     let parsed = queryString.parse(window.location.search);
     let access_token = parsed.access_token;
@@ -90,6 +131,21 @@ class ContentHandler extends Component {
     }
   }
 
+  async componentDidMount() {
+      const response = await fetch('https://api.spotify.com/v1/me', {
+      method: "GET",
+      headers: {
+          authorization: `Bearer ${this.state.access_token}`,
+          },
+      });
+      const myJson = await response.json();
+      console.log("MyJson: ", myJson);
+      //set state with user info
+      this.setState({
+        userInfo: myJson
+      });
+  }
+
   renderContent() {
     if(this.state.currDisplay === "home") {
       return (<HomePage loggedInStatus={this.state.loggedInStatus}
@@ -97,18 +153,24 @@ class ContentHandler extends Component {
                         login={this.login}
                         logout={this.logout}
                         handleChat={this.handleChat}
+                        joinChatRoom = {this.joinChatRoom}
                         handleProfile={this.handleProfile}
-                        handleMakeChat={this.handleMakeChat}/>);
+                        handleMakeChat={this.handleMakeChat}
+                        getLounges={this.getLounges}
+                        access_token={this.state.access_token}/>);
     }
     else if(this.state.currDisplay === "lounge"){
       return (<Lounge access_token={this.state.access_token}
-                      handleHome={this.handleHome}/>);
+                      handleHome={this.handleHome}
+                      loungeID={this.state.curr_lounge}
+                      />);
     }
     else if(this.state.currDisplay === "profile") {
       return (<Profile access_token={this.state.access_token}
                         showProfile={this.showProfile}
-                        closeProfile={this.closeProfile}
-                        showModalProfile={this.state.showModalProfile}/>);
+                        handleClose={this.closeProfile}
+                        showModalProfile={this.state.showModalProfile}
+                        userInfo={this.state.userInfo}/>);
     }
     else if(this.state.currDisplay === "makeChat") {
       return (<MakeChatRoom access_token={this.state.access_token}
@@ -116,7 +178,8 @@ class ContentHandler extends Component {
                             saveChatRoom={this.saveChatRoom}
                             handleShow={this.handleShow}
                             handleClose={this.handleClose}
-                            showModalChat={this.state.showModalChat}/>);
+                            showModalChat={this.state.showModalChat}
+                            userInfo={this.state.userInfo}/>);
     }
   }
 
@@ -127,7 +190,6 @@ class ContentHandler extends Component {
       return (
         <CadenceNavBar  scheme="CadenceNavBar"
                         logout={this.logout}
-                        handleChat={this.handleChat}
                         showProfile={this.showProfile}
                         handleHome={this.handleHome}
                         currDisplay={this.state.currDisplay}

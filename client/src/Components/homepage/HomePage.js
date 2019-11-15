@@ -10,9 +10,36 @@ class HomePage extends Component {
         super(props);
         this.state = {
             leaveChat: false,
-            displayProfile: false
+            displayProfile: false,
+            display_name: ""
         }
+        this.joinRoom = this.joinRoom.bind(this);
     }
+
+    joinRoom(lounge_id){
+      this.props.joinChatRoom(lounge_id);
+      //Join room after 100 milliseconds
+      this.props.handleChat();
+    }
+
+    componentWillMount(){
+      this.props.getLounges();
+    }
+
+    async componentDidMount() {
+      const response = await fetch('https://api.spotify.com/v1/me', {
+      method: "GET",
+      headers: {
+          authorization: `Bearer ${this.props.access_token}`,
+          },
+      });
+      const myJson = await response.json();
+      console.log("MyJson: ", myJson);
+      var displayName = myJson.display_name;
+      this.setState({
+          display_name: displayName
+      });
+  }
 
     renderPage(){
       if(this.props.loggedInStatus === false) {
@@ -22,16 +49,23 @@ class HomePage extends Component {
         return  (   <>
                     <div className="homeTitle">Lounges</div>
                     <div className="Chatrooms"> {
-                      this.props.chatRooms.map((chatname, idx) => {
+                      this.props.chatRooms.map((chatroom, idx) => {
                         return (
-                          <Card className="createdChatRoom" key={idx}>
+                          <Card className="createdChatRoom" key={idx} bg="dark" text="white">
+                            <Card.Header>
+                              <Card.Title>{chatroom.name}</Card.Title>
+                            </Card.Header>
                             <Card.Body>
-                              <Card.Title>Lounge Name</Card.Title>
-                              <Card.Subtitle className="mb-2 text-muted">Master: </Card.Subtitle>
-                              <Card.Text>
-                                This is the description the lounge master has set for this lounge.
+                              <Card.Subtitle className="mb-2 text-muted">
+                                Master: {chatroom.loungeMasterName} 
+                                <div className="loungeGenres"> {"Genre(s): " + chatroom.genres} </div>
+                              </Card.Subtitle>
+                              <Card.Text className="cardText">
+                                <div className="loungeDesc"> {chatroom.desc} </div>
                               </Card.Text>
-                              <Button className="enterBtn" onClick={this.props.handleChat} variant="primary">Enter Lounge</Button>
+                              <Button className="enterBtn" onClick={()=> this.joinRoom(chatroom.id)} variant="primary">
+                                Enter Lounge
+                              </Button>
                             </Card.Body>
                           </Card>
                         )

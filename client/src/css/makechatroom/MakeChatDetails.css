@@ -1,24 +1,29 @@
 .makeChatDet {
-    display: flex;
     height: 25%;
 }
 
 .makeChatLabel {
-    margin-top: 7%;
-    margin-left: 10%;
-    width: 50%;
+    width: 100%;
+    margin-top:3%;
     color: rgba(104, 82, 156, 1);
     font-size: 25px;
 }
 
 .makeChatInfo { 
-    width: 60%;
-    margin-top: 7%;
+    width: 100%;
     font-size: 25px;
 }
 
 .makeChatInput {
-    color: rgba(104, 82, 156, 1);
+    color: black;
     resize: none;
     height: 100%;
+}
+
+.restriction {
+    padding-right: 3%;
+    text-align: right;
+    width:100%;
+    color: black;
+    font-size:50%;
 }

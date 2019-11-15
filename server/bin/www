@@ -9,7 +9,7 @@ var http = require('http');
 //var handlers = require('../chatroom/auth')
 
 
-var chatroom = require('../chatroom/Chatroom.js')
+var Chatroom = require('../chatroom/Chatroom.js')
 
 
 /**
@@ -32,28 +32,78 @@ app.set('port', port);
 var server = http.createServer(app);
 
 var io = require('socket.io')(server);
-var chatroom = new chatroom.Chatroom(io);
+app.locals.io = io;
+var fake_news = { loungeMasterName: "admin",
+                  loungeMasterID: "admin",
+                  name: "test room",
+                  desc: "this is random crap that i'm writing",
+                  genres: "toddler rock"
+                  }
+var master_chatroom = new Chatroom.Chatroom(io, 0, fake_news);
 
 //Store client information
-var clients =[];
+var chatrooms = app.locals.chatrooms; //So that it can be accessed by other ports
+//app.locals.chatrooms keeps track of all the chatrooms
+chatrooms[0] = master_chatroom;
+
+var idCounter = app.locals.idCounter;
 
 io.on('connection', function(socket) {
 
-    socket.on('user_connected', function(accessToken) {
-        chatroom.userConnected(socket, accessToken, chatroom);
+    //Handle create lounge in here too
+    socket.on('user_connected', function(accessToken, loungeID) {
+      //TODO: REMOVE THIS SHIT
+      if (loungeID == null)
+      {
+        //use chatrooms.length for the id and append to the list
+        var new_id = idCounter;
+        var new_chatroom = new Chatroom.Chatroom(io, new_id, socket.id);
+        chatrooms[new_id] = new_chatroom;
+        socket.join(new_id)
+
+        //Only increment when new chatroom is created
+        idCounter++;
+        chatrooms[new_id].userConnected(socket, accessToken);
+        console.log("new room created");
+      }
+      else
+      {
+        chatrooms[loungeID].userConnected(socket,accessToken);
+        console.log("existing room joined");
+
+      }
     });
 
-    socket.on('user_disconnected', function(accessToken) {
-        chatroom.userDisconnected(socket, accessToken, chatroom);
+    socket.on('user_disconnected', function(accessToken, loungeID) {
+      if (chatrooms[loungeID] !== undefined)
+      {
+        chatrooms[loungeID].userDisconnected(socket, accessToken);
+      }
+      else {
+        console.log("Disconnecting error")
+      }
     });
 
-    socket.on('message_sent', function(msg, accessToken) {
-        chatroom.chatMessage(socket, msg);
+    socket.on('message_sent', function(msg, accessToken, loungeID) {
+        if (chatrooms[loungeID] !== undefined)
+        {
+          chatrooms[loungeID].chatMessage(socket, msg);
+        }
+        else {
+          console.log("Message sent in non-existing chatroom")
+        }
     });
 
-    socket.on('play_music', function(access_token, deviceId, spotify_uri) {
-        chatroom.playSong(access_token, deviceId, spotify_uri);
+    socket.on('play_song', function(access_token, deviceId, spotify_uri, loungeID) {
+      if (chatrooms[loungeID] !== undefined)
+      {
+        chatrooms[loungeID].playSong(access_token, deviceId, spotify_uri);
+      }
+      else {
+        console.log("Music attempted to be played in non-existing chatroom")
+      }
     });
+
 }
 
      )
