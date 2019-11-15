@@ -24,6 +24,7 @@ class QueueDeck extends Component {
         return queue;
       }
     }
+    
     render() {
         return(
           <div>

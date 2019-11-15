@@ -1,20 +1,21 @@
 import React, {Component} from "react";
 import SliderCom from './Slider';
 import VolumeSlider from './VolumeSlider';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlayCircle, faPauseCircle, faTimesCircle} from '@fortawesome/free-regular-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlayCircle, faPauseCircle, faTimesCircle} from '@fortawesome/free-regular-svg-icons';
 import { faStepForward, faStepBackward,faMusic,
-        faPlusCircle, faVolumeUp, faVolumeMute} from '@fortawesome/free-solid-svg-icons'
-import Overlay from 'react-bootstrap/Overlay';
+        faPlusCircle, faVolumeUp, faVolumeMute} from '@fortawesome/free-solid-svg-icons';
+import AddSongModal from './AddSongModal';
+import '../../../css/chatroom/player/Player.css';
 
-
-import '../../../css/chatroom/player/Player.css'
 class Player extends Component {
 
   constructor(props) {
       super(props);
       this.checkForPlayer = this.checkForPlayer.bind(this);
       this.createPlayerEventListeners = this.createPlayerEventListeners.bind(this);
+      this.handleShow = this.handleShow.bind(this);
+      this.handleClose = this.handleClose.bind(this)
       this.checkForPlayer();
       this.state = {
         duration: "",
@@ -22,7 +23,8 @@ class Player extends Component {
         trackName: "",
         albumName: "",
         artistName: "",
-        albumCover: ""
+        albumCover: "",
+        show: false
       }
   }
 
@@ -135,6 +137,14 @@ class Player extends Component {
       this.player.nextTrack();
     }
 
+    handleShow() {
+      this.setState({show: true});
+    }
+
+    handleClose() {
+      this.setState({show: false});
+    }
+
     render() {
         return (
             <div className="player">
@@ -165,7 +175,7 @@ class Player extends Component {
             </div>
 
             <div className="playerRight">
-              <button className="add-song" onClick={()=>{console.log("chill")}}>
+              <button className="add-song" onClick={() => this.handleShow()}>
                 <FontAwesomeIcon size="lg" icon={faPlusCircle} />
               </button>
               <button className="queue-list" onClick={()=>{console.log("queue")}}>
@@ -178,6 +188,9 @@ class Player extends Component {
               <button className="leave-room" onClick={()=>{this.props.handleHome()}}>
                 <FontAwesomeIcon size="2x" icon={faTimesCircle} />
               </button>
+              <AddSongModal handleShow={this.handleShow}
+                            handleClose={this.handleClose}
+                            show={this.state.show}/>
             </div>
             </div>
         )
