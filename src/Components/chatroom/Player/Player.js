@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlayCircle, faPauseCircle, faTimesCircle} from '@fortawesome/free-regular-svg-icons';
 import { faStepForward, faStepBackward,faMusic,
         faPlusCircle, faVolumeUp, faVolumeMute} from '@fortawesome/free-solid-svg-icons';
-import AddSongModal from './AddSongModal';
 import '../../../css/chatroom/player/Player.css';
 
 class Player extends Component {
@@ -205,9 +204,6 @@ class Player extends Component {
               <button className="leave-room" onClick={()=>{this.props.handleHome()}}>
                 <FontAwesomeIcon size="2x" icon={faTimesCircle} />
               </button>
-              <AddSongModal handleShow={this.handleShow}
-                            handleClose={this.handleClose}
-                            show={this.state.show}/>
             </div>
             </div>
         )
