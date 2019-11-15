@@ -61,7 +61,7 @@
     margin-top: 20vh;
     height: 70vh;
     width: 80vw;
-    border-color: white;
+    border-color: black;
     border-style: solid;
   }
 
@@ -97,4 +97,3 @@
     margin-left: 25%;
     background-color: rgba(104, 82, 156, 1) !important;
   }
-
