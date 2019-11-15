@@ -7,7 +7,8 @@ class Queue extends Component {
     render() {
         return (
                 <div className="queue">
-                    <QueueDeck socket={this.socket}/>
+                    <QueueDeck socket={this.socket}
+                               access_token={this.props.access_token}/>
                 </div>
         )
     }

@@ -37,7 +37,7 @@ class Lounge extends Component {
         })
 
         this.socket.on('user_connected', function(user) {
-            console.log(user);
+            //console.log(user);
             var user_div = document.createElement("div");
             var user_name = document.createElement("p");
             user_name.innerHTML = user;
@@ -46,7 +46,7 @@ class Lounge extends Component {
         })
 
         this.socket.on('user_disconnected', function(user) {
-            console.log(user);
+            //console.log(user);
             //Handle removing users from list
 
         })
@@ -59,7 +59,8 @@ class Lounge extends Component {
                 <div className="lounge">
 
                     <div className="loungeContainer">
-                        <Queue socket={this.socket}/>
+                        <Queue socket={this.socket}
+                               access_token={this.props.access_token}/>
                         <Chat socket={this.socket}/>
                         <UserList />
                     </div>
