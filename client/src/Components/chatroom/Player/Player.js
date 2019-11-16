@@ -1,19 +1,21 @@
 import React, {Component} from "react";
 import SliderCom from './Slider';
 import VolumeSlider from './VolumeSlider';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlayCircle, faPauseCircle, faTimesCircle} from '@fortawesome/free-regular-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlayCircle, faPauseCircle, faTimesCircle} from '@fortawesome/free-regular-svg-icons';
 import { faStepForward, faStepBackward,faMusic,
-        faPlusCircle, faVolumeUp} from '@fortawesome/free-solid-svg-icons'
+        faPlusCircle, faVolumeUp, faVolumeMute} from '@fortawesome/free-solid-svg-icons';
+import '../../../css/chatroom/player/Player.css';
 
-
-import '../../../css/chatroom/player/Player.css'
 class Player extends Component {
 
   constructor(props) {
       super(props);
       this.checkForPlayer = this.checkForPlayer.bind(this);
       this.createPlayerEventListeners = this.createPlayerEventListeners.bind(this);
+      this.handleShow = this.handleShow.bind(this);
+      this.handleClose = this.handleClose.bind(this);
+      this.handleVolume = this.handleVolume.bind(this);
       this.checkForPlayer();
       this.state = {
         duration: "",
@@ -21,7 +23,9 @@ class Player extends Component {
         trackName: "",
         albumName: "",
         artistName: "",
-        albumCover: ""
+        albumCover: "",
+        show: false,
+        value: 10
       }
   }
 
@@ -47,13 +51,13 @@ class Player extends Component {
         this.player.on('ready', async data => {
 
           let { device_id } = data;
-          console.log("Let the music play on!");
+          //console.log("Let the music play on!");
           await this.setState({ deviceId: device_id });
           this.transferPlaybackHere();
         });
 
         this.player.addListener('not_ready', ({ device_id }) => {
-        console.log('Device ID has gone offline', device_id);
+        //console.log('Device ID has gone offline', device_id);
         });
       }
 
@@ -66,8 +70,8 @@ class Player extends Component {
         this.createPlayerEventListeners();
         this.player.connect();
         // finally, connect!
-        console.log("Spotify Player connected!");
-        console.log(this.player);
+        //console.log("Spotify Player connected!");
+        //console.log(this.player);
       }
     }
 
@@ -78,9 +82,9 @@ class Player extends Component {
     }
 
     onStateChanged(state) {
-      console.log(state);
-      console.log("________________________________________________________");
-      console.log(this.state);
+      //console.log(state);
+      //console.log("________________________________________________________");
+      //console.log(this.state);
       // if we're no longer listening to music, we'll get a null state.
       if (state !== null) {
         const {
@@ -106,7 +110,7 @@ class Player extends Component {
     }
 
     transferPlaybackHere() {
-      console.log("playback transfered")
+      //console.log("playback transfered")
       const deviceId = this.state.deviceId;
       const access_token = this.props.access_token;
       this.props.setDeviceId(deviceId);
@@ -118,7 +122,7 @@ class Player extends Component {
         },
         body: JSON.stringify({
           "device_ids": [ deviceId ],
-          "play": true,
+          "play": false,
         }),
       });
     }
@@ -133,6 +137,28 @@ class Player extends Component {
 
     onNextClick() {
       this.player.nextTrack();
+    }
+
+    handleShow() {
+      this.setState({show: true});
+    }
+
+    handleClose() {
+      this.setState({show: false});
+    }
+
+    handleVolume = value => {
+      this.setState({ value });
+      if(this.state.value/100 <= 0.05) {
+        this.player.setVolume(0).then(() => {
+          console.log("volume at 0");
+        });
+      }
+      else {
+        this.player.setVolume(this.state.value/100).then(() => {
+          console.log("volume updated to: " + this.state.value / 100);
+        });
+      }
     }
 
     render() {
@@ -165,7 +191,7 @@ class Player extends Component {
             </div>
 
             <div className="playerRight">
-              <button className="add-song" onClick={()=>{console.log("chill")}}>
+              <button className="add-song" onClick={() => this.handleShow()}>
                 <FontAwesomeIcon size="lg" icon={faPlusCircle} />
               </button>
               <button className="queue-list" onClick={()=>{console.log("queue")}}>
@@ -174,7 +200,7 @@ class Player extends Component {
               <button className="volume" onClick={()=>{console.log("volume")}}>
                 <FontAwesomeIcon size="lg" icon={faVolumeUp} />
               </button>
-              <VolumeSlider />
+              <VolumeSlider value={this.state.value} handleVolume={this.handleVolume}/>
               <button className="leave-room" onClick={()=>{this.props.handleHome()}}>
                 <FontAwesomeIcon size="2x" icon={faTimesCircle} />
               </button>
