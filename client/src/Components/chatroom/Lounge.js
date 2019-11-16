@@ -16,7 +16,9 @@ class Lounge extends Component {
             leaveChat: false,
             displayProfile: false,
             deviceId: null,
+            users: [],
         }
+
         this.id = this.props.loungeID
         this.socket = null;
         this.playSong = this.playSong.bind(this);
@@ -46,12 +48,8 @@ class Lounge extends Component {
         })
 
         this.socket.on('user_connected', function(user) {
-            console.log(user);
-            var user_div = document.createElement("div");
-            var user_name = document.createElement("p");
-            user_name.innerHTML = user;
-            user_div.appendChild(user_name);
-            document.getElementsByClassName('members')[0].appendChild(user_div);
+            //Handle adding user to userList
+            lounge.setState({users: [...lounge.state.users, user]});
         })
 
         this.socket.on('user_disconnected', function(user) {
@@ -94,7 +92,7 @@ class Lounge extends Component {
     }
 
     componentWillMount(){
-      this.socket.emit('user_connected', this.props.access_token, this.id);
+      this.socket.emit('user_connected', this.props.access_token, this.id, this.props.userInfo);
     }
     render() {
 
@@ -104,7 +102,7 @@ class Lounge extends Component {
                     <div className="loungeContainer">
                         <Queue socket={this.socket} playSong={this.playSong} />
                         <Chat socket={this.socket} loungeID={this.id}/>
-                        <UserList />
+                        <UserList users={this.state.users}/>
                     </div>
                     <Player access_token={this.props.access_token}
                             socket={this.socket}

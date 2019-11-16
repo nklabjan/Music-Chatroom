@@ -51,7 +51,7 @@ var idCounter = app.locals.idCounter;
 io.on('connection', function(socket) {
 
     //Handle create lounge in here too
-    socket.on('user_connected', function(accessToken, loungeID) {
+    socket.on('user_connected', function(accessToken, loungeID, userInfo) {
       //TODO: REMOVE THIS SHIT
       if (loungeID == null)
       {
@@ -70,7 +70,7 @@ io.on('connection', function(socket) {
       else
       {
         socket.join(loungeID)
-        chatrooms[loungeID].userConnected(socket,accessToken);
+        chatrooms[loungeID].userConnected(socket,accessToken, userInfo);
         console.log("existing room joined");
 
       }
