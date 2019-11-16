@@ -105,7 +105,7 @@ io.on('connection', function(socket) {
         console.log("Music attempted to be played in non-existing chatroom")
       }
     });
-
+    console.log(socket.id + "is doing something")
 }
 
      )

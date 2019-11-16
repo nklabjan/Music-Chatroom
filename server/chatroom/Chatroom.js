@@ -81,7 +81,7 @@ class Chatroom {
           //var value = this.users[key];
         }
       console.log("Users left in lounge:" + Object.keys(this.users).length)
-
+      console.log(this.users)
     }
 
     playSong(accessToken, deviceId, spotifyURI)
