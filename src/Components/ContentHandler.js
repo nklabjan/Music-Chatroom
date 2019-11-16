@@ -169,7 +169,8 @@ class ContentHandler extends Component {
       return (
         <CadenceNavBar  scheme="CadenceNavBar"
                         logout={this.logout}
-                        access_token={this.state.access_token}                        handleHome={this.handleHome}
+                        access_token={this.state.access_token}
+                        handleHome={this.handleHome}
                         currDisplay={this.state.currDisplay}
                         handleShow={this.handleShow}
                         userInfo={this.state.userInfo}/>
