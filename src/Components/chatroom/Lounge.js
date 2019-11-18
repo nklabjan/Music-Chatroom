@@ -42,11 +42,9 @@ class Lounge extends Component {
           //add ChatBubble to ChatList whenever there's new message
           // console.log(this.state.messages)
           //this.setState({messages: [...this.state.messages, {user:user,message:msg}]})
-          console.log("received a message from server")
         })
 
         this.socket.on('user_connected', function(user) {
-            console.log(user);
             var user_div = document.createElement("div");
             var user_name = document.createElement("p");
             user_name.innerHTML = user;
