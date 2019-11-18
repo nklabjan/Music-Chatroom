@@ -10,10 +10,14 @@
 }
 
 .QueueDeckTitle {
-    font-size: 30px;
+    font-size: 18px;
+    display: flex;
     text-align: center;
+    background-color: black;
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    color: #83599c;
+    color: white;
     height: 7vh;
 }
 

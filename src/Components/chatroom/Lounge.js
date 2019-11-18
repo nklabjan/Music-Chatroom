@@ -50,6 +50,7 @@ class Lounge extends Component {
         this.socket.on('user_connected', function(user) {
             //Handle adding user to userList
             lounge.setState({users: [...lounge.state.users, user]});
+            //TODO: Update with other relevant lounge information
         })
 
         this.socket.on('user_disconnected', function(user) {
@@ -101,7 +102,7 @@ class Lounge extends Component {
 
                     <div className="loungeContainer">
                         <Queue socket={this.socket} playSong={this.playSong} />
-                        <Chat socket={this.socket} loungeID={this.id}/>
+                        <Chat socket={this.socket} loungeID={this.id} />
                         <UserList users={this.state.users}/>
                     </div>
                     <Player access_token={this.props.access_token}
