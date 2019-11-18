@@ -44,13 +44,16 @@ class Lounge extends Component {
           //add ChatBubble to ChatList whenever there's new message
           // console.log(this.state.messages)
           //this.setState({messages: [...this.state.messages, {user:user,message:msg}]})
-          console.log("received a message from server")
         })
 
         this.socket.on('user_connected', function(user) {
             //Handle adding user to userList
             lounge.setState({users: [...lounge.state.users, user]});
-            //TODO: Update with other relevant lounge information
+            // var user_div = document.createElement("div");
+            // var user_name = document.createElement("p");
+            // user_name.innerHTML = user;
+            // user_div.appendChild(user_name);
+            // document.getElementsByClassName('members')[0].appendChild(user_div);
         })
 
         this.socket.on('user_disconnected', function(user) {
