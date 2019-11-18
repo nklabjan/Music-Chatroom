@@ -9,6 +9,8 @@
       width: 100%;
       border-bottom: 2px solid rgba(1, 1, 1, 1);
       position: relative;
+      background-color: black;
+
   }
 
   .title {
