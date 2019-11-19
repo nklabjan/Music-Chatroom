@@ -122,7 +122,7 @@ class Player extends Component {
         },
         body: JSON.stringify({
           "device_ids": [ deviceId ],
-          "play": false,
+          "play": true,
         }),
       });
     }
