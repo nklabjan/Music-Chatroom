@@ -47,12 +47,8 @@ class Lounge extends Component {
         })
 
         this.socket.on('user_connected', function(user) {
-<<<<<<< HEAD
-            //console.log(user);
-=======
             //Handle adding user to userList
             lounge.setState({users: [...lounge.state.users, user]});
->>>>>>> 01b905cfda474609cc29ad01230bcc8f86cd32e1
             var user_div = document.createElement("div");
             var user_name = document.createElement("p");
             user_name.innerHTML = user;
