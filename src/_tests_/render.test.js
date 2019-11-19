@@ -11,7 +11,7 @@ import HomePage from '../Components/homepage/HomePage';
 import LandingPage from '../Components/homepage/LandingPage';
 import ChatWindow from '../Components/chatroom/Chat/ChatWindow';
 import UserList from '../Components/chatroom/UserList';
-import Queue from '../Components/chatroom/Queue';
+import Queue from '../Components/chatroom/Queue/Queue';
 import Lounge from '../Components/chatroom/Lounge';
 import Player from '../Components/chatroom/Player/Player';
 import SliderCom from '../Components/chatroom/Player/Slider';

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Lounge from './chatroom/Lounge';
 import HomePage from './homepage/HomePage';
-import Profile from "./profile/Profile";
 import MakeChatRoom from "./makechatroom/makechatroom";
 import CadenceNavBar from './CadenceNavBar';
 import '../css/ContentHandler.css';
@@ -22,7 +21,6 @@ class ContentHandler extends Component {
         chatRooms: [],
         curr_lounge: null, //curr lounge is gonna keep track of
         showModalChat: false,
-        showModalProfile: false,
         userInfo: null
     }
 
@@ -36,8 +34,6 @@ class ContentHandler extends Component {
     this.leaveChatRoom = this.leaveChatRoom.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
-    this.showProfile = this.showProfile.bind(this);
-    this.closeProfile = this.closeProfile.bind(this);
     this.getLounges = this.getLounges.bind(this);
   }
 
@@ -57,7 +53,6 @@ class ContentHandler extends Component {
     // if curr_lounge is null -> create new chatroom when get into lounge
     //newInstance = {name,loungeMaster, ID, numUsers} (ID is obtained from the backend )
     // this.setState({chatRooms: [...this.state.chatRooms, newInstance]})
-
     axios.post(urls.backend_url + '/createLounge', {"name": name,
                                                     "loungeMasterName": this.state.userInfo.display_name,
                                                     "loungeMasterID": this.state.userInfo.id,
@@ -88,16 +83,6 @@ class ContentHandler extends Component {
 
   handleChat() {
     this.setState({currDisplay: "lounge"});
-  }
-
-  showProfile() {
-    this.setState({showModalProfile: true});
-    this.setState({currDisplay: "profile"});
-  }
-
-  closeProfile() {
-    this.setState({showModalProfile: false});
-    this.setState({currDisplay: "home"});
   }
 
   handleClose() {
@@ -163,14 +148,8 @@ class ContentHandler extends Component {
       return (<Lounge access_token={this.state.access_token}
                       handleHome={this.handleHome}
                       loungeID={this.state.curr_lounge}
+                      userInfo={this.state.userInfo}
                       />);
-    }
-    else if(this.state.currDisplay === "profile") {
-      return (<Profile access_token={this.state.access_token}
-                        showProfile={this.showProfile}
-                        handleClose={this.closeProfile}
-                        showModalProfile={this.state.showModalProfile}
-                        userInfo={this.state.userInfo}/>);
     }
     else if(this.state.currDisplay === "makeChat") {
       return (<MakeChatRoom access_token={this.state.access_token}
@@ -190,10 +169,10 @@ class ContentHandler extends Component {
       return (
         <CadenceNavBar  scheme="CadenceNavBar"
                         logout={this.logout}
-                        showProfile={this.showProfile}
-                        handleHome={this.handleHome}
+                        access_token={this.state.access_token}                        handleHome={this.handleHome}
                         currDisplay={this.state.currDisplay}
-                        handleShow={this.handleShow}/>
+                        handleShow={this.handleShow}
+                        userInfo={this.state.userInfo}/>
       )
     }
     else return (
