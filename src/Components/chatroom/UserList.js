@@ -15,7 +15,6 @@ class UserList extends Component {
                 <div className="userListTitle">Chatroom Members</div>
                 <div className="members">
                   {this.props.users.map((user, idx) => {
-                    console.log(user.display_name)
                     return(<UserListMember key={idx}
                                       name={user.display_name}
                                       image={user.image}

@@ -27,8 +27,11 @@
 }
 
 .title {
-    font-size: 40px;
+    font-size: 24px;
     text-align: center;
     width: 100%;
-    color: #83599c;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

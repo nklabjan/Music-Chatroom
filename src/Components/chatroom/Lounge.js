@@ -48,17 +48,29 @@ class Lounge extends Component {
 
         this.socket.on('user_connected', function(user) {
             //Handle adding user to userList
+            if (lounge.state.users.length === 0)
+            {
+              console.log("poop")
+            }
             lounge.setState({users: [...lounge.state.users, user]});
-            var user_div = document.createElement("div");
-            var user_name = document.createElement("p");
-            user_name.innerHTML = user;
-            user_div.appendChild(user_name);
-            document.getElementsByClassName('members')[0].appendChild(user_div);
+            // var user_div = document.createElement("div");
+            // var user_name = document.createElement("p");
+            // user_name.innerHTML = user;
+            // user_div.appendChild(user_name);
+            // document.getElementsByClassName('members')[0].appendChild(user_div);
         })
 
         this.socket.on('user_disconnected', function(user) {
             //console.log(user);
             //Handle removing users from list
+            for (var i = 0; i < lounge.state.users.length; i++)
+            {
+              if (lounge.state.users[i].id === user.id)
+              {
+                const newList = lounge.state.users.splice(i, 1);
+                lounge.setState({users: newList});
+              }
+            }
 
         })
 
@@ -105,7 +117,7 @@ class Lounge extends Component {
 
                     <div className="loungeContainer">
                         <Queue socket={this.socket} playSong={this.playSong} />
-                        <Chat socket={this.socket} loungeID={this.id}/>
+                        <Chat socket={this.socket} loungeID={this.id} />
                         <UserList users={this.state.users}/>
                     </div>
                     <Player access_token={this.props.access_token}
@@ -120,7 +132,7 @@ class Lounge extends Component {
 
     componentWillUnmount(){
       console.log(this.props.loungeID);
-      this.socket.emit('user_disconnected', this.props.access_token, this.id);
+      this.socket.emit('user_disconnected', this.id);
     }
 }
 
