@@ -168,15 +168,18 @@ class Player extends Component {
 
     handleVolume = value => {
       this.setState({ value });
-      if(this.state.value/100 <= 0.05) {
-        this.player.setVolume(0).then(() => {
-          console.log("volume at 0");
-        });
-      }
-      else {
-        this.player.setVolume(this.state.value/100).then(() => {
-          console.log("volume updated to: " + this.state.value / 100);
-        });
+      if (!this.state.isMute)
+      {
+        if(this.state.value/100 <= 0.05) {
+          this.player.setVolume(0).then(() => {
+            console.log("volume at 0");
+          });
+        }
+        else {
+          this.player.setVolume(this.state.value/100).then(() => {
+            console.log("volume updated to: " + this.state.value / 100);
+          });
+        }
       }
     }
 
