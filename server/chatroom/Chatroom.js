@@ -71,10 +71,9 @@ class Chatroom {
         //
         // })
 
-        for (var indx in this.messageList) {
-            var msgPayload = this.messageList[indx];
+        for (var msgBlob of this.messageList) {
             //this.io.emit("message_received", msgPayload['msg'], msgPayload['user']);
-            socket.emit("message_received", msgPayload['msg'], msgPayload['user']);
+            socket.emit("message_received", msgBlob);
         }
 
     }
@@ -124,9 +123,12 @@ class Chatroom {
     }
 
     chatMessage(socket, message) {
-        this.messageList.push({'user': this.users[socket.id].display_name, 'msg' : message });
-        this.io.to(this.id).emit("message_received", message, this.users[socket.id].display_name);
-        console.log(this.id)
+        console.log("message received")
+        var msgBlob = { 'userName': this.users[socket.id].display_name,
+                        'userID': this.users[socket.id].id,
+                        'msg' : message }
+        this.messageList.push(msgBlob);
+        this.io.to(this.id).emit("message_received",  msgBlob);
     }
 
     //user this function to get limited info on the chatroom
@@ -135,6 +137,7 @@ class Chatroom {
       var info = {id: this.id,
                   name: this.name,
                   loungeMasterName: this.loungeMasterName,
+                  loungeMasterID: this.loungeMasterID,
                   numUsers: Object.keys(this.users).length,
                   currSong: this.currSong,
                   genres: this.genres,

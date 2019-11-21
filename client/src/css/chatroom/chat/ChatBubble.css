@@ -2,8 +2,20 @@
     border-radius: 15px;
     border: none;
     margin-left: 0%;
-    font-size: 20px;
     background-color: white;
-    width: 100%;
-    padding: 5%;
+    max-width: 45vw;
+    margin: 10px;
+    padding: 10px;
+
   }
+
+.chatName {
+  font-size: 16px;
+  color: rgba(104, 82, 156, 1);
+  font-weight: bold;
+}
+
+.chatMessage {
+  font-size: 15px;
+  color: black;
+}

@@ -17,9 +17,10 @@ class Lounge extends Component {
             displayProfile: false,
             deviceId: null,
             users: [],
+            messages: [],
         }
 
-        this.id = this.props.loungeID
+        this.info = this.props.loungeInfo
         this.socket = null;
         this.playSong = this.playSong.bind(this);
         this.setUpSocket();
@@ -31,27 +32,8 @@ class Lounge extends Component {
         this.socket = io(urls.backend_url);
         var lounge = this;
 
-        this.socket.on('message_received', function(msg, user) {
-
-          var message_div = document.createElement("div");
-          message_div.className = "message";
-          message_div.class = "chatarea";
-          var new_message = document.createElement("p");
-          new_message.innerHTML = user + ": " + msg;
-          message_div.appendChild(new_message);
-          document.getElementsByClassName('chatWindow')[0].appendChild(message_div);
-
-          //add ChatBubble to ChatList whenever there's new message
-          // console.log(this.state.messages)
-          //this.setState({messages: [...this.state.messages, {user:user,message:msg}]})
-        })
-
         this.socket.on('user_connected', function(user) {
             //Handle adding user to userList
-            if (lounge.state.users.length === 0)
-            {
-              console.log("poop")
-            }
             lounge.setState({users: [...lounge.state.users, user]});
             // var user_div = document.createElement("div");
             // var user_name = document.createElement("p");
@@ -88,6 +70,14 @@ class Lounge extends Component {
             });
 
         })
+
+        this.socket.on('message_received', function(msgBlob) {
+
+          //add ChatBubble to ChatList whenever there's new message
+          // console.log(this.state.messages)
+          //old messages -> new messages
+          lounge.setState({messages: [msgBlob, ...lounge.state.messages]});
+        })
     }
 
     setDeviceId(device_id){
@@ -104,11 +94,11 @@ class Lounge extends Component {
                       this.props.access_token,
                       this.state.deviceId,
                       song_uri,
-                      this.id)
+                      this.info.id)
     }
 
     componentWillMount(){
-      this.socket.emit('user_connected', this.props.access_token, this.id, this.props.userInfo);
+      this.socket.emit('user_connected', this.props.access_token, this.info.id, this.props.userInfo);
     }
     render() {
 
@@ -116,8 +106,11 @@ class Lounge extends Component {
                 <div className="lounge">
 
                     <div className="loungeContainer">
-                        <Queue socket={this.socket} playSong={this.playSong} />
-                        <Chat socket={this.socket} loungeID={this.id} />
+                        <Queue  socket={this.socket}
+                                playSong={this.playSong} />
+                        <Chat socket={this.socket}
+                              loungeInfo={this.info}
+                              messages={this.state.messages}/>
                         <UserList users={this.state.users}/>
                     </div>
                     <Player access_token={this.props.access_token}
@@ -131,8 +124,8 @@ class Lounge extends Component {
         }
 
     componentWillUnmount(){
-      console.log(this.props.loungeID);
-      this.socket.emit('user_disconnected', this.id);
+      console.log(this.info.id);
+      this.socket.emit('user_disconnected', this.info.id);
     }
 }
 
