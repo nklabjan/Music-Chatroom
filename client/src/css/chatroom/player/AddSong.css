@@ -1,0 +1,23 @@
+
+.addSongArea {
+    bottom: 0px;
+    left: 0px;
+    border-radius: 15px;
+    font-size: 20px;
+    border-color: black;
+    border-style: solid;
+    resize: none;
+    width: 80%;
+}
+
+.sendSong {
+    bottom: 0px;
+    right: 0px;
+    color: white;
+    width: 20%;
+    border-radius: 15px;
+    border-color: white;
+    border-style: solid;
+    background-color: rgba(104, 82, 156, 1) !important;
+    height: 100%;
+}
