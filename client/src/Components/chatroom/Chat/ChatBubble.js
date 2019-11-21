@@ -5,7 +5,12 @@ class ChatBubble extends Component {
 
     render() {
         return (<div className="chatBubble">
-            {this.props.user} : {this.props.message}
+                  <div className="chatName">
+                    {this.props.user}
+                  </div>
+                  <div className="chatMessage">
+                    {this.props.message}
+                  </div>
           </div>
         )
     }

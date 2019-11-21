@@ -107,7 +107,7 @@ io.on('connection', function(socket) {
       }
     });
 
-    socket.on('message_sent', function(msg, accessToken, loungeID) {
+    socket.on('message_sent', function(msg, loungeID) {
         if (chatrooms[loungeID] !== undefined)
         {
           chatrooms[loungeID].chatMessage(socket, msg);
