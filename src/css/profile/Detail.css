@@ -5,7 +5,7 @@
 
 .label {
     width:100%;
-    margin-top:1%;
+    margin-top:4%;
     color: rgba(104, 82, 156, 1);
     font-size: 25px;
 }
@@ -18,12 +18,13 @@
 
 .input {
     color: rgba(49, 47, 54, 1);
+    resize: none;
 }
 
 .restriction-profile {
     padding-right: 10%;
     text-align: right;
     width: 100%;
-    color: black;
+    color: red;
     font-size: 80%;
 }
