@@ -10,7 +10,7 @@ class QueueDeck extends Component {
                 <div className="QueueDeck">
                     <div className="QueueDeckTitle">Queue</div>
                     <div className="QueueList">
-                      <Table striped bordered hover variant="dark" className="queueTable">
+                      <Table striped hover borderless className="queueTable" >
                         <thead>
                           <tr>
                             <th></th>

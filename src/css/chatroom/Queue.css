@@ -40,7 +40,25 @@
     position: relative;
     width: 25vw;
     height: 50%;
-    color: white;
+    color: white !important;
     font-size: 15px;
     margin-top: 2%;
+}
+
+.queuePlayBtn {
+  color: white;
+  background-color: rgba(1, 1, 1, 0);
+  border-color: rgba(1,1,1, 1);
+  border: none;
+  outline: none;
+}
+
+tr {
+  border-bottom: 1px solid black;
+}
+tr:hover {
+  color: white !important;
+}
+.queuePlayBtn:hover {
+  color: rgba(104, 82, 156, 1);
 }

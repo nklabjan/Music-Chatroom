@@ -129,11 +129,11 @@ class ContentHandler extends Component {
         userInfo: myJson
       });
 
-      if (this.state.userInfo.product !== "premium") {
-        this.setState({loggedInStatus: false});
-        this.setState({currDisplay: "home"});
-        alert("You must have Spotify Premium to Access our Application!");
-      }
+      // if (this.state.userInfo.product !== "premium") {
+      //   this.setState({loggedInStatus: false});
+      //   this.setState({currDisplay: "home"});
+      //   alert("You must have Spotify Premium to Access our Application!");
+      // }
   }
 
   renderContent() {
