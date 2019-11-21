@@ -1,5 +1,7 @@
 .modHeader {
     height: 12vh;
+    color: "white";
+    background-color: "black" !important;
 }
 
 .modTitle {
@@ -25,4 +27,3 @@
 .createBtn {
     background: rgba(104, 82, 156, 1) !important;
 }
-

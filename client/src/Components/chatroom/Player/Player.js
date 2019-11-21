@@ -25,7 +25,8 @@ class Player extends Component {
         artistName: "",
         albumCover: "",
         show: false,
-        value: 10
+        value: 10,
+        isMute: false,
       }
   }
 
@@ -104,7 +105,7 @@ class Player extends Component {
           albumName,
           artistName,
           playing,
-          albumCover
+          albumCover,
         });
       }
     }
@@ -145,6 +146,24 @@ class Player extends Component {
 
     handleClose() {
       this.setState({show: false});
+    }
+
+
+
+    toggleVolume(){
+      //If not mute
+      if (!this.state.isMute)
+      {
+        this.player.setVolume(0);
+        //Use isMute to keep track of slider color
+        this.setState({isMute: true});
+      }
+      //is currently mute
+      else
+      {
+        this.player.setVolume(this.state.value/100);
+        this.setState({isMute: false});
+      }
     }
 
     handleVolume = value => {
@@ -197,8 +216,8 @@ class Player extends Component {
               <button className="queue-list" onClick={()=>{console.log("queue")}}>
                 <FontAwesomeIcon size="lg" icon={faMusic} />
               </button>
-              <button className="volume" onClick={()=>{console.log("volume")}}>
-                <FontAwesomeIcon size="lg" icon={faVolumeUp} />
+              <button className="volume" onClick={()=> this.toggleVolume()}>
+                <FontAwesomeIcon size="lg" icon={ this.state.isMute ? faVolumeMute : faVolumeUp} />
               </button>
               <VolumeSlider value={this.state.value} handleVolume={this.handleVolume}/>
               <button className="leave-room" onClick={()=>{this.props.handleHome()}}>
