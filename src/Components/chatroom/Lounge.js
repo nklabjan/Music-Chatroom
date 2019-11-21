@@ -48,6 +48,10 @@ class Lounge extends Component {
 
         this.socket.on('user_connected', function(user) {
             //Handle adding user to userList
+            if (lounge.state.users.length === 0)
+            {
+              console.log("poop")
+            }
             lounge.setState({users: [...lounge.state.users, user]});
             // var user_div = document.createElement("div");
             // var user_name = document.createElement("p");
@@ -59,6 +63,14 @@ class Lounge extends Component {
         this.socket.on('user_disconnected', function(user) {
             console.log(user);
             //Handle removing users from list
+            for (var i = 0; i < lounge.state.users.length; i++)
+            {
+              if (lounge.state.users[i].id === user.id)
+              {
+                const newList = lounge.state.users.splice(i, 1);
+                lounge.setState({users: newList});
+              }
+            }
 
         })
 
@@ -120,7 +132,7 @@ class Lounge extends Component {
 
     componentWillUnmount(){
       console.log(this.props.loungeID);
-      this.socket.emit('user_disconnected', this.props.access_token, this.id);
+      this.socket.emit('user_disconnected', this.id);
     }
 }
 
