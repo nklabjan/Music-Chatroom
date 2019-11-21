@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlayCircle, faPauseCircle, faTimesCircle} from '@fortawesome/free-regular-svg-icons';
 import { faStepForward, faStepBackward,faMusic,
         faPlusCircle, faVolumeUp, faVolumeMute} from '@fortawesome/free-solid-svg-icons';
+import AddSongModal from './AddSongModal';
 import '../../../css/chatroom/player/Player.css';
 
 class Player extends Component {
@@ -172,12 +173,12 @@ class Player extends Component {
       {
         if(this.state.value/100 <= 0.05) {
           this.player.setVolume(0).then(() => {
-            console.log("volume at 0");
+            //console.log("volume at 0");
           });
         }
         else {
           this.player.setVolume(this.state.value/100).then(() => {
-            console.log("volume updated to: " + this.state.value / 100);
+            //console.log("volume updated to: " + this.state.value / 100);
           });
         }
       }

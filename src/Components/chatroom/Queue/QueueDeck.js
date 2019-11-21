@@ -1,10 +1,30 @@
 import React, {Component} from "react";
 import { Table } from 'react-bootstrap';
-import QueueCard from './QueueCard';
-import '../../../css/chatroom/Queue.css'
+import Song from './Song';
+import '../../../css/chatroom/Queue.css';
+import SongList from './SongList';
+
+let songList = new SongList();
 
 class QueueDeck extends Component {
+    constructor() {
+      super();
+    }
 
+    getSongs() {
+      let songs = songList.getList();
+      let queue = [];
+
+      for(var i = 0; i < songs.length; i++) {
+        queue.push(
+          <Song uri={songs[i]} access_token={this.props.access_token}/>
+        )
+      }
+      if(Object.entries(queue).length !== 0) {
+        return queue;
+      }
+    }
+    
     render() {
         return (
                 <div className="QueueDeck">
@@ -20,30 +40,6 @@ class QueueDeck extends Component {
                           </tr>
                         </thead>
                         <tbody>
-                            <QueueCard  title={"All Star"}
-                                        artist={"Smash Mouth"}
-                                        album={"Astro Lounge"}
-                                        uri={"spotify:track:3cfOd4CMv2snFaKAnMdnvK"}
-                                        socket={this.props.socket}
-                                        playSong={this.props.playSong}/>
-                            <QueueCard  title={"Stacy's Mom"}
-                                        artist={"Fountain of Wayne"}
-                                        album={"Welcome interstate Manager"}
-                                        uri={"spotify:track:27L8sESb3KR79asDUBu8nW"}
-                                        socket={this.props.socket}
-                                        playSong={this.props.playSong}/>
-                            <QueueCard  title={"In My Room"}
-                                        artist={"Frank Ocean"}
-                                        album={"In My Room"}
-                                        uri={"spotify:track:4S4Mfvv03M1cHgIOJcbUCL"}
-                                        socket={this.props.socket}
-                                        playSong={this.props.playSong}/>
-                            <QueueCard  title={"The Other Side of Paradise"}
-                                        artist={"Glass Animals"}
-                                        album={"How To Be a Human Being"}
-                                        uri={"spotify:track:0rRjGruFonCGOt0S5zAJNQ"}
-                                        socket={this.props.socket}
-                                        playSong={this.props.playSong}/>
                         </tbody>
                       </Table>
                       </div>

@@ -43,7 +43,7 @@ class Lounge extends Component {
         })
 
         this.socket.on('user_disconnected', function(user) {
-            console.log(user);
+            //console.log(user);
             //Handle removing users from list
             for (var i = 0; i < lounge.state.users.length; i++)
             {
