@@ -11,7 +11,6 @@ class ChatWindow extends Component {
             return (<div className="chatWindow">
               {
                       this.props.messages.map((msgBlob, msgIndex) => {
-                        console.log(msgBlob);
                         return (
                             <ChatBubble
                             key={msgIndex}
