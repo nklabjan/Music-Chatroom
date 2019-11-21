@@ -28,11 +28,14 @@ class MakeChatroom extends Component {
     // }
 
     handleChatroomInfo() {
+
       let loungeName = document.getElementById('formLoungeName').value;
       let description = document.getElementById('formDescription').value;
       let genres = document.getElementById('formGenres').value;
 
-      this.props.saveChatRoom(loungeName,description,genres);
+      if (loungeName.replace(/\s/g, '').length !== 0 && description.replace(/\s/g, '').length !== 0) {
+        this.props.saveChatRoom(loungeName,description,genres);
+      }
     }
 
     render() {
