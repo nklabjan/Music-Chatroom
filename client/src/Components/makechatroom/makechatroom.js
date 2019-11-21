@@ -19,7 +19,7 @@ class MakeChatroom extends Component {
       const selected = document.querySelectorAll('#formGenres option:checked');
       let genres = Array.from(selected).map(el => el.value);
 
-      if (loungeName.replace(/\s/g, '').length !== 0 && description.replace(/\s/g, '').length !== 0) {
+      if (loungeName.replace(/\s/g, '').length !== 0 && description.replace(/\s/g, '').length !== 0 && genres.length <= 2) {
         this.props.saveChatRoom(loungeName,description,genres);
       }
     }
