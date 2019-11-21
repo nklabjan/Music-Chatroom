@@ -20,7 +20,7 @@ class Lounge extends Component {
             messages: [],
         }
 
-        this.id = this.props.loungeID
+        this.info = this.props.loungeInfo
         this.socket = null;
         this.playSong = this.playSong.bind(this);
         this.setUpSocket();
@@ -94,11 +94,11 @@ class Lounge extends Component {
                       this.props.access_token,
                       this.state.deviceId,
                       song_uri,
-                      this.id)
+                      this.info.id)
     }
 
     componentWillMount(){
-      this.socket.emit('user_connected', this.props.access_token, this.id, this.props.userInfo);
+      this.socket.emit('user_connected', this.props.access_token, this.info.id, this.props.userInfo);
     }
     render() {
 
@@ -106,9 +106,10 @@ class Lounge extends Component {
                 <div className="lounge">
 
                     <div className="loungeContainer">
-                        <Queue socket={this.socket} playSong={this.playSong} />
+                        <Queue  socket={this.socket}
+                                playSong={this.playSong} />
                         <Chat socket={this.socket}
-                              loungeID={this.id}
+                              loungeInfo={this.info}
                               messages={this.state.messages}/>
                         <UserList users={this.state.users}/>
                     </div>
@@ -123,8 +124,8 @@ class Lounge extends Component {
         }
 
     componentWillUnmount(){
-      console.log(this.props.loungeID);
-      this.socket.emit('user_disconnected', this.id);
+      console.log(this.info.id);
+      this.socket.emit('user_disconnected', this.info.id);
     }
 }
 

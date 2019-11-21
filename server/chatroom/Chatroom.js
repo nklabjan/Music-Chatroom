@@ -137,6 +137,7 @@ class Chatroom {
       var info = {id: this.id,
                   name: this.name,
                   loungeMasterName: this.loungeMasterName,
+                  loungeMasterID: this.loungeMasterID,
                   numUsers: Object.keys(this.users).length,
                   currSong: this.currSong,
                   genres: this.genres,

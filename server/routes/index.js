@@ -74,7 +74,7 @@ router.get('/auth', function(req, res) {
     req.app.locals.chatrooms[new_id] = new_chatroom;
 
     //Only increment when new chatroom is created
-    console.log("new room created with id:" + new_id);
+    console.log("new room created with id: " + new_id);
 
     req.app.locals.idCounter++;
 

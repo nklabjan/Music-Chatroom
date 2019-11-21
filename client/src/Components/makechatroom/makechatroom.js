@@ -30,7 +30,8 @@ class MakeChatroom extends Component {
     handleChatroomInfo() {
       let loungeName = document.getElementById('formLoungeName').value;
       let description = document.getElementById('formDescription').value;
-      let genres = document.getElementById('formGenres').value;
+      const selected = document.querySelectorAll('#formGenres option:checked');
+      let genres = Array.from(selected).map(el => el.value);
 
       this.props.saveChatRoom(loungeName,description,genres);
     }

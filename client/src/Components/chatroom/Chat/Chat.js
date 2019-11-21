@@ -14,7 +14,7 @@ class Chat extends Component {
   sendMessage() {
       this.props.socket.emit('message_sent',
                               document.getElementById('textarea').value,
-                              this.props.loungeID);
+                              this.props.loungeInfo.id);
   }
 
   getAuthToken() {
@@ -27,7 +27,7 @@ class Chat extends Component {
       return (
               <div className="chatDisplay">
               <header className="chatroom-header">
-                  <div className="title"> Lounge </div>
+                  <div className="title"> {this.props.loungeInfo.name} </div>
               </header>
                       <ChatWindow messages={this.props.messages}/>
                       <Messenger sendMessage={this.sendMessage}/>
