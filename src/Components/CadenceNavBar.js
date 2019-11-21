@@ -45,10 +45,6 @@ class CadenceNavBar extends Component {
                           fixed={this.props.scheme === "CadenceNavBarInit" ? "top" : ""}>
                   <Navbar.Brand className="cursor" onClick={this.props.handleHome}>Cadence</Navbar.Brand>
         <Nav className="mr-auto">
-          {this.props.currDisplay === "lounge" ?
-          <Nav.Link onClick={this.props.handleHome}>Home</Nav.Link>
-           : <></>}
-           
           <Nav.Link onClick={() => this.profileRender()}>Profile</Nav.Link>
           {this.props.currDisplay === "lounge" ? <Nav.Link onClick={this.props.handleHome}>Leave Lounge</Nav.Link> :
                   <Nav.Link onClick={this.props.handleShow}>Make Lounge</Nav.Link>}
@@ -72,7 +68,6 @@ class CadenceNavBar extends Component {
                 profileClose={() => this.profileClose()}/> : <></>}
           </div>)
       }
-
 }
 
 export default CadenceNavBar;
