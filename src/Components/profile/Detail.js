@@ -32,7 +32,13 @@ class ProfileDetail extends Component {
                     <div className="detail">
                         <div className="label">{this.props.label}</div>
                         <div className="info">
-                            <input className="input" size="100" value={this.state.info} onChange={e => this.onDetailChange(e.target.value)}></input>
+                            {this.props.label === "Username:" ?
+                            <><textarea className="input" maxlength="20" id={this.props.label} onChange={e => this.onDetailChange(e.target.value)} 
+                                cols="100" rows="1" value={this.state.info}></textarea>
+                            <div className="restriction-profile">max characters = 20</div></> : 
+                            <><textarea className="input" maxlength="250" id={this.props.label} onChange={e => this.onDetailChange(e.target.value)} 
+                                cols="100" rows="3" value={this.state.info}></textarea>
+                            <div className="restriction-profile">max characters = 250</div></>}
                         </div>
                     </div>
                 </>
