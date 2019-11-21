@@ -1,6 +1,5 @@
 .detail {
     width: 100%;
-    margin-top: 1vh;
 }
 
 .label {
@@ -12,18 +11,19 @@
 
 .info {
     width:100%;
-    height: 40px;
+
     font-size: 15px;
 }
 
 .input {
     color: rgba(49, 47, 54, 1);
+    resize: none;
 }
 
 .restriction-profile {
     padding-right: 10%;
     text-align: right;
     width: 100%;
-    color: black;
+    color: red;
     font-size: 80%;
 }
