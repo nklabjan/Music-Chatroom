@@ -12,21 +12,6 @@ class MakeChatroom extends Component {
         }
     }
 
-    // async componentDidMount() {
-    //     const response = await fetch('https://api.spotify.com/v1/me', {
-    //     method: "GET",
-    //     headers: {
-    //         authorization: `Bearer ${this.props.access_token}`,
-    //         },
-    //     });
-    //     const myJson = await response.json();
-    //     console.log("MyJson: ", myJson);
-    //     var displayName = myJson.display_name;
-    //     this.setState({
-    //         display_name: displayName
-    //     });
-    // }
-
     handleChatroomInfo() {
 
       let loungeName = document.getElementById('formLoungeName').value;
