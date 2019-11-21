@@ -1,6 +1,8 @@
 .chatWindow {
     overflow-y: scroll;
     position: relative;
+    display: flex;
+    flex-direction: column-reverse;
     height: 90%;
     width: 100%;
 }

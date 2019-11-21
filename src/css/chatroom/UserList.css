@@ -25,17 +25,19 @@
     border-top-color: rgba(1, 1, 1, 1);
     border-top-style: solid;
     width: 100%;
-    height: 80%;
+    height: 71vh;
     color: white;
     font-size: 20px;
     text-align: center;
     display: flex;
     flex-direction: column;
+
 }
 
 .userListMember {
   height: 7vh;
   width: 100%;
+  padding: 10px;
   display: flex;
   flex-direction: row;
   align-items: center;

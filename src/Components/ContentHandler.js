@@ -63,13 +63,23 @@ class ContentHandler extends Component {
         console.log(res.data)
         var lounge_info = res.data.lounge_info
         //Handle lounge information
-        this.setState({curr_lounge: lounge_info.id})
+        this.setState({curr_lounge: lounge_info})
         this.setState({currDisplay: "lounge"});
       })
   }
 
   joinChatRoom(chatroom_id) {
-    this.setState({curr_lounge: chatroom_id})
+    var joining_room = null;
+    for (var room of this.state.chatRooms)
+    {
+      if (chatroom_id === room.id)
+      {
+        joining_room = room;
+        break;
+      }
+    }
+    this.setState({curr_lounge: joining_room})
+
   }
 
   leaveChatRoom() {
@@ -124,11 +134,16 @@ class ContentHandler extends Component {
           },
       });
       const myJson = await response.json();
-      console.log("MyJson: ", myJson);
-      //set state with user info
+
       this.setState({
         userInfo: myJson
       });
+
+      if (this.state.loggedInStatus === true && this.state.userInfo.product !== "premium") {
+        this.setState({loggedInStatus: false});
+        this.setState({currDisplay: "home"});
+        alert("You need Spotify Premium to use our application!");
+      }
   }
 
   renderContent() {
@@ -147,7 +162,7 @@ class ContentHandler extends Component {
     else if(this.state.currDisplay === "lounge"){
       return (<Lounge access_token={this.state.access_token}
                       handleHome={this.handleHome}
-                      loungeID={this.state.curr_lounge}
+                      loungeInfo={this.state.curr_lounge}
                       userInfo={this.state.userInfo}
                       />);
     }
