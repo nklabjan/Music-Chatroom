@@ -9,6 +9,7 @@ class QueueDeck extends Component {
         return (
                 <div className="QueueDeck">
                     <div className="QueueDeckTitle">Queue</div>
+                    <div className="QueueList">
                       <Table striped bordered hover variant="dark" className="queueTable">
                         <thead>
                           <tr>
@@ -45,6 +46,7 @@ class QueueDeck extends Component {
                                         playSong={this.props.playSong}/>
                         </tbody>
                       </Table>
+                      </div>
                 </div>
         )
     }

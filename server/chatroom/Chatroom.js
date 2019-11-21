@@ -36,7 +36,14 @@ class Chatroom {
           }
 
           this.users[socket.id] = minimalUserInfo;
-          this.io.to(this.id).emit("user_connected", minimalUserInfo);
+          //for current user give the entire user list
+          for (var key in this.users)
+          {
+            socket.emit("user_connected", this.users[key]);
+          }
+
+          socket.to(this.id).emit("user_connected", minimalUserInfo);
+
         }
         else {
           console.log("User with connection already exist.")
@@ -74,14 +81,19 @@ class Chatroom {
 
     userDisconnected(socket)
     {
-      console.log("user " + socket.id + " has disconnected.");
-      delete this.users[socket.id];
-      socket.leave(this.id);
-      for( var key in this.users ) {
-          //var value = this.users[key];
-        }
-      console.log("Users left in lounge:" + Object.keys(this.users).length)
-      console.log(this.users)
+      if (this.users[socket.id])
+      {
+        var user = this.users[socket.id]
+        console.log("user " + socket.id + " has disconnected.");
+        delete this.users[socket.id];
+        socket.leave(this.id);
+
+        console.log("Users left in lounge:" + Object.keys(this.users).length)
+        console.log(this.users)
+        //Emit event to all other users to remove leaving user from list
+        this.io.to(this.id).emit("user_disconnected", user);
+
+      }
     }
 
     playSong(accessToken, deviceId, spotifyURI)
