@@ -8,16 +8,12 @@ class Chat extends Component {
 
   constructor(props) {
       super(props);
-      this.state = {
-        messages: [] //format {user,msg} can add timestamp in the future
-      }
       this.sendMessage = this.sendMessage.bind(this);
   }
 
   sendMessage() {
       this.props.socket.emit('message_sent',
                               document.getElementById('textarea').value,
-                              this.getAuthToken(),
                               this.props.loungeID);
   }
 
@@ -28,12 +24,13 @@ class Chat extends Component {
   }
 
   render() {
+    console.log(this.props.messages)
       return (
               <div className="chatDisplay">
               <header className="chatroom-header">
                   <div className="title"> Lounge </div>
               </header>
-                      <ChatWindow messages={this.state.messages}/>
+                      <ChatWindow messages={this.props.messages}/>
                       <Messenger sendMessage={this.sendMessage}/>
               </div>
       )
