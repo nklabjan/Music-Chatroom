@@ -124,11 +124,16 @@ class ContentHandler extends Component {
           },
       });
       const myJson = await response.json();
-      console.log("MyJson: ", myJson);
-      //set state with user info
+
       this.setState({
         userInfo: myJson
       });
+
+      if (this.state.userInfo.product !== "premium") {
+        this.setState({loggedInStatus: false});
+        this.setState({currDisplay: "home"});
+        alert("You must have Spotify Premium to Access our Application!");
+      }
   }
 
   renderContent() {
