@@ -32,10 +32,9 @@ class Profile extends Component {
                     <Modal.Title className="modTitleProf">{this.props.userInfo.display_name}'s Profile</Modal.Title>
                         </Modal.Header>
                     <Modal.Body className="modBodyProf">
-                        <ProfileDetail viewType={this.state.viewType} label="Username: " info=""/>
-                        <ProfileDetail viewType={this.state.viewType} label="About Me: " info=""/>
-                        <ProfileDetail viewType={this.state.viewType} label="Music Taste: " info=""/>
-                        <ProfileDetail viewType={this.state.viewType} label="Location: " info="" />
+                        <ProfileDetail viewType={this.state.viewType} label="Username:" info=""/>
+                        <ProfileDetail viewType={this.state.viewType} label="About Me:" info=""/>
+                        <ProfileDetail viewType={this.state.viewType} label="Music Taste:" info=""/>
                     </Modal.Body>
                     <Modal.Footer>
                     <Button className="createBtnCloseProf" variant="secondary" onClick={this.props.profileClose}>

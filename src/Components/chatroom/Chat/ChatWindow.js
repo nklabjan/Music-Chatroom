@@ -4,24 +4,18 @@ import '../../../css/chatroom/chat/ChatWindow.css'
 
 class ChatWindow extends Component {
 
-  constructor(props) {
-      super(props);
-      this.state = {
-        messages: [] //format {user,msg} can add timestamp in the future
-      }
-
-  }
-
     render() {
-      if (this.props.messages !== null && this.props.messages !== undefined && this.props.messages.length >0 ) {
+      if (this.props.messages !== null &&
+          this.props.messages !== undefined &&
+          this.props.messages.length >0 ) {
             return (<div className="chatWindow">
               {
-                      this.props.messages.map((msg, msgIndex) => {
+                      this.props.messages.map((msgBlob, msgIndex) => {
                         return (
                             <ChatBubble
                             key={msgIndex}
-                            user= {msg["user"]}
-                            message={msg["message"]}
+                            user= {msgBlob["userName"]}
+                            message={msgBlob["msg"]}
                            />
                       )
                     })
