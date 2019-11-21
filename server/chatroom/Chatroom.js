@@ -1,5 +1,8 @@
+var LoungeQueue = require('../chatroom/LoungeQueue.js')
+
+
 class Chatroom {
-    constructor(io, id, loungeInfo) {
+    constructor(io, id, loungeInfo, songList) {
         this.request = require('request');
         this.io = io;
         this.id = id; //Chatroom unique ID
@@ -11,9 +14,14 @@ class Chatroom {
         this.genres = loungeInfo.genres;
         this.users = {};
         this.messageList = [];
-        this.queue = []; //Queue of songs
         this.currentSong = null;
-        this.history = [];
+        this.queue = new LoungeQueue.LoungeQueue(this.io); //Queue of songs
+
+        //If there are songs preloaded into the Chatroom -> load them into the queue
+        if (songList !== undefined)
+        {
+          this.queue.loadSongs(songList);
+        }
     }
 
     loadMockQueue() {
@@ -48,33 +56,15 @@ class Chatroom {
         else {
           console.log("User with connection already exist.")
         }
-        // when a new user connects, get profile information
-        // var url = 'https://api.spotify.com/v1/me?access_token=' +accessToken;
-        // var chatroom = this; // alias this as chatroom so it can be referenced in async call
-        // var io = this.io;
-        //
-        // this.request(url, function(error, response, body) {
-        //     body = JSON.parse(body);
-        //     //console.log(chatroom.users[socket] !== undefined);
-        //     // if this is a socket we haven't seen before, add it to the user list
-        //     // and emit a join message to everyone else
-        //     if (chatroom.users[socket.id] === undefined) {
-        //         chatroom.users[socket.id] = body["display_name"];
-        //         io.to(chatroom.id).emit("user_connected", body["display_name"]);
-        //
-        //         //socket.broadcast.emit("user_connected", body["display_name"]);
-        //     }
-        //     // regardless, load the member list
-        //     for(var userId in chatroom.users) {
-        //         //socket.emit("user_connected", chatroom.users[userId]);
-        //     }
-        //
-        // })
 
+        //Load current messages into the Lounge for new user
         for (var msgBlob of this.messageList) {
             //this.io.emit("message_received", msgPayload['msg'], msgPayload['user']);
             socket.emit("message_received", msgBlob);
         }
+
+        //Load current songs into the Lounge for new user
+        this.getQueue(socket);
 
     }
 
@@ -129,6 +119,12 @@ class Chatroom {
                         'msg' : message }
         this.messageList.push(msgBlob);
         this.io.to(this.id).emit("message_received",  msgBlob);
+    }
+
+    getQueue(socket) {
+        //Send the list back to the Client
+        var queueList = this.queue.songs;
+        socket.emit("queue_received", queueList);
     }
 
     //user this function to get limited info on the chatroom
