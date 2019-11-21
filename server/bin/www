@@ -76,10 +76,31 @@ io.on('connection', function(socket) {
       }
     });
 
-    socket.on('user_disconnected', function(accessToken, loungeID) {
+    //HANDLES SUDDEN DISCONNECT
+    socket.on('disconnect', function(loungeID) {
+      if (loungeID === "transport close")
+      {
+        //Look for user in each room and remove from room
+        //CLEANING UP PRECAUTION
+        for (var key in chatrooms)
+        {
+          chatrooms[key].userDisconnected(socket);
+        }
+      }
+
+      else if (chatrooms[loungeID] !== undefined)
+      {
+        chatrooms[loungeID].userDisconnected(socket);
+      }
+      else {
+        console.log("Disconnecting error")
+      }
+    });
+
+    socket.on('user_disconnected', function(loungeID) {
       if (chatrooms[loungeID] !== undefined)
       {
-        chatrooms[loungeID].userDisconnected(socket, accessToken);
+        chatrooms[loungeID].userDisconnected(socket);
       }
       else {
         console.log("Disconnecting error")
