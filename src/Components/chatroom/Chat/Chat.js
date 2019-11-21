@@ -24,7 +24,6 @@ class Chat extends Component {
   }
 
   render() {
-    console.log(this.props.messages)
       return (
               <div className="chatDisplay">
               <header className="chatroom-header">
