@@ -5,11 +5,18 @@ import '../../../css/chatroom/player/Slider.css'
 
 class SliderCom extends Component {
 
+    componentWillMount(){
+      //At mount set seek to currently played position
+
+    }
+
     render() {
         return (
               <div className="sliderDiv">
                 <div className="position">{this.props.position}</div>
-                <div className="sliderContainer"><Slider className="mySlider"/></div>
+                <div className="sliderContainer">
+                  <Slider className="mySlider" onAfterChange={this.props.handleSeeking}/>
+                </div>
                 <div className="duration">{this.props.duration}</div>
               </div>
         )
