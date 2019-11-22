@@ -143,8 +143,6 @@ class Player extends Component {
       this.setState({show: false});
     }
 
-
-
     toggleVolume(){
       //If not mute
       if (!this.state.isMute)
@@ -218,6 +216,9 @@ class Player extends Component {
 
             <div className="playerRight">
               <button className="add-song" onClick={() => this.handleShow()}>
+                <AddSongModal show={this.state.show} 
+                              handleClose={() => this.handleClose()}
+                              access_token={this.props.access_token}/>
                 <FontAwesomeIcon size="lg" icon={faPlusCircle} />
               </button>
               <button className="queue-list" onClick={()=>{console.log("queue")}}>
