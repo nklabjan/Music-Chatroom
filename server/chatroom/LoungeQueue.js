@@ -39,10 +39,12 @@ class LoungeQueue {
     //Remove song from the song Queue if a song in the queue is played.
     //If a song from somewhere else is double-tapped, don't need to remove from queue.
     playSong(position) {
+      console.log(position);
       let played_song = this.songs.splice(position, 1);
 
       //return the song information to be played by the player
       this.history.push(played_song);
+      //Update to everyone in the room
       return played_song;
     }
 

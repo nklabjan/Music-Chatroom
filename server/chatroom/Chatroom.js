@@ -85,7 +85,7 @@ class Chatroom {
       }
     }
 
-    playSong(accessToken, deviceId, spotifyURI)
+    playSong(accessToken, deviceId, spotifyURI, queuePos)
     {
       var chatroom = this; // alias this as chatroom so it can be referenced in async call
       console.log("Attempting to play " + spotifyURI)
@@ -98,8 +98,17 @@ class Chatroom {
         },
       };
 
-      console.log(chatroom.id)
       this.io.to(this.id).emit("play_song", spotifyURI);
+      //If song is in Chatroom queue, remove it from queue
+      console.log(queuePos);
+      if (queuePos !== undefined)
+      {
+        this.queue.playSong(queuePos);
+        //update queue for everyone
+        this.io.to(this.id).emit("queue_received", this.queue.songs);
+        console.log(this.queue.songs);
+
+      }
 
       this.request.put(options, function(error, response, body) {
           // song_uri = body.display_name;

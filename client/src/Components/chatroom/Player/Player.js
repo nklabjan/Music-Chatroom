@@ -84,7 +84,7 @@ class Player extends Component {
     }
 
     onStateChanged(state) {
-      //console.log(state);
+      console.log(state);
       //console.log("________________________________________________________");
       //console.log(this.state);
       // if we're no longer listening to music, we'll get a null state.
@@ -92,8 +92,8 @@ class Player extends Component {
         const {
           current_track: currentTrack,
         } = state.track_window;
-        const position = this.millisToMinutesAndSeconds(state.position);
-        const duration = this.millisToMinutesAndSeconds(state.duration);
+        const position = state.position;
+        const duration = state.duration;
         const trackName = currentTrack.name;
         const albumName = currentTrack.album.name;
         const albumCover = currentTrack.album.images[0].url;
@@ -184,6 +184,13 @@ class Player extends Component {
       }
     }
 
+    handleSeeking = value => {
+      //value is a percentage of where it should be compared to the rest of the song.
+      //handle timestamp
+      var new_position = value/100 * this.state.duration;
+      this.player.seek(new_position);
+    }
+
     render() {
         return (
             <div className="player">
@@ -206,7 +213,9 @@ class Player extends Component {
                     <FontAwesomeIcon size="lg" icon={faStepForward} />
                   </button>
               </div>
-                <SliderCom position={this.state.position} duration={this.state.duration}/>
+                <SliderCom  position={this.millisToMinutesAndSeconds(this.state.position)}
+                            duration={this.millisToMinutesAndSeconds(this.state.duration)}
+                            handleSeeking={this.handleSeeking}/>
               <div className="trackInfo">
                 <div className="trackName">{this.state.trackName}</div>
                 <div className="artistName">{this.state.artistName}</div>

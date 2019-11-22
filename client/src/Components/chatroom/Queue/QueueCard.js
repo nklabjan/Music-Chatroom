@@ -6,9 +6,11 @@ class QueueCard extends Component {
 
     render() {
         return (
-                        <tr className= "QueueCard">
+                        <tr className= "QueueCard" onDoubleClick={()=>this.props.playSong(this.props.uri,
+                                                          this.props.passed_key)}>
                           <td><button className="queuePlayBtn"
-                                      onClick={()=>this.props.playSong(this.props.uri)}>
+                                      onClick={()=>this.props.playSong( this.props.uri,
+                                                                        this.props.passed_key)}>
                                     <FontAwesomeIcon icon={faPlay}/>
                           </button></td>
                           <td>{this.props.title}</td>

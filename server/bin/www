@@ -126,10 +126,10 @@ io.on('connection', function(socket) {
         }
     });
 
-    socket.on('play_song', function(access_token, deviceId, spotify_uri, loungeID) {
+    socket.on('play_song', function(access_token, deviceId, spotify_uri, loungeID, queuePos) {
       if (chatrooms[loungeID] !== undefined)
       {
-        chatrooms[loungeID].playSong(access_token, deviceId, spotify_uri);
+        chatrooms[loungeID].playSong(access_token, deviceId, spotify_uri, queuePos);
       }
       else {
         console.log("Music attempted to be played in non-existing chatroom")

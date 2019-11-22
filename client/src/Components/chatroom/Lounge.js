@@ -91,7 +91,7 @@ class Lounge extends Component {
       this.setState({deviceId: device_id});
     }
 
-    playSong(song_uri) {
+    playSong(song_uri, queuePos) {
     //Sends device ID and Access token to backend to play music
     //through socket
     //Hardcode to play "spotify:track:5bvNpG6wiIEf1PA13TkTu2" for now
@@ -101,7 +101,8 @@ class Lounge extends Component {
                       this.props.access_token,
                       this.state.deviceId,
                       song_uri,
-                      this.info.id)
+                      this.info.id,
+                      queuePos);
     }
 
     componentWillMount(){
