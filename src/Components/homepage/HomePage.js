@@ -43,7 +43,8 @@ class HomePage extends Component {
 
     renderPage(){
       if(this.props.loggedInStatus === false) {
-        return  (<LandingPage login={this.props.login}/>)
+        return  (<LandingPage login={this.props.login}
+                              currDisplay={"landing"} />)
       }
       else {
         return  (   <>

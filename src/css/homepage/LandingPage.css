@@ -13,6 +13,19 @@
     height: 25vh;
   }
 
+  .WhoAreWe {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    position: fixed;
+    top: 40vh;
+    height: 25vh;
+  }
+
   .LandingPage {
     width: 100vw;
     height: 100vh;
