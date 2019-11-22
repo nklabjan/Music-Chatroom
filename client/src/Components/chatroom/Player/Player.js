@@ -17,10 +17,11 @@ class Player extends Component {
       this.handleShow = this.handleShow.bind(this);
       this.handleClose = this.handleClose.bind(this);
       this.handleVolume = this.handleVolume.bind(this);
+      this.passiveTimer = this.passiveTimer.bind(this);
       this.checkForPlayer();
       this.state = {
-        duration: "",
-        position: "",
+        duration: 0,
+        position: 0,
         trackName: "",
         albumName: "",
         artistName: "",
@@ -183,6 +184,18 @@ class Player extends Component {
       this.player.seek(new_position);
     }
 
+    passiveTimer() {
+      if (this.state.playing)
+      {
+        this.setState({position: this.state.position + 1000});
+      }
+    }
+
+    async componentDidMount(){
+      setInterval(this.passiveTimer, 1000);
+     // store intervalId in the state so it can be accessed later:
+    }
+
     render() {
         return (
             <div className="player">
@@ -207,7 +220,9 @@ class Player extends Component {
               </div>
                 <SliderCom  position={this.state.position}
                             duration={this.state.duration}
-                            handleSeeking={this.handleSeeking}/>
+                            handleSeeking={this.handleSeeking}
+                            defPos={Math.round(this.state.position/this.state.duration * 100)}
+                            playing={this.state.playing}/>
               <div className="trackInfo">
                 <div className="trackName">{this.state.trackName}</div>
                 <div className="artistName">{this.state.artistName}</div>
@@ -216,7 +231,7 @@ class Player extends Component {
 
             <div className="playerRight">
               <button className="add-song" onClick={() => this.handleShow()}>
-                <AddSongModal show={this.state.show} 
+                <AddSongModal show={this.state.show}
                               handleClose={() => this.handleClose()}
                               access_token={this.props.access_token}/>
                 <FontAwesomeIcon size="lg" icon={faPlusCircle} />

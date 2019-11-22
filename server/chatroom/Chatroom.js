@@ -98,9 +98,9 @@ class Chatroom {
         },
       };
 
+      //Cause everyone else to play the same music
       this.io.to(this.id).emit("play_song", spotifyURI);
       //If song is in Chatroom queue, remove it from queue
-      console.log(queuePos);
       if (queuePos !== undefined)
       {
         this.queue.playSong(queuePos);
@@ -110,15 +110,6 @@ class Chatroom {
 
       }
 
-      this.request.put(options, function(error, response, body) {
-          // song_uri = body.display_name;
-          // body=JSON.parse(body);
-          //console.log(response.body);
-          //console.log(body);
-          //have everyone play this song on their devices too
-          //io.to(chatroom.id).emit("play_song", spotifyURI);
-
-      })
     }
 
     chatMessage(socket, message) {
