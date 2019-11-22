@@ -151,11 +151,11 @@ class ContentHandler extends Component {
         userInfo: myJson
       });
 
-      if (this.state.loggedInStatus === true && this.state.userInfo.product !== "premium") {
-        this.setState({loggedInStatus: false});
-        this.setState({currDisplay: "landing"});
-        alert("You need Spotify Premium to use our application!");
-      }
+      // if (this.state.loggedInStatus === true && this.state.userInfo.product !== "premium") {
+      //   this.setState({loggedInStatus: false});
+      //   this.setState({currDisplay: "landing"});
+      //   alert("You need Spotify Premium to use our application!");
+      // }
   }
 
   renderContent() {
@@ -221,7 +221,7 @@ class ContentHandler extends Component {
     }
     else {
       return (
-            <CadenceNavBar  scheme="CadenceNavBarInit" 
+            <CadenceNavBar  scheme="CadenceNavBarInit"
                             logout={this.logout}
                             access_token={this.state.access_token}
                             handleHome={this.handleHome}
@@ -233,7 +233,7 @@ class ContentHandler extends Component {
      )
     }
   }
-  
+
 
   render() {
     return (<div className="Wrapper">
