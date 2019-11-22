@@ -31,9 +31,6 @@ class MakeChatroom extends Component {
                         aria-labelledby="contained-modal-title-vcenter" centered>
                     <Modal.Header className="modHeader" closeButton>
                     <Modal.Title className="modTitle">Create Your Own Lounge</Modal.Title>
-                        <div className="loungeMaster">
-                            <p>Lounge Master: {this.props.userInfo.display_name}</p>
-                        </div>
                     </Modal.Header>
                     <Modal.Body className="modBody">
                         <MakeChatDetails label="formLoungeName" display="Lounge Name"/>

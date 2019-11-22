@@ -64,12 +64,11 @@ class HomePage extends Component {
                               <Card.Text className="cardText">
                                 <div className="loungeDesc"> {chatroom.desc} </div>
                               </Card.Text>
-                            </Card.Body>
-                            <Card.Footer>
                               <Button className="enterBtn" onClick={()=> this.joinRoom(chatroom.id)} variant="primary">
                                 Enter Lounge
                               </Button>
-                            </Card.Footer>
+                            </Card.Body>
+
                           </Card>
                         )
                       })

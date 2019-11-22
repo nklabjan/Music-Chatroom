@@ -1,7 +1,10 @@
 .modHeader {
-    height: 12vh;
+    height: 7vh;
 }
 
+.modal-content {
+  background-color: rgba(0,0,0,0);
+}
 .close {
     color: white !important;
     opacity: .1;
@@ -14,6 +17,9 @@
 
 .modal-body {
     background-color: rgba(49, 47, 54, 1);
+    border-top: 2px solid rgba(49, 47, 54, 1);
+    border-bottom: 2px solid rgba(49, 47, 54, 1);
+    font-size: 18px !important;
 }
 
 .modal-footer {
@@ -23,7 +29,9 @@
 
 .modTitle {
     width: 100%;
-    color: rgba(104, 82, 156, 1);
+    color: white !important;
+    font-size: 18px !important;
+
 }
 
 .loungeMaster {

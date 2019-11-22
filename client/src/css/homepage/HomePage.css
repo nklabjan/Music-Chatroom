@@ -61,8 +61,7 @@
     margin-top: 20vh;
     height: 70vh;
     width: 80vw;
-    border-color: black;
-    border-style: solid;
+
   }
 
   .createdChatRoom {
@@ -93,6 +92,8 @@
   .cardText {
     height: 13vh;
   }
+
+
 
   .enterBtn {
     margin-top: -25%;
