@@ -35,7 +35,7 @@ class CadenceNavBar extends Component {
             {/* </Button> */}
             <Nav className="mr-auto">
           <Nav.Link href="https://www.spotify.com/premium/">Get Spotify Premium</Nav.Link>
-          <Nav.Link>Who Are We?</Nav.Link>
+          <Nav.Link onClick={this.props.enterWhoAreWe}>Who Are We?</Nav.Link>
         </Nav>
         </Navbar>)
       }
