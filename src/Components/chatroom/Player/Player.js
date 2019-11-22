@@ -77,12 +77,6 @@ class Player extends Component {
       }
     }
 
-    millisToMinutesAndSeconds(millis) {
-      var minutes = Math.floor(millis / 60000);
-      var seconds = ((millis % 60000) / 1000).toFixed(0);
-      return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
-    }
-
     onStateChanged(state) {
       console.log(state);
       //console.log("________________________________________________________");
@@ -213,8 +207,8 @@ class Player extends Component {
                     <FontAwesomeIcon size="lg" icon={faStepForward} />
                   </button>
               </div>
-                <SliderCom  position={this.millisToMinutesAndSeconds(this.state.position)}
-                            duration={this.millisToMinutesAndSeconds(this.state.duration)}
+                <SliderCom  position={this.state.position}
+                            duration={this.state.duration}
                             handleSeeking={this.handleSeeking}/>
               <div className="trackInfo">
                 <div className="trackName">{this.state.trackName}</div>
