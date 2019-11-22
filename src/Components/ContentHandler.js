@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Lounge from './chatroom/Lounge';
 import HomePage from './homepage/HomePage';
+import LandingPage from './homepage/LandingPage';
 import MakeChatRoom from "./makechatroom/makechatroom";
 import CadenceNavBar from './CadenceNavBar';
 import '../css/ContentHandler.css';
@@ -17,7 +18,7 @@ class ContentHandler extends Component {
     this.state = {
         loggedInStatus: false,
         access_token: null,
-        currDisplay: "home", //Chat,Profile,Home
+        currDisplay: "home", //makeChat,lounge,home,landing,whoAreWe
         chatRooms: [],
         curr_lounge: null, //curr lounge is gonna keep track of
         showModalChat: false,
@@ -25,6 +26,8 @@ class ContentHandler extends Component {
     }
 
     this.renderContent = this.renderContent.bind(this);
+    this.enterWhoAreWe = this.enterWhoAreWe.bind(this);
+    this.exitWhoAreWe = this.exitWhoAreWe.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.handleChat = this.handleChat.bind(this);
@@ -37,9 +40,18 @@ class ContentHandler extends Component {
     this.getLounges = this.getLounges.bind(this);
   }
 
+  enterWhoAreWe() {
+    console.log("enterWhoAreWe");
+    this.setState({currDisplay: "whoAreWe"})
+  }
+
+  exitWhoAreWe() {
+    console.log("exitWhoAreWe");
+    this.setState({currDisplay: "landing"})
+  }
+
   logout() {
-    this.setState({loggedInStatus: false});
-    this.setState({currDisplay: "home"});
+    window.location = urls.frontend_uri;
   }
 
   login() {
@@ -141,12 +153,27 @@ class ContentHandler extends Component {
 
       if (this.state.loggedInStatus === true && this.state.userInfo.product !== "premium") {
         this.setState({loggedInStatus: false});
-        this.setState({currDisplay: "home"});
+        this.setState({currDisplay: "landing"});
         alert("You need Spotify Premium to use our application!");
       }
   }
 
   renderContent() {
+    console.log("rendering content");
+    if(this.state.currDisplay === "whoAreWe") {
+      if (this.state.loggedInStatus) {
+        this.setState({currDisplay: "home"});
+      } else {
+        return (<LandingPage currDisplay={this.state.currDisplay}/>);
+      }
+    }
+    if(this.state.currDisplay === "landing") {
+      if (this.state.loggedInStatus) {
+        this.setState({currDisplay: "home"});
+      } else {
+        return (<LandingPage currDisplay={this.state.currDisplay}/>)
+      }
+    }
     if(this.state.currDisplay === "home") {
       return (<HomePage loggedInStatus={this.state.loggedInStatus}
                         chatRooms={this.state.chatRooms}
@@ -179,8 +206,7 @@ class ContentHandler extends Component {
 
   renderNavBar() {
     //If logged in show black bg for navbar with updated stuff
-    if (this.state.loggedInStatus)
-    {
+    if (this.state.loggedInStatus) {
       return (
         <CadenceNavBar  scheme="CadenceNavBar"
                         logout={this.logout}
@@ -188,14 +214,26 @@ class ContentHandler extends Component {
                         handleHome={this.handleHome}
                         currDisplay={this.state.currDisplay}
                         handleShow={this.handleShow}
-                        userInfo={this.state.userInfo}/>
+                        userInfo={this.state.userInfo}
+                        enterWhoAreWe={this.enterWhoAreWe}
+                        exitWhoAreWe={this.exitWhoAreWe}/>
       )
     }
-    else return (
-            <CadenceNavBar  scheme="CadenceNavBarInit" />
+    else {
+      return (
+            <CadenceNavBar  scheme="CadenceNavBarInit" 
+                            logout={this.logout}
+                            access_token={this.state.access_token}
+                            handleHome={this.handleHome}
+                            currDisplay={this.state.currDisplay}
+                            handleShow={this.handleShow}
+                            userInfo={this.state.userInfo}
+                            enterWhoAreWe={this.enterWhoAreWe}
+                            exitWhoAreWe={this.exitWhoAreWe}/>
      )
-
+    }
   }
+  
 
   render() {
     return (<div className="Wrapper">
