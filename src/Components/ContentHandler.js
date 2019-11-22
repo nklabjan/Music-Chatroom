@@ -17,9 +17,9 @@ class ContentHandler extends Component {
     this.state = {
         loggedInStatus: false,
         access_token: null,
-        currDisplay: "home", //Chat,Profile,Home
+        currDisplay: "home",
         chatRooms: [],
-        curr_lounge: null, //curr lounge is gonna keep track of
+        curr_lounge: null,
         showModalChat: false,
         userInfo: null
     }
