@@ -221,7 +221,7 @@ class Player extends Component {
                 <SliderCom  position={this.state.position}
                             duration={this.state.duration}
                             handleSeeking={this.handleSeeking}
-                            defPos={Math.round(this.state.position/this.state.duration * 100)}
+                            defPos={this.state.position/this.state.duration * 100}
                             playing={this.state.playing}/>
               <div className="trackInfo">
                 <div className="trackName">{this.state.trackName}</div>
