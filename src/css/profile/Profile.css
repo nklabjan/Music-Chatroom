@@ -1,16 +1,22 @@
 .modHeaderProf {
-    height: 12vh;
+    height: 7vh;
+    border-top-left-radius: 1rem !important;
+    border-top-right-radius: 1rem !important;
+
 }
 
 .modTitleProf {
-    font-size: 60px;
-    color: rgba(104, 82, 156, 1);
-    margin-left: 5vw;
-    margin-top: 2vh;
+    color: white;
+    font-size: 18px !important;
+}
+
+.modal-content {
+  background-color: rgba(0,0,0,0) !important;
 }
 
 .modBodyProf {
     height: 50vh;
+    overflow-y: auto;
 }
 
 .createBtnCloseProf {
