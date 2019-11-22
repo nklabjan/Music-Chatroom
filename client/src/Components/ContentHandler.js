@@ -20,7 +20,7 @@ class ContentHandler extends Component {
         access_token: null,
         currDisplay: "home", //makeChat,lounge,home,landing,whoAreWe
         chatRooms: [],
-        curr_lounge: null, //curr lounge is gonna keep track of
+        curr_lounge: null,
         showModalChat: false,
         userInfo: null
     }

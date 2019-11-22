@@ -18,6 +18,7 @@ class Lounge extends Component {
             deviceId: null,
             users: [],
             messages: [],
+            queueList: [],
         }
 
         this.info = this.props.loungeInfo
@@ -78,6 +79,12 @@ class Lounge extends Component {
           //old messages -> new messages
           lounge.setState({messages: [msgBlob, ...lounge.state.messages]});
         })
+
+        this.socket.on('queue_received', function(queueList) {
+
+          //add QueueList to this.state.queue
+          lounge.setState({queueList: queueList});
+        })
     }
 
     setDeviceId(device_id){
@@ -107,7 +114,8 @@ class Lounge extends Component {
 
                     <div className="loungeContainer">
                         <Queue  socket={this.socket}
-                                playSong={this.playSong} />
+                                playSong={this.playSong}
+                                queueList={this.state.queueList} />
                         <Chat socket={this.socket}
                               loungeInfo={this.info}
                               messages={this.state.messages}/>
