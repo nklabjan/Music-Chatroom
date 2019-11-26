@@ -1,4 +1,4 @@
-var dotenv = require('dotenv').config();
+require('dotenv').config();
 const frontend_uri = (process.env.REACT_APP_FRONTEND_URI || 'http://localhost:3000');
 const backend_url = (process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080');
 
