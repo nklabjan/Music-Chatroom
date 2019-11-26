@@ -28,6 +28,7 @@ router.get('/login', function(req, res) {
   });
 
 router.get('/auth', function(req, res) {
+    console.log(redirect_uri);
     let code = req.query.code || null
     let authOptions = {
     url: 'https://accounts.spotify.com/api/token',

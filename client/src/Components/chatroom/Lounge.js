@@ -24,8 +24,10 @@ class Lounge extends Component {
         this.info = this.props.loungeInfo
         this.socket = null;
         this.playSong = this.playSong.bind(this);
+        this.addRandomSong = this.addRandomSong.bind(this);
         this.setUpSocket();
         this.setDeviceId = this.setDeviceId.bind(this);
+        this.syncMusicToRoom = this.syncMusicToRoom.bind(this);
 
     }
 
@@ -57,9 +59,14 @@ class Lounge extends Component {
 
         })
 
-        this.socket.on('play_song', function(song_uri) {
+        this.socket.on('play_song', function(song_uri, position_ms) {
             console.log("Room is now playing " + song_uri);
             //Handle removing users from list
+            var req_body = { uris: [song_uri] }
+            if (position_ms !== undefined)
+            {
+              req_body = { uris: [song_uri] , position_ms: position_ms};
+            }
 
             fetch('https://api.spotify.com/v1/me/player/play?device_id=' + lounge.state.deviceId, {
               method: "PUT",
@@ -67,7 +74,7 @@ class Lounge extends Component {
                 authorization: `Bearer ${lounge.props.access_token}`,
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({ uris: [song_uri] }),
+              body: JSON.stringify(req_body),
             });
 
         })
@@ -89,6 +96,15 @@ class Lounge extends Component {
 
     setDeviceId(device_id){
       this.setState({deviceId: device_id});
+    }
+
+    syncMusicToRoom(){
+      this.socket.emit('init_player', this.info.id);
+    }
+
+    addRandomSong() {
+      //when the song info parameter is left blank, adds a random song
+      this.socket.emit('add_song', this.props.access_token, this.info.id);
     }
 
     playSong(song_uri, queuePos) {
@@ -126,6 +142,10 @@ class Lounge extends Component {
                             socket={this.socket}
                             handleHome={this.props.handleHome}
                             setDeviceId={this.setDeviceId}
+                            syncMusicToRoom={this.syncMusicToRoom}
+                            playSong={this.playSong}
+                            addRandomSong={this.addRandomSong}
+                            queueList={this.state.queueList}
                             />
 
                 </div>

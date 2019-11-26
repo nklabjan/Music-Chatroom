@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import UserListMember from './UserListMember';
-import {CardDeck} from 'react-bootstrap';
 
 import '../../css/chatroom/UserList.css';
 
