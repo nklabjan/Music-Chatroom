@@ -17,6 +17,7 @@ class Player extends Component {
       this.handleShow = this.handleShow.bind(this);
       this.handleClose = this.handleClose.bind(this);
       this.handleVolume = this.handleVolume.bind(this);
+      this.addRandomSong = this.addRandomSong.bind(this);
       this.passiveTimer = this.passiveTimer.bind(this);
       this.checkForPlayer();
       this.state = {
@@ -78,10 +79,19 @@ class Player extends Component {
       }
     }
 
+    handlePlayNextSong() {
+      if (this.props.queueList.length > 0)
+      {
+        var next_song = this.props.queueList[0];
+        this.props.playSong(next_song.uri, 0);
+      }
+      else
+      {
+        console.log("nothing else in queue at the moment")
+      }
+    }
+
     onStateChanged(state) {
-      console.log(state);
-      //console.log("________________________________________________________");
-      //console.log(this.state);
       // if we're no longer listening to music, we'll get a null state.
       if (state !== null) {
         const {
@@ -94,6 +104,12 @@ class Player extends Component {
         const albumCover = currentTrack.album.images[0].url;
         const artistName = currentTrack.artists.map(artist => artist.name).join(", ");
         const playing = !state.paused;
+
+        //if song is over, plays next song from Lounge's queue
+        if (state.paused === true && (duration - position < 300))
+        {
+          this.handlePlayNextSong();
+        }
         this.setState({
           position,
           duration,
@@ -109,23 +125,33 @@ class Player extends Component {
     transferPlaybackHere() {
       //console.log("playback transfered")
       const deviceId = this.state.deviceId;
-      const access_token = this.props.access_token;
+      //const access_token = this.props.access_token;
       this.props.setDeviceId(deviceId);
-      fetch("https://api.spotify.com/v1/me/player", {
-        method: "PUT",
-        headers: {
-          authorization: `Bearer ${access_token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          "device_ids": [ deviceId ],
-          "play": true,
-        }),
-      });
+      this.props.syncMusicToRoom();
+
+      // fetch("https://api.spotify.com/v1/me/player", {
+      //   method: "PUT",
+      //   headers: {
+      //     authorization: `Bearer ${access_token}`,
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     "device_ids": [ deviceId ],
+      //     "play": true,
+      //   }),
+      // }).then(
+      //   //try syncing up music with the lounge
+      //   this.props.syncMusicToRoom()
+      // );
+
+      //instead of transfering playback now plays music according to the room
     }
 
     onPrevClick() {
       this.player.previousTrack();
+      //cycle down song history
+      //songs played this way are not added to the history list
+
     }
 
     onPlayClick() {
@@ -133,7 +159,11 @@ class Player extends Component {
     }
 
     onNextClick() {
-      this.player.nextTrack();
+      //this.player.nextTrack();
+      //instead of using player's next track play music from the queue and
+      //remove it from the queue
+      this.handlePlayNextSong();
+
     }
 
     handleShow() {
@@ -143,6 +173,11 @@ class Player extends Component {
     handleClose() {
       this.setState({show: false});
     }
+
+    addRandomSong() {
+      this.props.addRandomSong();
+    }
+
 
     toggleVolume(){
       //If not mute
@@ -236,7 +271,7 @@ class Player extends Component {
                               access_token={this.props.access_token}/>
                 <FontAwesomeIcon size="lg" icon={faPlusCircle} />
               </button>
-              <button className="queue-list" onClick={()=>{console.log("queue")}}>
+              <button className="queue-list" onClick={()=>this.addRandomSong()}>
                 <FontAwesomeIcon size="lg" icon={faMusic} />
               </button>
               <button className="volume" onClick={()=> this.toggleVolume()}>
@@ -252,6 +287,7 @@ class Player extends Component {
     }
 
     componentWillUnmount(){
+
       this.player.disconnect();
       this.player = null;
     }

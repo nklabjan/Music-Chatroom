@@ -70,6 +70,7 @@ class ContentHandler extends Component {
                                                     "loungeMasterID": this.state.userInfo.id,
                                                     "desc": desc,
                                                     "genres": genres,
+                                                    "access_token": this.state.access_token,
                                                     })
       .then(res => {
         console.log(res.data)
