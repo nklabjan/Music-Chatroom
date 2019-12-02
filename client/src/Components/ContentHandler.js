@@ -72,11 +72,18 @@ class ContentHandler extends Component {
                                                     "genres": genres,
                                                     })
       .then(res => {
-        console.log(res.data)
-        var lounge_info = res.data.lounge_info
-        //Handle lounge information
-        this.setState({curr_lounge: lounge_info})
-        this.setState({currDisplay: "lounge"});
+        console.log("hi ", res.data);
+        var lounge_info = res.data.lounge_info;
+        var query_err = res.data.query_error;
+
+        if (query_err) {
+          alert("Lounge name is already in use! Change it to something unique!");
+          this.setState({currDisplay: "makeChat"});
+        }
+        else {
+          this.setState({curr_lounge: lounge_info})
+          this.setState({currDisplay: "lounge"});
+        }
       })
   }
 

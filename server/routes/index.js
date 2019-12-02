@@ -83,18 +83,26 @@ router.get('/auth', function(req, res) {
     var new_chatroom = new Chatroom.Chatroom(req.app.locals.io, new_id, request);
 
     req.app.locals.chatrooms[new_id] = new_chatroom;
+    var query_err = false;
 
     client.query('INSERT INTO "music_chatroom".lounges(name, lounge_master, description) VALUES ($1, $2, $3)', 
         [request.name, request.loungeMasterName, request.desc], (err, res) => {
-      console.log(err, res);
+          if (err) {
+            query_err = true;
+          }
+          console.log("DSAfasdfsd", err, res);
+          console.log("hihih", query_err);
     })
 
     //Only increment when new chatroom is created
     console.log("new room created with id: " + new_id);
 
+    console.log(query_err);
+
     req.app.locals.idCounter++;
 
-    res.json({lounge_info: new_chatroom.minimalInfo()})
+    res.json({query_error: query_err, 
+        lounge_info: new_chatroom.minimalInfo()});
 
   })
 module.exports = router;
