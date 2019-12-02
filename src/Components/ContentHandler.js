@@ -18,6 +18,7 @@ class ContentHandler extends Component {
     super(props);
     this.state = {
         loggedInStatus: false,
+        isPremiumUser: null,
         access_token: null,
         currDisplay: "home", //makeChat,lounge,home,landing,whoAreWe
         chatRooms: [],
@@ -27,6 +28,7 @@ class ContentHandler extends Component {
     }
 
     this.renderContent = this.renderContent.bind(this);
+    this.renderAlertBar = this.renderAlertBar.bind(this);
     this.enterWhoAreWe = this.enterWhoAreWe.bind(this);
     this.exitWhoAreWe = this.exitWhoAreWe.bind(this);
     this.login = this.login.bind(this);
@@ -148,10 +150,13 @@ class ContentHandler extends Component {
           },
       });
       const myJson = await response.json();
-
-      this.setState({
-        userInfo: myJson
-      });
+      if(!myJson.error)
+      {
+        this.setState({
+          userInfo: myJson,
+          isPremiumUser: myJson.product === "premium" ? true : false,
+        });
+      }
 
       // if (this.state.loggedInStatus === true && this.state.userInfo.product !== "premium") {
       //   this.setState({loggedInStatus: false});
@@ -185,7 +190,8 @@ class ContentHandler extends Component {
                         handleProfile={this.handleProfile}
                         handleMakeChat={this.handleMakeChat}
                         getLounges={this.getLounges}
-                        access_token={this.state.access_token}/>);
+                        access_token={this.state.access_token}
+                        isPremiumUser={this.state.isPremiumUser}/>);
     }
     else if(this.state.currDisplay === "lounge"){
       return (<Lounge access_token={this.state.access_token}
@@ -202,6 +208,25 @@ class ContentHandler extends Component {
                             handleClose={this.handleClose}
                             showModalChat={this.state.showModalChat}
                             userInfo={this.state.userInfo}/>);
+    }
+  }
+
+  renderAlertBar() {
+    //If logged in show black bg for navbar with updated stuff
+    if (this.state.isPremiumUser !== null)
+    {
+      if (!this.state.isPremiumUser) {
+        return (
+          <Alert variant="danger" className="NotPremiumAlert">
+          <Alert.Heading>Oops! Looks like you don't have Spotify Premium</Alert.Heading>
+          <p>
+            You will need Spotify Premium to have the full Cadence experience. Get it <Alert.Link
+              href="https://www.spotify.com/premium/"
+              className="SpotifyLink">here</Alert.Link>.
+          </p>
+        </Alert>
+        )
+      }
     }
   }
 
@@ -240,7 +265,7 @@ class ContentHandler extends Component {
     return (<div className="Wrapper">
       {this.renderNavBar()}
       <div className="Content">
-
+        {this.renderAlertBar()}
         {this.renderContent()}
       </div>
     </div>);
