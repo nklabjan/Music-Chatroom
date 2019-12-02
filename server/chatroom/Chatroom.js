@@ -113,6 +113,13 @@ class Chatroom {
 
     }
 
+    forceSeek(socket, newPosition) {
+      //this.io.to(this.id).emit("queue_received",  queueList, this.queue.position);
+      console.log("attempting to seek")
+      this.io.to(this.id).emit("seek_to_position", newPosition);
+
+    }
+
     addRandomSong(access_token) {
       // A list of all characters that can be chosen.
       const characters = 'abcdefghijklmnopqrstuvwxyz';

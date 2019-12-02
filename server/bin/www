@@ -139,6 +139,16 @@ io.on('connection', function(socket) {
         }
     });
 
+    socket.on('force_seek', function(loungeID, newPosition) {
+      if (chatrooms[loungeID] !== undefined)
+      {
+        chatrooms[loungeID].forceSeek(socket, newPosition);
+      }
+      else {
+        console.log("Player can't be initialized in undefined room")
+      }
+    })
+
     socket.on('play_song', function(access_token, deviceId, spotify_uri, loungeID, queuePos) {
       if (chatrooms[loungeID] !== undefined)
       {
