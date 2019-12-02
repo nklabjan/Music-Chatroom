@@ -28,11 +28,12 @@ class QueueDeck extends Component {
     // }
 
     render() {
-      if (this.props.queueList.length > 0 && this.props.queueList !== undefined)
+      if (this.props.queueList.length > 0 &&
+          this.props.queueList !== undefined &&
+          this.props.queuePos < this.props.queueList.length - 1)
       {
         return (
                 <div className="QueueDeck">
-                    <div className="QueueDeckTitle">Queue</div>
                     <div className="QueueList">
                       <Table striped hover borderless className="queueTable" >
                         <thead>
@@ -46,18 +47,23 @@ class QueueDeck extends Component {
                         <tbody>
                         {
                                 this.props.queueList.map((song, songIndex) => {
-                                  return (
-                                      <QueueCard
-                                      key=    {songIndex}
-                                      passed_key= {songIndex}
-                                      title=  {song["title"]}
-                                      artist= {song["artist"]}
-                                      album=  {song["album"]}
-                                      socket={this.props.socket}
-                                      playSong={this.props.playSong}
-                                      uri=    {song["uri"]}
-                                     />
-                                )
+                                  //only render songs that are after the position
+                                  if (songIndex > this.props.queuePos)
+                                  {
+                                    return (
+                                        <QueueCard
+                                        key=    {songIndex}
+                                        passed_key= {songIndex}
+                                        title=  {song["title"]}
+                                        artist= {song["artist"]}
+                                        album=  {song["album"]}
+                                        socket={this.props.socket}
+                                        playSong={this.props.playSong}
+                                        uri=    {song["uri"]}
+                                       />
+                                  )
+                                  }
+                                  else return null;
                               })
                         }
                         </tbody>
@@ -69,7 +75,6 @@ class QueueDeck extends Component {
       else {
         return (
           <div className="QueueDeck">
-              <div className="QueueDeckTitle">Queue</div>
               <div className="QueueList">
                 There are currently no songs in the queue.
               </div>
