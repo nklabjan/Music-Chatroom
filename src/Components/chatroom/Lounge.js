@@ -26,6 +26,7 @@ class Lounge extends Component {
         this.socket = null;
         this.playSong = this.playSong.bind(this);
         this.togglePlay = this.togglePlay.bind(this);
+        this.seekToNewPos = this.seekToNewPos.bind(this);
         this.addRandomSong = this.addRandomSong.bind(this);
         this.setUpSocket();
         this.setDeviceId = this.setDeviceId.bind(this);
@@ -100,10 +101,6 @@ class Lounge extends Component {
 
         })
 
-        this.socket.on('toggle_play', function() {
-          console.log("Play toggled")
-          //Attempt to toggle play for everyone
-        })
     }
 
     setDeviceId(device_id){
@@ -138,6 +135,12 @@ class Lounge extends Component {
       this.socket.emit('toggle_play', this.info.id);
     }
 
+    seekToNewPos(new_position) {
+      //Toggle play for everyone else
+      console.log("attempting to seek")
+      this.socket.emit('force_seek', this.info.id, new_position);
+    }
+
     componentWillMount(){
       this.socket.emit('user_connected', this.props.access_token, this.info.id, this.props.userInfo);
     }
@@ -164,6 +167,7 @@ class Lounge extends Component {
                             playSong={this.playSong}
                             togglePlay={this.togglePlay}
                             addRandomSong={this.addRandomSong}
+                            seekToNewPos={this.seekToNewPos}
                             queueList={this.state.queueList}
                             queuePos = {this.state.queuePos}
                             />
