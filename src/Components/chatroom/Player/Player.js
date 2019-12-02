@@ -185,7 +185,6 @@ class Player extends Component {
 
     onPlayClick() {
       this.props.togglePlay();
-      this.player.togglePlay();
     }
 
     onNextClick() {
