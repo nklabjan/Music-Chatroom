@@ -80,25 +80,26 @@ router.get('/auth', function(req, res) {
     //use chatrooms.length for the id and append to the list
     var new_id = req.app.locals.idCounter;
     var request = req.body
-    console.log("asdfsdfasd: ", request);
     var new_chatroom = new Chatroom.Chatroom(req.app.locals.io, new_id, request);
 
     req.app.locals.chatrooms[new_id] = new_chatroom;
+
+    var genres = "";
+    if (request.genres.length === 1) {
+      genres = request.genres[0];
+    }
+    else if (request.genres.length === 2) {
+      genres = request.genres[0] + ", " + request.genres[1];
+    }
+
     var query_err = false;
 
-    client.query('INSERT INTO "music_chatroom".lounges(name, lounge_master, description) VALUES ($1, $2, $3)', 
-        [request.name, request.loungeMasterName, request.desc], (err, res) => {
+    client.query('INSERT INTO "music_chatroom".lounges(name, lounge_master, description, genres) VALUES ($1, $2, $3, $4)', 
+        [request.name, request.loungeMasterName, request.desc, genres], (err, res) => {
           if (err) {
             query_err = true;
           }
-          console.log("DSAfasdfsd", err, res);
-          console.log("hihih", query_err);
     })
-
-    //Only increment when new chatroom is created
-    console.log("new room created with id: " + new_id);
-
-    console.log(query_err);
 
     req.app.locals.idCounter++;
 
