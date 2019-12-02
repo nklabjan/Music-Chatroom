@@ -4,29 +4,45 @@
     background-color: rgba(49, 47, 54, 1);
   }
 
-  .CadenceNavBarInit{
-    background-color: rgba(0,0,0,0);
-  }
+.NotPremiumAlert {
+  margin-bottom: 0px;
+  background-color: rgba(196, 30, 58, 1) !important;
+  color: white;
+  border: 0px;
 
-  .CadenceNavBar{
-    background-color: rgba(0,0,0,1);
-  }
+}
 
-  .CadenceNavBar button{
-    background-color: rgba(1, 1, 1, 1);
-    border-color: white;
-  }
+.SpotifyLink {
+  color: white !important;
+}
 
-  .CadenceNavBar button:hover{
-    border-color: white;
-    transition: all .2s ease-in-out;
-    background-color: rgba(104, 82, 156, 1);
-    transform: scale(1.1);
-  }
-  .NavBarWrapper{
-    height: 7vh;
-    width: 100vw;
-  }
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+.CadenceNavBarInit{
+  background-color: rgba(0,0,0,0);
+}
+
+.CadenceNavBar{
+  background-color: rgba(0,0,0,1);
+}
+
+.CadenceNavBar button{
+  background-color: rgba(1, 1, 1, 1);
+  border-color: white;
+}
+
+.CadenceNavBar button:hover{
+  border-color: white;
+  transition: all .2s ease-in-out;
+  background-color: rgba(104, 82, 156, 1);
+  transform: scale(1.1);
+}
+.NavBarWrapper{
+  height: 7vh;
+  width: 100vw;
+}
 
 .Content{
   height: 93vh;

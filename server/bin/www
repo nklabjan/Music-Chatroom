@@ -118,6 +118,16 @@ io.on('connection', function(socket) {
       }
     });
 
+    socket.on('toggle_play', function(loungeID) {
+      if (chatrooms[loungeID] !== undefined)
+      {
+        chatrooms[loungeID].togglePlay();
+      }
+      else {
+        console.log("Disconnecting error")
+      }
+    });
+
     socket.on('message_sent', function(msg, loungeID) {
         if (chatrooms[loungeID] !== undefined)
         {
