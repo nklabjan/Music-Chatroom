@@ -4,6 +4,7 @@ import HomePage from './homepage/HomePage';
 import LandingPage from './homepage/LandingPage';
 import MakeChatRoom from "./makechatroom/makechatroom";
 import CadenceNavBar from './CadenceNavBar';
+import {Alert} from 'react-bootstrap';
 import '../css/ContentHandler.css';
 import queryString from "query-string";
 import axios from 'axios';
@@ -160,7 +161,6 @@ class ContentHandler extends Component {
   }
 
   renderContent() {
-    console.log("rendering content");
     if(this.state.currDisplay === "whoAreWe") {
       if (this.state.loggedInStatus) {
         this.setState({currDisplay: "home"});
@@ -240,6 +240,7 @@ class ContentHandler extends Component {
     return (<div className="Wrapper">
       {this.renderNavBar()}
       <div className="Content">
+
         {this.renderContent()}
       </div>
     </div>);

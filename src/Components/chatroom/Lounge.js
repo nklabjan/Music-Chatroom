@@ -19,11 +19,13 @@ class Lounge extends Component {
             users: [],
             messages: [],
             queueList: [],
+            queuePos: null,
         }
 
         this.info = this.props.loungeInfo
         this.socket = null;
         this.playSong = this.playSong.bind(this);
+        this.togglePlay = this.togglePlay.bind(this);
         this.addRandomSong = this.addRandomSong.bind(this);
         this.setUpSocket();
         this.setDeviceId = this.setDeviceId.bind(this);
@@ -52,7 +54,10 @@ class Lounge extends Component {
             {
               if (lounge.state.users[i].id === user.id)
               {
-                const newList = lounge.state.users.splice(i, 1);
+                const newList = lounge.state.users;
+                console.log(lounge.state.users[i].display_name + " left the room.")
+                newList.splice(i, 1);
+
                 lounge.setState({users: newList});
               }
             }
@@ -87,10 +92,17 @@ class Lounge extends Component {
           lounge.setState({messages: [msgBlob, ...lounge.state.messages]});
         })
 
-        this.socket.on('queue_received', function(queueList) {
+        this.socket.on('queue_received', function(queueList, pos) {
 
           //add QueueList to this.state.queue
           lounge.setState({queueList: queueList});
+          lounge.setState({queuePos: pos});
+
+        })
+
+        this.socket.on('toggle_play', function() {
+          console.log("Play toggled")
+          //Attempt to toggle play for everyone
         })
     }
 
@@ -121,6 +133,11 @@ class Lounge extends Component {
                       queuePos);
     }
 
+    togglePlay() {
+      //Toggle play for everyone else
+      this.socket.emit('toggle_play', this.info.id);
+    }
+
     componentWillMount(){
       this.socket.emit('user_connected', this.props.access_token, this.info.id, this.props.userInfo);
     }
@@ -132,7 +149,8 @@ class Lounge extends Component {
                     <div className="loungeContainer">
                         <Queue  socket={this.socket}
                                 playSong={this.playSong}
-                                queueList={this.state.queueList} />
+                                queueList={this.state.queueList}
+                                queuePos = {this.state.queuePos}/>
                         <Chat socket={this.socket}
                               loungeInfo={this.info}
                               messages={this.state.messages}/>
@@ -144,8 +162,10 @@ class Lounge extends Component {
                             setDeviceId={this.setDeviceId}
                             syncMusicToRoom={this.syncMusicToRoom}
                             playSong={this.playSong}
+                            togglePlay={this.togglePlay}
                             addRandomSong={this.addRandomSong}
                             queueList={this.state.queueList}
+                            queuePos = {this.state.queuePos}
                             />
 
                 </div>
