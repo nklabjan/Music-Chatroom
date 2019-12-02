@@ -11,7 +11,6 @@ class HomePage extends Component {
         this.state = {
             leaveChat: false,
             displayProfile: false,
-            display_name: ""
         }
         this.joinRoom = this.joinRoom.bind(this);
     }
@@ -26,20 +25,6 @@ class HomePage extends Component {
       this.props.getLounges();
     }
 
-    async componentDidMount() {
-      const response = await fetch('https://api.spotify.com/v1/me', {
-      method: "GET",
-      headers: {
-          authorization: `Bearer ${this.props.access_token}`,
-          },
-      });
-      const myJson = await response.json();
-      console.log("MyJson: ", myJson);
-      var displayName = myJson.display_name;
-      this.setState({
-          display_name: displayName
-      });
-  }
 
     renderPage(){
       if(this.props.loggedInStatus === false) {
@@ -68,7 +53,10 @@ class HomePage extends Component {
                               <Card.Text className="cardText">
                                 <div className="loungeDesc"> {chatroom.desc} </div>
                               </Card.Text>
-                              <Button className="enterBtn" onClick={()=> this.joinRoom(chatroom.id)} variant="primary">
+                              <Button className="enterBtn"
+                                      onClick={()=> this.joinRoom(chatroom.id)}
+                                      variant="primary"
+                                      disabled={!this.props.isPremiumUser ? true : false}>
                                 Enter Lounge
                               </Button>
                             </Card.Body>

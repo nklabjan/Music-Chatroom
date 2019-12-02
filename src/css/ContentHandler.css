@@ -5,10 +5,10 @@
   }
 
 .NotPremiumAlert {
-  margin-bottom: 0px;
+  margin-bottom: 0px !important;
   background-color: rgba(196, 30, 58, 1) !important;
-  color: white;
-  border: 0px;
+  color: white !important;
+  border: 0px !important;
 
 }
 
