@@ -34,11 +34,10 @@ class Chatroom {
       //if loungeMaster AT is null, then just play super rich kids with timestamp
       if (this.loungeMasterAT === null)
       {
-        console.log("Playing super rich kids for new user ")
-        //Play super rich kids by default
-        var def_song = "spotify:track:0K9oqDmJBgSFjXU1bUY9Fk";
-        var def_timestamp = 39561
-        socket.emit("play_song", def_song, def_timestamp);
+        var def_song = this.queue.songs[this.queue.position];
+        socket.emit("play_song", def_song.uri);
+
+        //socket.emit("play_song", def_song, def_timestamp);
       }
       //Check and see the current timestamp of the lounge master and sync the music to
       //where the loungemaster has it at
@@ -81,6 +80,8 @@ class Chatroom {
               "Authorization": `Bearer ${this.loungeMasterAT}`,
               "Content-Type": "application/json",
             },
+            json: true
+
           };
 
           this.request.get(options, function(error, response, body) {
@@ -88,6 +89,7 @@ class Chatroom {
               //song uri, progress_ms, is_playing then call on play
               if (body != undefined)
               {
+
                 var song_uri = body.item["uri"];
                 var timestamp = body.progress_ms;
 
@@ -102,7 +104,13 @@ class Chatroom {
     addSong(access_token, song_info) {
       this.queue.addSong(song_info, "end");
       var queueList = this.queue.songs;
-      this.io.to(this.id).emit("queue_received",  queueList);
+      this.io.to(this.id).emit("queue_received",  queueList, this.queue.position);
+    }
+
+    togglePlay() {
+      //this.io.to(this.id).emit("queue_received",  queueList, this.queue.position);
+      this.io.to(this.id).emit("toggle_play");
+
     }
 
     addRandomSong(access_token) {
@@ -205,9 +213,10 @@ class Chatroom {
       {
         var user = this.users[socket.id]
         console.log("user " + socket.id + " has disconnected.");
+        console.log(user.display_name)
         delete this.users[socket.id];
         socket.leave(this.id);
-
+        console.log(this.users);
         console.log("Users left in lounge:" + Object.keys(this.users).length)
         //console.log(this.users)
         //Emit event to all other users to remove leaving user from list
@@ -227,17 +236,11 @@ class Chatroom {
       if (queuePos !== undefined)
       {
         this.queue.playSong(queuePos);
+
         //update queue for everyone
-        this.io.to(this.id).emit("queue_received", this.queue.songs);
-        console.log(this.queue.history);
+        this.io.to(this.id).emit("queue_received", this.queue.songs, this.queue.position);
 
       }
-    }
-
-    //check the history and play song
-    playFromHistory()
-    {
-
     }
 
     chatMessage(socket, message) {
@@ -252,7 +255,7 @@ class Chatroom {
     getQueue(socket) {
         //Send the list back to the Client
         var queueList = this.queue.songs;
-        socket.emit("queue_received", queueList);
+        socket.emit("queue_received", queueList, this.queue.position);
     }
 
     //user this function to get limited info on the chatroom

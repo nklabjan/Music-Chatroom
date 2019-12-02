@@ -20,6 +20,7 @@ class Player extends Component {
       this.addRandomSong = this.addRandomSong.bind(this);
       this.passiveTimer = this.passiveTimer.bind(this);
       this.checkForPlayer();
+      this.setUpSocket();
       this.state = {
         duration: 0,
         position: 0,
@@ -31,6 +32,16 @@ class Player extends Component {
         value: 10,
         isMute: false,
       }
+  }
+
+  async setUpSocket() {
+      var player = this;
+
+      this.props.socket.on('toggle_play', function() {
+        console.log("Play toggled")
+        //Attempt to toggle play for everyone
+        player.player.togglePlay();
+      })
   }
 
   createPlayerEventListeners() {
@@ -80,10 +91,10 @@ class Player extends Component {
     }
 
     handlePlayNextSong() {
-      if (this.props.queueList.length > 0)
+      if (this.props.queueList.length > 0 && (this.props.queueList.length - this.props.queuePos > 1))
       {
-        var next_song = this.props.queueList[0];
-        this.props.playSong(next_song.uri, 0);
+        var next_song = this.props.queueList[this.props.queuePos + 1];
+        this.props.playSong(next_song.uri, this.props.queuePos + 1);
       }
       else
       {
@@ -148,13 +159,32 @@ class Player extends Component {
     }
 
     onPrevClick() {
-      this.player.previousTrack();
       //cycle down song history
       //songs played this way are not added to the history list
-
+      //Anything more than 2 seconds will cause it to restart the song
+      if (this.state.position > 2000)
+      {
+        this.player.seek(0);
+        this.setState({position: 0});
+      }
+      else
+      {
+        //messes with the queue pos
+        if (this.props.queueList.length > 0 && (this.props.queuePos > 0))
+        {
+          var prev_song = this.props.queueList[this.props.queuePos - 1];
+          this.props.playSong(prev_song.uri, this.props.queuePos - 1);
+        }
+        else
+        {
+          this.player.seek(0);
+          this.setState({position: 0});
+        }
+      }
     }
 
     onPlayClick() {
+      this.props.togglePlay();
       this.player.togglePlay();
     }
 
