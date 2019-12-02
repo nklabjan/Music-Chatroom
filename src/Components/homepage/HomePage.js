@@ -48,7 +48,11 @@ class HomePage extends Component {
       }
       else {
         return  (   <>
-                    <div className="homeTitle">Lounges</div>
+                    <div className="homeTitleHeader">
+                      <div className="homeTitle">
+                      Lounges
+                      </div>
+                    </div>
                     <div className="Chatrooms"> {
                       this.props.chatRooms.map((chatroom, idx) => {
                         return (
@@ -81,9 +85,7 @@ class HomePage extends Component {
 
     render() {
         return (<div className="HomePage">
-                  <header className="Home-Page">
                     {this.renderPage()}
-                  </header>
                </div>)
 
     }
