@@ -39,7 +39,16 @@ var fake_news = { loungeMasterName: "admin",
                   desc: "this is random crap that i'm writing",
                   genres: "toddler rock"
                   }
-var master_chatroom = new Chatroom.Chatroom(io, 0, fake_news);
+var test_song_queue = [{ title:"All Star", artist:"Smash Mouth",
+                          album:"Astro Lounge", uri:"spotify:track:3cfOd4CMv2snFaKAnMdnvK"},
+                        { title:"Janet", artist:"Berhana",
+                          album:"Berhana", uri:"spotify:track:3ml3WB66sqG4kXoPBX2POA"},
+                        { title:"In My Room", artist:"Frank Ocean",
+                          album:"In My Room", uri:"spotify:track:4S4Mfvv03M1cHgIOJcbUCL"},
+                        { title:"The Other Side of Paradise", artist:"Glass Animals",
+                          album:"How To Be a Human Being", uri:"spotify:track:0rRjGruFonCGOt0S5zAJNQ"}];
+
+var master_chatroom = new Chatroom.Chatroom(io, 0, fake_news, test_song_queue);
 
 //Store client information
 var chatrooms = app.locals.chatrooms; //So that it can be accessed by other ports
@@ -117,10 +126,10 @@ io.on('connection', function(socket) {
         }
     });
 
-    socket.on('play_song', function(access_token, deviceId, spotify_uri, loungeID) {
+    socket.on('play_song', function(access_token, deviceId, spotify_uri, loungeID, queuePos) {
       if (chatrooms[loungeID] !== undefined)
       {
-        chatrooms[loungeID].playSong(access_token, deviceId, spotify_uri);
+        chatrooms[loungeID].playSong(access_token, deviceId, spotify_uri, queuePos);
       }
       else {
         console.log("Music attempted to be played in non-existing chatroom")

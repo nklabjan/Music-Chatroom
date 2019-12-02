@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlayCircle, faPauseCircle, faTimesCircle} from '@fortawesome/free-regular-svg-icons';
 import { faStepForward, faStepBackward,faMusic,
         faPlusCircle, faVolumeUp, faVolumeMute} from '@fortawesome/free-solid-svg-icons';
+import AddSongModal from './AddSongModal';
 import '../../../css/chatroom/player/Player.css';
 
 class Player extends Component {
@@ -16,10 +17,11 @@ class Player extends Component {
       this.handleShow = this.handleShow.bind(this);
       this.handleClose = this.handleClose.bind(this);
       this.handleVolume = this.handleVolume.bind(this);
+      this.passiveTimer = this.passiveTimer.bind(this);
       this.checkForPlayer();
       this.state = {
-        duration: "",
-        position: "",
+        duration: 0,
+        position: 0,
         trackName: "",
         albumName: "",
         artistName: "",
@@ -76,14 +78,8 @@ class Player extends Component {
       }
     }
 
-    millisToMinutesAndSeconds(millis) {
-      var minutes = Math.floor(millis / 60000);
-      var seconds = ((millis % 60000) / 1000).toFixed(0);
-      return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
-    }
-
     onStateChanged(state) {
-      //console.log(state);
+      console.log(state);
       //console.log("________________________________________________________");
       //console.log(this.state);
       // if we're no longer listening to music, we'll get a null state.
@@ -91,8 +87,8 @@ class Player extends Component {
         const {
           current_track: currentTrack,
         } = state.track_window;
-        const position = this.millisToMinutesAndSeconds(state.position);
-        const duration = this.millisToMinutesAndSeconds(state.duration);
+        const position = state.position;
+        const duration = state.duration;
         const trackName = currentTrack.name;
         const albumName = currentTrack.album.name;
         const albumCover = currentTrack.album.images[0].url;
@@ -148,8 +144,6 @@ class Player extends Component {
       this.setState({show: false});
     }
 
-
-
     toggleVolume(){
       //If not mute
       if (!this.state.isMute)
@@ -172,15 +166,34 @@ class Player extends Component {
       {
         if(this.state.value/100 <= 0.05) {
           this.player.setVolume(0).then(() => {
-            console.log("volume at 0");
+            //console.log("volume at 0");
           });
         }
         else {
           this.player.setVolume(this.state.value/100).then(() => {
-            console.log("volume updated to: " + this.state.value / 100);
+            //console.log("volume updated to: " + this.state.value / 100);
           });
         }
       }
+    }
+
+    handleSeeking = value => {
+      //value is a percentage of where it should be compared to the rest of the song.
+      //handle timestamp
+      var new_position = value/100 * this.state.duration;
+      this.player.seek(new_position);
+    }
+
+    passiveTimer() {
+      if (this.state.playing)
+      {
+        this.setState({position: this.state.position + 1000});
+      }
+    }
+
+    async componentDidMount(){
+      setInterval(this.passiveTimer, 1000);
+     // store intervalId in the state so it can be accessed later:
     }
 
     render() {
@@ -205,7 +218,11 @@ class Player extends Component {
                     <FontAwesomeIcon size="lg" icon={faStepForward} />
                   </button>
               </div>
-                <SliderCom position={this.state.position} duration={this.state.duration}/>
+                <SliderCom  position={this.state.position}
+                            duration={this.state.duration}
+                            handleSeeking={this.handleSeeking}
+                            defPos={this.state.position/this.state.duration * 100}
+                            playing={this.state.playing}/>
               <div className="trackInfo">
                 <div className="trackName">{this.state.trackName}</div>
                 <div className="artistName">{this.state.artistName}</div>
@@ -214,6 +231,9 @@ class Player extends Component {
 
             <div className="playerRight">
               <button className="add-song" onClick={() => this.handleShow()}>
+                <AddSongModal show={this.state.show}
+                              handleClose={() => this.handleClose()}
+                              access_token={this.props.access_token}/>
                 <FontAwesomeIcon size="lg" icon={faPlusCircle} />
               </button>
               <button className="queue-list" onClick={()=>{console.log("queue")}}>

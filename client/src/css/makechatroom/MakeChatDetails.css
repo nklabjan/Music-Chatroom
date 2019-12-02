@@ -5,11 +5,11 @@
 .makeChatLabel {
     width: 100%;
     margin-top:3%;
-    color: rgba(104, 82, 156, 1);
-    font-size: 25px;
+    color: white;
+    font-size: 18px;
 }
 
-.makeChatInfo { 
+.makeChatInfo {
     width: 100%;
     font-size: 25px;
 }
@@ -24,6 +24,6 @@
     padding-right: 3%;
     text-align: right;
     width:100%;
-    color: black;
+    color: red;
     font-size:50%;
 }

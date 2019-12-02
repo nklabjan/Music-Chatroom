@@ -28,14 +28,14 @@ class Profile extends Component {
                 <Modal className="modalProf" show={this.props.showModalProfile} onHide={this.props.profileClose} size="lg"
                         aria-labelledby="contained-modal-title-vcenter" centered>
                     <Modal.Header className="modHeaderProf" closeButton>
-                            <img src={this.props.userInfo.images[0].url} alt="Not Found" width="90vw" height="70vh"></img>
                     <Modal.Title className="modTitleProf">{this.props.userInfo.display_name}'s Profile</Modal.Title>
                         </Modal.Header>
                     <Modal.Body className="modBodyProf">
-                        <ProfileDetail viewType={this.state.viewType} label="Username: " info=""/>
-                        <ProfileDetail viewType={this.state.viewType} label="About Me: " info=""/>
-                        <ProfileDetail viewType={this.state.viewType} label="Music Taste: " info=""/>
-                        <ProfileDetail viewType={this.state.viewType} label="Location: " info="" />
+                        <img src={this.props.userInfo.images[0].url} alt="Not Found" ></img>
+
+                        <ProfileDetail viewType={this.state.viewType} label="Username:" info=""/>
+                        <ProfileDetail viewType={this.state.viewType} label="About Me:" info=""/>
+                        <ProfileDetail viewType={this.state.viewType} label="Music Taste:" info=""/>
                     </Modal.Body>
                     <Modal.Footer>
                     <Button className="createBtnCloseProf" variant="secondary" onClick={this.props.profileClose}>

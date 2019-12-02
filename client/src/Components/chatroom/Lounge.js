@@ -18,6 +18,7 @@ class Lounge extends Component {
             deviceId: null,
             users: [],
             messages: [],
+            queueList: [],
         }
 
         this.info = this.props.loungeInfo
@@ -43,7 +44,7 @@ class Lounge extends Component {
         })
 
         this.socket.on('user_disconnected', function(user) {
-            console.log(user);
+            //console.log(user);
             //Handle removing users from list
             for (var i = 0; i < lounge.state.users.length; i++)
             {
@@ -78,13 +79,19 @@ class Lounge extends Component {
           //old messages -> new messages
           lounge.setState({messages: [msgBlob, ...lounge.state.messages]});
         })
+
+        this.socket.on('queue_received', function(queueList) {
+
+          //add QueueList to this.state.queue
+          lounge.setState({queueList: queueList});
+        })
     }
 
     setDeviceId(device_id){
       this.setState({deviceId: device_id});
     }
 
-    playSong(song_uri) {
+    playSong(song_uri, queuePos) {
     //Sends device ID and Access token to backend to play music
     //through socket
     //Hardcode to play "spotify:track:5bvNpG6wiIEf1PA13TkTu2" for now
@@ -94,7 +101,8 @@ class Lounge extends Component {
                       this.props.access_token,
                       this.state.deviceId,
                       song_uri,
-                      this.info.id)
+                      this.info.id,
+                      queuePos);
     }
 
     componentWillMount(){
@@ -107,7 +115,8 @@ class Lounge extends Component {
 
                     <div className="loungeContainer">
                         <Queue  socket={this.socket}
-                                playSong={this.playSong} />
+                                playSong={this.playSong}
+                                queueList={this.state.queueList} />
                         <Chat socket={this.socket}
                               loungeInfo={this.info}
                               messages={this.state.messages}/>

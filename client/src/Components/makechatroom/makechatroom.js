@@ -12,28 +12,16 @@ class MakeChatroom extends Component {
         }
     }
 
-    // async componentDidMount() {
-    //     const response = await fetch('https://api.spotify.com/v1/me', {
-    //     method: "GET",
-    //     headers: {
-    //         authorization: `Bearer ${this.props.access_token}`,
-    //         },
-    //     });
-    //     const myJson = await response.json();
-    //     console.log("MyJson: ", myJson);
-    //     var displayName = myJson.display_name;
-    //     this.setState({
-    //         display_name: displayName
-    //     });
-    // }
-
     handleChatroomInfo() {
+
       let loungeName = document.getElementById('formLoungeName').value;
       let description = document.getElementById('formDescription').value;
       const selected = document.querySelectorAll('#formGenres option:checked');
       let genres = Array.from(selected).map(el => el.value);
 
-      this.props.saveChatRoom(loungeName,description,genres);
+      if (loungeName.replace(/\s/g, '').length !== 0 && description.replace(/\s/g, '').length !== 0 && genres.length <= 2) {
+        this.props.saveChatRoom(loungeName,description,genres);
+      }
     }
 
     render() {
@@ -43,9 +31,6 @@ class MakeChatroom extends Component {
                         aria-labelledby="contained-modal-title-vcenter" centered>
                     <Modal.Header className="modHeader" closeButton>
                     <Modal.Title className="modTitle">Create Your Own Lounge</Modal.Title>
-                        <div className="loungeMaster">
-                            <p>Lounge Master: {this.props.userInfo.display_name}</p>
-                        </div>
                     </Modal.Header>
                     <Modal.Body className="modBody">
                         <MakeChatDetails label="formLoungeName" display="Lounge Name"/>

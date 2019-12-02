@@ -43,7 +43,8 @@ class HomePage extends Component {
 
     renderPage(){
       if(this.props.loggedInStatus === false) {
-        return  (<LandingPage login={this.props.login}/>)
+        return  (<LandingPage login={this.props.login}
+                              currDisplay={"landing"} />)
       }
       else {
         return  (   <>
@@ -63,12 +64,11 @@ class HomePage extends Component {
                               <Card.Text className="cardText">
                                 <div className="loungeDesc"> {chatroom.desc} </div>
                               </Card.Text>
-                            </Card.Body>
-                            <Card.Footer>
                               <Button className="enterBtn" onClick={()=> this.joinRoom(chatroom.id)} variant="primary">
                                 Enter Lounge
                               </Button>
-                            </Card.Footer>
+                            </Card.Body>
+
                           </Card>
                         )
                       })
