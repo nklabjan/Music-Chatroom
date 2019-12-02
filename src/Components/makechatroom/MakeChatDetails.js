@@ -30,6 +30,7 @@ class MakeChatDetails extends Component {
                                 <option>Reggae</option>
                                 <option>R&B/Soul</option>
                                 <option>Rock</option>
+                                <option>Nature</option>
                                 </Form.Control>) :
                             ( this.props.label === "formDescription" ? <textarea className="makeChatInput" maxLength="100" id={this.props.label} cols="60" rows="2"></textarea> :
                             <textarea className="makeChatInput" maxLength="20" id={this.props.label} cols="60" rows="2"></textarea> )}
