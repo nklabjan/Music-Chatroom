@@ -9,6 +9,7 @@ import AddSongModal from './AddSongModal';
 import '../../../css/chatroom/player/Player.css';
 
 class Player extends Component {
+    _isMounted = false;
 
   constructor(props) {
       super(props);
@@ -34,7 +35,7 @@ class Player extends Component {
       }
   }
 
-  async setUpSocket() {
+  setUpSocket() {
       var player = this;
 
       this.props.socket.on('toggle_play', function() {
@@ -44,7 +45,6 @@ class Player extends Component {
 
       this.props.socket.on('seek_to_position', function(new_position) {
         //Attempt to toggle play for everyone
-        console.log(new_position);
 
         player.player.seek(new_position);
         player.setState({position: new_position});
@@ -257,15 +257,17 @@ class Player extends Component {
       this.props.seekToNewPos(new_position);
     }
 
-    passiveTimer() {
-      if (this.state.playing)
+    async passiveTimer() {
+      if (this.state.playing && this._isMounted)
       {
         this.setState({position: this.state.position + 1000});
       }
     }
 
-    async componentDidMount(){
-      setInterval(this.passiveTimer, 1000);
+    componentDidMount(){
+      this._isMounted = true;
+
+        setInterval(this.passiveTimer, 1000);
      // store intervalId in the state so it can be accessed later:
     }
 
@@ -328,6 +330,8 @@ class Player extends Component {
 
       this.player.disconnect();
       this.player = null;
+      this._isMounted = false;
+
     }
 }
 

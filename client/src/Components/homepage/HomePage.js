@@ -50,9 +50,11 @@ class HomePage extends Component {
                                 Master: {chatroom.loungeMasterName}
                                 <div className="loungeGenres"> {"Genre(s): " + chatroom.genres} </div>
                               </Card.Subtitle>
+                              <div className="loungeDesc">
                               <Card.Text className="cardText">
-                                <div className="loungeDesc"> {chatroom.desc} </div>
+                                {chatroom.desc}
                               </Card.Text>
+                               </div>
                               <Button className="enterBtn"
                                       onClick={()=> this.joinRoom(chatroom.id)}
                                       variant="primary"
