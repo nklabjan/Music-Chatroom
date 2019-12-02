@@ -38,9 +38,14 @@ class Player extends Component {
       var player = this;
 
       this.props.socket.on('toggle_play', function() {
-        console.log("Play toggled")
         //Attempt to toggle play for everyone
         player.player.togglePlay();
+      })
+
+      this.props.socket.on('seek_to_position', function(new_position) {
+        //Attempt to toggle play for everyone
+        console.log(new_position);
+        player.player.seek(new_position);
       })
   }
 
@@ -245,7 +250,8 @@ class Player extends Component {
       //value is a percentage of where it should be compared to the rest of the song.
       //handle timestamp
       var new_position = value/100 * this.state.duration;
-      this.player.seek(new_position);
+
+      this.props.seekToNewPos(new_position);
     }
 
     passiveTimer() {
