@@ -242,7 +242,8 @@ class ContentHandler extends Component {
                         handleShow={this.handleShow}
                         userInfo={this.state.userInfo}
                         enterWhoAreWe={this.enterWhoAreWe}
-                        exitWhoAreWe={this.exitWhoAreWe}/>
+                        exitWhoAreWe={this.exitWhoAreWe}
+                        isPremiumUser={this.state.isPremiumUser}/>
       )
     }
     else {

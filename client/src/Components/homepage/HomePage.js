@@ -42,10 +42,10 @@ class HomePage extends Component {
                       this.props.chatRooms.map((chatroom, idx) => {
                         return (
                           <Card className="createdChatRoom" key={idx} bg="dark" text="white">
-                            <Card.Header>
+                            <Card.Header className="roomCardHeader">
                               <Card.Title>{chatroom.name}</Card.Title>
                             </Card.Header>
-                            <Card.Body>
+                            <Card.Body className="roomCardBody">
                               <Card.Subtitle className="mb-2 text-muted">
                                 Master: {chatroom.loungeMasterName}
                                 <div className="loungeGenres"> {"Genre(s): " + chatroom.genres} </div>

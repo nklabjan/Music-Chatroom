@@ -45,7 +45,10 @@ class Player extends Component {
       this.props.socket.on('seek_to_position', function(new_position) {
         //Attempt to toggle play for everyone
         console.log(new_position);
+
         player.player.seek(new_position);
+        player.setState({position: new_position});
+
       })
   }
 
@@ -169,8 +172,8 @@ class Player extends Component {
       //Anything more than 2 seconds will cause it to restart the song
       if (this.state.position > 2000)
       {
-        this.player.seek(0);
-        this.setState({position: 0});
+        this.props.seekToNewPos(0);
+        //this.setState({position: 0});
       }
       else
       {
@@ -182,8 +185,8 @@ class Player extends Component {
         }
         else
         {
-          this.player.seek(0);
-          this.setState({position: 0});
+          this.props.seekToNewPos(0);
+          //this.setState({position: 0});
         }
       }
     }

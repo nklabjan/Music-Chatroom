@@ -47,7 +47,9 @@ class CadenceNavBar extends Component {
         <Nav className="mr-auto">
           <Nav.Link onClick={() => this.profileRender()}>Profile</Nav.Link>
           {this.props.currDisplay === "lounge" ? <Nav.Link onClick={this.props.handleHome}>Leave Lounge</Nav.Link> :
-                  <Nav.Link onClick={this.props.handleShow}>Make Lounge</Nav.Link>}
+                  <Nav.Link onClick={this.props.handleShow} disabled={!this.props.isPremiumUser ? true : false}>
+                  Make Lounge
+                  </Nav.Link>}
         </Nav>
         <Nav id="outline-info">
           <Nav.Link >

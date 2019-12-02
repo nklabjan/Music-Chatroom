@@ -1,7 +1,7 @@
 .Wrapper {
     width: 100vw;
     height: 100vh;
-    background-color: rgba(49, 47, 54, 1);
+    background-color: rgba(33, 32, 36, 1);
   }
 
 .NotPremiumAlert {
@@ -39,6 +39,7 @@
   background-color: rgba(104, 82, 156, 1);
   transform: scale(1.1);
 }
+
 .NavBarWrapper{
   height: 7vh;
   width: 100vw;

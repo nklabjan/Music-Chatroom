@@ -47,27 +47,11 @@ class Chatroom {
         if (this.users[socket.id].id === this.loungeMasterID)
         {
           console.log("yes i am the loungemaster")
-          const options = {
-            url: 'https://api.spotify.com/v1/me/player/currently-playing',
-            headers: {
-              "Authorization": `Bearer ${this.loungeMasterAT}`,
-              "Content-Type": "application/json",
-            },
-            json: true
-
-          };
-
-          this.request.get(options, function(error, response, body) {
-            if (body != undefined)
-            {
-              console.log(body["item"]);
-              var song_uri = body.item["uri"];
-              var timestamp = body.progress_ms;
-
-              //Play song for incoming user
-              socket.emit("play_song", song_uri, timestamp);
-            }
-          })
+          if (this.queue.songs.length > 0)
+          {
+            var def_song = this.queue.songs[this.queue.position];
+            socket.emit("play_song", def_song.uri);
+          }
         }
         //sync to what the lounge master is listening
         else
@@ -105,6 +89,12 @@ class Chatroom {
       this.queue.addSong(song_info, "end");
       var queueList = this.queue.songs;
       this.io.to(this.id).emit("queue_received",  queueList, this.queue.position);
+      //if there is only 1 song in the queue, play the song immediately
+      if (queueList.length === 1)
+      {
+        this.io.to(this.id).emit("play_song", song_info.uri);
+      }
+
     }
 
     togglePlay() {
@@ -165,7 +155,6 @@ class Chatroom {
           let artists = song.artists.map(artist => artist.name).join(", ");
           let uri = body.tracks.items[0].uri;
 
-          console.log(body.tracks.items);
           let song_info = {title: title, album: album, artist: artists, uri: uri};
 
           chatroom.addSong(access_token, song_info);
@@ -232,7 +221,7 @@ class Chatroom {
       }
     }
 
-    playSong(accessToken, deviceId, spotifyURI, queuePos)
+    playSong(spotifyURI, queuePos)
     {
       var chatroom = this; // alias this as chatroom so it can be referenced in async call
       console.log("Attempting to play " + spotifyURI)
