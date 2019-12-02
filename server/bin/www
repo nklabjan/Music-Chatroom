@@ -122,9 +122,10 @@ io.on('connection', function(socket) {
       if (chatrooms[loungeID] !== undefined)
       {
         chatrooms[loungeID].togglePlay();
+        console.log("Testing toggling")
       }
       else {
-        console.log("Disconnecting error")
+        console.log("Attempt to toggle music failed")
       }
     });
 
