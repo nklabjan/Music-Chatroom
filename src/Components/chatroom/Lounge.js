@@ -137,7 +137,6 @@ class Lounge extends Component {
 
     seekToNewPos(new_position) {
       //Toggle play for everyone else
-      console.log("attempting to seek")
       this.socket.emit('force_seek', this.info.id, new_position);
     }
 
