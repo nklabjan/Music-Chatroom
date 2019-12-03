@@ -20,9 +20,9 @@
     "rc-slider": "^8.7.1",
     "react": "^16.10.2",
     "react-bootstrap": "^1.0.0-beta.14",
+    "react-card-flip": "^1.0.10",
     "react-dom": "^16.10.2",
     "react-scripts": "3.2.0",
-    "react-spotify-login": "^0.9.1",
     "react-spotify-web-playback": "^0.6.0",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0"

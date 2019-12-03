@@ -66,9 +66,24 @@
     width: 25%;
     height: 50%;
     border-radius: 15px !important;
-    border-style: solid !important;
-    border-color: black !important;
-    border-width: 3px !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+  }
+
+  .roomCardHeader {
+    border-top-left-radius: 15px !important;
+    border-top-right-radius: 15px !important;
+    background-color: black !important;
+
+  }
+
+  .roomCardBody {
+    border-top: 2px rgba(33, 32, 36, 1) solid;
+    border-bottom-left-radius: 15px !important;
+    border-bottom-right-radius: 15px !important;
+    background-color: black;
+    background: rgb(0,0,0);
+    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(54,42,84,1) 50%, rgba(0,0,0,1) 100%);
   }
 
   .homeTitleHeader {
@@ -97,4 +112,11 @@
     margin-top: -25%;
     margin-left: 25%;
     background-color: rgba(104, 82, 156, 1) !important;
+  }
+
+  .enterBtn:hover{
+    border-color: white;
+    transition: all .2s ease-in-out;
+    background-color: rgba(104, 82, 156, 1);
+    transform: scale(1.1);
   }

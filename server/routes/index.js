@@ -58,8 +58,9 @@ router.get('/auth', function(req, res) {
   //Get spotify access token and refresh tokens
   request.post(authOptions, function(error, response, body) {
     var access_token = body.access_token
+    var refresh_token = body.refresh_token
     let uri = urls.frontend_uri
-    res.redirect(uri + '?access_token=' + access_token)
+    res.redirect(uri + '?access_token=' + access_token + '&refresh_token=' + refresh_token)
   })
   });
 
@@ -85,7 +86,7 @@ router.get('/auth', function(req, res) {
 
     req.app.locals.chatrooms[new_id] = new_chatroom;
 
-    client.query('INSERT INTO "music_chatroom".lounges(name, lounge_master, description) VALUES ($1, $2, $3)', 
+    client.query('INSERT INTO "music_chatroom".lounges(name, lounge_master, description) VALUES ($1, $2, $3)',
         [request.name, request.loungeMasterName, request.desc], (err, res) => {
       console.log(err, res);
     })

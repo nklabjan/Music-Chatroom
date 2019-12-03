@@ -11,6 +11,7 @@ class AddSongModal extends Component {
         }
 
         this.search = React.createRef();
+
     }
 
     async getSongs() {
