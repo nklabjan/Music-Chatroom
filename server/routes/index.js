@@ -35,32 +35,34 @@ router.get('/login', function(req, res) {
     '&client_id=' + my_client_id +
     (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
     '&redirect_uri=' + encodeURIComponent(redirect_uri));
+
+
   });
 
 router.get('/auth', function(req, res) {
     console.log(redirect_uri);
     let code = req.query.code || null
     let authOptions = {
-    url: 'https://accounts.spotify.com/api/token',
-    form: {
-      code: code,
-      redirect_uri,
-      grant_type: 'authorization_code'
-    },
-    headers: {
-      'Authorization': 'Basic ' + (new Buffer(
-        process.env.CLIENT_APP_ID + ':' + process.env.CLIENT_APP_SECRET
-      ).toString('base64'))
-    },
-    json: true
-  }
+      url: 'https://accounts.spotify.com/api/token',
+      form: {
+        code: code,
+        redirect_uri,
+        grant_type: 'authorization_code'
+      },
+      headers: {
+        'Authorization': 'Basic ' + (new Buffer(
+          process.env.CLIENT_APP_ID + ':' + process.env.CLIENT_APP_SECRET
+        ).toString('base64'))
+      },
+      json: true
+    }
 
-  //Get spotify access token and refresh tokens
-  request.post(authOptions, function(error, response, body) {
-    var access_token = body.access_token
-    let uri = urls.frontend_uri
-    res.redirect(uri + '?access_token=' + access_token)
-  })
+    //Get spotify access token and refresh tokens
+    request.post(authOptions, function(error, response, body) {
+      var access_token = body.access_token
+      let uri = urls.frontend_uri
+      res.redirect(uri + '?access_token=' + access_token)
+    })
   });
 
   router.get('/getLounges', function(req, res) {
@@ -81,7 +83,6 @@ router.get('/auth', function(req, res) {
     var new_id = req.app.locals.idCounter;
     var request = req.body
     var new_chatroom = new Chatroom.Chatroom(req.app.locals.io, new_id, request);
-
     req.app.locals.chatrooms[new_id] = new_chatroom;
 
     var genres = "";
@@ -92,19 +93,17 @@ router.get('/auth', function(req, res) {
       genres = request.genres[0] + ", " + request.genres[1];
     }
 
-    var query_err = false;
+    let query_err = false;
 
     client.query('INSERT INTO "music_chatroom".lounges(name, lounge_master, description, genres) VALUES ($1, $2, $3, $4)', 
-        [request.name, request.loungeMasterName, request.desc, genres], (err, res) => {
+        [request.name, request.loungeMasterName, request.desc, genres], function(err, resp) {
           if (err) {
             query_err = true;
           }
-    })
+          req.app.locals.idCounter++;
 
-    req.app.locals.idCounter++;
-
-    res.json({query_error: query_err, 
-        lounge_info: new_chatroom.minimalInfo()});
-
+          res.json({query_error: query_err, 
+            lounge_info: new_chatroom.minimalInfo()});
+    });
   })
 module.exports = router;
