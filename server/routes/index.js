@@ -85,6 +85,7 @@ router.get('/auth', function(req, res) {
     var request = req.body
     var new_chatroom = new Chatroom.Chatroom(req.app.locals.io, new_id, request);
     req.app.locals.chatrooms[new_id] = new_chatroom;
+    
     var genres = "";
     if (request.genres.length === 1) {
       genres = request.genres[0];

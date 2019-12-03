@@ -79,6 +79,8 @@ class ContentHandler extends Component {
         var lounge_info = res.data.lounge_info;
         var query_err = res.data.query_error;
 
+        console.log("response: ", query_err);
+
         if (query_err) {
           alert("Lounge name is already in use! Change it to something unique!");
           this.setState({currDisplay: "makeChat"});
@@ -155,9 +157,7 @@ class ContentHandler extends Component {
           },
       });
       const myJson = await response.json();
-      console.log(myJson);
-      if(!myJson.error)
-      {
+      if(!myJson.error) {
         this.setState({
           userInfo: myJson,
           isPremiumUser: myJson.product === "premium" ? true : false,
