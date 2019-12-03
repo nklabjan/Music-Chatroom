@@ -122,22 +122,40 @@ class Lounge extends Component {
     //Hardcode to play "spotify:track:5bvNpG6wiIEf1PA13TkTu2" for now
     //console.log(this.props)
     //let song = this.props.uri;
-    this.socket.emit( 'play_song',
-                      this.props.access_token,
-                      this.state.deviceId,
-                      song_uri,
-                      this.info.id,
-                      queuePos);
+
+    //Check if is loungemaster
+    if (this.info.loungeMasterID === this.props.userInfo.id)
+    {
+      //Toggle play for everyone else
+      this.socket.emit( 'play_song',
+                        this.props.access_token,
+                        this.state.deviceId,
+                        song_uri,
+                        this.info.id,
+                        queuePos);
+    }
+
     }
 
     togglePlay() {
-      //Toggle play for everyone else
-      this.socket.emit('toggle_play', this.info.id);
+
+      //Check if is loungemaster
+      if (this.info.loungeMasterID === this.props.userInfo.id)
+      {
+        //Toggle play for everyone else
+        this.socket.emit('toggle_play', this.info.id);
+      }
+
     }
 
     seekToNewPos(new_position) {
+      //Check if is loungemaster
+      if (this.info.loungeMasterID === this.props.userInfo.id)
+      {
+        //Toggle play for everyone else
+        this.socket.emit('force_seek', this.info.id, new_position);
+      }
       //Toggle play for everyone else
-      this.socket.emit('force_seek', this.info.id, new_position);
     }
 
     componentWillMount(){
@@ -156,7 +174,8 @@ class Lounge extends Component {
                         <Chat socket={this.socket}
                               loungeInfo={this.info}
                               messages={this.state.messages}/>
-                        <UserList users={this.state.users}/>
+                        <UserList users={this.state.users}
+                                  loungeInfo={this.info}/>
                     </div>
                     <Player access_token={this.props.access_token}
                             socket={this.socket}
