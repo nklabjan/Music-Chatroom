@@ -2,6 +2,8 @@
 
 ## To run the app on your local machine
 ### IMPORTANT - Go to https://developer.spotify.com/ and register a Spotify app.
+### A Spotify Premium Account is also recommended for the full experience.
+
 ### Take note of your Spotify Client ID & Client Server
 1. Git clone this repository onto your machine
 2. You will notice that there are two main subdirectories - `client` and `server`

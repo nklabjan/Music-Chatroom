@@ -19,13 +19,17 @@ class Lounge extends Component {
             users: [],
             messages: [],
             queueList: [],
+            queuePos: null,
         }
 
         this.info = this.props.loungeInfo
         this.socket = null;
         this.playSong = this.playSong.bind(this);
+        this.togglePlay = this.togglePlay.bind(this);
+        this.addRandomSong = this.addRandomSong.bind(this);
         this.setUpSocket();
         this.setDeviceId = this.setDeviceId.bind(this);
+        this.syncMusicToRoom = this.syncMusicToRoom.bind(this);
 
     }
 
@@ -50,16 +54,24 @@ class Lounge extends Component {
             {
               if (lounge.state.users[i].id === user.id)
               {
-                const newList = lounge.state.users.splice(i, 1);
+                const newList = lounge.state.users;
+                console.log(lounge.state.users[i].display_name + " left the room.")
+                newList.splice(i, 1);
+
                 lounge.setState({users: newList});
               }
             }
 
         })
 
-        this.socket.on('play_song', function(song_uri) {
+        this.socket.on('play_song', function(song_uri, position_ms) {
             console.log("Room is now playing " + song_uri);
             //Handle removing users from list
+            var req_body = { uris: [song_uri] }
+            if (position_ms !== undefined)
+            {
+              req_body = { uris: [song_uri] , position_ms: position_ms};
+            }
 
             fetch('https://api.spotify.com/v1/me/player/play?device_id=' + lounge.state.deviceId, {
               method: "PUT",
@@ -67,7 +79,7 @@ class Lounge extends Component {
                 authorization: `Bearer ${lounge.props.access_token}`,
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({ uris: [song_uri] }),
+              body: JSON.stringify(req_body),
             });
 
         })
@@ -80,15 +92,31 @@ class Lounge extends Component {
           lounge.setState({messages: [msgBlob, ...lounge.state.messages]});
         })
 
-        this.socket.on('queue_received', function(queueList) {
+        this.socket.on('queue_received', function(queueList, pos) {
 
           //add QueueList to this.state.queue
           lounge.setState({queueList: queueList});
+          lounge.setState({queuePos: pos});
+
+        })
+
+        this.socket.on('toggle_play', function() {
+          console.log("Play toggled")
+          //Attempt to toggle play for everyone
         })
     }
 
     setDeviceId(device_id){
       this.setState({deviceId: device_id});
+    }
+
+    syncMusicToRoom(){
+      this.socket.emit('init_player', this.info.id);
+    }
+
+    addRandomSong() {
+      //when the song info parameter is left blank, adds a random song
+      this.socket.emit('add_song', this.props.access_token, this.info.id);
     }
 
     playSong(song_uri, queuePos) {
@@ -105,6 +133,11 @@ class Lounge extends Component {
                       queuePos);
     }
 
+    togglePlay() {
+      //Toggle play for everyone else
+      this.socket.emit('toggle_play', this.info.id);
+    }
+
     componentWillMount(){
       this.socket.emit('user_connected', this.props.access_token, this.info.id, this.props.userInfo);
     }
@@ -116,7 +149,8 @@ class Lounge extends Component {
                     <div className="loungeContainer">
                         <Queue  socket={this.socket}
                                 playSong={this.playSong}
-                                queueList={this.state.queueList} />
+                                queueList={this.state.queueList}
+                                queuePos = {this.state.queuePos}/>
                         <Chat socket={this.socket}
                               loungeInfo={this.info}
                               messages={this.state.messages}/>
@@ -126,6 +160,12 @@ class Lounge extends Component {
                             socket={this.socket}
                             handleHome={this.props.handleHome}
                             setDeviceId={this.setDeviceId}
+                            syncMusicToRoom={this.syncMusicToRoom}
+                            playSong={this.playSong}
+                            togglePlay={this.togglePlay}
+                            addRandomSong={this.addRandomSong}
+                            queueList={this.state.queueList}
+                            queuePos = {this.state.queuePos}
                             />
 
                 </div>

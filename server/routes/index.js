@@ -4,7 +4,17 @@ var router = express.Router();
 //Retrieves env variables from .env file
 //var dotenv = require('dotenv').config();
 var urls = require('../constants.js');
-var Chatroom = require('../chatroom/Chatroom.js')
+var Chatroom = require('../chatroom/Chatroom.js');
+const {Client} = require('pg');
+const client = new Client({
+  user: 'iddgxdpmzvrgnq',
+  host: 'ec2-54-83-55-122.compute-1.amazonaws.com',
+  database: 'd5a45rpdbn8ojc',
+  password: 'ed9db27f9307fbe752382ed5e5d87ca5eb01240893e16afa65bff0bab8530c8d',
+  port: 5432,
+  ssl: true
+})
+client.connect();
 
 
 var my_client_id = process.env.CLIENT_APP_ID;
@@ -28,6 +38,7 @@ router.get('/login', function(req, res) {
   });
 
 router.get('/auth', function(req, res) {
+    console.log(redirect_uri);
     let code = req.query.code || null
     let authOptions = {
     url: 'https://accounts.spotify.com/api/token',
@@ -69,9 +80,15 @@ router.get('/auth', function(req, res) {
     //use chatrooms.length for the id and append to the list
     var new_id = req.app.locals.idCounter;
     var request = req.body
+    console.log("asdfsdfasd: ", request);
     var new_chatroom = new Chatroom.Chatroom(req.app.locals.io, new_id, request);
 
     req.app.locals.chatrooms[new_id] = new_chatroom;
+
+    client.query('INSERT INTO "music_chatroom".lounges(name, lounge_master, description) VALUES ($1, $2, $3)', 
+        [request.name, request.loungeMasterName, request.desc], (err, res) => {
+      console.log(err, res);
+    })
 
     //Only increment when new chatroom is created
     console.log("new room created with id: " + new_id);

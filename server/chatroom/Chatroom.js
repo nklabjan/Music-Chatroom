@@ -10,11 +10,11 @@ class Chatroom {
         this.name = loungeInfo.name;
         this.loungeMasterName = loungeInfo.loungeMasterName;
         this.loungeMasterID = loungeInfo.loungeMasterID;
+        this.loungeMasterAT = loungeInfo.access_token; //important to track where loungemaster music is at
         this.desc = loungeInfo.desc;
         this.genres = loungeInfo.genres;
         this.users = {};
         this.messageList = [];
-        this.currentSong = null;
         this.queue = new LoungeQueue.LoungeQueue(this.io); //Queue of songs
 
         //If there are songs preloaded into the Chatroom -> load them into the queue
@@ -26,6 +26,145 @@ class Chatroom {
 
     loadMockQueue() {
       var mockQueue = [{uri:"spotify:track:2cbWaw8K4fKvR9kgBg3ugq"}];
+    }
+
+    //This method helps users in the chatroom to get the current song
+    //Using the Loungemaster access token stored on the server side
+    getCurrentSong(socket) {
+      //if loungeMaster AT is null, then just play super rich kids with timestamp
+      if (this.loungeMasterAT === null)
+      {
+        var def_song = this.queue.songs[this.queue.position];
+        socket.emit("play_song", def_song.uri);
+
+        //socket.emit("play_song", def_song, def_timestamp);
+      }
+      //Check and see the current timestamp of the lounge master and sync the music to
+      //where the loungemaster has it at
+      else
+      {
+        //check if user is lounge master or not
+        if (this.users[socket.id].id === this.loungeMasterID)
+        {
+          console.log("yes i am the loungemaster")
+          const options = {
+            url: 'https://api.spotify.com/v1/me/player/currently-playing',
+            headers: {
+              "Authorization": `Bearer ${this.loungeMasterAT}`,
+              "Content-Type": "application/json",
+            },
+            json: true
+
+          };
+
+          this.request.get(options, function(error, response, body) {
+            if (body != undefined)
+            {
+              console.log(body["item"]);
+              var song_uri = body.item["uri"];
+              var timestamp = body.progress_ms;
+
+              //Play song for incoming user
+              socket.emit("play_song", song_uri, timestamp);
+            }
+          })
+        }
+        //sync to what the lounge master is listening
+        else
+        {
+          //Get loungemaster's currently playing song with access oktne then
+          //play the song with the progress ms for the currently joined user
+          const options = {
+            url: 'https://api.spotify.com/v1/me/player/currently-playing',
+            headers: {
+              "Authorization": `Bearer ${this.loungeMasterAT}`,
+              "Content-Type": "application/json",
+            },
+            json: true
+
+          };
+
+          this.request.get(options, function(error, response, body) {
+              //extract only relevant information from this
+              //song uri, progress_ms, is_playing then call on play
+              if (body != undefined)
+              {
+
+                var song_uri = body.item["uri"];
+                var timestamp = body.progress_ms;
+
+                //Play song for incoming user
+                socket.emit("play_song", song_uri, timestamp);
+              }
+          })
+        }
+      }
+    }
+
+    addSong(access_token, song_info) {
+      this.queue.addSong(song_info, "end");
+      var queueList = this.queue.songs;
+      this.io.to(this.id).emit("queue_received",  queueList, this.queue.position);
+    }
+
+    togglePlay() {
+      //this.io.to(this.id).emit("queue_received",  queueList, this.queue.position);
+      this.io.to(this.id).emit("toggle_play");
+
+    }
+
+    addRandomSong(access_token) {
+      // A list of all characters that can be chosen.
+      const characters = 'abcdefghijklmnopqrstuvwxyz';
+      let chatroom = this;
+
+      // Gets a random character from the characters string.
+      const randomCharacter = characters.charAt(Math.floor(Math.random() * characters.length));
+      let randomSearch = '';
+
+      // Places the wildcard character at the beginning, or both beginning and end, randomly.
+      switch (Math.round(Math.random())) {
+        case 0:
+          randomSearch = randomCharacter + '*';
+          break;
+        case 1:
+          randomSearch = '*' + randomCharacter + '*';
+          break;
+      }
+      const randomOffset = Math.floor(Math.random() * 10000);
+
+      //Pick a random genre from loungeroom genres
+      //var genre = this.genres[Math.floor(random(1,this.genres.length)) - 1];
+      var query = 'https://api.spotify.com/v1/search/?q=' + randomSearch
+                  + '&type=track&limit=1' + '&offset=' + randomOffset
+
+      const options = {
+        url: query,
+        headers: {
+          "Authorization": `Bearer ${access_token}`,
+          "Content-Type": "application/json",
+        },
+        json: true
+      };
+
+      this.request.get(options, function(error, response, body) {
+        if (body)
+        {
+          //parse important info from body and play
+          //add title, artist, album
+          var song = body.tracks.items[0]
+          let title = song.name;
+          let album = song.album.name;
+          let artists = song.artists.map(artist => artist.name).join(", ");
+          let uri = body.tracks.items[0].uri;
+
+          console.log(body.tracks.items);
+          let song_info = {title: title, album: album, artist: artists, uri: uri};
+
+          chatroom.addSong(access_token, song_info);
+
+        }
+      })
     }
 
     userConnected(socket, accessToken, userInfo) {
@@ -74,11 +213,12 @@ class Chatroom {
       {
         var user = this.users[socket.id]
         console.log("user " + socket.id + " has disconnected.");
+        console.log(user.display_name)
         delete this.users[socket.id];
         socket.leave(this.id);
-
+        console.log(this.users);
         console.log("Users left in lounge:" + Object.keys(this.users).length)
-        console.log(this.users)
+        //console.log(this.users)
         //Emit event to all other users to remove leaving user from list
         this.io.to(this.id).emit("user_disconnected", user);
 
@@ -89,14 +229,6 @@ class Chatroom {
     {
       var chatroom = this; // alias this as chatroom so it can be referenced in async call
       console.log("Attempting to play " + spotifyURI)
-      const options = {
-        url: 'https://api.spotify.com/v1/me/player/play?device_id=' + deviceId,
-        body: JSON.stringify({ uris: [spotifyURI] }),
-        headers: {
-          "Authorization": `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
-      };
 
       //Cause everyone else to play the same music
       this.io.to(this.id).emit("play_song", spotifyURI);
@@ -104,12 +236,11 @@ class Chatroom {
       if (queuePos !== undefined)
       {
         this.queue.playSong(queuePos);
+
         //update queue for everyone
-        this.io.to(this.id).emit("queue_received", this.queue.songs);
-        console.log(this.queue.songs);
+        this.io.to(this.id).emit("queue_received", this.queue.songs, this.queue.position);
 
       }
-
     }
 
     chatMessage(socket, message) {
@@ -124,7 +255,7 @@ class Chatroom {
     getQueue(socket) {
         //Send the list back to the Client
         var queueList = this.queue.songs;
-        socket.emit("queue_received", queueList);
+        socket.emit("queue_received", queueList, this.queue.position);
     }
 
     //user this function to get limited info on the chatroom

@@ -6,6 +6,7 @@
 var app = require('../app');
 var debug = require('debug')('server:server');
 var http = require('http');
+var request = require('request');
 //var handlers = require('../chatroom/auth')
 
 
@@ -37,7 +38,8 @@ var fake_news = { loungeMasterName: "admin",
                   loungeMasterID: "admin",
                   name: "test room",
                   desc: "this is random crap that i'm writing",
-                  genres: "toddler rock"
+                  genres: "toddler rock",
+                  access_token: null,
                   }
 var test_song_queue = [{ title:"All Star", artist:"Smash Mouth",
                           album:"Astro Lounge", uri:"spotify:track:3cfOd4CMv2snFaKAnMdnvK"},
@@ -116,6 +118,17 @@ io.on('connection', function(socket) {
       }
     });
 
+    socket.on('toggle_play', function(loungeID) {
+      if (chatrooms[loungeID] !== undefined)
+      {
+        chatrooms[loungeID].togglePlay();
+        console.log("Testing toggling")
+      }
+      else {
+        console.log("Attempt to toggle music failed")
+      }
+    });
+
     socket.on('message_sent', function(msg, loungeID) {
         if (chatrooms[loungeID] !== undefined)
         {
@@ -135,6 +148,37 @@ io.on('connection', function(socket) {
         console.log("Music attempted to be played in non-existing chatroom")
       }
     });
+
+    socket.on('add_song', function(access_token, loungeID, song_info) {
+      if (chatrooms[loungeID] !== undefined)
+      {
+        //Do the search here if song_info is empty
+
+        if (song_info === undefined)
+        {
+          //Add random song based on the genre of the room
+          console.log("attempting to add random song")
+          chatrooms[loungeID].addRandomSong(access_token);
+        }
+        else
+        {
+          chatrooms[loungeID].addSong(access_token, song_info);
+        }
+      }
+      else {
+        console.log("Random song was attempted to be added to non-existing room")
+      }
+    });
+
+    socket.on('init_player', function(loungeID) {
+      if (chatrooms[loungeID] !== undefined)
+      {
+        chatrooms[loungeID].getCurrentSong(socket);
+      }
+      else {
+        console.log("Player can't be initialized in undefined room")
+      }
+    })
 
 }
 
