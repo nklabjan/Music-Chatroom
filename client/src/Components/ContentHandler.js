@@ -20,7 +20,7 @@ class ContentHandler extends Component {
         loggedInStatus: false,
         isPremiumUser: null,
         access_token: null,
-        currDisplay: "home", //makeChat,lounge,home,landing,whoAreWe
+        currDisplay: "home", 
         chatRooms: [],
         curr_lounge: null,
         showModalChat: false,
@@ -76,11 +76,17 @@ class ContentHandler extends Component {
                                                     "access_token": this.state.access_token,
                                                     })
       .then(res => {
-        console.log(res.data)
-        var lounge_info = res.data.lounge_info
-        //Handle lounge information
-        this.setState({curr_lounge: lounge_info})
-        this.setState({currDisplay: "lounge"});
+        var lounge_info = res.data.lounge_info;
+        var query_err = res.data.query_error;
+
+        if (query_err) {
+          alert("Lounge name is already in use! Change it to something unique!");
+          this.setState({currDisplay: "makeChat"});
+        }
+        else {
+          this.setState({curr_lounge: lounge_info})
+          this.setState({currDisplay: "lounge"});
+        }
       })
   }
 
@@ -100,7 +106,7 @@ class ContentHandler extends Component {
   leaveChatRoom() {
     this.setState({curr_lounge: null})
   }
-  //This also now handles leave chatroom
+
   handleHome() {
     this.setState({currDisplay: "home"});
     this.leaveChatRoom();
@@ -157,12 +163,6 @@ class ContentHandler extends Component {
           isPremiumUser: myJson.product === "premium" ? true : false,
         });
       }
-
-      // if (this.state.loggedInStatus === true && this.state.userInfo.product !== "premium") {
-      //   this.setState({loggedInStatus: false});
-      //   this.setState({currDisplay: "landing"});
-      //   alert("You need Spotify Premium to use our application!");
-      // }
   }
 
   renderContent() {
