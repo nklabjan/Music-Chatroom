@@ -172,7 +172,7 @@ class Chatroom {
           //Only keep important information
           var minimalUserInfo = { display_name: userInfo.display_name,
                                   id: userInfo.id,
-                                  image: userInfo.images[0].url || 'http://',
+                                  image: (userInfo.images[0].url || ""),
                                   spotify_url: userInfo.external_urls.spotify,
                                   uri: userInfo.uri,
                                   country: userInfo.country,
