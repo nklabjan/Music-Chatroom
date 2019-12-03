@@ -149,10 +149,7 @@ class ContentHandler extends Component {
           },
       });
       const myJson = await response.json();
-<<<<<<< HEAD
-      console.log(myJson);
-=======
->>>>>>> 824f29bb3f3bf6985f4315f26e122d1a0ca58f19
+
       if(!myJson.error)
       {
         this.setState({
@@ -223,11 +220,8 @@ class ContentHandler extends Component {
           <Alert variant="danger" className="NotPremiumAlert">
           <Alert.Heading>Oops! Looks like you don't have Spotify Premium</Alert.Heading>
           <p>
-<<<<<<< HEAD
             You will need Spotify Premium to <b>join/make</b> a lounge and experience Cadence. Get it <Alert.Link
-=======
-            You will need Spotify Premium to have the full Cadence experience. Get it <Alert.Link
->>>>>>> 824f29bb3f3bf6985f4315f26e122d1a0ca58f19
+
               href="https://www.spotify.com/premium/"
               className="SpotifyLink">here</Alert.Link>.
           </p>
@@ -249,12 +243,9 @@ class ContentHandler extends Component {
                         handleShow={this.handleShow}
                         userInfo={this.state.userInfo}
                         enterWhoAreWe={this.enterWhoAreWe}
-<<<<<<< HEAD
                         exitWhoAreWe={this.exitWhoAreWe}
                         isPremiumUser={this.state.isPremiumUser}/>
-=======
-                        exitWhoAreWe={this.exitWhoAreWe}/>
->>>>>>> 824f29bb3f3bf6985f4315f26e122d1a0ca58f19
+
       )
     }
     else {
