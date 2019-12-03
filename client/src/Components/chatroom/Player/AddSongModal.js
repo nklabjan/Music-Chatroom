@@ -28,19 +28,26 @@ class AddSongModal extends Component {
     }
 
     displaySongs() {
-        console.log(this.search);
         if(this.props.show === true) {
             let songs = [];
-
-            if (Object.entries(this.state.data).length !== 0) {
-                for (const song in Object.entries(this.state.data.tracks.items)) {
-                    songs.push(
-                        <Song data={this.state.data.tracks.items[song]} />
-                    )
+            console.log(this.state.data)
+            if (this.state.data !== 'undefined') {
+                if (this.state.data.tracks !== 'undefined') {
+                    for (const song in Object.entries(this.state.data.tracks.items)) {
+                        songs.push(
+                            <Song data={this.state.data.tracks.items[song]} />
+                        )
+                    }
+                    return songs
                 }
-                return songs
             }
             return "Songs will be displayed as you search for them."
+        }
+    }
+
+    isShowing() {
+        if(this.props.show == true) {
+            this.displaySongs()
         }
     }
 

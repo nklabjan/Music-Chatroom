@@ -25,29 +25,29 @@ class Song extends Component {
     //     }
     //   }
     //   return this.state.data.artists[artist].name
-    let temp = ''; 
+    let name = ''; 
     for(const artist in Object.entries(this.props.data.artists)) {
         if(artist === Object.entries(this.props.data.artists).length) {
-          temp += this.props.data.artists[artist].name;
+          name += this.props.data.artists[artist].name;
         }
         else {
-          temp += this.props.data.artists[artist].name + ", ";
+          name += this.props.data.artists[artist].name + ", ";
         }
     }
-    return temp;
+    return name;
   }
 
-  getAlbum() {
-    // for(const album in this.state.data.album) {
-    //   if(album == "name") {
-    //     if(this.state.data.album[album].length > 22) {
-    //       let name = this.state.data.album[album].name.slice(0, 22) + "...";
-    //       return name
-    //     }
-    //     return this.state.data.album[album]
-    //   }
-    // }
-  }
+  // getAlbum() {
+  //   // for(const album in this.state.data.album) {
+  //   //   if(album == "name") {
+  //   //     if(this.state.data.album[album].length > 22) {
+  //   //       let name = this.state.data.album[album].name.slice(0, 22) + "...";
+  //   //       return name
+  //   //     }
+  //   //     return this.state.data.album[album]
+  //   //   }
+  //   // }
+  // }
 
   render() {
     return (
