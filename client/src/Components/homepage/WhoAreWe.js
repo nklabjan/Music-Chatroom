@@ -1,10 +1,13 @@
 import React, {Component} from "react";
 import {Image} from "react-bootstrap";
 import Brian from "../../images/Brian.jpg";
+// import Neville from "../../images/Neville.jpg";
+// import Tomas from "../../images/Tomas.jpg";
+// import Nick from "../../images/Nick.jpg";
+// import Michael from "../../images/Michael.jpg";
+// import James from "../../images/James.jpg";
 
 class WhoAreWe extends Component {
-  //{*/ <button className="login" onClick={this.props.login}>Login with Spotify</button> */}
-
     render() {
         return  <div className="Backdrop">
                   <div className="WhoAreWe">
@@ -20,10 +23,64 @@ class WhoAreWe extends Component {
                           "Thanks for checking out our project!"
                         </div>
                     </div>
+                    <div className="Creator">
+                      <div className="Info">
+                        <Image src={Brian} className="CreatorImg" alt="A photo of Neville."></Image>
+                        {/* <Image src={Neville} className="CreatorImg" alt="A photo of Neville."></Image> */}
+                        <div className="Name">Neville</div>
+                      </div>
+                      <div className="Description">
+                          Lorem ipsum intellegens quid ait illi et ego valde impressis. 
+                          Hoc replere, intulere. Spero autem quod illud est satis honeste. Bene, tempus est ire!
+                        </div>
+                    </div>
+                    <div className="Creator">
+                      <div className="Info">
+                        <Image src={Brian} className="CreatorImg" alt="A photo of Tomas."></Image>
+                        {/* <Image src={Tomas} className="CreatorImg" alt="A photo of Tomas."></Image> */}
+                        <div className="Name">Tomas</div>
+                      </div>
+                      <div className="Description">
+                          Lorem ipsum intellegens quid ait illi et ego valde impressis. 
+                          Hoc replere, intulere. Spero autem quod illud est satis honeste. Bene, tempus est ire!
+                        </div>
+                    </div>
+                    <div className="Creator">
+                      <div className="Info">
+                        <Image src={Brian} className="CreatorImg" alt="A photo of Nick."></Image>
+                        {/* <Image src={Nick} className="CreatorImg" alt="A photo of Nick."></Image> */}
+                        <div className="Name">Nick</div>
+                      </div>
+                      <div className="Description">
+                          Lorem ipsum intellegens quid ait illi et ego valde impressis. 
+                          Hoc replere, intulere. Spero autem quod illud est satis honeste. Bene, tempus est ire!
+                        </div>
+                    </div>
+                    <div className="Creator">
+                      <div className="Info">
+                        <Image src={Brian} className="CreatorImg" alt="A photo of Michael."></Image>
+                        {/* <Image src={Michael} className="CreatorImg" alt="A photo of Michael."></Image> */}
+                        <div className="Name">Michael</div>
+                      </div>
+                      <div className="Description">
+                          Lorem ipsum intellegens quid ait illi et ego valde impressis. 
+                          Hoc replere, intulere. Spero autem quod illud est satis honeste. Bene, tempus est ire!
+                        </div>
+                    </div>
+                    <div className="Creator">
+                      <div className="Info">
+                        <Image src={Brian} className="CreatorImg" alt="A photo of James."></Image>
+                        {/* <Image src={James} className="CreatorImg" alt="A photo of James."></Image> */}
+                        <div className="Name">James</div>
+                      </div>
+                      <div className="Description">
+                          Lorem ipsum intellegens quid ait illi et ego valde impressis. 
+                          Hoc replere, intulere. Spero autem quod illud est satis honeste. Bene, tempus est ire!
+                        </div>
+                    </div>
                   </div>
                 </div>
       }
-
 }
 
 export default WhoAreWe;
