@@ -2,7 +2,8 @@ import React, {Component} from "react";
 import LandingPage from './LandingPage';
 import '../../css/homepage/HomePage.css';
 import {Card, Button} from 'react-bootstrap';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLock } from '@fortawesome/free-brands-svg-icons'
 
 class HomePage extends Component {
 
@@ -44,6 +45,7 @@ class HomePage extends Component {
                           <Card className="createdChatRoom" key={idx} bg="dark" text="white">
                             <Card.Header className="roomCardHeader">
                               <Card.Title>{chatroom.name}</Card.Title>
+                              <FontAwesomeIcon icon={faLock}/>
                             </Card.Header>
                             <Card.Body className="roomCardBody">
                               <Card.Subtitle className="mb-2 text-muted">
