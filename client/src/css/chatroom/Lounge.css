@@ -2,33 +2,32 @@
     width: 100vw;
     height: 100vh;
     font-family: "Helvetica Neue";
-  }
+}
 
-  .chatroom-header {
-      height: 8vh;
-      width: 100%;
-      border-bottom: 2px solid rgba(1, 1, 1, 1);
-      position: relative;
-      background-color: black;
-      background: rgb(0,0,0);
-      background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(54,42,84,1) 50%, rgba(0,0,0,1) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-  }
+.chatroom-header {
+    height: 8vh;
+    width: 100%;
+    border-bottom: 2px solid rgba(1, 1, 1, 1);
+    position: relative;
+    background-color: black;
+    background: rgb(0,0,0);
+    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(54,42,84,1) 50%, rgba(0,0,0,1) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-  .title {
-      font-size: 20px;
-      color: white;
-      bottom: 1px;
-  }
+.title {
+    font-size: 20px;
+    color: white;
+    bottom: 1px;
+}
 
-
-  .loungeContainer {
-      position: relative;
-      height: 78vh;
-      width:100vw;
-      left: 0px;
-      display: flex;
-      flex-direction: row;
-  }
+.loungeContainer {
+    position: relative;
+    height: 78vh;
+    width:100vw;
+    left: 0px;
+    display: flex;
+    flex-direction: row;
+}

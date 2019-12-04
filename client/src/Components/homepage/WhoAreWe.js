@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Image} from "react-bootstrap";
 import Brian from "../../images/Brian.jpg";
-// import Neville from "../../images/Neville.jpg";
+import Neville from "../../images/Neville.jpg";
 // import Tomas from "../../images/Tomas.jpg";
 // import Nick from "../../images/Nick.jpg";
 // import Michael from "../../images/Michael.jpg";
@@ -24,13 +24,14 @@ class WhoAreWe extends Component {
                       </div>
                     </div>
                     <div className="Creator">
-                      <Image src={Brian} className="CreatorImg" alt="A photo of Neville."></Image>
-                      {/* <Image src={Neville} className="CreatorImg" alt="A photo of Neville."></Image> */}
+                      <Image src={Neville} className="CreatorImg" alt="A photo of Neville."></Image>
                       <div className="Info">
-                        <div className="Name">Neville</div>
+                        <div className="Name">Neville Ng</div>
                         <div className="Description">
-                          Lorem ipsum intellegens quid ait illi et ego valde impressis. 
-                          Hoc replere, intulere. Spero autem quod illud est satis honeste. Bene, tempus est ire!
+                          Neville is a Senior majoring in Computer Sciences at UW-Madison. In his free time,
+                          he likes to jam out with friends, pretend to know art and catch up on the latest memes.
+                          Neville is an avid DotA 2 fan and plays for the UW-Madison Varsity DotA team. His favorite
+                          drink is a nice, cold Long Island. Pls hire him.
                         </div>
                       </div>
                     </div>
@@ -40,7 +41,7 @@ class WhoAreWe extends Component {
                       <div className="Info">
                         <div className="Name">Tomas</div>
                         <div className="Description">
-                          Lorem ipsum intellegens quid ait illi et ego valde impressis. 
+                          Lorem ipsum intellegens quid ait illi et ego valde impressis.
                           Hoc replere, intulere. Spero autem quod illud est satis honeste. Bene, tempus est ire!
                         </div>
                       </div>
@@ -51,7 +52,7 @@ class WhoAreWe extends Component {
                       <div className="Info">
                         <div className="Name">Nick</div>
                         <div className="Description">
-                          Lorem ipsum intellegens quid ait illi et ego valde impressis. 
+                          Lorem ipsum intellegens quid ait illi et ego valde impressis.
                           Hoc replere, intulere. Spero autem quod illud est satis honeste. Bene, tempus est ire!
                         </div>
                       </div>
@@ -62,7 +63,7 @@ class WhoAreWe extends Component {
                       <div className="Info">
                         <div className="Name">Michael</div>
                         <div className="Description">
-                          Lorem ipsum intellegens quid ait illi et ego valde impressis. 
+                          Lorem ipsum intellegens quid ait illi et ego valde impressis.
                           Hoc replere, intulere. Spero autem quod illud est satis honeste. Bene, tempus est ire!
                         </div>
                       </div>
@@ -73,7 +74,7 @@ class WhoAreWe extends Component {
                       <div className="Info">
                         <div className="Name">James</div>
                         <div className="Description">
-                          Lorem ipsum intellegens quid ait illi et ego valde impressis. 
+                          Lorem ipsum intellegens quid ait illi et ego valde impressis.
                           Hoc replere, intulere. Spero autem quod illud est satis honeste. Bene, tempus est ire!
                         </div>
                       </div>
