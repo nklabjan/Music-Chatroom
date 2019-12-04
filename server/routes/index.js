@@ -35,6 +35,8 @@ router.get('/login', function(req, res) {
     '&client_id=' + my_client_id +
     (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
     '&redirect_uri=' + encodeURIComponent(redirect_uri));
+
+
   });
 
 router.get('/auth', function(req, res) {
@@ -98,22 +100,28 @@ router.get('/auth', function(req, res) {
     //use chatrooms.length for the id and append to the list
     var new_id = req.app.locals.idCounter;
     var request = req.body
-    console.log("asdfsdfasd: ", request);
     var new_chatroom = new Chatroom.Chatroom(req.app.locals.io, new_id, request);
-
     req.app.locals.chatrooms[new_id] = new_chatroom;
+    
+    var genres = "";
+    if (request.genres.length === 1) {
+      genres = request.genres[0];
+    }
+    else if (request.genres.length === 2) {
+      genres = request.genres[0] + ", " + request.genres[1];
+    }
 
-    client.query('INSERT INTO "music_chatroom".lounges(name, lounge_master, description) VALUES ($1, $2, $3)',
-        [request.name, request.loungeMasterName, request.desc], (err, res) => {
-      console.log(err, res);
-    })
+    let query_err = false;
 
-    //Only increment when new chatroom is created
-    console.log("new room created with id: " + new_id);
+    client.query('INSERT INTO "music_chatroom".lounges(name, lounge_master, description, genres) VALUES ($1, $2, $3, $4)', 
+        [request.name, request.loungeMasterName, request.desc, genres], function(err, resp) {
+          if (err) {
+            query_err = true;
+          }
+          req.app.locals.idCounter++;
 
-    req.app.locals.idCounter++;
-
-    res.json({lounge_info: new_chatroom.minimalInfo()})
-
+          res.json({query_error: query_err, 
+            lounge_info: new_chatroom.minimalInfo()});
+    });
   })
 module.exports = router;
