@@ -81,18 +81,8 @@ class ContentHandler extends Component {
                                                     })
       .then(res => {
         var lounge_info = res.data.lounge_info;
-        var query_err = res.data.query_error;
-
-        console.log("response: ", query_err);
-
-        if (query_err) {
-          alert("Lounge name is already in use! Change it to something unique!");
-          this.setState({currDisplay: "makeChat"});
-        }
-        else {
-          this.setState({curr_lounge: lounge_info})
-          this.setState({currDisplay: "lounge"});
-        }
+        this.setState({curr_lounge: lounge_info})
+        this.setState({currDisplay: "lounge"});
       })
   }
 

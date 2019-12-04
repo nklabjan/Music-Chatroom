@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import '../../css/profile/Profile.css';
 import ProfileDetail from './Detail';
 import {Modal, Button} from 'react-bootstrap';
+import axios from 'axios';
+var urls = require('../../constants');
 
 class Profile extends Component {
     constructor(props) {
@@ -16,6 +18,7 @@ class Profile extends Component {
     }
 
     saveChanges() {
+        //xios.put(urls.backend_url + '/saveProfile', {})
         this.setState({viewType: "display"});
     }
 
@@ -32,7 +35,6 @@ class Profile extends Component {
                         </Modal.Header>
                     <Modal.Body className="modBodyProf">
                         <img src={this.props.userInfo.images[0].url} alt="Not Found" ></img>
-
                         <ProfileDetail viewType={this.state.viewType} label="Username:" info=""/>
                         <ProfileDetail viewType={this.state.viewType} label="About Me:" info=""/>
                         <ProfileDetail viewType={this.state.viewType} label="Music Taste:" info=""/>
