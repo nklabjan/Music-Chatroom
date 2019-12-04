@@ -171,11 +171,18 @@ class Chatroom {
         //New incoming connection
         if (this.users[socket.id] === undefined)
         {
-          console.log("User " + userInfo.display_name + " connected to the lounge");
+            console.log("User " + userInfo.display_name + " connected to the lounge");
+            var url;
+            if (userInfo.images[0]) {
+                url = userInfo.images[0].url;
+            }
+            else {
+                url = null;
+            }
           //Only keep important information
           var minimalUserInfo = { display_name: userInfo.display_name,
                                   id: userInfo.id,
-                                  image: userInfo.images[0].url,
+                                  image: url,
                                   spotify_url: userInfo.external_urls.spotify,
                                   uri: userInfo.uri,
                                   country: userInfo.country,
