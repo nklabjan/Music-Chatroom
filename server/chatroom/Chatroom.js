@@ -251,11 +251,14 @@ class Chatroom {
 
     chatMessage(socket, message) {
         console.log("message received")
-        var msgBlob = { 'userName': this.users[socket.id].display_name,
-                        'userID': this.users[socket.id].id,
-                        'msg' : message }
-        this.messageList.push(msgBlob);
-        this.io.to(this.id).emit("message_received",  msgBlob);
+        if (this.users[socket.id] !== undefined)
+        {
+          var msgBlob = { 'userName': this.users[socket.id].display_name,
+                          'userID': this.users[socket.id].id,
+                          'msg' : message }
+          this.messageList.push(msgBlob);
+          this.io.to(this.id).emit("message_received",  msgBlob);
+        }
     }
 
     getQueue(socket) {

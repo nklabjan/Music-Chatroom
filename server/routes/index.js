@@ -64,6 +64,24 @@ router.get('/auth', function(req, res) {
   })
   });
 
+  router.post('/realLogin', function(req, res) {
+    if (req.body.access_token)
+    {
+      let authOptions = {
+        url: 'https://api.spotify.com/v1/me',
+        headers: {
+          authorization: `Bearer ${req.body.access_token}`
+        },
+        json: true
+      }
+      request.get(authOptions, function(error, response, body) {
+        console.log(body)
+        var userInfo = body;
+      })
+    }
+
+    });
+
   router.get('/getLounges', function(req, res) {
     let lounges = [];
 

@@ -158,11 +158,11 @@ class ContentHandler extends Component {
         });
       }
 
-      // if (this.state.loggedInStatus === true && this.state.userInfo.product !== "premium") {
-      //   this.setState({loggedInStatus: false});
-      //   this.setState({currDisplay: "landing"});
-      //   alert("You need Spotify Premium to use our application!");
-      // }
+      //Gets information here
+      await axios.post(urls.backend_url + '/realLogin', {"access_token": this.state.access_token})
+      .then(res => {
+        //get real login information from backend
+      })
   }
 
   renderContent() {
