@@ -41,7 +41,7 @@ class Chatroom {
       }
       //Check and see the current timestamp of the lounge master and sync the music to
       //where the loungemaster has it at
-      else
+      else if (this.users[socket.id] !== undefined)
       {
         //check if user is lounge master or not
         if (this.users[socket.id].id === this.loungeMasterID)
@@ -149,15 +149,18 @@ class Chatroom {
         {
           //parse important info from body and play
           //add title, artist, album
-          var song = body.tracks.items[0]
-          let title = song.name;
-          let album = song.album.name;
-          let artists = song.artists.map(artist => artist.name).join(", ");
-          let uri = body.tracks.items[0].uri;
+          if (body.tracks)
+          {
+            var song = body.tracks.items[0]
+            let title = song.name;
+            let album = song.album.name;
+            let artists = song.artists.map(artist => artist.name).join(", ");
+            let uri = body.tracks.items[0].uri;
 
-          let song_info = {title: title, album: album, artist: artists, uri: uri};
+            let song_info = {title: title, album: album, artist: artists, uri: uri};
 
-          chatroom.addSong(access_token, song_info);
+            chatroom.addSong(access_token, song_info);
+          }
 
         }
       })
@@ -168,11 +171,18 @@ class Chatroom {
         //New incoming connection
         if (this.users[socket.id] === undefined)
         {
-          console.log("User " + userInfo.display_name + " connected to the lounge");
+            console.log("User " + userInfo.display_name + " connected to the lounge");
+            var url;
+            if (userInfo.images[0]) {
+                url = userInfo.images[0].url;
+            }
+            else {
+                url = null;
+            }
           //Only keep important information
           var minimalUserInfo = { display_name: userInfo.display_name,
                                   id: userInfo.id,
-                                  image: userInfo.images[0].url,
+                                  image: url,
                                   spotify_url: userInfo.external_urls.spotify,
                                   uri: userInfo.uri,
                                   country: userInfo.country,
@@ -241,11 +251,14 @@ class Chatroom {
 
     chatMessage(socket, message) {
         console.log("message received")
-        var msgBlob = { 'userName': this.users[socket.id].display_name,
-                        'userID': this.users[socket.id].id,
-                        'msg' : message }
-        this.messageList.push(msgBlob);
-        this.io.to(this.id).emit("message_received",  msgBlob);
+        if (this.users[socket.id] !== undefined)
+        {
+          var msgBlob = { 'userName': this.users[socket.id].display_name,
+                          'userID': this.users[socket.id].id,
+                          'msg' : message }
+          this.messageList.push(msgBlob);
+          this.io.to(this.id).emit("message_received",  msgBlob);
+        }
     }
 
     getQueue(socket) {

@@ -45,7 +45,8 @@ class CadenceNavBar extends Component {
                           fixed={this.props.scheme === "CadenceNavBarInit" ? "top" : ""}>
                   <Navbar.Brand className="cursor" onClick={this.props.handleHome}>Cadence</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link onClick={() => this.profileRender()}>Profile</Nav.Link>
+          <Nav.Link onClick={() => this.profileRender()}
+                    disabled={!this.props.isPremiumUser ? true : false}>Profile</Nav.Link>
           {this.props.currDisplay === "lounge" ? <Nav.Link onClick={this.props.handleHome}>Leave Lounge</Nav.Link> :
                   <Nav.Link onClick={this.props.handleShow} disabled={!this.props.isPremiumUser ? true : false}>
                   Make Lounge

@@ -20,7 +20,7 @@ class ContentHandler extends Component {
         loggedInStatus: false,
         isPremiumUser: null,
         access_token: null,
-        currDisplay: "home", 
+        currDisplay: "home",
         chatRooms: [],
         curr_lounge: null,
         showModalChat: false,
@@ -157,12 +157,20 @@ class ContentHandler extends Component {
           },
       });
       const myJson = await response.json();
-      if(!myJson.error) {
+
+      if(!myJson.error)
+      {
         this.setState({
           userInfo: myJson,
           isPremiumUser: myJson.product === "premium" ? true : false,
         });
       }
+
+      //Gets information here
+      await axios.post(urls.backend_url + '/realLogin', {"access_token": this.state.access_token})
+      .then(res => {
+        //get real login information from backend
+      })
   }
 
   renderContent() {
@@ -221,6 +229,7 @@ class ContentHandler extends Component {
           <Alert.Heading>Oops! Looks like you don't have Spotify Premium</Alert.Heading>
           <p>
             You will need Spotify Premium to <b>join/make</b> a lounge and experience Cadence. Get it <Alert.Link
+
               href="https://www.spotify.com/premium/"
               className="SpotifyLink">here</Alert.Link>.
           </p>
@@ -244,6 +253,7 @@ class ContentHandler extends Component {
                         enterWhoAreWe={this.enterWhoAreWe}
                         exitWhoAreWe={this.exitWhoAreWe}
                         isPremiumUser={this.state.isPremiumUser}/>
+
       )
     }
     else {

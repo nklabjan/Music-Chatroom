@@ -3,6 +3,7 @@ import '../../css/chatroom/UserList.css';
 import {Image} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCrown } from '@fortawesome/free-solid-svg-icons';
+import default_pic from '../../images/anonymous.png';
 
 class UserListMember extends Component {
 
@@ -22,7 +23,9 @@ class UserListMember extends Component {
         return (
             <div className="userListMember" key={this.props.passed_key}>
             <div className="userPicContainer">
-                <Image src={this.props.image} roundedCircle className="userListDP"/>
+                <Image  src={this.props.image !== null ? this.props.image : default_pic} 
+                        roundedCircle
+                        className="userListDP"/>
                 {this.renderCrown()}
             </div>
                 <div className="userListName">
