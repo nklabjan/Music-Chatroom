@@ -45,7 +45,11 @@ class ContentHandler extends Component {
 
   enterWhoAreWe() {
     console.log("enterWhoAreWe");
-    this.setState({currDisplay: "whoAreWe"})
+    if (this.state.currDisplay === "whoAreWe")
+    {
+      this.setState({currDisplay: "landing"})
+    }
+    else this.setState({currDisplay: "whoAreWe"})
   }
 
   exitWhoAreWe() {
