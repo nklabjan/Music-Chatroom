@@ -193,6 +193,7 @@ class Lounge extends Component {
                             seekToNewPos={this.seekToNewPos}
                             queueList={this.state.queueList}
                             queuePos = {this.state.queuePos}
+                            isLM = {this.info.loungeMasterID === this.props.userInfo.id ? true : false}
                             />
 
                 </div>

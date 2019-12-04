@@ -21,16 +21,20 @@ class AddSongModal extends Component {
 
     async getSongs() {
         let value = this.search.current.value.split(' ').join('+');
-        let url = 'https://api.spotify.com/v1/search/?q=' + value + '&type=track&limit=8';
-        const response = await fetch(url, {
-            method: "GET",
-            headers: {
-                authorization: `Bearer ${this.props.access_token}`,
-            },
-        });
-        const myJson = await response.json();
-        this.setState({ data: myJson });
-        //console.log(this.state.data);
+        if (value.length > 0)
+        {
+          let url = 'https://api.spotify.com/v1/search/?q=' + value + '*&type=track&limit=8';
+          const response = await fetch(url, {
+              method: "GET",
+              headers: {
+                  authorization: `Bearer ${this.props.access_token}`,
+              },
+          });
+          const myJson = await response.json();
+          this.setState({ data: myJson });
+          //console.log(this.state.data);
+        }
+
     }
 
     displaySongs() {
@@ -43,7 +47,8 @@ class AddSongModal extends Component {
                             <Song key={song}
                                   data={this.state.data.tracks.items[song]}
                                   addSong={this.props.addSong}
-                                  playSong={this.props.playSong}/>
+                                  playSong={this.props.playSong}
+                                  isLM={this.props.isLM}/>
                         )
                     }
                     return songs
