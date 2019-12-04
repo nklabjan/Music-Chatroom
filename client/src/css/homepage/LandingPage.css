@@ -57,9 +57,9 @@
   .WhoAreWe {
     display: flex;
     flex-direction: column;
-    width: 75vw;
+    width: 60vw;
     position: fixed;
-    height: 85vh;
+    height: 60vh;
     overflow-y: scroll;
     background-color: rgba(255, 255, 255, .25);
     color: white;
@@ -92,7 +92,7 @@
   }
 
   .Name {
-    font-size: 36px;
+    font-size: 28px;
     font-weight: bold;
     display: flex;
     /* align-items: center;

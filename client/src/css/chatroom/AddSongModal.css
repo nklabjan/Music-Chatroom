@@ -24,7 +24,6 @@
 .albumart {
     width: 64px !important;
     height: 64px !important;
-    height: 100%;
     vertical-align: middle;
     float: left;
 }
