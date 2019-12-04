@@ -35,7 +35,7 @@ class Chatroom {
       if (this.loungeMasterAT === null)
       {
         var def_song = this.queue.songs[this.queue.position];
-        socket.emit("play_song", def_song.uri);
+        //socket.emit("play_song", def_song.uri);<-----------------------undo this when done testing
 
         //socket.emit("play_song", def_song, def_timestamp);
       }

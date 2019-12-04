@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
-import '../../../css/chatroom/Queue.css';
+import { Image } from 'react-bootstrap';
+import '../../../css/chatroom/AddSongModal.css';
 
 class Song extends Component {
 
@@ -17,14 +18,6 @@ class Song extends Component {
   }
 
   getArtists() {
-    // for(const artist in this.props.data.artists) {
-    //   if (this.state.data.artists[artist].name) {
-    //     if (this.state.data.artists[artist].name.length > 22) {
-    //       let name = this.state.data.artists[artist].name.slice(0, 22) + "...";
-    //       return name
-    //     }
-    //   }
-    //   return this.state.data.artists[artist].name
     let name = ''; 
     for(const artist in Object.entries(this.props.data.artists)) {
         if(artist === Object.entries(this.props.data.artists).length) {
@@ -37,24 +30,23 @@ class Song extends Component {
     return name;
   }
 
-  // getAlbum() {
-  //   // for(const album in this.state.data.album) {
-  //   //   if(album == "name") {
-  //   //     if(this.state.data.album[album].length > 22) {
-  //   //       let name = this.state.data.album[album].name.slice(0, 22) + "...";
-  //   //       return name
-  //   //     }
-  //   //     return this.state.data.album[album]
-  //   //   }
-  //   // }
-  // }
+  getAlbumArt() {
+    return(
+        <img src={this.props.data.album.images[2].url}
+             className="albumart"
+             alt="Could not retrieve album art."/>
+    )
+  }
 
   render() {
     return (
       <div className="song">
-        {this.props.data.name}
-        <br />
-        {this.getArtists()}
+          {this.getAlbumArt()}
+        <div className="info">
+          {this.props.data.name}
+          <br />
+          {this.getArtists()}
+        </div>
       </div>
     )
   }
