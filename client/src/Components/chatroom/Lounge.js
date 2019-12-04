@@ -28,6 +28,7 @@ class Lounge extends Component {
         this.togglePlay = this.togglePlay.bind(this);
         this.seekToNewPos = this.seekToNewPos.bind(this);
         this.addRandomSong = this.addRandomSong.bind(this);
+        this.addSong = this.addSong.bind(this);
         this.setUpSocket();
         this.setDeviceId = this.setDeviceId.bind(this);
         this.syncMusicToRoom = this.syncMusicToRoom.bind(this);
@@ -116,6 +117,11 @@ class Lounge extends Component {
       this.socket.emit('add_song', this.props.access_token, this.info.id);
     }
 
+    addSong(song_info, position) {
+      //when the song info parameter is left blank, adds a random song
+      this.socket.emit('add_song', this.props.access_token, this.info.id, song_info, position);
+    }
+
     playSong(song_uri, queuePos) {
     //Sends device ID and Access token to backend to play music
     //through socket
@@ -128,8 +134,6 @@ class Lounge extends Component {
     {
       //Toggle play for everyone else
       this.socket.emit( 'play_song',
-                        this.props.access_token,
-                        this.state.deviceId,
                         song_uri,
                         this.info.id,
                         queuePos);
@@ -185,6 +189,7 @@ class Lounge extends Component {
                             playSong={this.playSong}
                             togglePlay={this.togglePlay}
                             addRandomSong={this.addRandomSong}
+                            addSong={this.addSong}
                             seekToNewPos={this.seekToNewPos}
                             queueList={this.state.queueList}
                             queuePos = {this.state.queuePos}

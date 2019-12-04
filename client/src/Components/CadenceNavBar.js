@@ -8,11 +8,18 @@ class CadenceNavBar extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        showModalProfile: false
+        showModalProfile: false,
+        showModalMakeChat: false
       };
 
       this.profileRender = this.profileRender.bind(this);
       this.profileClose = this.profileClose.bind(this);
+    }
+
+
+    handleClose = () => {
+      this.setState({showModalProfile: false});
+      this.setState({showModalMakeChat: false});
     }
 
     profileRender() {
@@ -45,7 +52,8 @@ class CadenceNavBar extends Component {
                           fixed={this.props.scheme === "CadenceNavBarInit" ? "top" : ""}>
                   <Navbar.Brand className="cursor" onClick={this.props.handleHome}>Cadence</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link onClick={() => this.profileRender()}>Profile</Nav.Link>
+          <Nav.Link onClick={() => this.profileRender()}
+                    disabled={!this.props.isPremiumUser ? true : false}>Profile</Nav.Link>
           {this.props.currDisplay === "lounge" ? <Nav.Link onClick={this.props.handleHome}>Leave Lounge</Nav.Link> :
                   <Nav.Link onClick={this.props.handleShow} disabled={!this.props.isPremiumUser ? true : false}>
                   Make Lounge

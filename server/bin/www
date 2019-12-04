@@ -149,7 +149,7 @@ io.on('connection', function(socket) {
       }
     })
 
-    socket.on('play_song', function(access_token, deviceId, spotify_uri, loungeID, queuePos) {
+    socket.on('play_song', function(spotify_uri, loungeID, queuePos) {
       if (chatrooms[loungeID] !== undefined)
       {
         chatrooms[loungeID].playSong(spotify_uri, queuePos);
@@ -159,7 +159,7 @@ io.on('connection', function(socket) {
       }
     });
 
-    socket.on('add_song', function(access_token, loungeID, song_info) {
+    socket.on('add_song', function(access_token, loungeID, song_info, position) {
       if (chatrooms[loungeID] !== undefined)
       {
         //Do the search here if song_info is empty
@@ -172,7 +172,7 @@ io.on('connection', function(socket) {
         }
         else
         {
-          chatrooms[loungeID].addSong(access_token, song_info);
+          chatrooms[loungeID].addSong(access_token, song_info, position);
         }
       }
       else {

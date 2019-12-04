@@ -17,7 +17,10 @@
 .makeChatInput {
     color: black;
     resize: none;
+    width: 100%;
     height: 100%;
+    outline-color: rgba(104, 82, 156, 1);
+    outline-width: 5px;
 }
 
 .restriction {

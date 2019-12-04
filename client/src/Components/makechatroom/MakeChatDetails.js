@@ -19,12 +19,12 @@ class MakeChatDetails extends Component {
                     <div className="makeChatInfo">
                         {this.props.label === "formGenres" ?
                             (<Form.Control className="makeChatInput" id={this.props.label} as="select" multiple>
-                                <option>Podcast</option>
                                 <option>Alternative</option>
                                 <option>Country</option>
                                 <option>Dance</option>
                                 <option>Electronic</option>
                                 <option>Hip Hop</option>
+                                <option>Podcast</option>
                                 <option>Pop</option>
                                 <option>Rap</option>
                                 <option>Reggae</option>
@@ -32,9 +32,10 @@ class MakeChatDetails extends Component {
                                 <option>Rock</option>
                                 <option>Nature</option>
                                 </Form.Control>) :
-                            ( this.props.label === "formDescription" ? <textarea className="makeChatInput" maxLength="100" id={this.props.label} cols="60" rows="2"></textarea> :
-                            <textarea className="makeChatInput" maxLength="20" id={this.props.label} cols="60" rows="2"></textarea> )}
-                        {this.props.label === "formGenres" ? <div className="restriction">max selections = 2</div> :
+                            ( this.props.label === "formDescription" ?
+                            <textarea className="makeChatInput" maxLength="100" id={this.props.label} rows="2"></textarea> :
+                            <textarea className="makeChatInput" maxLength="20" id={this.props.label}  rows="2"></textarea> )}
+                            {this.props.label === "formGenres" ? <div className="restriction">max selections = 2</div> :
                             this.props.label === "formDescription" ? <div className="restriction">max characters = 100</div> :
                             <div className="restriction">max characters = 20</div>}
                     </div>

@@ -16,7 +16,6 @@ class Player extends Component {
       this.checkForPlayer = this.checkForPlayer.bind(this);
       this.createPlayerEventListeners = this.createPlayerEventListeners.bind(this);
       this.handleShow = this.handleShow.bind(this);
-      this.handleClose = this.handleClose.bind(this);
       this.handleVolume = this.handleVolume.bind(this);
       this.addRandomSong = this.addRandomSong.bind(this);
       this.passiveTimer = this.passiveTimer.bind(this);
@@ -219,7 +218,7 @@ class Player extends Component {
       this.setState({show: true});
     }
 
-    handleClose() {
+    handleClose = () => {
       this.setState({show: false});
     }
 
@@ -286,6 +285,11 @@ class Player extends Component {
     render() {
         return (
             <div className="player">
+            <AddSongModal show={this.state.show}
+                          onHide={this.handleClose}
+                          addSong={this.props.addSong}
+                          access_token={this.props.access_token}
+                          playSong={this.props.playSong}/>
             <div className="playerLeft">
               <div className="albumInfo">
                 <img className="albumCover" src={this.state.albumCover} style={{width:75, height:75}} alt="Album Cover Doesn't Exist"></img>
@@ -318,9 +322,6 @@ class Player extends Component {
 
             <div className="playerRight">
               <button className="add-song" onClick={() => this.handleShow()}>
-                <AddSongModal show={this.state.show}
-                              handleClose={this.handleClose}
-                              access_token={this.props.access_token}/>
                 <FontAwesomeIcon size="lg" icon={faPlusCircle} />
               </button>
               <button className="queue-list" onClick={()=>this.addRandomSong()}>

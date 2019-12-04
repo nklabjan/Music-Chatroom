@@ -25,7 +25,7 @@ class UserListMember extends Component {
             <div className="userListMember" key={this.props.passed_key}>
             <div className="userPicContainer">
 
-                <Image  src={this.props.image !== null ? this.props.image : default_pic} 
+                <Image  src={this.props.image !== null ? this.props.image : default_pic}
                         roundedCircle
                         className="userListDP"/>
                 {this.renderCrown()}

@@ -2,7 +2,8 @@ import React, {Component} from "react";
 import LandingPage from './LandingPage';
 import '../../css/homepage/HomePage.css';
 import {Card, Button} from 'react-bootstrap';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLock } from '@fortawesome/free-solid-svg-icons'
 
 class HomePage extends Component {
 
@@ -10,7 +11,6 @@ class HomePage extends Component {
         super(props);
         this.state = {
             leaveChat: false,
-            displayProfile: false,
         }
         this.joinRoom = this.joinRoom.bind(this);
     }
@@ -24,7 +24,6 @@ class HomePage extends Component {
     componentWillMount(){
       this.props.getLounges();
     }
-
 
     renderPage(){
       if(this.props.loggedInStatus === false) {
@@ -44,6 +43,7 @@ class HomePage extends Component {
                           <Card className="createdChatRoom" key={idx} bg="dark" text="white">
                             <Card.Header className="roomCardHeader">
                               <Card.Title>{chatroom.name}</Card.Title>
+                              <div className="roomLock"><FontAwesomeIcon icon={faLock} /></div>
                             </Card.Header>
                             <Card.Body className="roomCardBody">
                               <Card.Subtitle className="mb-2 text-muted">
