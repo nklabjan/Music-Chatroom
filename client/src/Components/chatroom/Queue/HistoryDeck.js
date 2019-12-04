@@ -9,7 +9,7 @@ import '../../../css/chatroom/Queue.css';
 //let songList = new SongList();
 
 class HistoryDeck extends Component {
-  
+
     render() {
       if (this.props.queueList.length > 0 &&
           this.props.queueList !== undefined &&
