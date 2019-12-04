@@ -19,12 +19,12 @@ class MakeChatDetails extends Component {
                     <div className="makeChatInfo">
                         {this.props.label === "formGenres" ?
                             (<Form.Control className="makeChatInput" id={this.props.label} as="select" multiple>
-                                <option>Podcast</option>
                                 <option>Alternative</option>
                                 <option>Country</option>
                                 <option>Dance</option>
                                 <option>Electronic</option>
                                 <option>Hip Hop</option>
+                                <option>Podcast</option>
                                 <option>Pop</option>
                                 <option>Rap</option>
                                 <option>Reggae</option>
