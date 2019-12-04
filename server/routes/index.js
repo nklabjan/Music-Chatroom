@@ -75,7 +75,6 @@ router.get('/auth', function(req, res) {
         json: true
       }
       request.get(authOptions, function(error, response, body) {
-        console.log(body)
         var userInfo = body;
       })
     }

@@ -1,0 +1,81 @@
+.add-song-modal {
+    color: white !important;
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+
+.add-song-modal-body {
+    overflow: hidden;
+}
+
+.song {
+    color: white;
+    overflow: hidden;
+    height: 95px;
+    display: flex;
+    flex-direction: row;
+}
+
+.song:hover {
+    background-color: rgba(33, 32, 36, 0.5);
+}
+
+.albumart {
+    width: 64px !important;
+    height: 64px !important;
+    height: 100%;
+    vertical-align: middle;
+    float: left;
+}
+
+.song-container {
+    height: 35vh;
+    overflow: scroll;
+}
+
+.info {
+  margin-left: 15px;
+}
+
+.resultControls {
+  display: flex;
+  flex-direction: column;
+  width: 40px;
+}
+
+.addResult {
+    background-color: rgba(104, 82, 156, 1);
+    color: white;
+    background-color: rgba(1, 1, 1, 0);
+    border-color: rgba(1,1,1, 0);
+    border: none;
+    height: 30px;
+    width: 30px;
+    outline: none;
+}
+
+
+.addNextResult {
+    background-color: rgba(104, 82, 156, 1);
+    color: white;
+    background-color: rgba(1, 1, 1, 0);
+    border-color: rgba(1,1,1, 0);
+    border: none;
+    height: 30px;
+    width: 30px;
+    outline: none;
+}
+
+.searchLogo {
+  margin-left: 10px;
+}
+.addResult:focus,.addNextResult:focus {
+  outline: none;
+}
+
+.resultControls button:hover{
+  transition: all .2s ease-in-out;
+  color: rgba(104, 82, 156, 1);
+  transform: scale(1.1);
+}

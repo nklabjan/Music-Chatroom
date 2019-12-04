@@ -16,6 +16,7 @@ class Chatroom {
         this.users = {};
         this.messageList = [];
         this.queue = new LoungeQueue.LoungeQueue(this.io); //Queue of songs
+        this.password = null;
 
         //If there are songs preloaded into the Chatroom -> load them into the queue
         if (songList !== undefined)
@@ -85,8 +86,8 @@ class Chatroom {
       }
     }
 
-    addSong(access_token, song_info) {
-      this.queue.addSong(song_info, "end");
+    addSong(access_token, song_info, position) {
+      this.queue.addSong(song_info, position);
       var queueList = this.queue.songs;
       this.io.to(this.id).emit("queue_received",  queueList, this.queue.position);
       //if there is only 1 song in the queue, play the song immediately
@@ -94,7 +95,6 @@ class Chatroom {
       {
         this.io.to(this.id).emit("play_song", song_info.uri);
       }
-
     }
 
     togglePlay() {
@@ -159,7 +159,7 @@ class Chatroom {
 
             let song_info = {title: title, album: album, artist: artists, uri: uri};
 
-            chatroom.addSong(access_token, song_info);
+            chatroom.addSong(access_token, song_info, "end");
           }
 
         }
@@ -234,17 +234,30 @@ class Chatroom {
     playSong(spotifyURI, queuePos)
     {
       var chatroom = this; // alias this as chatroom so it can be referenced in async call
-      console.log("Attempting to play " + spotifyURI)
-
-      //Cause everyone else to play the same music
-      this.io.to(this.id).emit("play_song", spotifyURI);
-      //If song is in Chatroom queue, remove it from queue
-      if (queuePos !== undefined)
+      if (queuePos != undefined && queuePos != null)
       {
+        console.log("Attempting to play " + spotifyURI)
+
+        //Cause everyone else to play the same music
+        this.io.to(this.id).emit("play_song", spotifyURI);
+        //If song is in Chatroom queue, remove it from queue
+
         this.queue.playSong(queuePos);
 
         //update queue for everyone
         this.io.to(this.id).emit("queue_received", this.queue.songs, this.queue.position);
+
+      }
+      //This means that the song is not in the queue, so just add the song in and rearrange the queue
+      //This also means that spotifyURI is actually a full song that needs to be added to the queue
+      else if (!queuePos)
+      {
+        console.log(spotifyURI)
+        //Make song next in line
+        this.queue.addSong(spotifyURI, "start")
+        //Play song
+        console.log("position: " + this.queue.position)
+        this.playSong(spotifyURI.uri, this.queue.position + 1)
 
       }
     }

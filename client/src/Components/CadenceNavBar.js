@@ -8,11 +8,18 @@ class CadenceNavBar extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        showModalProfile: false
+        showModalProfile: false,
+        showModalMakeChat: false
       };
 
       this.profileRender = this.profileRender.bind(this);
       this.profileClose = this.profileClose.bind(this);
+    }
+
+
+    handleClose = () => {
+      this.setState({showModalProfile: false});
+      this.setState({showModalMakeChat: false});
     }
 
     profileRender() {

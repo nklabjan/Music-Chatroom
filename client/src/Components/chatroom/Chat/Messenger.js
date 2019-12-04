@@ -8,7 +8,6 @@ class Messenger extends Component {
         if(e.keyCode === 13 && e.shiftKey === false) {
             e.preventDefault();
             this.sendValidMessage();
-
         }
     }
 

@@ -74,8 +74,10 @@
     border-top-left-radius: 15px !important;
     border-top-right-radius: 15px !important;
     background-color: black !important;
-
+    display:flex;
+    justify-content: space-between;
   }
+
 
   .roomCardBody {
     border-top: 2px rgba(33, 32, 36, 1) solid;
