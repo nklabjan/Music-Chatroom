@@ -110,6 +110,18 @@ class Player extends Component {
       }
     }
 
+    autoPlayNextSong() {
+      if (this.props.queueList.length > 0 && (this.props.queueList.length - this.props.queuePos > 1))
+      {
+        var next_song = this.props.queueList[this.props.queuePos + 1];
+        this.props.playSong(next_song.uri, this.props.queuePos + 1);
+      }
+      else
+      {
+        console.log("nothing else in queue at the moment")
+      }
+    }
+
     onStateChanged(state) {
       // if we're no longer listening to music, we'll get a null state.
       if (state !== null) {
@@ -127,7 +139,7 @@ class Player extends Component {
         //if song is over, plays next song from Lounge's queue
         if (state.paused === true && (duration - position < 300))
         {
-          this.handlePlayNextSong();
+          this.autoPlayNextSong();
         }
         this.setState({
           position,
