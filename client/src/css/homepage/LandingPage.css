@@ -73,15 +73,6 @@
     justify-content: center;
   }
 
-  .Info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 25vw;
-    padding: 1vw;
-  }
-
   .CreatorImg {
     width: 15vw;
     height: auto;
@@ -89,15 +80,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 1vw;
+  }
+
+  .Info {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center;
+    justify-content: center; */
+    padding: 1vw;
   }
 
   .Name {
     font-size: 36px;
     font-weight: bold;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    /* color: black; */
+    /* align-items: center;
+    justify-content: center; */
+    color: black;
   }
 
   .Description {
