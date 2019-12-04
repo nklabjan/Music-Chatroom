@@ -44,9 +44,27 @@
   justify-content: center;
 }
 
-.userListDP {
+.userPicContainer {
   width: 5vh;
   height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.userListDP,.thing {
+  width: 5vh;
+  height: 5vh;
+  position: absolute;
+
+}
+
+.crownLM {
+  color: rgba(247, 192, 40, 1);
+  position: absolute;
+  top: -1vh;
+  left: -1vw;
+  transform: rotate(-45deg);
 }
 
 .userListName {

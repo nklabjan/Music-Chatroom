@@ -4,6 +4,7 @@ import HomePage from './homepage/HomePage';
 import LandingPage from './homepage/LandingPage';
 import MakeChatRoom from "./makechatroom/makechatroom";
 import CadenceNavBar from './CadenceNavBar';
+import {Alert} from 'react-bootstrap';
 import '../css/ContentHandler.css';
 import queryString from "query-string";
 import axios from 'axios';
@@ -17,8 +18,9 @@ class ContentHandler extends Component {
     super(props);
     this.state = {
         loggedInStatus: false,
+        isPremiumUser: null,
         access_token: null,
-        currDisplay: "home", //makeChat,lounge,home,landing,whoAreWe
+        currDisplay: "home",
         chatRooms: [],
         curr_lounge: null,
         showModalChat: false,
@@ -26,6 +28,7 @@ class ContentHandler extends Component {
     }
 
     this.renderContent = this.renderContent.bind(this);
+    this.renderAlertBar = this.renderAlertBar.bind(this);
     this.enterWhoAreWe = this.enterWhoAreWe.bind(this);
     this.exitWhoAreWe = this.exitWhoAreWe.bind(this);
     this.login = this.login.bind(this);
@@ -42,7 +45,11 @@ class ContentHandler extends Component {
 
   enterWhoAreWe() {
     console.log("enterWhoAreWe");
-    this.setState({currDisplay: "whoAreWe"})
+    if (this.state.currDisplay === "whoAreWe")
+    {
+      this.setState({currDisplay: "landing"})
+    }
+    else this.setState({currDisplay: "whoAreWe"})
   }
 
   exitWhoAreWe() {
@@ -70,13 +77,22 @@ class ContentHandler extends Component {
                                                     "loungeMasterID": this.state.userInfo.id,
                                                     "desc": desc,
                                                     "genres": genres,
+                                                    "access_token": this.state.access_token,
                                                     })
       .then(res => {
-        console.log(res.data)
-        var lounge_info = res.data.lounge_info
-        //Handle lounge information
-        this.setState({curr_lounge: lounge_info})
-        this.setState({currDisplay: "lounge"});
+        var lounge_info = res.data.lounge_info;
+        var query_err = res.data.query_error;
+
+        console.log("response: ", query_err);
+
+        if (query_err) {
+          alert("Lounge name is already in use! Change it to something unique!");
+          this.setState({currDisplay: "makeChat"});
+        }
+        else {
+          this.setState({curr_lounge: lounge_info})
+          this.setState({currDisplay: "lounge"});
+        }
       })
   }
 
@@ -91,13 +107,12 @@ class ContentHandler extends Component {
       }
     }
     this.setState({curr_lounge: joining_room})
-
   }
 
   leaveChatRoom() {
     this.setState({curr_lounge: null})
   }
-  //This also now handles leave chatroom
+
   handleHome() {
     this.setState({currDisplay: "home"});
     this.leaveChatRoom();
@@ -147,19 +162,22 @@ class ContentHandler extends Component {
       });
       const myJson = await response.json();
 
-      this.setState({
-        userInfo: myJson
-      });
+      if(!myJson.error)
+      {
+        this.setState({
+          userInfo: myJson,
+          isPremiumUser: myJson.product === "premium" ? true : false,
+        });
+      }
 
-      // if (this.state.loggedInStatus === true && this.state.userInfo.product !== "premium") {
-      //   this.setState({loggedInStatus: false});
-      //   this.setState({currDisplay: "landing"});
-      //   alert("You need Spotify Premium to use our application!");
-      // }
+      //Gets information here
+      await axios.post(urls.backend_url + '/realLogin', {"access_token": this.state.access_token})
+      .then(res => {
+        //get real login information from backend
+      })
   }
 
   renderContent() {
-    console.log("rendering content");
     if(this.state.currDisplay === "whoAreWe") {
       if (this.state.loggedInStatus) {
         this.setState({currDisplay: "home"});
@@ -184,7 +202,8 @@ class ContentHandler extends Component {
                         handleProfile={this.handleProfile}
                         handleMakeChat={this.handleMakeChat}
                         getLounges={this.getLounges}
-                        access_token={this.state.access_token}/>);
+                        access_token={this.state.access_token}
+                        isPremiumUser={this.state.isPremiumUser}/>);
     }
     else if(this.state.currDisplay === "lounge"){
       return (<Lounge access_token={this.state.access_token}
@@ -204,6 +223,26 @@ class ContentHandler extends Component {
     }
   }
 
+  renderAlertBar() {
+    //If logged in show black bg for navbar with updated stuff
+    if (this.state.isPremiumUser !== null)
+    {
+      if (!this.state.isPremiumUser) {
+        return (
+          <Alert variant="danger" className="NotPremiumAlert">
+          <Alert.Heading>Oops! Looks like you don't have Spotify Premium</Alert.Heading>
+          <p>
+            You will need Spotify Premium to <b>join/make</b> a lounge and experience Cadence. Get it <Alert.Link
+
+              href="https://www.spotify.com/premium/"
+              className="SpotifyLink">here</Alert.Link>.
+          </p>
+        </Alert>
+        )
+      }
+    }
+  }
+
   renderNavBar() {
     //If logged in show black bg for navbar with updated stuff
     if (this.state.loggedInStatus) {
@@ -216,7 +255,9 @@ class ContentHandler extends Component {
                         handleShow={this.handleShow}
                         userInfo={this.state.userInfo}
                         enterWhoAreWe={this.enterWhoAreWe}
-                        exitWhoAreWe={this.exitWhoAreWe}/>
+                        exitWhoAreWe={this.exitWhoAreWe}
+                        isPremiumUser={this.state.isPremiumUser}/>
+
       )
     }
     else {
@@ -239,6 +280,7 @@ class ContentHandler extends Component {
     return (<div className="Wrapper">
       {this.renderNavBar()}
       <div className="Content">
+        {this.renderAlertBar()}
         {this.renderContent()}
       </div>
     </div>);

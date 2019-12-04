@@ -9,16 +9,18 @@ import AddSongModal from './AddSongModal';
 import '../../../css/chatroom/player/Player.css';
 
 class Player extends Component {
+    _isMounted = false;
 
   constructor(props) {
       super(props);
       this.checkForPlayer = this.checkForPlayer.bind(this);
       this.createPlayerEventListeners = this.createPlayerEventListeners.bind(this);
       this.handleShow = this.handleShow.bind(this);
-      this.handleClose = this.handleClose.bind(this);
       this.handleVolume = this.handleVolume.bind(this);
+      this.addRandomSong = this.addRandomSong.bind(this);
       this.passiveTimer = this.passiveTimer.bind(this);
       this.checkForPlayer();
+      this.setUpSocket();
       this.state = {
         duration: 0,
         position: 0,
@@ -30,6 +32,23 @@ class Player extends Component {
         value: 10,
         isMute: false,
       }
+  }
+
+  setUpSocket() {
+      var player = this;
+
+      this.props.socket.on('toggle_play', function() {
+        //Attempt to toggle play for everyone
+        player.player.togglePlay();
+      })
+
+      this.props.socket.on('seek_to_position', function(new_position) {
+        //Attempt to toggle play for everyone
+
+        player.player.seek(new_position);
+        player.setState({position: new_position});
+
+      })
   }
 
   createPlayerEventListeners() {
@@ -78,10 +97,31 @@ class Player extends Component {
       }
     }
 
+    handlePlayNextSong() {
+      if (this.props.queueList.length > 0 && (this.props.queueList.length - this.props.queuePos > 1))
+      {
+        var next_song = this.props.queueList[this.props.queuePos + 1];
+        this.props.playSong(next_song.uri, this.props.queuePos + 1);
+      }
+      else
+      {
+        console.log("nothing else in queue at the moment")
+      }
+    }
+
+    autoPlayNextSong() {
+      if (this.props.queueList.length > 0 && (this.props.queueList.length - this.props.queuePos > 1))
+      {
+        var next_song = this.props.queueList[this.props.queuePos + 1];
+        this.props.playSong(next_song.uri, this.props.queuePos + 1);
+      }
+      else
+      {
+        console.log("nothing else in queue at the moment")
+      }
+    }
+
     onStateChanged(state) {
-      console.log(state);
-      //console.log("________________________________________________________");
-      //console.log(this.state);
       // if we're no longer listening to music, we'll get a null state.
       if (state !== null) {
         const {
@@ -94,6 +134,12 @@ class Player extends Component {
         const albumCover = currentTrack.album.images[0].url;
         const artistName = currentTrack.artists.map(artist => artist.name).join(", ");
         const playing = !state.paused;
+
+        //if song is over, plays next song from Lounge's queue
+        if (state.paused === true && (duration - position < 300))
+        {
+          this.autoPlayNextSong();
+        }
         this.setState({
           position,
           duration,
@@ -109,40 +155,77 @@ class Player extends Component {
     transferPlaybackHere() {
       //console.log("playback transfered")
       const deviceId = this.state.deviceId;
-      const access_token = this.props.access_token;
+      //const access_token = this.props.access_token;
       this.props.setDeviceId(deviceId);
-      fetch("https://api.spotify.com/v1/me/player", {
-        method: "PUT",
-        headers: {
-          authorization: `Bearer ${access_token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          "device_ids": [ deviceId ],
-          "play": true,
-        }),
-      });
+      this.props.syncMusicToRoom();
+
+      // fetch("https://api.spotify.com/v1/me/player", {
+      //   method: "PUT",
+      //   headers: {
+      //     authorization: `Bearer ${access_token}`,
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     "device_ids": [ deviceId ],
+      //     "play": true,
+      //   }),
+      // }).then(
+      //   //try syncing up music with the lounge
+      //   this.props.syncMusicToRoom()
+      // );
+
+      //instead of transfering playback now plays music according to the room
     }
 
     onPrevClick() {
-      this.player.previousTrack();
+      //cycle down song history
+      //songs played this way are not added to the history list
+      //Anything more than 2 seconds will cause it to restart the song
+      if (this.state.position > 2000)
+      {
+        this.props.seekToNewPos(0);
+        //this.setState({position: 0});
+      }
+      else
+      {
+        //messes with the queue pos
+        if (this.props.queueList.length > 0 && (this.props.queuePos > 0))
+        {
+          var prev_song = this.props.queueList[this.props.queuePos - 1];
+          this.props.playSong(prev_song.uri, this.props.queuePos - 1);
+        }
+        else
+        {
+          this.props.seekToNewPos(0);
+          //this.setState({position: 0});
+        }
+      }
     }
 
     onPlayClick() {
-      this.player.togglePlay();
+      this.props.togglePlay();
     }
 
     onNextClick() {
-      this.player.nextTrack();
+      //this.player.nextTrack();
+      //instead of using player's next track play music from the queue and
+      //remove it from the queue
+      this.handlePlayNextSong();
+
     }
 
     handleShow() {
       this.setState({show: true});
     }
 
-    handleClose() {
+    handleClose = () => {
       this.setState({show: false});
     }
+
+    addRandomSong() {
+      this.props.addRandomSong();
+    }
+
 
     toggleVolume(){
       //If not mute
@@ -181,24 +264,32 @@ class Player extends Component {
       //value is a percentage of where it should be compared to the rest of the song.
       //handle timestamp
       var new_position = value/100 * this.state.duration;
-      this.player.seek(new_position);
+
+      this.props.seekToNewPos(new_position);
     }
 
-    passiveTimer() {
-      if (this.state.playing)
+    async passiveTimer() {
+      if (this.state.playing && this._isMounted)
       {
         this.setState({position: this.state.position + 1000});
       }
     }
 
-    async componentDidMount(){
-      setInterval(this.passiveTimer, 1000);
+    componentDidMount(){
+      this._isMounted = true;
+
+        setInterval(this.passiveTimer, 1000);
      // store intervalId in the state so it can be accessed later:
     }
 
     render() {
         return (
             <div className="player">
+            <AddSongModal show={this.state.show}
+                          onHide={this.handleClose}
+                          addSong={this.props.addSong}
+                          access_token={this.props.access_token}
+                          playSong={this.props.playSong}/>
             <div className="playerLeft">
               <div className="albumInfo">
                 <img className="albumCover" src={this.state.albumCover} style={{width:75, height:75}} alt="Album Cover Doesn't Exist"></img>
@@ -231,12 +322,9 @@ class Player extends Component {
 
             <div className="playerRight">
               <button className="add-song" onClick={() => this.handleShow()}>
-                <AddSongModal show={this.state.show}
-                              handleClose={() => this.handleClose()}
-                              access_token={this.props.access_token}/>
                 <FontAwesomeIcon size="lg" icon={faPlusCircle} />
               </button>
-              <button className="queue-list" onClick={()=>{console.log("queue")}}>
+              <button className="queue-list" onClick={()=>this.addRandomSong()}>
                 <FontAwesomeIcon size="lg" icon={faMusic} />
               </button>
               <button className="volume" onClick={()=> this.toggleVolume()}>
@@ -252,8 +340,11 @@ class Player extends Component {
     }
 
     componentWillUnmount(){
+
       this.player.disconnect();
       this.player = null;
+      this._isMounted = false;
+
     }
 }
 

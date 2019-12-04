@@ -10,7 +10,7 @@ class LoungeQueue {
         this.songs = songs;
       }
 
-      this.history = []; //No rearranging the history of songs that have been played
+      this.position = 0; //start at position 0
     }
 
     //Receives an array of songs to be added to the loungeQueue
@@ -26,7 +26,9 @@ class LoungeQueue {
     addSong(songInfo, position) {
       if (position == "start")
       {
-        this.songs.unshift(songInfo);
+        //this.songs.unshift(songInfo);
+        //Adds song to right after the currently playing song
+        this.songs.splice( this.position + 1, 0, songInfo);
       }
       else if (position == "end")
       {
@@ -39,12 +41,28 @@ class LoungeQueue {
     //Remove song from the song Queue if a song in the queue is played.
     //If a song from somewhere else is double-tapped, don't need to remove from queue.
     playSong(position) {
-      console.log(position);
-      let played_song = this.songs.splice(position, 1);
-
+      let played_song = this.songs[position];
       //return the song information to be played by the player
-      this.history.push(played_song);
       //Update to everyone in the room
+
+      //if position - this.position > 1, splice from original pos and put
+      //into new position right after this.position,
+      //go next
+      if (position - this.position > 1)
+      {
+        this.songs.splice( position, 1);
+        this.songs.splice( this.position + 1, 0 , played_song);
+        this.next();
+      }
+      else if (position - this.position == 1)
+      {
+        this.next();
+      }
+      else if (position - this.position == -1)
+      {
+        this.prev();
+      }
+
       return played_song;
     }
 
@@ -55,6 +73,19 @@ class LoungeQueue {
       return removed_song;
     }
 
+    next(){
+      if (this.position < this.songs.length)
+      {
+        this.position = this.position + 1;
+      }
+    }
+
+    prev(){
+      if (this.position > 0)
+      {
+        this.position = this.position - 1;
+      }
+    }
 
 }
 

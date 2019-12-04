@@ -2,7 +2,8 @@ import React, {Component} from "react";
 import LandingPage from './LandingPage';
 import '../../css/homepage/HomePage.css';
 import {Card, Button} from 'react-bootstrap';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLock } from '@fortawesome/free-solid-svg-icons'
 
 class HomePage extends Component {
 
@@ -10,8 +11,6 @@ class HomePage extends Component {
         super(props);
         this.state = {
             leaveChat: false,
-            displayProfile: false,
-            display_name: ""
         }
         this.joinRoom = this.joinRoom.bind(this);
     }
@@ -26,21 +25,6 @@ class HomePage extends Component {
       this.props.getLounges();
     }
 
-    async componentDidMount() {
-      const response = await fetch('https://api.spotify.com/v1/me', {
-      method: "GET",
-      headers: {
-          authorization: `Bearer ${this.props.access_token}`,
-          },
-      });
-      const myJson = await response.json();
-      console.log("MyJson: ", myJson);
-      var displayName = myJson.display_name;
-      this.setState({
-          display_name: displayName
-      });
-  }
-
     renderPage(){
       if(this.props.loggedInStatus === false) {
         return  (<LandingPage login={this.props.login}
@@ -48,23 +32,33 @@ class HomePage extends Component {
       }
       else {
         return  (   <>
-                    <div className="homeTitle">Lounges</div>
+                    <div className="homeTitleHeader">
+                      <div className="homeTitle">
+                      Lounges
+                      </div>
+                    </div>
                     <div className="Chatrooms"> {
                       this.props.chatRooms.map((chatroom, idx) => {
                         return (
                           <Card className="createdChatRoom" key={idx} bg="dark" text="white">
-                            <Card.Header>
+                            <Card.Header className="roomCardHeader">
                               <Card.Title>{chatroom.name}</Card.Title>
+                              <div className="roomLock"><FontAwesomeIcon icon={faLock} /></div>
                             </Card.Header>
-                            <Card.Body>
+                            <Card.Body className="roomCardBody">
                               <Card.Subtitle className="mb-2 text-muted">
                                 Master: {chatroom.loungeMasterName}
                                 <div className="loungeGenres"> {"Genre(s): " + chatroom.genres} </div>
                               </Card.Subtitle>
+                              <div className="loungeDesc">
                               <Card.Text className="cardText">
-                                <div className="loungeDesc"> {chatroom.desc} </div>
+                                {chatroom.desc}
                               </Card.Text>
-                              <Button className="enterBtn" onClick={()=> this.joinRoom(chatroom.id)} variant="primary">
+                               </div>
+                              <Button className="enterBtn"
+                                      onClick={()=> this.joinRoom(chatroom.id)}
+                                      variant="primary"
+                                      disabled={!this.props.isPremiumUser ? true : false}>
                                 Enter Lounge
                               </Button>
                             </Card.Body>
@@ -81,9 +75,7 @@ class HomePage extends Component {
 
     render() {
         return (<div className="HomePage">
-                  <header className="Home-Page">
                     {this.renderPage()}
-                  </header>
                </div>)
 
     }
