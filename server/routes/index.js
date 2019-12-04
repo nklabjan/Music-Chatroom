@@ -67,8 +67,7 @@ router.get('/auth', function(req, res) {
   });
 
   router.post('/realLogin', function(req, res) {
-    if (req.body.access_token)
-    {
+    if (req.body.access_token) {
       let authOptions = {
         url: 'https://api.spotify.com/v1/me',
         headers: {
@@ -78,10 +77,15 @@ router.get('/auth', function(req, res) {
       }
       request.get(authOptions, function(error, response, body) {
         var userInfo = body;
-      })
+        client.query('INSERT INTO "music_chatroom".users(display_name, email, external_spotify_url, id, profile_image, product, username, about_me, music_taste) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', 
+            [userInfo.display_name, userInfo.email, userInfo.external_urls.spotify, userInfo.id, userInfo.images[0].url, userInfo.product, '', '', ''], function(err, resp) {
+            if (err) {
+              console.log("User already exists in database!");
+            }
+        });
+      });
     }
-
-    });
+  });
 
   router.get('/getLounges', function(req, res) {
     let lounges = [];
@@ -117,6 +121,7 @@ router.get('/auth', function(req, res) {
         [request.name, request.loungeMasterName, request.desc, genres], function(err, resp) {
           if (err) {
             query_err = true;
+            console.log("Lounge name already exists in database!");
           }
           req.app.locals.idCounter++;
 
