@@ -51,13 +51,14 @@ class AddSongModal extends Component {
 
                 }
             }
+            console.log("Song list:" + songs);
             return "Songs will be displayed as you search for them."
     }
 
     onEnterPress = (e) => {
         if (e.keyCode === 13) {
             e.preventDefault();
-            //this.sendValidMessage();
+            this.sendValidMessage();
         }
     }
 

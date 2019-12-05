@@ -2,13 +2,17 @@ import React, {Component} from "react";
 import '../../css/makechatroom/makechatroom.css';
 import {Modal, Button} from 'react-bootstrap';
 import MakeChatDetails from './MakeChatDetails';
-
+import AddSongModal from '../chatroom/Player/AddSongModal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faPlusCircle} from '@fortawesome/free-solid-svg-icons';
 class MakeChatroom extends Component {
 
     constructor(props) {
         super(props);
+        this.handleShow = this.handleShow.bind(this);
         this.state = {
             display_name: "",
+            show: false,
         }
     }
 
@@ -24,7 +28,16 @@ class MakeChatroom extends Component {
       }
     }
 
+    handleShow() {
+        this.setState({show: true});
+      }
+
+      handleClose = () => {
+        this.setState({show: false});
+      }
+
     render() {
+        console.log(this.props.access_token);
         return (
             <>
                 <Modal className="modal" show={this.props.showModalChat} onHide={this.props.handleClose} size="lg"
@@ -33,9 +46,17 @@ class MakeChatroom extends Component {
                     <Modal.Title className="modTitle">Create Your Own Lounge</Modal.Title>
                     </Modal.Header>
                     <Modal.Body className="modBody">
+                    <button className="add-song" onClick={() => this.handleShow()}>
+                        <FontAwesomeIcon size="lg" icon={faPlusCircle} />
+                    </button>
                         <MakeChatDetails label="formLoungeName" display="Lounge Name"/>
                         <MakeChatDetails label="formDescription" display="Description"/>
-                        <MakeChatDetails label="formGenres" display="Genres"/>
+                        <MakeChatDetails label="formGenres" display="Genres"/> 
+                        <AddSongModal   show={this.state.show}
+                                            onHide={this.handleClose}
+                                            addSong={this.props.addSong}
+                                            access_token={this.props.access_token}
+                                            playSong={this.props.playSong}/>    
                     </Modal.Body>
                     <Modal.Footer>
                     <Button className="createBtnClose" variant="secondary" onClick={this.props.handleClose}>
