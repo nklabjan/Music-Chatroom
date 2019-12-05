@@ -10,7 +10,10 @@ class Profile extends Component {
         super(props);
         this.state = {
             viewType: "display",
+            info: ""
         }
+
+        this.onDetailChange = this.onDetailChange.bind(this);
     }
 
     editProfile() {
@@ -18,8 +21,14 @@ class Profile extends Component {
     }
 
     saveChanges() {
-        //xios.put(urls.backend_url + '/saveProfile', {})
+        axios.put(urls.backend_url + '/saveProfile', {
+            
+        });
         this.setState({viewType: "display"});
+    }
+
+    onDetailChange(value) {
+        this.setState({info: value});
     }
 
     render() {
@@ -35,9 +44,9 @@ class Profile extends Component {
                         </Modal.Header>
                     <Modal.Body className="modBodyProf">
                         <img src={this.props.userInfo.images[0].url} alt="Not Found" ></img>
-                        <ProfileDetail viewType={this.state.viewType} label="Username:" info=""/>
-                        <ProfileDetail viewType={this.state.viewType} label="About Me:" info=""/>
-                        <ProfileDetail viewType={this.state.viewType} label="Music Taste:" info=""/>
+                        <ProfileDetail viewType={this.state.viewType} label="Username:" info="" onDetailChange={this.onDetailChange}/>
+                        <ProfileDetail viewType={this.state.viewType} label="About Me:" info="" onDetailChange={this.onDetailChange}/>
+                        <ProfileDetail viewType={this.state.viewType} label="Music Taste:" info="" onDetailChange={this.onDetailChange}/>
                     </Modal.Body>
                     <Modal.Footer>
                     <Button className="createBtnCloseProf" variant="secondary" onClick={this.props.profileClose}>

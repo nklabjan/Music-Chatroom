@@ -21,6 +21,7 @@ var my_client_id = process.env.CLIENT_APP_ID;
 var redirect_uri = urls.backend_url + '/auth/';
 //var redirect_uri = "http://localhost:8080/auth/"
 /* GET home page. */
+
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
@@ -35,9 +36,9 @@ router.get('/login', function(req, res) {
     '&client_id=' + my_client_id +
     (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
     '&redirect_uri=' + encodeURIComponent(redirect_uri));
+});
 
-
-  });
+router.post('/saveProfile', function(req,res) {});
 
 router.get('/auth', function(req, res) {
     console.log(redirect_uri);
@@ -57,14 +58,14 @@ router.get('/auth', function(req, res) {
     json: true
   }
 
-  //Get spotify access token and refresh tokens
-  request.post(authOptions, function(error, response, body) {
-    var access_token = body.access_token
-    var refresh_token = body.refresh_token
-    let uri = urls.frontend_uri
-    res.redirect(uri + '?access_token=' + access_token + '&refresh_token=' + refresh_token)
-  })
-  });
+    //Get spotify access token and refresh tokens
+    request.post(authOptions, function(error, response, body) {
+      var access_token = body.access_token
+      var refresh_token = body.refresh_token
+      let uri = urls.frontend_uri
+      res.redirect(uri + '?access_token=' + access_token + '&refresh_token=' + refresh_token)
+    })
+});
 
   router.post('/realLogin', function(req, res) {
     if (req.body.access_token) {
@@ -82,6 +83,7 @@ router.get('/auth', function(req, res) {
             if (err) {
               console.log("User already exists in database!");
             }
+            
         });
       });
     }
@@ -122,5 +124,5 @@ router.get('/auth', function(req, res) {
           res.json({
             lounge_info: new_chatroom.minimalInfo()});
     });
-  })
+  });
 module.exports = router;
