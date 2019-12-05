@@ -173,8 +173,8 @@ class Chatroom {
         {
             console.log("User " + userInfo.display_name + " connected to the lounge");
             var url;
-            if (userInfo.images[0]) {
-                url = userInfo.images[0].url;
+            if (userInfo.profile_image) {
+                url = userInfo.profile_image
             }
             else {
                 url = null;
@@ -183,7 +183,7 @@ class Chatroom {
           var minimalUserInfo = { display_name: userInfo.display_name,
                                   id: userInfo.id,
                                   image: url,
-                                  spotify_url: userInfo.external_urls.spotify,
+                                  spotify_url: userInfo.external_spotify_url,
                                   uri: userInfo.uri,
                                   country: userInfo.country,
           }

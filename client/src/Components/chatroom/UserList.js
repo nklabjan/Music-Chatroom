@@ -23,13 +23,10 @@ class UserList extends Component {
                     {
                       isLM = false;
                     }
-                    return(<UserListMember key={idx}
-                                      name={user.display_name}
-                                      image={user.image}
-                                      spotify_url={user.spotify_url}
-                                      country={user.country}
-                                      passed_key ={idx}
-                                      isLM = {isLM}
+                    return(<UserListMember  key={idx}
+                                            passed_key ={idx}
+                                            user = {user}
+                                            isLM = {isLM}
                                       />)
                   })}
                 </div>

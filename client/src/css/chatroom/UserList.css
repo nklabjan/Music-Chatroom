@@ -44,6 +44,15 @@
   justify-content: center;
 }
 
+.userListMember:hover {
+  background-color: rgba(49, 47, 54, 1);
+  cursor: pointer;
+}
+
+.userListMember:active {
+  background-color: rgba(60, 60, 60, 1);
+}
+
 .userPicContainer {
   width: 5vh;
   height: 5vh;
@@ -80,4 +89,11 @@
 
 .userNameLink:hover {
   color: white;
+}
+
+.userInfoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
 }
