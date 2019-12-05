@@ -52,6 +52,16 @@ class Song extends Component {
     )
   }
 
+  renderAddToNextBtn() {
+    if (this.props.isLM)
+    {
+      return(
+        <button className="addNextResult" onClick={()=> this.addNewSong("start")}>
+          <FontAwesomeIcon icon={faSortAmountUp}/>
+        </button>
+      )
+    }
+  }
   render() {
     return (
       <div className="song" onDoubleClick={()=> this.playNewSong()}>
@@ -65,9 +75,7 @@ class Song extends Component {
           <button className="addResult" onClick={()=> this.addNewSong("end")}>
             <FontAwesomeIcon icon={faPlusCircle}/>
           </button>
-          <button className="addNextResult" onClick={()=> this.addNewSong("start")}>
-            <FontAwesomeIcon icon={faSortAmountUp}/>
-          </button>
+          {this.renderAddToNextBtn()}
         </div>
       </div>
     )

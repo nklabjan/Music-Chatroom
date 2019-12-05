@@ -80,9 +80,13 @@ io.on('connection', function(socket) {
       }
       else
       {
-        socket.join(loungeID)
-        chatrooms[loungeID].userConnected(socket,accessToken, userInfo);
-        console.log("existing room joined");
+        //Check if room exist to ensure that server does not crash
+        if (chatrooms[loungeID])
+        {
+          socket.join(loungeID)
+          chatrooms[loungeID].userConnected(socket,accessToken, userInfo);
+          console.log("existing room joined");
+        }
 
       }
     });
