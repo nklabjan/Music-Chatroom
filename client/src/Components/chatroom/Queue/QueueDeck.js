@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import { Table } from 'react-bootstrap';
 import QueueCard from './QueueCard';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 import '../../../css/chatroom/Queue.css';
 
@@ -58,6 +60,7 @@ class QueueDeck extends Component {
           <div className="QueueDeck">
               <div className="QueueList">
                 There are currently no songs in the queue.
+                <div>Click on <FontAwesomeIcon icon= {faPlusCircle} /> to add a song!</div>
               </div>
           </div>
         )

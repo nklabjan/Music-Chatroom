@@ -27,6 +27,7 @@ class UserList extends Component {
                                             passed_key ={idx}
                                             user = {user}
                                             isLM = {isLM}
+                                            socket={this.props.socket}
                                       />)
                   })}
                 </div>

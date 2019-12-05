@@ -11,13 +11,23 @@ var bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var playerRouter = require('./routes/player');
-
+const {Client} = require('pg');
+const client = new Client({
+  user: 'iddgxdpmzvrgnq',
+  host: 'ec2-54-83-55-122.compute-1.amazonaws.com',
+  database: 'd5a45rpdbn8ojc',
+  password: 'ed9db27f9307fbe752382ed5e5d87ca5eb01240893e16afa65bff0bab8530c8d',
+  port: 5432,
+  ssl: true
+})
+client.connect();
 
 var app = express();
 // view engine setup
 app.locals.chatrooms = {};
 app.locals.idCounter = 1;
 app.locals.test = "test";
+app.locals.dbClient = client;
 
 
 app.set('views', path.join(__dirname, 'views'));

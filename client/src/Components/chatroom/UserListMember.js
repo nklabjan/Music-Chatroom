@@ -11,14 +11,36 @@ class UserListMember extends Component {
     super(props);
     this.renderCrown = this.renderCrown.bind(this);
     this.toggleShow = this.toggleShow.bind(this);
+    this.requestAdditionalInfo = this.requestAdditionalInfo.bind(this);
+
     this.state = {
-      showInfo: false
+      showInfo: false,
+      extraInfo: null
       }
     this.member = null;
 
     this.setMember = element => {
         this.member = element;
       };
+    this.setUpSocket();
+    }
+
+    setUpSocket() {
+        var userListMember = this;
+
+        this.props.socket.on('receive_add_user_info', function(extraInfo) {
+          //Receives extra info from database
+          userListMember.setState({extraInfo: extraInfo});
+          //Reopen popover
+          setTimeout(function(){ userListMember.setState({showInfo: true})}, 200);
+        })
+
+    }
+
+    requestAdditionalInfo() {
+      this.props.socket.emit('get_add_user_info', this.props.user.id);
+      this.setState({showInfo: false});
+
     }
 
     //Gets passed user information to display
@@ -59,6 +81,8 @@ class UserListMember extends Component {
                 <UserInfoPopover  {...props}
                                   user= {this.props.user}
                                   isLM = {this.props.isLM}
+                                  extraInfo = {this.state.extraInfo}
+                                  requestAdditionalInfo = {this.requestAdditionalInfo}
                                   />
               )}
             </Overlay>

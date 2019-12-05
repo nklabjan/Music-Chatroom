@@ -97,3 +97,18 @@
   justify-content: space-between;
   flex-direction: row;
 }
+
+.userInfoPopoverTitle {
+  background-color: black !important;
+  color: white !important;
+  border-bottom: 0px !important;
+}
+
+.arrow {
+  background-color: rgba(49, 47, 54, 1) !important;
+}
+
+.userInfoPopoverContent {
+  background-color: rgba(49, 47, 54, 1) !important;
+  color: white !important;
+}
