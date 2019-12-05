@@ -16,6 +16,19 @@
 
 }
 
+.loggingInAlert {
+  margin-bottom: 0px !important;
+  background-color: rgba(247, 192, 40, 1) !important;
+  color: white !important;
+  border: 0px !important;
+  display: flex;
+  align-items: center;
+}
+
+.loggingInText {
+  padding-left: 10px;
+}
+
 .SpotifyLink {
   color: white !important;
 }

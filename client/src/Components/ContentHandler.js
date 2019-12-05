@@ -4,7 +4,7 @@ import HomePage from './homepage/HomePage';
 import LandingPage from './homepage/LandingPage';
 import MakeChatRoom from "./makechatroom/makechatroom";
 import CadenceNavBar from './CadenceNavBar';
-import {Alert} from 'react-bootstrap';
+import {Alert, Spinner} from 'react-bootstrap';
 import '../css/ContentHandler.css';
 import queryString from "query-string";
 import axios from 'axios';
@@ -41,6 +41,8 @@ class ContentHandler extends Component {
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.getLounges = this.getLounges.bind(this);
+    this.updateProfileInfo = this.updateProfileInfo.bind(this);
+
   }
 
   enterWhoAreWe() {
@@ -134,6 +136,17 @@ class ContentHandler extends Component {
     this.forceUpdate();
   }
 
+  updateProfileInfo(newUserInfo) {
+    //update this.state.userInfo["whatever information needs to be updated"]
+    this.setState({userInfo: newUserInfo});
+
+    //do axios post here
+    //Then push information to /saveProfile
+    axios.post(urls.backend_url + '/saveProfile', newUserInfo).then( res => {
+      console.log("success if ok")
+    });
+  }
+
   componentWillMount() {
     let parsed = queryString.parse(window.location.search);
     let access_token = parsed.access_token;
@@ -144,27 +157,25 @@ class ContentHandler extends Component {
   }
 
   async componentDidMount() {
-      const response = await fetch('https://api.spotify.com/v1/me', {
-      method: "GET",
-      headers: {
-          authorization: `Bearer ${this.state.access_token}`,
-          },
-      });
-      const myJson = await response.json();
-
-      if(!myJson.error)
-      {
-        this.setState({
-          userInfo: myJson,
-          isPremiumUser: myJson.product === "premium" ? true : false,
-        });
-      }
 
       //Gets information here
       await axios.post(urls.backend_url + '/realLogin', {"access_token": this.state.access_token})
       .then(res => {
         //get real login information from backend
+        console.log(res)
+        if (res.data)
+        {
+          //This means that the database returned result
+          if (res.data.userInfo)
+          {
+            var myJson = res.data.userInfo
+            this.setState({
+              userInfo: myJson,
+              isPremiumUser: myJson.product === "premium" ? true : false,
+            });
+          }
 
+        }
       })
   }
 
@@ -194,7 +205,8 @@ class ContentHandler extends Component {
                         handleMakeChat={this.handleMakeChat}
                         getLounges={this.getLounges}
                         access_token={this.state.access_token}
-                        isPremiumUser={this.state.isPremiumUser}/>);
+                        isPremiumUser={this.state.isPremiumUser}
+                        />);
     }
     else if(this.state.currDisplay === "lounge"){
       return (<Lounge access_token={this.state.access_token}
@@ -232,6 +244,16 @@ class ContentHandler extends Component {
         )
       }
     }
+    //this means that user has some form of access token information
+    else if (this.state.isPremiumUser === null && this.state.access_token !== null)
+    {
+      return (
+        <Alert variant="warning" className="loggingInAlert">
+          <Spinner animation="border" /> <div className="loggingInText">Logging In...</div>
+        </Alert>
+      )
+    }
+
   }
 
   renderNavBar() {
@@ -245,8 +267,7 @@ class ContentHandler extends Component {
                         currDisplay={this.state.currDisplay}
                         handleShow={this.handleShow}
                         userInfo={this.state.userInfo}
-                        enterWhoAreWe={this.enterWhoAreWe}
-                        exitWhoAreWe={this.exitWhoAreWe}
+                        updateProfileInfo={this.updateProfileInfo}
                         isPremiumUser={this.state.isPremiumUser}/>
 
       )
