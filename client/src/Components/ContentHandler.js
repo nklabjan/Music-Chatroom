@@ -164,6 +164,7 @@ class ContentHandler extends Component {
       await axios.post(urls.backend_url + '/realLogin', {"access_token": this.state.access_token})
       .then(res => {
         //get real login information from backend
+
       })
   }
 
