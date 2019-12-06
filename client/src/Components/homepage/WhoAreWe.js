@@ -19,7 +19,7 @@ class WhoAreWe extends Component {
                           Brian is a Computer Science student at UW-Madison. He plans to graduate this month!
                           He has been a member of the Wisconsin Men's Club Water Polo team for the past 4 years as well.
                           After graduation, Brian hopes to find a job in the Chicago area, where he is from. <br></br>
-                          "Thanks for checking out our project!"
+                          Thanks for checking out our project!
                         </div>
                       </div>
                     </div>

@@ -60,9 +60,9 @@
   .WhoAreWe {
     display: flex;
     flex-direction: column;
-    width: 60vw;
+    width: 75vw;
     position: fixed;
-    height: 60vh;
+    height: 70vh;
     overflow-y: scroll;
     background-color: rgba(255, 255, 255, .25);
     color: white;
