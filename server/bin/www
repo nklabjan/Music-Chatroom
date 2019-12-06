@@ -80,9 +80,13 @@ io.on('connection', function(socket) {
       }
       else
       {
-        socket.join(loungeID)
-        chatrooms[loungeID].userConnected(socket,accessToken, userInfo);
-        console.log("existing room joined");
+        //Check if room exist to ensure that server does not crash
+        if (chatrooms[loungeID])
+        {
+          socket.join(loungeID)
+          chatrooms[loungeID].userConnected(socket,accessToken, userInfo);
+          console.log("existing room joined");
+        }
 
       }
     });
@@ -188,6 +192,27 @@ io.on('connection', function(socket) {
       else {
         console.log("Player can't be initialized in undefined room")
       }
+    })
+
+    socket.on('get_add_user_info', function(userID) {
+      //Check if user exist in database then
+      app.locals.dbClient.query('SELECT * FROM "music_chatroom".users WHERE id = ($1)',
+                    [userID], function(err, resp) {
+              if (err) {
+                //This should not print
+                console.log("User DOES NOT exist in the database !");
+
+                //Else emit null information from database
+                socket.emit("receive_add_user_info", null);
+              }
+              //Should only return 1 row
+              if (resp.rows.length > 0)
+              {
+                var db_userInfo = resp.rows[0];
+                //emit the information back to the incoming socket
+                socket.emit("receive_add_user_info", db_userInfo);
+              }
+            });
     })
 
 }

@@ -179,7 +179,8 @@ class Lounge extends Component {
                               loungeInfo={this.info}
                               messages={this.state.messages}/>
                         <UserList users={this.state.users}
-                                  loungeInfo={this.info}/>
+                                  loungeInfo={this.info}
+                                  socket={this.socket}/>
                     </div>
                     <Player access_token={this.props.access_token}
                             socket={this.socket}
@@ -193,6 +194,7 @@ class Lounge extends Component {
                             seekToNewPos={this.seekToNewPos}
                             queueList={this.state.queueList}
                             queuePos = {this.state.queuePos}
+                            isLM = {this.info.loungeMasterID === this.props.userInfo.id ? true : false}
                             />
 
                 </div>

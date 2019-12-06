@@ -1,12 +1,9 @@
 import React, {Component} from "react";
 import { Table } from 'react-bootstrap';
-//import Song from './Song';
 import QueueCard from './QueueCard';
 
 import '../../../css/chatroom/Queue.css';
-//import SongList from './SongList';
 
-//let songList = new SongList();
 
 class HistoryDeck extends Component {
 
@@ -16,7 +13,8 @@ class HistoryDeck extends Component {
           this.props.queuePos > 0)
       {
         return (
-                <div className="QueueDeck">
+              <div className="QueueDeck">
+
                     <div className="QueueList">
                       <Table striped hover borderless className="queueTable" >
                         <thead>

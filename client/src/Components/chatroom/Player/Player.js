@@ -289,7 +289,8 @@ class Player extends Component {
                           onHide={this.handleClose}
                           addSong={this.props.addSong}
                           access_token={this.props.access_token}
-                          playSong={this.props.playSong}/>
+                          playSong={this.props.playSong}
+                          isLM={this.props.isLM}/>
             <div className="playerLeft">
               <div className="albumInfo">
                 <img className="albumCover" src={this.state.albumCover} style={{width:75, height:75}} alt="Album Cover Doesn't Exist"></img>

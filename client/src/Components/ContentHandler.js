@@ -49,7 +49,7 @@ class ContentHandler extends Component {
     console.log("enterWhoAreWe");
     if (this.state.currDisplay === "whoAreWe")
     {
-      this.setState({currDisplay: "landing"})
+      this.setState({currDisplay: "home"})
     }
     else this.setState({currDisplay: "whoAreWe"})
   }

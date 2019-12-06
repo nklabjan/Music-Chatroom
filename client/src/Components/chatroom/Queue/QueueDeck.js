@@ -1,31 +1,13 @@
 import React, {Component} from "react";
 import { Table } from 'react-bootstrap';
-//import Song from './Song';
 import QueueCard from './QueueCard';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 import '../../../css/chatroom/Queue.css';
-//import SongList from './SongList';
 
-//let songList = new SongList();
 
 class QueueDeck extends Component {
-    // constructor() {
-    //   super();
-    // }
-    //
-    // getSongs() {
-    //   let songs = songList.getList();
-    //   let queue = [];
-    //
-    //   for(var i = 0; i < songs.length; i++) {
-    //     queue.push(
-    //       <Song uri={songs[i]} access_token={this.props.access_token}/>
-    //     )
-    //   }
-    //   if(Object.entries(queue).length !== 0) {
-    //     return queue;
-    //   }
-    // }
 
     render() {
       if (this.props.queueList.length > 0 &&
@@ -34,6 +16,7 @@ class QueueDeck extends Component {
       {
         return (
                 <div className="QueueDeck">
+
                     <div className="QueueList">
                       <Table striped hover borderless className="queueTable" >
                         <thead>
@@ -77,6 +60,7 @@ class QueueDeck extends Component {
           <div className="QueueDeck">
               <div className="QueueList">
                 There are currently no songs in the queue.
+                <div>Click on <FontAwesomeIcon icon= {faPlusCircle} /> to add a song!</div>
               </div>
           </div>
         )
