@@ -159,22 +159,6 @@ class Player extends Component {
       this.props.setDeviceId(deviceId);
       this.props.syncMusicToRoom();
 
-      // fetch("https://api.spotify.com/v1/me/player", {
-      //   method: "PUT",
-      //   headers: {
-      //     authorization: `Bearer ${access_token}`,
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     "device_ids": [ deviceId ],
-      //     "play": true,
-      //   }),
-      // }).then(
-      //   //try syncing up music with the lounge
-      //   this.props.syncMusicToRoom()
-      // );
-
-      //instead of transfering playback now plays music according to the room
     }
 
     onPrevClick() {
@@ -299,14 +283,17 @@ class Player extends Component {
             </div>
 
             <div className="playerMiddle">
-              <div className="controls">
-                  <button className="previous" onClick={()=>{this.onPrevClick()}}>
+              <div className={this.props.isLM ? "controls" : "controls-disabled"}>
+                  <button className={this.props.isLM ? "previous" : "disabled-prev"}
+                          onClick={()=>{this.onPrevClick()}}>
                     <FontAwesomeIcon size="lg" icon={faStepBackward} />
                   </button>
-                  <button className="play-pause" onClick={()=>{this.onPlayClick()}}>
+                  <button className={this.props.isLM ? "play-pause" : "disabled-pp"}
+                          onClick={()=>{this.onPlayClick()}}>
                     <FontAwesomeIcon size="2x" icon={ this.state.playing ? faPauseCircle : faPlayCircle} />
                   </button>
-                  <button className="next" onClick={()=>{this.onNextClick()}}>
+                  <button className={this.props.isLM ? "next" : "disabled-n"}
+                          onClick={()=>{this.onNextClick()}}>
                     <FontAwesomeIcon size="lg" icon={faStepForward} />
                   </button>
               </div>
@@ -331,7 +318,9 @@ class Player extends Component {
               <button className="volume" onClick={()=> this.toggleVolume()}>
                 <FontAwesomeIcon size="lg" icon={ this.state.isMute ? faVolumeMute : faVolumeUp} />
               </button>
-              <VolumeSlider value={this.state.value} handleVolume={this.handleVolume}/>
+              <VolumeSlider value={this.state.value}
+                            handleVolume={this.handleVolume}
+                            isMute= {this.state.isMute}/>
               <button className="leave-room" onClick={()=>{this.props.handleHome()}}>
                 <FontAwesomeIcon size="2x" icon={faTimesCircle} />
               </button>

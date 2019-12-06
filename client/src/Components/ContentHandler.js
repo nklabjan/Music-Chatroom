@@ -166,16 +166,28 @@ class ContentHandler extends Component {
         if (res.data)
         {
           //This means that the database returned result
-          if (res.data.userInfo)
+          if (res.data.userInfo && res.data.userInfo !== null)
           {
+            console.log()
             var myJson = res.data.userInfo
             this.setState({
               userInfo: myJson,
               isPremiumUser: myJson.product === "premium" ? true : false,
             });
           }
+          //this means that there's no userInfo or userInfo is null
+          else if (res.data.error)
+          {
+            console.log("failed")
+
+            this.setState({
+              userInfo: "failed",
+              isPremiumUser: null,
+            });
+          }
 
         }
+
       })
   }
 
@@ -245,11 +257,24 @@ class ContentHandler extends Component {
       }
     }
     //this means that user has some form of access token information
-    else if (this.state.isPremiumUser === null && this.state.access_token !== null)
+    else if ( this.state.isPremiumUser === null &&
+              this.state.access_token !== null &&
+              this.state.userInfo === null)
     {
       return (
         <Alert variant="warning" className="loggingInAlert">
           <Spinner animation="border" /> <div className="loggingInText">Logging In...</div>
+        </Alert>
+      )
+    }
+
+    else if (this.state.userInfo === "failed")
+    {
+      return (
+        <Alert variant="danger" className="NotPremiumAlert">
+          <div className="loggingInText">Log In Failed. Try <Alert.Link
+            href={urls.frontend_uri}
+            className="SpotifyLink">Relogging?</Alert.Link></div>
         </Alert>
       )
     }

@@ -13,21 +13,10 @@ class HistoryDeck extends Component {
           this.props.queuePos > 0)
       {
         return (
-              <div className="QueueDeck">
+                <div className="QueueDeck">
 
                     <div className="QueueList">
-                      <Table striped hover borderless className="queueTable" >
-                        <thead>
-                          <tr>
-                            <th></th>
-                            <th>Title</th>
-                            <th>Artist</th>
-                            <th>Album</th>
-                          </tr>
-                        </thead>
-                        <tbody>
                         {
-
                                 this.props.queueList.map((song, songIndex) => {
                                   //only render songs that are after the position
                                   if (songIndex < this.props.queuePos)
@@ -36,20 +25,16 @@ class HistoryDeck extends Component {
                                         <QueueCard
                                         key=    {songIndex}
                                         passed_key= {songIndex}
-                                        title=  {song["title"]}
-                                        artist= {song["artist"]}
-                                        album=  {song["album"]}
+                                        song = {song}
                                         socket={this.props.socket}
                                         playSong={this.props.playSong}
-                                        uri=    {song["uri"]}
+                                        isLM = {this.props.isLM}
                                        />
-                                  )
+                                     )
                                   }
                                   else return null;
                               })
                         }
-                        </tbody>
-                      </Table>
                       </div>
                 </div>
         )

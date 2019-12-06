@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import { Table } from 'react-bootstrap';
 import QueueCard from './QueueCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
@@ -18,16 +17,6 @@ class QueueDeck extends Component {
                 <div className="QueueDeck">
 
                     <div className="QueueList">
-                      <Table striped hover borderless className="queueTable" >
-                        <thead>
-                          <tr>
-                            <th></th>
-                            <th>Title</th>
-                            <th>Artist</th>
-                            <th>Album</th>
-                          </tr>
-                        </thead>
-                        <tbody>
                         {
                                 this.props.queueList.map((song, songIndex) => {
                                   //only render songs that are after the position
@@ -37,20 +26,18 @@ class QueueDeck extends Component {
                                         <QueueCard
                                         key=    {songIndex}
                                         passed_key= {songIndex}
-                                        title=  {song["title"]}
-                                        artist= {song["artist"]}
-                                        album=  {song["album"]}
+                                        song = {song}
                                         socket={this.props.socket}
                                         playSong={this.props.playSong}
-                                        uri=    {song["uri"]}
+                                        deleteSong = {this.props.deleteSong}
+                                        moveToNext = {this.props.moveToNext}
+                                        isLM = {this.props.isLM}
                                        />
-                                  )
+                                     )
                                   }
                                   else return null;
                               })
                         }
-                        </tbody>
-                      </Table>
                       </div>
                 </div>
         )

@@ -7,7 +7,7 @@
   button {
     outline-color: rgba(104, 82, 156, 1) !important;
   }
-  
+
 .NotPremiumAlert {
   margin-bottom: 0px !important;
   background-color: rgba(196, 30, 58, 1) !important;
@@ -18,7 +18,7 @@
 
 .loggingInAlert {
   margin-bottom: 0px !important;
-  background-color: rgba(247, 192, 40, 1) !important;
+  background-color: rgba(131, 89, 156, 1) !important;
   color: white !important;
   border: 0px !important;
   display: flex;

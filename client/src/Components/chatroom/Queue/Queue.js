@@ -25,14 +25,18 @@ class Queue extends Component {
       <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="horizontal">
         <QueueDeck  socket={this.socket}
                     playSong={this.props.playSong}
+                    deleteSong = {this.props.deleteSong}
+                    moveToNext = {this.props.moveToNext}
                     queueList={this.props.queueList}
                     queuePos={this.props.queuePos}
+                    isLM = {this.props.isLM}
                     />
 
         <HistoryDeck  socket={this.socket}
                       playSong={this.props.playSong}
                       queueList={this.props.queueList}
                       queuePos={this.props.queuePos}
+                      isLM = {!this.props.isLM}
                       />
       </ReactCardFlip>
     )

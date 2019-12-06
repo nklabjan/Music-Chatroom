@@ -90,29 +90,40 @@ router.get('/auth', function(req, res) {
       }
       request.get(authOptions, function(error, response, body) {
         var userInfo = body;
-        client.query('INSERT INTO "music_chatroom".users(display_name, email, external_spotify_url, id, profile_image, product, about_me, music_taste) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
-            [userInfo.display_name, userInfo.email, userInfo.external_urls.spotify, userInfo.id, userInfo.images[0].url, userInfo.product, '', ''], function(err, resp) {
-        if (err) {
-          console.log("User already exists in database!");
-        }
-        });
+        console.log(userInfo)
 
-        //At this point user should already exist in the database
-        //find user using a query
-        //DO NOT USE userInfo but use info pulled from the database
-        client.query('SELECT * FROM "music_chatroom".users WHERE id = ($1)',
-                      [userInfo.id], function(err, resp) {
-                if (err) {
-                  //This should not print
-                  console.log("User DOES NOT exist in the database !");
-                }
-                //Should only return 1 row
-                if (resp.rows.length > 0)
-                {
-                  var db_userInfo = resp.rows[0];
-                  res.json({userInfo: db_userInfo})
-                }
-              });
+        if (!userInfo.error)
+        {
+          client.query('INSERT INTO "music_chatroom".users(display_name, email, external_spotify_url, id, profile_image, product, about_me, music_taste) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
+              [userInfo.display_name, userInfo.email, userInfo.external_urls.spotify, userInfo.id, userInfo.images[0].url, userInfo.product, '', ''], function(err, resp) {
+          if (err) {
+            console.log("User already exists in database!");
+          }
+          });
+
+          //At this point user should already exist in the database
+          //find user using a query
+          //DO NOT USE userInfo but use info pulled from the database
+          client.query('SELECT * FROM "music_chatroom".users WHERE id = ($1)',
+                        [userInfo.id], function(err, resp) {
+                  if (err) {
+                    //This should not print
+                    console.log("User DOES NOT exist in the database !");
+                  }
+                  //Should only return 1 row
+                  if (resp.rows.length > 0)
+                  {
+                    var db_userInfo = resp.rows[0];
+                    res.json({userInfo: db_userInfo})
+                  }
+                });
+        }
+        else
+        {
+          //This means that login failed
+          res.json({error:"failed"})
+        }
+
       });
     }
   });
