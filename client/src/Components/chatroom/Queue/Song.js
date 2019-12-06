@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle, faSortAmountUp } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle, faSortAmountUp, faTimes, faPlay } from '@fortawesome/free-solid-svg-icons';
 import '../../../css/chatroom/AddSongModal.css';
 
 class Song extends Component {
@@ -11,8 +11,9 @@ class Song extends Component {
     let album = this.props.data.album.name;
     let artists = this.props.data.artists.map(artist => artist.name).join(", ");
     let uri = this.props.data.uri;
+    let images = this.props.data.album.images;
 
-    let song_info = {title: title, album: album, artist: artists, uri: uri};
+    let song_info = {title: title, album: album, artist: artists, uri: uri, images: images};
     console.log(this.props.data)
     this.props.addSong(song_info, position)
   }
@@ -23,9 +24,11 @@ class Song extends Component {
     let album = this.props.data.album.name;
     let artists = this.props.data.artists.map(artist => artist.name).join(", ");
     let uri = this.props.data.uri;
+    let images = this.props.data.album.images;
 
-    let song_info = {title: title, album: album, artist: artists, uri: uri};
+    let song_info = {title: title, album: album, artist: artists, uri: uri, images: images};
     this.props.playSong(song_info)
+
   }
 
   getSong() {
@@ -39,17 +42,36 @@ class Song extends Component {
   }
 
   getArtists() {
-    var name = this.props.data.artists.map(artist => artist.name).join(", ");
+    if (this.props.viewType === "queue")
+    {
+      var name = this.props.data.artist
+    }
+    else
+    {
+      name = this.props.data.artists.map(artist => artist.name).join(", ");
+    }
 
     return name;
   }
 
   getAlbumArt() {
-    return(
-        <img src={this.props.data.album.images[2].url}
-             className="albumart"
-             alt="Could not retrieve album art."/>
-    )
+      if (this.props.viewType === "queue")
+      {
+        return (
+          <img src={this.props.data.images[2].url}
+               className="albumart"
+               alt="Could not retrieve album art."/>
+        )
+      }
+      else
+      {
+        return (
+          <img src={this.props.data.album.images[2].url}
+               className="albumart"
+               alt="Could not retrieve album art."/>
+        )
+      }
+
   }
 
   renderAddToNextBtn() {
@@ -62,14 +84,78 @@ class Song extends Component {
       )
     }
   }
+
+  moveToNextBtn() {
+    if (this.props.isLM)
+    {
+      return(
+        <button className="addNextResult" onClick={()=> this.props.moveToNext(this.props.passed_key)}>
+          <FontAwesomeIcon icon={faSortAmountUp}/>
+        </button>
+      )
+    }
+  }
+
+  renderPlayBtn() {
+    if (this.props.isLM)
+    {
+      return(
+        <button className="addResult"
+                onClick={()=> this.props.playSong(this.props.data.uri, this.props.passed_key)}>
+          <FontAwesomeIcon icon={faPlay}/>
+        </button>
+      )
+    }
+  }
+
+
+  renderDeleteBtn() {
+    if (this.props.isLM)
+    {
+      return(
+        <button className="addResult" onClick={()=> this.props.deleteSong(this.props.passed_key)}>
+          <FontAwesomeIcon icon={faTimes}/>
+        </button>
+      )
+    }
+  }
+
   render() {
-    return (
+    if (this.props.viewType === "queue")
+    {
+      console.log(this.props.data)
+      return (
+        <div  className="queueSong">
+          <div className="albumContainer">
+            {this.getAlbumArt()}
+          </div>
+          <div className="infoContainer">
+            <div className="info">
+              <b>{this.props.data.title}</b>
+              <br />
+              {this.getArtists()}
+            </div>
+          </div>
+          <div className="resultControls">
+            {this.renderDeleteBtn()}
+            {this.moveToNextBtn()}
+            {this.renderPlayBtn()}
+          </div>
+        </div>
+      )
+    }
+    else return (
       <div className="song" onDoubleClick={()=> this.playNewSong()}>
+        <div className="albumContainer">
           {this.getAlbumArt()}
-        <div className="info">
-          {this.props.data.name}
-          <br />
-          {this.getArtists()}
+        </div>
+        <div className="infoContainer">
+
+          <div className="info">
+            <b>{this.props.data.name}</b>
+            <br />
+            {this.getArtists()}
+          </div>
         </div>
         <div className="resultControls">
           <button className="addResult" onClick={()=> this.addNewSong("end")}>

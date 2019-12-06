@@ -9,11 +9,6 @@
     flex-direction: row;
 }
 
-.player button:hover{
-  transition: all .2s ease-in-out;
-  color: rgba(104, 82, 156, 1);
-  transform: scale(1.1);
-}
 
 .playerLeft {
     display: flex;
@@ -40,17 +35,54 @@
     align-items: center;
 }
 
+.playerRight button:hover{
+  transition: all .2s ease-in-out;
+  color: rgba(104, 82, 156, 1);
+  transform: scale(1.1);
+}
+
 .controls {
+    top: 2px;
+    flex-grow: 0.8;
+    display: flex;
+    justify-content: center;
+}
+
+
+.controls button:hover{
+  transition: all .2s ease-in-out;
+  color: rgba(104, 82, 156, 1);
+  transform: scale(1.1);
+}
+.controls-disabled{
     top: 2px;
     flex-grow: 0.8;
     display: flex;
     justify-content: center;
 
 }
+.controls-disabled button {
+  outline: none !important;
+}
 
+.controls-disabled button:hover {
+  transition: all .2s ease-in-out;
+  transform: scale(1.1);
+
+}
 
 .previous {
     color: white;
+    background-color: rgba(1, 1, 1, 0);
+    border-color: rgba(1,1,1, 1);
+    border: none;
+    height: 40px;
+    width: 40px;
+    outline: none;
+}
+
+.disabled-prev {
+    color: rgba(77, 72, 82, 0.7);
     background-color: rgba(1, 1, 1, 0);
     border-color: rgba(1,1,1, 1);
     border: none;
@@ -71,6 +103,17 @@
     padding-right: 0px;
 }
 
+.disabled-pp {
+    color: rgba(77, 72, 82, 0.7);
+    background-color: rgba(1, 1, 1, 0);
+    border-color: rgba(1,1,1, 1);
+    border: none;
+    height: 40px;
+    width: 40px;
+    outline: none;
+    padding-left: 0px;
+    padding-right: 0px;
+}
 .next {
     background-color: rgba(104, 82, 156, 1);
     color: white;
@@ -80,7 +123,16 @@
     height: 40px;
     width: 40px;
     outline: none;
+}
 
+.disabled-n {
+    color: rgba(77, 72, 82, 0.7);
+    background-color: rgba(1, 1, 1, 0);
+    border-color: rgba(1,1,1, 1);
+    border: none;
+    height: 40px;
+    width: 40px;
+    outline: none;
 }
 
 .next:active {

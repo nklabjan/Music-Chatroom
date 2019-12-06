@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 
 class HomePage extends Component {
+    _isMounted = false;
 
     constructor(props) {
         super(props);
@@ -13,6 +14,9 @@ class HomePage extends Component {
             leaveChat: false,
         }
         this.joinRoom = this.joinRoom.bind(this);
+        this.checkForLounges = this.checkForLounges.bind(this);
+        this.setUpTimer = this.setUpTimer.bind(this);
+
     }
 
     joinRoom(lounge_id){
@@ -21,8 +25,24 @@ class HomePage extends Component {
       this.props.handleChat();
     }
 
-    componentWillMount(){
+    async setUpTimer() {
+      if (this._isMounted === true && this.props.loggedInStatus === true)
+      {
+        this.props.getLounges();
+      }
+
+    }
+
+    checkForLounges(interval) {
+      //Check for lounges every interval
+      setInterval(this.setUpTimer, interval);
+    }
+
+    componentDidMount(){
+      this._isMounted = true;
+      console.log(this._isMounted)
       this.props.getLounges();
+      this.checkForLounges(2000);
     }
 
     renderPage(){
@@ -78,6 +98,10 @@ class HomePage extends Component {
                     {this.renderPage()}
                </div>)
 
+    }
+
+    componentWillUnmount(){
+      this._isMounted = false;
     }
 }
 
