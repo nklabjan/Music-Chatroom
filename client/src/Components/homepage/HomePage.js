@@ -2,8 +2,9 @@ import React, {Component} from "react";
 import LandingPage from './LandingPage';
 import '../../css/homepage/HomePage.css';
 import {Card, Button} from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLock } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLock } from '@fortawesome/free-solid-svg-icons';
+import LoungeCard from './LoungeCards/LoungeCard';
 
 class HomePage extends Component {
     _isMounted = false;
@@ -60,30 +61,35 @@ class HomePage extends Component {
                     <div className="Chatrooms"> {
                       this.props.chatRooms.map((chatroom, idx) => {
                         return (
-                          <Card className="createdChatRoom" key={idx} bg="dark" text="white">
-                            <Card.Header className="roomCardHeader">
-                              <Card.Title>{chatroom.name}</Card.Title>
-                              <div className="roomLock"><FontAwesomeIcon icon={faLock} /></div>
-                            </Card.Header>
-                            <Card.Body className="roomCardBody">
-                              <Card.Subtitle className="mb-2 text-muted">
-                                Master: {chatroom.loungeMasterName}
-                                <div className="loungeGenres"> {"Genre(s): " + chatroom.genres} </div>
-                              </Card.Subtitle>
-                              <div className="loungeDesc">
-                              <Card.Text className="cardText">
-                                {chatroom.desc}
-                              </Card.Text>
-                               </div>
-                              <Button className="enterBtn"
-                                      onClick={()=> this.joinRoom(chatroom.id)}
-                                      variant="primary"
-                                      disabled={!this.props.isPremiumUser ? true : false}>
-                                Enter Lounge
-                              </Button>
-                            </Card.Body>
+                          // <Card className="createdChatRoom" key={idx} bg="dark" text="white">
+                          //   <Card.Header className="roomCardHeader">
+                          //     <Card.Title>{chatroom.name}</Card.Title>
+                          //     <div className="roomLock"><FontAwesomeIcon icon={faLock} /></div>
+                          //   </Card.Header>
+                          //   <Card.Body className="roomCardBody">
+                          //     <Card.Subtitle className="mb-2 text-muted">
+                          //       Master: {chatroom.loungeMasterName}
+                          //       <div className="loungeGenres"> {"Genre(s): " + chatroom.genres} </div>
+                          //     </Card.Subtitle>
+                          //     <div className="loungeDesc">
+                          //     <Card.Text className="cardText">
+                          //       {chatroom.desc}
+                          //     </Card.Text>
+                          //      </div>
+                          //     <Button className="enterBtn"
+                          //             onClick={()=> this.joinRoom(chatroom.id)}
+                          //             variant="primary"
+                          //             disabled={!this.props.isPremiumUser ? true : false}>
+                          //       Enter Lounge
+                          //     </Button>
+                          //   </Card.Body>
 
-                          </Card>
+                          // </Card>
+                          <LoungeCard key={idx} 
+                                      idx={idx}
+                                      chatroom={chatroom} 
+                                      joinRoom={this.joinRoom}
+                                      isPremiumUser={this.props.isPremiumUser}/>
                         )
                       })
                     }

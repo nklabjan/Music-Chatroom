@@ -81,11 +81,19 @@
 
   .roomCardBody {
     border-top: 2px rgba(33, 32, 36, 1) solid;
-    border-bottom-left-radius: 15px !important;
-    border-bottom-right-radius: 15px !important;
+    border-bottom: 2px rgba(33, 32, 36, 1) solid;
+    /* border-bottom-left-radius: 15px !important;
+    border-bottom-right-radius: 15px !important; */
     background-color: black;
     background: rgb(0,0,0);
     background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(54,42,84,1) 50%, rgba(0,0,0,1) 100%);
+  }
+
+  .roomCardFooter {
+    border-bottom-left-radius: 15px !important;
+    border-bottom-right-radius: 15px !important;
+    background-color: black !important;
+    text-align: center;
   }
 
   .homeTitleHeader {
@@ -102,17 +110,14 @@
     justify-content: center;
   }
 
-  .homeTitle {
-
-  }
-
   .cardText {
     height: 13vh;
   }
 
   .enterBtn {
-    margin-top: -25%;
-    margin-left: 25%;
+    /* margin-top: -25%; */
+    /* margin-left: 25%; */
+    text-align: right;
     background-color: rgba(104, 82, 156, 1) !important;
   }
 
