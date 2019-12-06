@@ -21,11 +21,38 @@
     background-color: rgba(33, 32, 36, 0.5);
 }
 
+.queueSong {
+    color: white;
+    overflow: hidden;
+    height: 95px;
+    display: flex;
+    flex-direction: row;
+}
+
+.queueSong:hover {
+    background-color: rgba(49, 47, 54, 1);
+    cursor: pointer;
+}
+
+.queueSong:active {
+  background-color: rgba(60, 60, 60, 1);
+}
+
 .albumart {
     width: 64px !important;
     height: 64px !important;
-    vertical-align: middle;
     float: left;
+}
+
+.albumContainer {
+    display: flex;
+    align-items: center;
+}
+
+.infoContainer {
+    display: flex;
+    align-items: center;
+    width: calc(100% - 64px - 90px)
 }
 
 .song-container {
@@ -35,12 +62,15 @@
 
 .info {
   margin-left: 15px;
+  text-align: left;
+  height: 64px !important;
 }
 
 .resultControls {
   display: flex;
-  flex-direction: column;
-  width: 40px;
+  flex-direction: row-reverse;
+  width: 90px;
+  align-items: center;
 }
 
 .addResult {

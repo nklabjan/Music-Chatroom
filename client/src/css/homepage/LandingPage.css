@@ -16,9 +16,12 @@
   .LandingPage {
     width: 100vw;
     height: 100vh;
-    background-image:url('https://media.giphy.com/media/n3xSURtNE62t2/giphy.gif');
-    background-repeat:no-repeat;
-    background-size:100% 100%;
+    background:
+      /* top, transparent red, faked with gradient */
+      no-repeat
+      url('https://media.giphy.com/media/n3xSURtNE62t2/giphy.gif')
+      ;
+    background-size: 100% 100%;
     position: absolute;
   }
 
@@ -57,9 +60,9 @@
   .WhoAreWe {
     display: flex;
     flex-direction: column;
-    width: 60vw;
+    width: 75vw;
     position: fixed;
-    height: 60vh;
+    height: 70vh;
     overflow-y: scroll;
     background-color: rgba(255, 255, 255, .25);
     color: white;
@@ -95,8 +98,6 @@
     font-size: 28px;
     font-weight: bold;
     display: flex;
-    /* align-items: center;
-    justify-content: center; */
     color: black;
   }
 

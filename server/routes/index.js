@@ -21,6 +21,7 @@ var my_client_id = process.env.CLIENT_APP_ID;
 var redirect_uri = urls.backend_url + '/auth/';
 //var redirect_uri = "http://localhost:8080/auth/"
 /* GET home page. */
+
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
@@ -35,9 +36,21 @@ router.get('/login', function(req, res) {
     '&client_id=' + my_client_id +
     (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
     '&redirect_uri=' + encodeURIComponent(redirect_uri));
+});
 
-
+router.post('/saveProfile', function(req,res) {
+  //At this point use information from req.body to modify data in the database
+  //Can only modify about_me, display_name and music_taste at this point
+  userInfo = req.body
+  client.query('UPDATE "music_chatroom".users SET display_name = ($1), about_me = ($2), \
+                music_taste = ($3) WHERE id = $4',
+      [userInfo.display_name, userInfo.about_me, userInfo.music_taste, userInfo.id], function(err, resp) {
+      if (err) {
+        console.log("Update failed!");
+      }
   });
+  console.log(req.body);
+});
 
 router.get('/auth', function(req, res) {
     console.log(redirect_uri);
@@ -57,18 +70,17 @@ router.get('/auth', function(req, res) {
     json: true
   }
 
-  //Get spotify access token and refresh tokens
-  request.post(authOptions, function(error, response, body) {
-    var access_token = body.access_token
-    var refresh_token = body.refresh_token
-    let uri = urls.frontend_uri
-    res.redirect(uri + '?access_token=' + access_token + '&refresh_token=' + refresh_token)
-  })
-  });
+    //Get spotify access token and refresh tokens
+    request.post(authOptions, function(error, response, body) {
+      var access_token = body.access_token
+      var refresh_token = body.refresh_token
+      let uri = urls.frontend_uri
+      res.redirect(uri + '?access_token=' + access_token + '&refresh_token=' + refresh_token)
+    })
+});
 
   router.post('/realLogin', function(req, res) {
-    if (req.body.access_token)
-    {
+    if (req.body.access_token) {
       let authOptions = {
         url: 'https://api.spotify.com/v1/me',
         headers: {
@@ -78,10 +90,43 @@ router.get('/auth', function(req, res) {
       }
       request.get(authOptions, function(error, response, body) {
         var userInfo = body;
-      })
-    }
+        console.log(userInfo)
 
-    });
+        if (!userInfo.error)
+        {
+          client.query('INSERT INTO "music_chatroom".users(display_name, email, external_spotify_url, id, profile_image, product, about_me, music_taste) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
+              [userInfo.display_name, userInfo.email, userInfo.external_urls.spotify, userInfo.id, userInfo.images[0].url, userInfo.product, '', ''], function(err, resp) {
+          if (err) {
+            console.log("User already exists in database!");
+          }
+          });
+
+          //At this point user should already exist in the database
+          //find user using a query
+          //DO NOT USE userInfo but use info pulled from the database
+          client.query('SELECT * FROM "music_chatroom".users WHERE id = ($1)',
+                        [userInfo.id], function(err, resp) {
+                  if (err) {
+                    //This should not print
+                    console.log("User DOES NOT exist in the database !");
+                  }
+                  //Should only return 1 row
+                  if (resp.rows.length > 0)
+                  {
+                    var db_userInfo = resp.rows[0];
+                    res.json({userInfo: db_userInfo})
+                  }
+                });
+        }
+        else
+        {
+          //This means that login failed
+          res.json({error:"failed"})
+        }
+
+      });
+    }
+  });
 
   router.get('/getLounges', function(req, res) {
     let lounges = [];
@@ -102,7 +147,7 @@ router.get('/auth', function(req, res) {
     var request = req.body
     var new_chatroom = new Chatroom.Chatroom(req.app.locals.io, new_id, request);
     req.app.locals.chatrooms[new_id] = new_chatroom;
-    
+
     var genres = "";
     if (request.genres.length === 1) {
       genres = request.genres[0];
@@ -111,17 +156,12 @@ router.get('/auth', function(req, res) {
       genres = request.genres[0] + ", " + request.genres[1];
     }
 
-    let query_err = false;
-
-    client.query('INSERT INTO "music_chatroom".lounges(name, lounge_master, description, genres) VALUES ($1, $2, $3, $4)', 
+    client.query('INSERT INTO "music_chatroom".lounges(name, lounge_master, description, genres) VALUES ($1, $2, $3, $4)',
         [request.name, request.loungeMasterName, request.desc, genres], function(err, resp) {
-          if (err) {
-            query_err = true;
-          }
           req.app.locals.idCounter++;
 
-          res.json({query_error: query_err, 
+          res.json({
             lounge_info: new_chatroom.minimalInfo()});
     });
-  })
+  });
 module.exports = router;
