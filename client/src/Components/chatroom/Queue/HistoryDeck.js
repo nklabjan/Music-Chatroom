@@ -19,8 +19,7 @@ class HistoryDeck extends Component {
                         {
                                 this.props.queueList.map((song, songIndex) => {
                                   //only render songs that are after the position
-                                  if (songIndex < this.props.queuePos)
-                                  {
+
                                     return (
                                         <QueueCard
                                         key=    {songIndex}
@@ -31,8 +30,7 @@ class HistoryDeck extends Component {
                                         isLM = {this.props.isLM}
                                        />
                                      )
-                                  }
-                                  else return null;
+
                               })
                         }
                       </div>
