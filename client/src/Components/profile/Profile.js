@@ -44,19 +44,15 @@ class Profile extends Component {
     }
 
     onDetailChange(type,value) {
-      if (type === "Username")
-      {
+      if (type === "Username") {
         this.setState({userName: value});
       }
-      else if (type === "About Me")
-      {
+      else if (type === "About Me") {
         this.setState({aboutMe: value});
       }
-      else if (type === "Music Taste")
-      {
+      else if (type === "Music Taste") {
         this.setState({musicTaste: value});
       }
-
     }
 
     render() {
