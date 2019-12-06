@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlayCircle, faPauseCircle, faTimesCircle} from '@fortawesome/free-regular-svg-icons';
 import { faStepForward, faStepBackward,faMusic,
         faPlusCircle, faVolumeUp, faVolumeMute} from '@fortawesome/free-solid-svg-icons';
+import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 import AddSongModal from './AddSongModal';
 import '../../../css/chatroom/player/Player.css';
 
@@ -309,15 +310,26 @@ class Player extends Component {
             </div>
 
             <div className="playerRight">
-              <button className="add-song" onClick={() => this.handleShow()}>
-                <FontAwesomeIcon size="lg" icon={faPlusCircle} />
-              </button>
-              <button className="queue-list" onClick={()=>this.addRandomSong()}>
-                <FontAwesomeIcon size="lg" icon={faMusic} />
-              </button>
-              <button className="volume" onClick={()=> this.toggleVolume()}>
-                <FontAwesomeIcon size="lg" icon={ this.state.isMute ? faVolumeMute : faVolumeUp} />
-              </button>
+              <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Add Specific Song to Queue</Tooltip>}>
+                <button className="add-song" onClick={() => this.handleShow()}>
+                  <FontAwesomeIcon size="lg" icon={faPlusCircle} />
+                </button>
+              </OverlayTrigger>
+              <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Add Random Song to Queue</Tooltip>}>
+                <button className="queue-list" onClick={()=>this.addRandomSong()}>
+                  <FontAwesomeIcon size="lg" icon={faMusic} />
+                </button>
+              </OverlayTrigger>
+              {this.state.isMute ? <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Unmute</Tooltip>}>
+                <button className="volume" onClick={()=> this.toggleVolume()}>
+                  <FontAwesomeIcon size="lg" icon={ this.state.isMute ? faVolumeMute : faVolumeUp} />
+                </button>
+              </OverlayTrigger> : 
+              <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Mute</Tooltip>}>
+                <button className="volume" onClick={()=> this.toggleVolume()}>
+                  <FontAwesomeIcon size="lg" icon={ this.state.isMute ? faVolumeMute : faVolumeUp} />
+                </button>
+              </OverlayTrigger>}
               <VolumeSlider value={this.state.value}
                             handleVolume={this.handleVolume}
                             isMute= {this.state.isMute}/>
