@@ -3,6 +3,7 @@ import '../../css/chatroom/UserList.css';
 import {Image, Overlay} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCrown } from '@fortawesome/free-solid-svg-icons';
+
 import default_pic from '../../images/anonymous.png';
 import UserInfoPopover from './UserInfoPopover';
 
