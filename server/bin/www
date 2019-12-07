@@ -42,13 +42,17 @@ var fake_news = { loungeMasterName: "admin",
                   access_token: null,
                   }
 var test_song_queue = [{ title:"Waiting", artist:"Mac Ayres, Chris Anderson",
-                          album:"Something to Feel", uri:"spotify:track:0wExkpYXBBhfI27bx7hcM6"},
+                          album:"Something to Feel", uri:"spotify:track:0wExkpYXBBhfI27bx7hcM6",
+                          images: [null,null,{url:"https://i.scdn.co/image/ab67616d000048519cb53b7a34c898380cec05b2"}]},
                         { title:"Janet", artist:"Berhana",
-                          album:"Berhana", uri:"spotify:track:3ml3WB66sqG4kXoPBX2POA"},
+                          album:"Berhana", uri:"spotify:track:3ml3WB66sqG4kXoPBX2POA",
+                          images: [null,null,{url:"https://i.scdn.co/image/ab67616d000048519cb53b7a34c898380cec05b2"}]},
                         { title:"In My Room", artist:"Frank Ocean",
-                          album:"In My Room", uri:"spotify:track:4S4Mfvv03M1cHgIOJcbUCL"},
+                          album:"In My Room", uri:"spotify:track:4S4Mfvv03M1cHgIOJcbUCL",
+                          images: [null,null,{url:"https://i.scdn.co/image/ab67616d000048519cb53b7a34c898380cec05b2"}]},
                         { title:"The Other Side of Paradise", artist:"Glass Animals",
-                          album:"How To Be a Human Being", uri:"spotify:track:0rRjGruFonCGOt0S5zAJNQ"}];
+                          album:"How To Be a Human Being", uri:"spotify:track:0rRjGruFonCGOt0S5zAJNQ",
+                          images: [null,null,{url:"https://i.scdn.co/image/ab67616d000048519cb53b7a34c898380cec05b2"}]}];
 
 var master_chatroom = new Chatroom.Chatroom(io, 0, fake_news, test_song_queue);
 
@@ -80,9 +84,13 @@ io.on('connection', function(socket) {
       }
       else
       {
-        socket.join(loungeID)
-        chatrooms[loungeID].userConnected(socket,accessToken, userInfo);
-        console.log("existing room joined");
+        //Check if room exist to ensure that server does not crash
+        if (chatrooms[loungeID])
+        {
+          socket.join(loungeID)
+          chatrooms[loungeID].userConnected(socket,accessToken, userInfo);
+          console.log("existing room joined");
+        }
 
       }
     });
@@ -159,6 +167,28 @@ io.on('connection', function(socket) {
       }
     });
 
+    socket.on('delete_song', function(access_token, loungeID, queuePos) {
+      if (chatrooms[loungeID] !== undefined)
+      {
+        chatrooms[loungeID].deleteSong(queuePos);
+      }
+      else
+      {
+        console.log("Music attempted to be deleted in non-existing chatroom")
+      }
+    });
+
+    socket.on('move_to_next', function(access_token, loungeID, queuePos) {
+      if (chatrooms[loungeID] !== undefined)
+      {
+        chatrooms[loungeID].moveToNext(queuePos);
+      }
+      else
+      {
+        console.log("Music attempted to be deleted in non-existing chatroom")
+      }
+    });
+
     socket.on('add_song', function(access_token, loungeID, song_info, position) {
       if (chatrooms[loungeID] !== undefined)
       {
@@ -188,6 +218,27 @@ io.on('connection', function(socket) {
       else {
         console.log("Player can't be initialized in undefined room")
       }
+    })
+
+    socket.on('get_add_user_info', function(userID) {
+      //Check if user exist in database then
+      app.locals.dbClient.query('SELECT * FROM "music_chatroom".users WHERE id = ($1)',
+                    [userID], function(err, resp) {
+              if (err) {
+                //This should not print
+                console.log("User DOES NOT exist in the database !");
+
+                //Else emit null information from database
+                socket.emit("receive_add_user_info", null);
+              }
+              //Should only return 1 row
+              if (resp.rows.length > 0)
+              {
+                var db_userInfo = resp.rows[0];
+                //emit the information back to the incoming socket
+                socket.emit("receive_add_user_info", db_userInfo);
+              }
+            });
     })
 
 }

@@ -8,7 +8,12 @@
     border-right-width: 2px;
     width: 25vw;
     height: 78vh;
+}
 
+.QueueDeckHeader button:hover{
+  transition: all .5s ease-in-out;
+  transform: scale(1.2);
+  transform: rotate(-360deg)
 }
 
 .QueueDeckHeader {
@@ -51,6 +56,7 @@
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  background-color: rgba(33, 32, 36, 1);
 
 }
 

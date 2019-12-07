@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlayCircle, faPauseCircle, faTimesCircle} from '@fortawesome/free-regular-svg-icons';
 import { faStepForward, faStepBackward,faMusic,
         faPlusCircle, faVolumeUp, faVolumeMute} from '@fortawesome/free-solid-svg-icons';
+import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 import AddSongModal from './AddSongModal';
 import '../../../css/chatroom/player/Player.css';
 
@@ -159,22 +160,6 @@ class Player extends Component {
       this.props.setDeviceId(deviceId);
       this.props.syncMusicToRoom();
 
-      // fetch("https://api.spotify.com/v1/me/player", {
-      //   method: "PUT",
-      //   headers: {
-      //     authorization: `Bearer ${access_token}`,
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     "device_ids": [ deviceId ],
-      //     "play": true,
-      //   }),
-      // }).then(
-      //   //try syncing up music with the lounge
-      //   this.props.syncMusicToRoom()
-      // );
-
-      //instead of transfering playback now plays music according to the room
     }
 
     onPrevClick() {
@@ -289,7 +274,8 @@ class Player extends Component {
                           onHide={this.handleClose}
                           addSong={this.props.addSong}
                           access_token={this.props.access_token}
-                          playSong={this.props.playSong}/>
+                          playSong={this.props.playSong}
+                          isLM={this.props.isLM}/>
             <div className="playerLeft">
               <div className="albumInfo">
                 <img className="albumCover" src={this.state.albumCover} style={{width:75, height:75}} alt="Album Cover Doesn't Exist"></img>
@@ -298,14 +284,17 @@ class Player extends Component {
             </div>
 
             <div className="playerMiddle">
-              <div className="controls">
-                  <button className="previous" onClick={()=>{this.onPrevClick()}}>
+              <div className={this.props.isLM ? "controls" : "controls-disabled"}>
+                  <button className={this.props.isLM ? "previous" : "disabled-prev"}
+                          onClick={()=>{this.onPrevClick()}}>
                     <FontAwesomeIcon size="lg" icon={faStepBackward} />
                   </button>
-                  <button className="play-pause" onClick={()=>{this.onPlayClick()}}>
+                  <button className={this.props.isLM ? "play-pause" : "disabled-pp"}
+                          onClick={()=>{this.onPlayClick()}}>
                     <FontAwesomeIcon size="2x" icon={ this.state.playing ? faPauseCircle : faPlayCircle} />
                   </button>
-                  <button className="next" onClick={()=>{this.onNextClick()}}>
+                  <button className={this.props.isLM ? "next" : "disabled-n"}
+                          onClick={()=>{this.onNextClick()}}>
                     <FontAwesomeIcon size="lg" icon={faStepForward} />
                   </button>
               </div>
@@ -321,16 +310,29 @@ class Player extends Component {
             </div>
 
             <div className="playerRight">
-              <button className="add-song" onClick={() => this.handleShow()}>
-                <FontAwesomeIcon size="lg" icon={faPlusCircle} />
-              </button>
-              <button className="queue-list" onClick={()=>this.addRandomSong()}>
-                <FontAwesomeIcon size="lg" icon={faMusic} />
-              </button>
-              <button className="volume" onClick={()=> this.toggleVolume()}>
-                <FontAwesomeIcon size="lg" icon={ this.state.isMute ? faVolumeMute : faVolumeUp} />
-              </button>
-              <VolumeSlider value={this.state.value} handleVolume={this.handleVolume}/>
+              <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Add Specific Song to Queue</Tooltip>}>
+                <button className="add-song" onClick={() => this.handleShow()}>
+                  <FontAwesomeIcon size="lg" icon={faPlusCircle} />
+                </button>
+              </OverlayTrigger>
+              <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Add Random Song to Queue</Tooltip>}>
+                <button className="queue-list" onClick={()=>this.addRandomSong()}>
+                  <FontAwesomeIcon size="lg" icon={faMusic} />
+                </button>
+              </OverlayTrigger>
+              {this.state.isMute ? <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Unmute</Tooltip>}>
+                <button className="volume" onClick={()=> this.toggleVolume()}>
+                  <FontAwesomeIcon size="lg" icon={ this.state.isMute ? faVolumeMute : faVolumeUp} />
+                </button>
+              </OverlayTrigger> : 
+              <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Mute</Tooltip>}>
+                <button className="volume" onClick={()=> this.toggleVolume()}>
+                  <FontAwesomeIcon size="lg" icon={ this.state.isMute ? faVolumeMute : faVolumeUp} />
+                </button>
+              </OverlayTrigger>}
+              <VolumeSlider value={this.state.value}
+                            handleVolume={this.handleVolume}
+                            isMute= {this.state.isMute}/>
               <button className="leave-room" onClick={()=>{this.props.handleHome()}}>
                 <FontAwesomeIcon size="2x" icon={faTimesCircle} />
               </button>

@@ -75,6 +75,7 @@ class CadenceNavBar extends Component {
               {this.state.showModalProfile === true ? <Profile access_token={this.props.access_token}
                 userInfo={this.props.userInfo}
                 showModalProfile={this.state.showModalProfile}
+                updateProfileInfo={this.props.updateProfileInfo}
                 profileClose={() => this.profileClose()}/> : <></>}
           </div>)
       }

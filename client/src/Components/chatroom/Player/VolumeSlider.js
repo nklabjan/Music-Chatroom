@@ -15,7 +15,7 @@ class VolumeSlider extends Component {
         return (
               <div className="volSliderDiv">
                 <div className="volSliderContainer">
-                  <Slider className="volSlider"
+                  <Slider className={this.props.isMute ? "volSliderDisabled" : "volSlider"}
                           defaultValue={DEFAULT_VAL}
                           min={0} max={100}
                           value={this.props.value}

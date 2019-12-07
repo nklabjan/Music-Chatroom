@@ -29,6 +29,8 @@ class Lounge extends Component {
         this.seekToNewPos = this.seekToNewPos.bind(this);
         this.addRandomSong = this.addRandomSong.bind(this);
         this.addSong = this.addSong.bind(this);
+        this.deleteSong = this.deleteSong.bind(this);
+        this.moveToNext = this.moveToNext.bind(this);
         this.setUpSocket();
         this.setDeviceId = this.setDeviceId.bind(this);
         this.syncMusicToRoom = this.syncMusicToRoom.bind(this);
@@ -122,6 +124,16 @@ class Lounge extends Component {
       this.socket.emit('add_song', this.props.access_token, this.info.id, song_info, position);
     }
 
+    moveToNext(position) {
+      //when the song info parameter is left blank, adds a random song
+      this.socket.emit('move_to_next', this.props.access_token, this.info.id, position);
+    }
+
+    deleteSong(position) {
+      //when the song info parameter is left blank, adds a random song
+      this.socket.emit('delete_song', this.props.access_token, this.info.id, position);
+    }
+
     playSong(song_uri, queuePos) {
     //Sends device ID and Access token to backend to play music
     //through socket
@@ -173,13 +185,18 @@ class Lounge extends Component {
                     <div className="loungeContainer">
                         <Queue  socket={this.socket}
                                 playSong={this.playSong}
+                                deleteSong = {this.deleteSong}
+                                moveToNext = {this.moveToNext}
                                 queueList={this.state.queueList}
-                                queuePos = {this.state.queuePos}/>
+                                queuePos = {this.state.queuePos}
+                                isLM = {this.info.loungeMasterID === this.props.userInfo.id ? true : false}
+                                />
                         <Chat socket={this.socket}
                               loungeInfo={this.info}
                               messages={this.state.messages}/>
                         <UserList users={this.state.users}
-                                  loungeInfo={this.info}/>
+                                  loungeInfo={this.info}
+                                  socket={this.socket}/>
                     </div>
                     <Player access_token={this.props.access_token}
                             socket={this.socket}
@@ -193,6 +210,7 @@ class Lounge extends Component {
                             seekToNewPos={this.seekToNewPos}
                             queueList={this.state.queueList}
                             queuePos = {this.state.queuePos}
+                            isLM = {this.info.loungeMasterID === this.props.userInfo.id ? true : false}
                             />
 
                 </div>

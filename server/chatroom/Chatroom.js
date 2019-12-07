@@ -97,6 +97,19 @@ class Chatroom {
       }
     }
 
+    deleteSong(position) {
+      this.queue.removeSong(position);
+      var queueList = this.queue.songs;
+      this.io.to(this.id).emit("queue_received",  queueList, this.queue.position);
+      //if there is only 1 song in the queue, play the song immediately
+    }
+
+    moveToNext(position) {
+      this.queue.moveToNext(position);
+      var queueList = this.queue.songs;
+      this.io.to(this.id).emit("queue_received",  queueList, this.queue.position);
+    }
+
     togglePlay() {
       //this.io.to(this.id).emit("queue_received",  queueList, this.queue.position);
       this.io.to(this.id).emit("toggle_play");
@@ -152,12 +165,14 @@ class Chatroom {
           if (body.tracks)
           {
             var song = body.tracks.items[0]
+
             let title = song.name;
             let album = song.album.name;
             let artists = song.artists.map(artist => artist.name).join(", ");
-            let uri = body.tracks.items[0].uri;
+            let uri = song.uri;
+            let images = song.album.images;
 
-            let song_info = {title: title, album: album, artist: artists, uri: uri};
+            let song_info = {title: title, album: album, artist: artists, uri: uri, images: images};
 
             chatroom.addSong(access_token, song_info, "end");
           }
@@ -173,8 +188,8 @@ class Chatroom {
         {
             console.log("User " + userInfo.display_name + " connected to the lounge");
             var url;
-            if (userInfo.images[0]) {
-                url = userInfo.images[0].url;
+            if (userInfo.profile_image) {
+                url = userInfo.profile_image
             }
             else {
                 url = null;
@@ -183,7 +198,7 @@ class Chatroom {
           var minimalUserInfo = { display_name: userInfo.display_name,
                                   id: userInfo.id,
                                   image: url,
-                                  spotify_url: userInfo.external_urls.spotify,
+                                  spotify_url: userInfo.external_spotify_url,
                                   uri: userInfo.uri,
                                   country: userInfo.country,
           }
@@ -252,6 +267,7 @@ class Chatroom {
       //This also means that spotifyURI is actually a full song that needs to be added to the queue
       else if (!queuePos)
       {
+        //FIXME
         console.log(spotifyURI)
         //Make song next in line
         this.queue.addSong(spotifyURI, "start")

@@ -4,7 +4,7 @@ import '../../../css/chatroom/Queue.css'
 import QueueDeck from './QueueDeck';
 import HistoryDeck from './HistoryDeck';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHistory } from '@fortawesome/free-solid-svg-icons';
+import { faHistory, faListUl } from '@fortawesome/free-solid-svg-icons';
 
 class Queue extends Component {
     constructor() {
@@ -25,13 +25,19 @@ class Queue extends Component {
       <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="horizontal">
         <QueueDeck  socket={this.socket}
                     playSong={this.props.playSong}
+                    deleteSong = {this.props.deleteSong}
+                    moveToNext = {this.props.moveToNext}
                     queueList={this.props.queueList}
-                    queuePos={this.props.queuePos}/>
+                    queuePos={this.props.queuePos}
+                    isLM = {this.props.isLM}
+                    />
 
         <HistoryDeck  socket={this.socket}
                       playSong={this.props.playSong}
                       queueList={this.props.queueList}
-                      queuePos={this.props.queuePos}/>
+                      queuePos={this.props.queuePos}
+                      isLM = {!this.props.isLM}
+                      />
       </ReactCardFlip>
     )
 
@@ -45,10 +51,9 @@ class Queue extends Component {
                   <div className="QueueDeckTitle">{!this.state.isFlipped ? "Queue" : "History"}</div>
                   <div className="QueueDeckHeader-Part">
                     <button className="history-btn" onClick={this.handleClick}>
-                      <FontAwesomeIcon icon={ faHistory } />
+                      <FontAwesomeIcon icon={!this.state.isFlipped ? faHistory : faListUl} />
                     </button>
                   </div>
-
                 </div>
                     {this.renderDeck()}
                 </div>
