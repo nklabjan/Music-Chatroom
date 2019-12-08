@@ -12,7 +12,7 @@
 .song {
     color: white;
     overflow: hidden;
-    height: 95px;
+    height: 110px;
     display: flex;
     flex-direction: row;
 }
@@ -24,7 +24,7 @@
 .queueSong {
     color: white;
     overflow: hidden;
-    height: 95px;
+    height: 110px;
     display: flex;
     flex-direction: row;
 }
@@ -58,6 +58,10 @@
 .song-container {
     height: 35vh;
     overflow: scroll;
+}
+
+.albumName {
+  font-style: italic;
 }
 
 .info {

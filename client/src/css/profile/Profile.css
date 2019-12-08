@@ -19,13 +19,6 @@
     overflow-y: auto !important;
 }
 
-.modBodyProf::-webkit-scrollbar {
-    width: 1em !important;
-}
-.modBodyProf::-webkit-scrollbar-thumb {
-    background:black;
-    border-radius: 300px;
-}
 .createBtnCloseProf {
     background: rgba(49, 47, 54, 1) !important;
 }

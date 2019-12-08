@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import '../../css/makechatroom/makechatroom.css';
 import {Modal, Button} from 'react-bootstrap';
 import MakeChatDetails from './MakeChatDetails';
-import AddSongModal from '../chatroom/Player/AddSongModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faPlusCircle} from '@fortawesome/free-solid-svg-icons';
 class MakeChatroom extends Component {
@@ -46,17 +45,9 @@ class MakeChatroom extends Component {
                     <Modal.Title className="modTitle">Create Your Own Lounge</Modal.Title>
                     </Modal.Header>
                     <Modal.Body className="modBody">
-                    <button className="add-song" onClick={() => this.handleShow()}>
-                        <FontAwesomeIcon size="lg" icon={faPlusCircle} />
-                    </button>
                         <MakeChatDetails label="formLoungeName" display="Lounge Name"/>
                         <MakeChatDetails label="formDescription" display="Description"/>
                         <MakeChatDetails label="formGenres" display="Genres"/> 
-                        <AddSongModal   show={this.state.show}
-                                            onHide={this.handleClose}
-                                            addSong={this.props.addSong}
-                                            access_token={this.props.access_token}
-                                            playSong={this.props.playSong}/>    
                     </Modal.Body>
                     <Modal.Footer>
                     <Button className="createBtnClose" variant="secondary" onClick={this.props.handleClose}>
