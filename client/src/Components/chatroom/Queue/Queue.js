@@ -21,8 +21,6 @@ class Queue extends Component {
     this.setState(prevState => ({ isFlipped: !prevState.isFlipped }));
     }
     renderDeck() {
-      var historyList = this.props.queueList.slice(0, this.props.queuePos);
-      historyList.reverse();
       return (
       <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="horizontal">
         <QueueDeck  socket={this.socket}
@@ -36,7 +34,7 @@ class Queue extends Component {
 
         <HistoryDeck  socket={this.socket}
                       playSong={this.props.playSong}
-                      queueList={historyList}
+                      queueList={this.props.queueList}
                       queuePos={this.props.queuePos}
                       isLM = {!this.props.isLM}
                       />

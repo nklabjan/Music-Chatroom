@@ -23,7 +23,7 @@ class AddSongModal extends Component {
         let value = this.search.current.value.split(' ').join('+');
         if (value.length > 0)
         {
-          let url = 'https://api.spotify.com/v1/search/?q=' + value + '*&type=track&limit=8';
+          let url = 'https://api.spotify.com/v1/search/?q=' + value + '*&type=track&limit=20';
           const response = await fetch(url, {
               method: "GET",
               headers: {

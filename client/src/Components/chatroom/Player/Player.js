@@ -40,15 +40,27 @@ class Player extends Component {
 
       this.props.socket.on('toggle_play', function() {
         //Attempt to toggle play for everyone
-        player.player.togglePlay();
+        if (player !== null)
+        {
+          player.player.togglePlay();
+        }
+        else
+        {
+          console.log("Player is getting ready!")
+        }
       })
 
       this.props.socket.on('seek_to_position', function(new_position) {
         //Attempt to toggle play for everyone
-
-        player.player.seek(new_position);
-        player.setState({position: new_position});
-
+        if (player !== null)
+        {
+          player.player.seek(new_position);
+          player.setState({position: new_position});
+        }
+        else
+        {
+          console.log("Player is getting ready!")
+        }
       })
   }
 
@@ -324,7 +336,7 @@ class Player extends Component {
                 <button className="volume" onClick={()=> this.toggleVolume()}>
                   <FontAwesomeIcon size="lg" icon={ this.state.isMute ? faVolumeMute : faVolumeUp} />
                 </button>
-              </OverlayTrigger> : 
+              </OverlayTrigger> :
               <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Mute</Tooltip>}>
                 <button className="volume" onClick={()=> this.toggleVolume()}>
                   <FontAwesomeIcon size="lg" icon={ this.state.isMute ? faVolumeMute : faVolumeUp} />

@@ -137,19 +137,17 @@ class Lounge extends Component {
     playSong(song_uri, queuePos) {
     //Sends device ID and Access token to backend to play music
     //through socket
-    //Hardcode to play "spotify:track:5bvNpG6wiIEf1PA13TkTu2" for now
-    //console.log(this.props)
-    //let song = this.props.uri;
 
     //Check if is loungemaster
-    if (this.info.loungeMasterID === this.props.userInfo.id)
-    {
-      //Toggle play for everyone else
-      this.socket.emit( 'play_song',
-                        song_uri,
-                        this.info.id,
-                        queuePos);
-    }
+      if (this.info.loungeMasterID === this.props.userInfo.id)
+      {
+        console.log("Playing song at pos" + queuePos);
+        //Toggle play for everyone else
+        this.socket.emit( 'play_song',
+                          song_uri,
+                          this.info.id,
+                          queuePos);
+      }
 
     }
 

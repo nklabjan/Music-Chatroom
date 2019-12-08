@@ -1,20 +1,19 @@
 import React, {Component} from "react";
-import '../../css/chatroom/UserList.css';
+import '../../../css/chatroom/UserList.css';
 import {Popover, Image} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import default_pic from '../../images/anonymous.png';
 
-class UserInfoPopover extends Component {
+class LoungePopover extends Component {
 
     componentDidMount() {
       //check if extra info is null if not make a call to database
-      if (this.props.extraInfo === null)
-      {
-        this.props.requestAdditionalInfo();
-      }
+      // if (this.props.extraInfo === null)
+      // {
+      //   this.props.requestAdditionalInfo();
+      // }
     }
 
-    renderUserInfo() {
+    renderLoungeInfo() {
       if (this.props.extraInfo === null)
       return (
         <div className="userInfo">
@@ -25,9 +24,7 @@ class UserInfoPopover extends Component {
       else {
         return (
           <div className="userInfo">
-            <div className="userInfoName">{"Name: " + this.props.extraInfo.display_name}</div>
-            <div className="userInfoAboutMe">{"About Me: " + this.props.extraInfo.about_me}</div>
-            <div className="userInfoMusicTaste">{"Music Taste: " + this.props.extraInfo.music_taste}</div>
+            No info to be displayed.
           </div>
         )
       }
@@ -48,11 +45,11 @@ class UserInfoPopover extends Component {
                     >
 
             <Popover.Title as="h3" className= "userInfoPopoverTitle">
-              {this.props.user.display_name}
+              ???
             </Popover.Title>
             <Popover.Content className="userInfoPopoverContent">
               <div className="userInfoContainer">
-                {this.renderUserInfo()}
+                {this.renderLoungeInfo()}
               </div>
             </Popover.Content>
           </Popover>
@@ -60,4 +57,4 @@ class UserInfoPopover extends Component {
     }
 }
 
-export default UserInfoPopover;
+export default LoungePopover;

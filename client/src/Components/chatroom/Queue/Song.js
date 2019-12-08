@@ -123,7 +123,6 @@ class Song extends Component {
   render() {
     if (this.props.viewType === "queue")
     {
-      console.log(this.props.data)
       return (
         <div  className="queueSong">
           <div className="albumContainer">

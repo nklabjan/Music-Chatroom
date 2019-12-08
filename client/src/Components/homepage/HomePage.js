@@ -40,7 +40,6 @@ class HomePage extends Component {
 
     componentDidMount(){
       this._isMounted = true;
-      console.log(this._isMounted)
       this.props.getLounges();
       this.checkForLounges(2000);
     }
