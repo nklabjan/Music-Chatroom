@@ -5,7 +5,7 @@ import Neville from "../../images/Neville.jpg";
 // import Tomas from "../../images/Tomas.jpg";
 import Nick from "../../images/Nick.jpg";
 // import Michael from "../../images/Michael.jpg";
-// import James from "../../images/James.jpg";
+import James from "../../images/James.jpg";
 
 class WhoAreWe extends Component {
     render() {
@@ -68,13 +68,13 @@ class WhoAreWe extends Component {
                       </div>
                     </div>
                     <div className="Creator">
-                      <Image src={Brian} className="CreatorImg" alt="A photo of James."></Image>
-                      {/* <Image src={James} className="CreatorImg" alt="A photo of James."></Image> */}
+                      <Image src={James} className="CreatorImg" alt="A photo of James."></Image>
                       <div className="Info">
-                        <div className="Name">James</div>
+                        <div className="Name">James Kuoppala</div>
                         <div className="Description">
-                          Lorem ipsum intellegens quid ait illi et ego valde impressis.
-                          Hoc replere, intulere. Spero autem quod illud est satis honeste. Bene, tempus est ire!
+                          James is a Computer Science student at UW-Madison who is graduating in December 2019. After graduation,
+                          James plans to work at Epic Systems in Wisconsin as a Software Engineer. In his free time, James loves to
+                          play video games and kick back and relax with his friends.
                         </div>
                       </div>
                     </div>
