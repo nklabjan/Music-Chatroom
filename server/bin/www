@@ -54,12 +54,12 @@ var test_song_queue = [{ title:"Waiting", artist:"Mac Ayres, Chris Anderson",
                           album:"How To Be a Human Being", uri:"spotify:track:0rRjGruFonCGOt0S5zAJNQ",
                           images: [null,{url:"https://i.scdn.co/image/ab67616d00001e029cb53b7a34c898380cec05b2"},{url:"https://i.scdn.co/image/ab67616d000048519cb53b7a34c898380cec05b2"}]}];
 
-var master_chatroom = new Chatroom.Chatroom(io, 0, fake_news, test_song_queue);
+//var master_chatroom = new Chatroom.Chatroom(io, 0, fake_news, test_song_queue);
 
 //Store client information
 var chatrooms = app.locals.chatrooms; //So that it can be accessed by other ports
 //app.locals.chatrooms keeps track of all the chatrooms
-chatrooms[0] = master_chatroom;
+//chatrooms[0] = master_chatroom;
 
 var idCounter = app.locals.idCounter;
 

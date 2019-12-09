@@ -57,18 +57,20 @@ class HomePage extends Component {
                         Lounges
                       </div>
                     </div>
-                    <div className="Chatrooms"> {
-                      this.props.chatRooms.map((chatroom, idx) => {
-                        return (
-                          <LoungeCard key={idx}
-                                      idx={idx}
-                                      passed_key={idx}
-                                      chatroom={chatroom}
-                                      joinRoom={this.joinRoom}
-                                      isPremiumUser={this.props.isPremiumUser}/>
-                        )
-                      })
-                    }
+                    <div className="loungesDisplay">
+                      <div className="Chatrooms"> {
+                        this.props.chatRooms.map((chatroom, idx) => {
+                          return (
+                            <LoungeCard key={idx}
+                                        idx={idx}
+                                        passed_key={idx}
+                                        chatroom={chatroom}
+                                        joinRoom={this.joinRoom}
+                                        isPremiumUser={this.props.isPremiumUser}/>
+                          )
+                        })
+                      }
+                      </div>
                     </div>
                     </>
                   );

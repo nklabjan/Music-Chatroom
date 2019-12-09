@@ -7,6 +7,13 @@
     flex-direction: column;
   }
 
+  .loungesDisplay {
+    height:85vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .logout {
     position: fixed;
     margin-top: 5px;
@@ -55,9 +62,8 @@
     overflow-y: scroll;
     display: flex;
     flex-wrap: wrap;
-    margin-left: 10vw;
-    margin-top: 20vh;
-    height: 70vh;
+    padding-top: 15vh;
+    height: 100%;
     width: 80vw;
 
   }
@@ -129,11 +135,11 @@
   }
 
   .songView{
-    height: 80%;
+    height: 75%;
   }
 
   .infoView{
-    height: 20%;
+    height: 25%;
     display: flex;
     align-items: flex-end;
     justify-content: space-around;
@@ -215,6 +221,10 @@
   .cardSongArtist{
     font-size: 14px;
     text-align: center;
+  }
+
+  .cardSongInfo{
+    overflow-y: scroll;
   }
 
   .cardImage{

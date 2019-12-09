@@ -111,7 +111,6 @@ class Song extends Component {
   }
 
   renderControls() {
-
       return(
         <div className="resultControls">
           <button className="addResult" onClick={()=> this.addNewSong("end")}>
@@ -120,7 +119,6 @@ class Song extends Component {
           {this.renderAddToNextBtn()}
         </div>
       )
-
   }
 
   render() {

@@ -32,8 +32,10 @@ class CardFront extends Component {
                   alt="Not found"
                   className="cardImage"/>
             </div>
-            <div className="cardSongTitle">{this.props.chatroom.currSong.title}</div>
-            <div className="cardSongArtist">{this.props.chatroom.currSong.artist}</div>
+            <div className="cardSongInfo">
+              <div className="cardSongTitle">{this.props.chatroom.currSong.title}</div>
+              <div className="cardSongArtist">{this.props.chatroom.currSong.artist}</div>
+            </div>
           </div>
         )
       }
