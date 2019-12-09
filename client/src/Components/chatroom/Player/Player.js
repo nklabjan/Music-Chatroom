@@ -333,9 +333,11 @@ class Player extends Component {
               <VolumeSlider value={this.state.value}
                             handleVolume={this.handleVolume}
                             isMute= {this.state.isMute}/>
-              <button className="leave-room" onClick={()=>{this.props.handleHome()}}>
-                <FontAwesomeIcon size="2x" icon={faTimesCircle} />
+              <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Leave Lounge</Tooltip>}>
+                <button className="leave-room" onClick={()=>{this.props.handleHome()}}>
+                  <FontAwesomeIcon size="2x" icon={faTimesCircle} />
               </button>
+              </OverlayTrigger>
             </div>
             </div>
         )
