@@ -40,7 +40,7 @@ class WhoAreWe extends Component {
                       <div className="Info">
                         <div className="Name">Nick Klabjan</div>
                         <div className="Description">
-                          Nick is currently pursuing a Computer Science degree at UW-Madison with an expected graduation date of
+                          Nick is currently pursuing a Computer Science degree at UW-Madison with expectations of graduating in
                           December, 2019. Post graduation, Nick plans on working for Opex Analytics in Chicago as a Software Engineer.
                           During his free time, he loves to play soccer and basketball with his friends.
                         </div>
