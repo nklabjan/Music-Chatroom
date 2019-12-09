@@ -106,8 +106,14 @@
     justify-content: center;
   }
 
+  .roomFlip:hover {
+    cursor: pointer;
+    transition: 0.2s;
+    transform: scale(1.2);
+  }
+
   .cardText {
-    height: 13vh;
+    height: 25vh;
   }
 
   .enterBtn {
@@ -120,4 +126,116 @@
     transition: all .2s ease-in-out;
     background-color: rgba(104, 82, 156, 1);
     transform: scale(1.1);
+  }
+
+  .songView{
+    height: 80%;
+  }
+
+  .infoView{
+    height: 20%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    flex-direction: row-reverse;
+  }
+
+  .genreBtn {
+    background-color: black !important;
+    margin: 2px;
+  }
+  .songContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .prevSongContainer{
+    width: 15%;
+    display: flex;
+    overflow-x: hidden;
+    align-items: center;
+  }
+
+  .currSongContainer{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .currSongArt{
+    width: 100%;
+    height: 70%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .nextSongArt{
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    opacity: 0.5;
+
+  }
+
+  .nextSongArt:hover{
+    transition: 0.5s;
+    opacity: 1;
+  }
+
+
+  .nextSongContainer{
+    width: 15%;
+    display: flex;
+    overflow-x: hidden;
+    align-items: center;
+  }
+
+  .prevSongArt{
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    opacity: 0.5;
+    text-indent: -200%;
+    overflow-x: hidden;
+  }
+
+  .prevSongArt:hover{
+    transition: 0.5s;
+    opacity: 1;
+  }
+
+  .cardSongTitle{
+    text-align: center;
+    font-weight: bold;
+  }
+  .cardSongArtist{
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .cardImage{
+    width: 115px;
+    height: 115px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.38);
+
+  }
+
+  .cardImage:hover {
+    transition: 0.2s;
+    transform: scale(1.2);
+  }
+
+  .defCardImage{
+    width: 100px;
+    height: 100px;
+    border-radius: 18px 18px 18px 18px;
+  }
+
+  .defCardImage:hover {
+    transition: 0.2s;
+    transform: scale(1.2);
   }

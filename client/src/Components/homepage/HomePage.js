@@ -41,7 +41,6 @@ class HomePage extends Component {
 
     componentDidMount(){
       this._isMounted = true;
-      console.log(this._isMounted)
       this.props.getLounges();
       this.checkForLounges(2000);
     }
@@ -61,9 +60,10 @@ class HomePage extends Component {
                     <div className="Chatrooms"> {
                       this.props.chatRooms.map((chatroom, idx) => {
                         return (
-                          <LoungeCard key={idx} 
+                          <LoungeCard key={idx}
                                       idx={idx}
-                                      chatroom={chatroom} 
+                                      passed_key={idx}
+                                      chatroom={chatroom}
                                       joinRoom={this.joinRoom}
                                       isPremiumUser={this.props.isPremiumUser}/>
                         )

@@ -28,15 +28,16 @@ class LoungeCard extends Component {
 
     render() {
         return(
-            <ReactCardFlip isFlipped={this.state.isFlipped} 
+            <ReactCardFlip isFlipped={this.state.isFlipped}
                            flipDirection="horizontal"
-                           containerStyle={{width: '25%'}}>
-                <CardFront key='front'
+                           containerStyle={{width: '25%'}}
+                           >
+                <CardFront
                            chatroom={this.props.chatroom}
                            joinRoom={this.joinRoom}
                            isPremiumUser={this.props.isPremiumUser}
                            handleFlip={this.handleFlip} />
-                <CardBack key='back'
+                <CardBack
                           chatroom={this.props.chatroom}
                           joinRoom={this.joinRoom}
                           isPremiumUser={this.props.isPremiumUser}

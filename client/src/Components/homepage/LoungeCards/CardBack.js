@@ -8,20 +8,25 @@ class CardBack extends Component {
     constructor(props) {
         super(props);
     }
-    
+
     render() {
         return (
             <Card key={this.props.idx} bg="dark" text="white">
                 <Card.Header className="roomCardHeader">
                     <Card.Title>{this.props.chatroom.name}</Card.Title>
-                    <div className="roomLock" onClick={this.props.handleFlip}>
+                    <div className="roomFlip" onClick={this.props.handleFlip}>
                         <FontAwesomeIcon icon={faAngleDoubleRight}/>
                     </div>
                 </Card.Header>
                 <Card.Body className="roomCardBody">
                     <div className="loungeDesc">
                         <Card.Text className="cardText">
-                            {this.props.chatroom.desc}
+                            <div className="cardLM">
+                              {"Lounge by: " + this.props.chatroom.loungeMasterName}
+                            </div>
+                            <div className="cardDescription">
+                              {this.props.chatroom.desc}
+                            </div>
                         </Card.Text>
                     </div>
                 </Card.Body>

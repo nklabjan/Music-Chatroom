@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import { Table } from 'react-bootstrap';
 import QueueCard from './QueueCard';
 
 import '../../../css/chatroom/Queue.css';
@@ -12,27 +11,28 @@ class HistoryDeck extends Component {
           this.props.queueList !== undefined &&
           this.props.queuePos > 0)
       {
+        var historyList = this.props.queueList.slice(0, this.props.queuePos);
+        historyList.reverse();
+
         return (
                 <div className="QueueDeck">
 
                     <div className="QueueList">
                         {
-                                this.props.queueList.map((song, songIndex) => {
+                                historyList.map((song, songIndex) => {
                                   //only render songs that are after the position
-                                  if (songIndex < this.props.queuePos)
-                                  {
+
                                     return (
                                         <QueueCard
-                                        key=    {songIndex}
-                                        passed_key= {songIndex}
+                                        key=    {this.props.queuePos - (songIndex + 1)}
+                                        passed_key= {this.props.queuePos - (songIndex + 1)}
                                         song = {song}
                                         socket={this.props.socket}
                                         playSong={this.props.playSong}
                                         isLM = {this.props.isLM}
                                        />
                                      )
-                                  }
-                                  else return null;
+
                               })
                         }
                       </div>

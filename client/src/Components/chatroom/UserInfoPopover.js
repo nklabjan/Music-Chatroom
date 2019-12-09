@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import '../../css/chatroom/UserList.css';
-import {Popover, Image} from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import default_pic from '../../images/anonymous.png';
+import {Popover} from 'react-bootstrap';
+
 
 class UserInfoPopover extends Component {
 
@@ -23,7 +22,6 @@ class UserInfoPopover extends Component {
       )
       //This means that we got additional info from the database
       else {
-        console.log(this.props.extraInfo)
         return (
           <div className="userInfo">
             <div className="userInfoName">{"Name: " + this.props.extraInfo.display_name}</div>

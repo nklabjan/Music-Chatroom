@@ -38,21 +38,21 @@ var fake_news = { loungeMasterName: "admin",
                   loungeMasterID: "admin",
                   name: "test room",
                   desc: "this is random crap that i'm writing",
-                  genres: "toddler rock",
+                  genres: ["toddler rock"],
                   access_token: null,
                   }
 var test_song_queue = [{ title:"Waiting", artist:"Mac Ayres, Chris Anderson",
                           album:"Something to Feel", uri:"spotify:track:0wExkpYXBBhfI27bx7hcM6",
-                          images: [null,null,{url:"https://i.scdn.co/image/ab67616d000048519cb53b7a34c898380cec05b2"}]},
+                          images: [null,{url:"https://i.scdn.co/image/ab67616d00001e029cb53b7a34c898380cec05b2"},{url:"https://i.scdn.co/image/ab67616d000048519cb53b7a34c898380cec05b2"}]},
                         { title:"Janet", artist:"Berhana",
                           album:"Berhana", uri:"spotify:track:3ml3WB66sqG4kXoPBX2POA",
-                          images: [null,null,{url:"https://i.scdn.co/image/ab67616d000048519cb53b7a34c898380cec05b2"}]},
+                          images: [null,{url:"https://i.scdn.co/image/ab67616d00001e029cb53b7a34c898380cec05b2"},{url:"https://i.scdn.co/image/ab67616d000048519cb53b7a34c898380cec05b2"}]},
                         { title:"In My Room", artist:"Frank Ocean",
                           album:"In My Room", uri:"spotify:track:4S4Mfvv03M1cHgIOJcbUCL",
-                          images: [null,null,{url:"https://i.scdn.co/image/ab67616d000048519cb53b7a34c898380cec05b2"}]},
+                          images: [null,{url:"https://i.scdn.co/image/ab67616d00001e029cb53b7a34c898380cec05b2"},{url:"https://i.scdn.co/image/ab67616d000048519cb53b7a34c898380cec05b2"}]},
                         { title:"The Other Side of Paradise", artist:"Glass Animals",
                           album:"How To Be a Human Being", uri:"spotify:track:0rRjGruFonCGOt0S5zAJNQ",
-                          images: [null,null,{url:"https://i.scdn.co/image/ab67616d000048519cb53b7a34c898380cec05b2"}]}];
+                          images: [null,{url:"https://i.scdn.co/image/ab67616d00001e029cb53b7a34c898380cec05b2"},{url:"https://i.scdn.co/image/ab67616d000048519cb53b7a34c898380cec05b2"}]}];
 
 var master_chatroom = new Chatroom.Chatroom(io, 0, fake_news, test_song_queue);
 

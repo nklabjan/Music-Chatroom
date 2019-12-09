@@ -47,11 +47,12 @@ class Chatroom {
         //check if user is lounge master or not
         if (this.users[socket.id].id === this.loungeMasterID)
         {
-          console.log("yes i am the loungemaster")
+          //This means that the user is the lounge master and forces the
+          //song to play along with the loungemaster
           if (this.queue.songs.length > 0)
           {
             var def_song = this.queue.songs[this.queue.position];
-            socket.emit("play_song", def_song.uri);
+            this.io.to(this.id).emit("play_song", def_song.uri);
           }
         }
         //sync to what the lounge master is listening
@@ -74,12 +75,14 @@ class Chatroom {
               //song uri, progress_ms, is_playing then call on play
               if (body != undefined)
               {
-
                 var song_uri = body.item["uri"];
                 var timestamp = body.progress_ms;
-
-                //Play song for incoming user
-                socket.emit("play_song", song_uri, timestamp);
+                var isPlaying = body.is_playing;
+                //Play song for incoming user if Loungemaster has music playing.
+                if (isPlaying)
+                {
+                  socket.emit("play_song", song_uri, timestamp);
+                }
               }
           })
         }
@@ -268,12 +271,17 @@ class Chatroom {
       else if (!queuePos)
       {
         //FIXME
-        console.log(spotifyURI)
         //Make song next in line
-        this.queue.addSong(spotifyURI, "start")
-        //Play song
-        console.log("position: " + this.queue.position)
-        this.playSong(spotifyURI.uri, this.queue.position + 1)
+        if (this.queue.songs.length === 0)
+        {
+          this.addSong(null, spotifyURI, "end");
+        }
+        else
+        {
+          this.queue.addSong(spotifyURI, "start")
+          this.playSong(spotifyURI.uri, this.queue.position + 1)
+        }
+
 
       }
     }
@@ -299,12 +307,35 @@ class Chatroom {
     //user this function to get limited info on the chatroom
     minimalInfo() {
       //return id, loungeMaster, numUsers, currSong, description
+
+      //Prep curr song to be null if nothing is in the queue
+      if (this.queue.songs.length > 0)
+      {
+        var currSong = this.queue.songs[this.queue.position];
+      }
+      else currSong = null
+
+      //Prep prev and next song too
+      if (this.queue.position - 1 >= 0 )
+      {
+        var prevSong = this.queue.songs[this.queue.position - 1]
+      }
+      else prevSong = null
+
+      if (this.queue.songs.length - this.queue.position > 1)
+      {
+        var nextSong = this.queue.songs[this.queue.position + 1]
+      }
+      else nextSong = null
+
       var info = {id: this.id,
                   name: this.name,
                   loungeMasterName: this.loungeMasterName,
                   loungeMasterID: this.loungeMasterID,
                   numUsers: Object.keys(this.users).length,
-                  currSong: this.currSong,
+                  currSong: currSong,
+                  prevSong: prevSong,
+                  nextSong: nextSong,
                   genres: this.genres,
                   desc: this.desc};
       return info;

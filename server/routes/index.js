@@ -5,16 +5,16 @@ var router = express.Router();
 //var dotenv = require('dotenv').config();
 var urls = require('../constants.js');
 var Chatroom = require('../chatroom/Chatroom.js');
-const {Client} = require('pg');
-const client = new Client({
-  user: 'iddgxdpmzvrgnq',
-  host: 'ec2-54-83-55-122.compute-1.amazonaws.com',
-  database: 'd5a45rpdbn8ojc',
-  password: 'ed9db27f9307fbe752382ed5e5d87ca5eb01240893e16afa65bff0bab8530c8d',
-  port: 5432,
-  ssl: true
-})
-client.connect();
+// const {Client} = require('pg');
+// const client = new Client({
+//   user: 'iddgxdpmzvrgnq',
+//   host: 'ec2-54-83-55-122.compute-1.amazonaws.com',
+//   database: 'd5a45rpdbn8ojc',
+//   password: 'ed9db27f9307fbe752382ed5e5d87ca5eb01240893e16afa65bff0bab8530c8d',
+//   port: 5432,
+//   ssl: true
+// })
+// client.connect();
 
 
 var my_client_id = process.env.CLIENT_APP_ID;
@@ -42,14 +42,13 @@ router.post('/saveProfile', function(req,res) {
   //At this point use information from req.body to modify data in the database
   //Can only modify about_me, display_name and music_taste at this point
   userInfo = req.body
-  client.query('UPDATE "music_chatroom".users SET display_name = ($1), about_me = ($2), \
+  req.app.locals.dbClient.query('UPDATE "music_chatroom".users SET display_name = ($1), about_me = ($2), \
                 music_taste = ($3) WHERE id = $4',
       [userInfo.display_name, userInfo.about_me, userInfo.music_taste, userInfo.id], function(err, resp) {
       if (err) {
         console.log("Update failed!");
       }
   });
-  console.log(req.body);
 });
 
 router.get('/auth', function(req, res) {
@@ -90,11 +89,10 @@ router.get('/auth', function(req, res) {
       }
       request.get(authOptions, function(error, response, body) {
         var userInfo = body;
-        console.log(userInfo)
 
         if (!userInfo.error)
         {
-          client.query('INSERT INTO "music_chatroom".users(display_name, email, external_spotify_url, id, profile_image, product, about_me, music_taste) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
+          req.app.locals.dbClient.query('INSERT INTO "music_chatroom".users(display_name, email, external_spotify_url, id, profile_image, product, about_me, music_taste) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
               [userInfo.display_name, userInfo.email, userInfo.external_urls.spotify, userInfo.id, userInfo.images[0].url, userInfo.product, '', ''], function(err, resp) {
           if (err) {
             console.log("User already exists in database!");
@@ -104,7 +102,7 @@ router.get('/auth', function(req, res) {
           //At this point user should already exist in the database
           //find user using a query
           //DO NOT USE userInfo but use info pulled from the database
-          client.query('SELECT * FROM "music_chatroom".users WHERE id = ($1)',
+          req.app.locals.dbClient.query('SELECT * FROM "music_chatroom".users WHERE id = ($1)',
                         [userInfo.id], function(err, resp) {
                   if (err) {
                     //This should not print
@@ -156,7 +154,7 @@ router.get('/auth', function(req, res) {
       genres = request.genres[0] + ", " + request.genres[1];
     }
 
-    client.query('INSERT INTO "music_chatroom".lounges(name, lounge_master, description, genres) VALUES ($1, $2, $3, $4)',
+    req.app.locals.dbClient.query('INSERT INTO "music_chatroom".lounges(name, lounge_master, description, genres) VALUES ($1, $2, $3, $4)',
         [request.name, request.loungeMasterName, request.desc, genres], function(err, resp) {
           req.app.locals.idCounter++;
 

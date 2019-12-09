@@ -55,6 +55,7 @@ class LoungeQueue {
       //if position - this.position > 1, splice from original pos and put
       //into new position right after this.position,
       //go next
+
       if (position - this.position > 1)
       {
         this.songs.splice( position, 1);
@@ -68,6 +69,15 @@ class LoungeQueue {
       else if (position - this.position == -1)
       {
         this.prev();
+      }
+      //This means that loungeMaster is playing from music that are way before,
+      //Thus add current song to history and add another copy of song in history
+      //To song list
+      else if (position - this.position <= -2)
+      {
+        console.log("wait it should get here")
+        this.songs.splice( this.position + 1, 0, played_song);
+        this.next();
       }
 
       return played_song;

@@ -130,7 +130,6 @@ class ContentHandler extends Component {
     //do an axios get to the backend
     axios.get(urls.backend_url + '/getLounges')
       .then(res => {
-        console.log(res.data)
         this.setState({chatRooms: res.data.lounges})
       })
     this.forceUpdate();

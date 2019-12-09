@@ -19,11 +19,17 @@
 .duration {
   flex-grow: 1;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .position {
   flex-grow: 1;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
 }
 

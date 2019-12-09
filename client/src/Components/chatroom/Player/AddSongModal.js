@@ -28,7 +28,7 @@ class AddSongModal extends Component {
         }
         if (value.length > 0)
         {
-          let url = 'https://api.spotify.com/v1/search/?q=' + value + '*&type=track&limit=8';
+          let url = 'https://api.spotify.com/v1/search/?q=' + value + '*&type=track&limit=20';
           const response = await fetch(url, {
               method: "GET",
               headers: {
@@ -62,14 +62,12 @@ class AddSongModal extends Component {
 
                 }
             }
-            console.log("Song list:" + songs);
             return "Songs will be displayed as you search for them."
     }
 
     onEnterPress = (e) => {
         if (e.keyCode === 13) {
             e.preventDefault();
-            this.sendValidMessage();
         }
     }
 
