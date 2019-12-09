@@ -36,7 +36,7 @@ class Queue extends Component {
                       playSong={this.props.playSong}
                       queueList={this.props.queueList}
                       queuePos={this.props.queuePos}
-                      isLM = {!this.props.isLM}
+                      isLM = {false}
                       />
       </ReactCardFlip>
     )
