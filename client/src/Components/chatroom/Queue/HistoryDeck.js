@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import { Table } from 'react-bootstrap';
 import QueueCard from './QueueCard';
 
 import '../../../css/chatroom/Queue.css';

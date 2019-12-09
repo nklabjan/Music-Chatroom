@@ -42,12 +42,11 @@ class Chat extends Component {
   }
 
   render() {
-    console.log(this.props.loungeInfo)
       return (
               <div className="chatDisplay">
                 <div className="chatroom-header">
                   <div className="loungeHeader-Part"></div>
-                    <div className="title"> {this.props.loungeInfo.id} </div>
+                    <div className="title"> {this.props.loungeInfo.name} </div>
                   <div className="loungeHeader-Part">
                     <button className="loungeInfo-btn"
                             onClick={()=>this.toggleShow()}

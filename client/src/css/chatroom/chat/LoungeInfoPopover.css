@@ -1,0 +1,45 @@
+.loungeInfoPopoverTitle {
+  background-color: black !important;
+  color: white !important;
+  border-bottom: 0px !important;
+  display: flex;
+  flex-direction: row;
+  width: 20vw;
+}
+
+.arrow {
+  color: rgba(49, 47, 54, 1) !important;
+}
+
+.loungeInfoPopoverContent {
+  background-color: rgba(49, 47, 54, 1) !important;
+  color: white !important;
+  width: 20vw;
+  height: 200px;
+
+}
+
+.loungeInfoContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 180px;
+}
+
+.loungeInfoGenres {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.popoverLMName {
+  margin-left: 10px;
+}
+
+.LoungePopover {
+  left: -80px !important;
+}
+
+.genreBtn {
+  background-color: black !important;
+  margin: 2px;
+}

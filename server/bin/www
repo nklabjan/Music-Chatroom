@@ -38,7 +38,7 @@ var fake_news = { loungeMasterName: "admin",
                   loungeMasterID: "admin",
                   name: "test room",
                   desc: "this is random crap that i'm writing",
-                  genres: "toddler rock",
+                  genres: ["toddler rock"],
                   access_token: null,
                   }
 var test_song_queue = [{ title:"Waiting", artist:"Mac Ayres, Chris Anderson",

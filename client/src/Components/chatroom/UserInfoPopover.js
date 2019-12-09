@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import '../../css/chatroom/UserList.css';
-import {Popover, Image} from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import default_pic from '../../images/anonymous.png';
+import {Popover} from 'react-bootstrap';
+
 
 class UserInfoPopover extends Component {
 

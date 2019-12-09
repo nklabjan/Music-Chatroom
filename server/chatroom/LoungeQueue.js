@@ -55,8 +55,6 @@ class LoungeQueue {
       //if position - this.position > 1, splice from original pos and put
       //into new position right after this.position,
       //go next
-      console.log(position);
-      console.log(this.position);
 
       if (position - this.position > 1)
       {

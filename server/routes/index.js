@@ -49,7 +49,6 @@ router.post('/saveProfile', function(req,res) {
         console.log("Update failed!");
       }
   });
-  console.log(req.body);
 });
 
 router.get('/auth', function(req, res) {
@@ -90,7 +89,6 @@ router.get('/auth', function(req, res) {
       }
       request.get(authOptions, function(error, response, body) {
         var userInfo = body;
-        console.log(userInfo)
 
         if (!userInfo.error)
         {

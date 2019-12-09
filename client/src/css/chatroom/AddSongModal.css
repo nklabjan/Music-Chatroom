@@ -52,7 +52,7 @@
 .infoContainer {
     display: flex;
     align-items: center;
-    width: calc(100% - 64px - 90px)
+    width: calc(100%)
 }
 
 .song-container {
@@ -60,12 +60,15 @@
     overflow: scroll;
 }
 
-.albumName {
+.albumNameSearch {
   font-style: italic;
+  font-size: 14px;
+  color: rgba(134, 137, 131,1 );
 }
 
 .info {
   margin-left: 15px;
+  padding-left: 10px;
   text-align: left;
   height: 64px !important;
 }

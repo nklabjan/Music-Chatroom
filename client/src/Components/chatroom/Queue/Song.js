@@ -31,19 +31,6 @@ class Song extends Component {
 
   }
 
-  getSong() {
-    // if(this.props.data.name) {
-    //   if (this.state.data.name.length > 22) {
-    //     let name = this.state.data.name.slice(0, 22) + "...";
-    //     return name
-    //   }
-    // }
-    // return this.state.data.name
-  }
-
-
-
-  
   getArtists() {
     if (this.props.viewType === "queue")
     {
@@ -123,6 +110,20 @@ class Song extends Component {
     }
   }
 
+  renderControls() {
+    if (this.props.isLM)
+    {
+      return(
+        <div className="resultControls">
+          <button className="addResult" onClick={()=> this.addNewSong("end")}>
+            <FontAwesomeIcon icon={faPlusCircle}/>
+          </button>
+          {this.renderAddToNextBtn()}
+        </div>
+      )
+    }
+  }
+
   render() {
     if (this.props.viewType === "queue")
     {
@@ -137,7 +138,7 @@ class Song extends Component {
               <br />
               {this.getArtists()}
               <br />
-              <div className="albumName">
+              <div className="albumNameSearch">
                   {this.props.data.album}
               </div>
             </div>
@@ -167,12 +168,7 @@ class Song extends Component {
             </div>
           </div>
         </div>
-        <div className="resultControls">
-          <button className="addResult" onClick={()=> this.addNewSong("end")}>
-            <FontAwesomeIcon icon={faPlusCircle}/>
-          </button>
-          {this.renderAddToNextBtn()}
-        </div>
+        {this.renderControls()}
       </div>
     )
   }

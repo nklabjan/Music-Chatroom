@@ -2,28 +2,22 @@ import React, {Component} from "react";
 import '../../css/profile/Detail.css';
 
 class ProfileDetail extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         if(this.props.viewType === "display")
         {
             return (
-                <>
                     <div className="detail">
                         {this.props.label === "Username" ? <><div className="label-user">{this.props.label + ":"}</div>
                         <div className="info-user">{this.props.info}</div></> :
                         <><div className="label">{this.props.label + ":"}</div>
                         <div className="info">{this.props.info}</div></>}
                     </div>
-                </>
             );
         }
         else
         {
             return (
-                <>
                     <div className="detail">
                         {this.props.label === "Username" ?
                         <div className="label-user">{this.props.label + ":"} </div> : <div className="label">{this.props.label + ":"}</div>}
@@ -39,7 +33,6 @@ class ProfileDetail extends Component {
                                 <div className="restriction-profile">max characters = 250</div>
                             </div>}
                     </div>
-                </>
             );
         }
     }
