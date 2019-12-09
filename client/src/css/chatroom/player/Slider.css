@@ -19,12 +19,15 @@
 .duration {
   flex-grow: 1;
   text-align: center;
+  display: flex;
+  align-items: center;
 }
 
 .position {
   flex-grow: 1;
   text-align: center;
-
+  display: flex;
+  align-items: center;
 }
 
 .volSliderDiv {

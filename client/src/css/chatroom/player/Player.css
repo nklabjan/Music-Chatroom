@@ -46,6 +46,7 @@
     flex-grow: 0.8;
     display: flex;
     justify-content: center;
+    align-items: flex-end;
 }
 
 
@@ -59,6 +60,7 @@
     flex-grow: 0.8;
     display: flex;
     justify-content: center;
+    align-items: flex-end;
 
 }
 .controls-disabled button {
