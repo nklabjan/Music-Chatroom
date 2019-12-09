@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Image} from "react-bootstrap";
 import Brian from "../../images/Brian.jpg";
 import Neville from "../../images/Neville.jpg";
-// import Tomas from "../../images/Tomas.jpg";
+import Tomas from "../../images/Tomas.jpg";
 import Nick from "../../images/Nick.jpg";
 // import Michael from "../../images/Michael.jpg";
 import James from "../../images/James.jpg";
@@ -47,12 +47,14 @@ class WhoAreWe extends Component {
                       </div>
                     </div>
                     <div className="Creator">
-                      <Image src={Brian} className="CreatorImg" alt="A photo of Tomas."></Image>
+                      <Image src={Tomas} className="CreatorImg" alt="A photo of Tomas."></Image>
                       <div className="Info">
-                        <div className="Name">Tomas</div>
+                        <div className="Name">Tomas Larrain</div>
                         <div className="Description">
-                          Lorem ipsum intellegens quid ait illi et ego valde impressis.
-                          Hoc replere, intulere. Spero autem quod illud est satis honeste. Bene, tempus est ire!
+                          Tomas is a senior studying Computer Science at UW-Madison.  He has an expected 
+                          graduation date of December, 2020.  In his free time, Tomas enjoys watching sports,
+                          playing video games, and hanging out with friends.  After graduation, Tomas hopes
+                          to find a job in the Madison Area.
                         </div>
                       </div>
                     </div>
