@@ -69,7 +69,6 @@ class AddSongModal extends Component {
     onEnterPress = (e) => {
         if (e.keyCode === 13) {
             e.preventDefault();
-            this.sendValidMessage();
         }
     }
 
