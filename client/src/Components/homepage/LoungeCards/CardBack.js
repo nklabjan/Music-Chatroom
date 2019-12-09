@@ -11,10 +11,12 @@ class CardBack extends Component {
     
     render() {
         return (
-            <Card className="createdChatRoom" key={this.props.idx} bg="dark" text="white">
+            <Card key={this.props.idx} bg="dark" text="white">
                 <Card.Header className="roomCardHeader">
                     <Card.Title>{this.props.chatroom.name}</Card.Title>
-                    <div className="roomLock"><FontAwesomeIcon icon={faAngleDoubleRight}/></div>
+                    <div className="roomLock" onClick={this.props.handleFlip}>
+                        <FontAwesomeIcon icon={faAngleDoubleRight}/>
+                    </div>
                 </Card.Header>
                 <Card.Body className="roomCardBody">
                     <div className="loungeDesc">
@@ -22,12 +24,6 @@ class CardBack extends Component {
                             {this.props.chatroom.desc}
                         </Card.Text>
                     </div>
-                    <Button className="enterBtn"
-                        onClick={() => this.props.joinRoom()}
-                        variant="primary"
-                        disabled={!this.props.isPremiumUser ? true : false}>
-                        Enter Lounge
-                    </Button>
                 </Card.Body>
                 <Card.Footer className="roomCardFooter">
                     <Button className="enterBtn"

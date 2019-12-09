@@ -11,22 +11,26 @@ class CardFront extends Component {
 
     render() {
         return(
-            <Card className="createdChatRoom" key={this.props.idx} bg="dark" text="white">
+            <Card key={this.props.idx} bg="dark" text="white">
                 <Card.Header className="roomCardHeader">
                     <Card.Title>{this.props.chatroom.name}</Card.Title>
-                    <div className="roomLock"><FontAwesomeIcon icon={faAngleDoubleRight} /></div>
+                    <div className="roomFlip" onClick={this.props.handleFlip}>
+                        <FontAwesomeIcon icon={faAngleDoubleRight} />
+                    </div>
                 </Card.Header>
                 <Card.Body className="roomCardBody">
                     <Card.Subtitle className="mb-2 text-muted">
                         Master: {this.props.chatroom.loungeMasterName}
-                        <div className="loungeGenres"> {"Genre(s): " + this.props.chatroom.genres} </div>
+                        <div className="loungeGenres"> 
+                            {"Genre(s): " + this.props.chatroom.genres} 
+                        </div>
                     </Card.Subtitle>
                 </Card.Body>
                 <Card.Footer className="roomCardFooter">
                     <Button className="enterBtn"
-                        onClick={() => this.props.joinRoom()}
-                        variant="primary"
-                        disabled={!this.props.isPremiumUser ? true : false}>
+                            onClick={() => this.props.joinRoom()}
+                            variant="primary"
+                            disabled={!this.props.isPremiumUser ? true : false}>
                         Enter Lounge
                     </Button>
                 </Card.Footer>
