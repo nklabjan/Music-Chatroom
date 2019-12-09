@@ -59,8 +59,8 @@ class CardFront extends Component {
         return(
           <OverlayTrigger overlay={
             <Tooltip id="tooltip-disabled">
-              <div >{this.props.chatroom.prevSong.title}</div>
-              <div>{this.props.chatroom.prevSong.artist}</div>
+              <div className="tooltipTitle">{this.props.chatroom.prevSong.title}</div>
+              <div className="tooltipArtists">{this.props.chatroom.prevSong.artist}</div>
             </Tooltip>}>
 
             <div className="prevSongArt">
