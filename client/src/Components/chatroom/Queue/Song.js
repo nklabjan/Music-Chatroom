@@ -41,6 +41,9 @@ class Song extends Component {
     // return this.state.data.name
   }
 
+
+
+  
   getArtists() {
     if (this.props.viewType === "queue")
     {
@@ -123,7 +126,6 @@ class Song extends Component {
   render() {
     if (this.props.viewType === "queue")
     {
-      console.log(this.props.data)
       return (
         <div  className="queueSong">
           <div className="albumContainer">
@@ -134,6 +136,10 @@ class Song extends Component {
               <b>{this.props.data.title}</b>
               <br />
               {this.getArtists()}
+              <br />
+              <div className="albumName">
+                  {this.props.data.album}
+              </div>
             </div>
           </div>
           <div className="resultControls">
@@ -155,6 +161,10 @@ class Song extends Component {
             <b>{this.props.data.name}</b>
             <br />
             {this.getArtists()}
+            <br />
+            <div className="albumName">
+                  {this.props.data.album.name}
+            </div>
           </div>
         </div>
         <div className="resultControls">

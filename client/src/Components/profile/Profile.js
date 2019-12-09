@@ -67,7 +67,9 @@ class Profile extends Component {
                     <Modal.Title className="modTitleProf">{this.props.userInfo.display_name}'s Profile</Modal.Title>
                         </Modal.Header>
                     <Modal.Body className="modBodyProf">
-                        <img src={this.props.userInfo.profile_image} alt="Not Found" ></img>
+                        <div className="profImg">
+                          <img src={this.props.userInfo.profile_image} alt="Not Found" ></img>
+                        </div>
                         <ProfileDetail  viewType={this.state.viewType}
                                         label="Username"
                                         info={this.state.userName}

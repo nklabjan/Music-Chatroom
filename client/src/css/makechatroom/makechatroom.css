@@ -42,8 +42,13 @@
     color: white;
 }
 
+.addSong {
+    background-color: white !important;
+}
+
 .modBody {
     height: 60vh;
+    overflow-y: scroll !important;
 }
 
 .createBtnClose {
