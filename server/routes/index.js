@@ -92,7 +92,7 @@ router.get('/auth', function(req, res) {
 
         if (!userInfo.error)
         {
-          if (userInfo.images)
+          if (userInfo.images.length !== 0)
           {
             var image = userInfo.images[0].url;
           }
