@@ -130,7 +130,6 @@ io.on('connection', function(socket) {
       if (chatrooms[loungeID] !== undefined)
       {
         chatrooms[loungeID].togglePlay();
-        console.log("Testing toggling")
       }
       else {
         console.log("Attempt to toggle music failed")
@@ -197,7 +196,6 @@ io.on('connection', function(socket) {
         if (song_info === undefined)
         {
           //Add random song based on the genre of the room
-          console.log("attempting to add random song")
           chatrooms[loungeID].addRandomSong(access_token);
         }
         else

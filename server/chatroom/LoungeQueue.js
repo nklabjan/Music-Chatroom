@@ -24,7 +24,7 @@ class LoungeQueue {
     moveToNext(position) {
       var temp = this.songs[position]
       this.songs.splice( position, 1);
-      console.log(temp);
+      //console.log(temp);
       this.songs.splice( this.position + 1, 0 , temp);
     }
     //Adds a song to the queue - could be at the front or the back
@@ -75,7 +75,6 @@ class LoungeQueue {
       //To song list
       else if (position - this.position <= -2)
       {
-        console.log("wait it should get here")
         this.songs.splice( this.position + 1, 0, played_song);
         this.next();
       }

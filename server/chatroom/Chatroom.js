@@ -121,7 +121,7 @@ class Chatroom {
 
     forceSeek(socket, newPosition) {
       //this.io.to(this.id).emit("queue_received",  queueList, this.queue.position);
-      console.log("attempting to seek")
+      //console.log("attempting to seek")
       this.io.to(this.id).emit("seek_to_position", newPosition);
 
     }
@@ -189,7 +189,7 @@ class Chatroom {
         //New incoming connection
         if (this.users[socket.id] === undefined)
         {
-            console.log("User " + userInfo.display_name + " connected to the lounge");
+            console.log("User " + userInfo.display_name + " connected to the lounge " + this.name);
             var url;
             if (userInfo.profile_image) {
                 url = userInfo.profile_image
@@ -237,10 +237,10 @@ class Chatroom {
       {
         var user = this.users[socket.id]
         console.log("user " + socket.id + " has disconnected.");
-        console.log(user.display_name)
+        //console.log(user.display_name)
         delete this.users[socket.id];
         socket.leave(this.id);
-        console.log(this.users);
+        //console.log(this.users);
         console.log("Users left in lounge:" + Object.keys(this.users).length)
         //console.log(this.users)
         //Emit event to all other users to remove leaving user from list
@@ -254,7 +254,7 @@ class Chatroom {
       var chatroom = this; // alias this as chatroom so it can be referenced in async call
       if (queuePos != undefined && queuePos != null)
       {
-        console.log("Attempting to play " + spotifyURI)
+        //console.log("Attempting to play " + spotifyURI)
 
         //Cause everyone else to play the same music
         this.io.to(this.id).emit("play_song", spotifyURI);
@@ -287,7 +287,6 @@ class Chatroom {
     }
 
     chatMessage(socket, message) {
-        console.log("message received")
         if (this.users[socket.id] !== undefined)
         {
           var msgBlob = { 'userName': this.users[socket.id].display_name,

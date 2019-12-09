@@ -20,14 +20,14 @@ class CardBack extends Component {
                 </Card.Header>
                 <Card.Body className="roomCardBody">
                     <div className="loungeDesc">
-                        <Card.Text className="cardText">
+                        <div className="cardText">
                             <div className="cardLM">
                               {"Lounge by: " + this.props.chatroom.loungeMasterName}
                             </div>
                             <div className="cardDescription">
                               {this.props.chatroom.desc}
                             </div>
-                        </Card.Text>
+                        </div>
                     </div>
                 </Card.Body>
                 <Card.Footer className="roomCardFooter">

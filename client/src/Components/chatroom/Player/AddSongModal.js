@@ -37,7 +37,7 @@ class AddSongModal extends Component {
           });
           const myJson = await response.json();
           this.setState({ data: myJson });
-          console.log(this.state.data);
+          //console.log(this.state.data);
         }
 
     }
@@ -56,7 +56,7 @@ class AddSongModal extends Component {
                                   isLM={this.props.isLM}/>
                         )
                     }
-                    console.log(songs);
+                    //console.log(songs);
                     return songs
 
 

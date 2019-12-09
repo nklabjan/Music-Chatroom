@@ -59,7 +59,7 @@ class Lounge extends Component {
               if (lounge.state.users[i].id === user.id)
               {
                 const newList = lounge.state.users;
-                console.log(lounge.state.users[i].display_name + " left the room.")
+                //console.log(lounge.state.users[i].display_name + " left the room.")
                 newList.splice(i, 1);
 
                 lounge.setState({users: newList});
@@ -69,7 +69,6 @@ class Lounge extends Component {
         })
 
         this.socket.on('play_song', function(song_uri, position_ms) {
-            console.log("Room is now playing " + song_uri);
             //Handle removing users from list
             var req_body = { uris: [song_uri] }
             if (position_ms !== undefined)
@@ -141,7 +140,6 @@ class Lounge extends Component {
     //Check if is loungemaster
       if (this.info.loungeMasterID === this.props.userInfo.id)
       {
-        console.log("Playing song at pos" + queuePos);
         //Toggle play for everyone else
         this.socket.emit( 'play_song',
                           song_uri,
@@ -216,7 +214,6 @@ class Lounge extends Component {
         }
 
     componentWillUnmount(){
-      console.log(this.info.id);
       this.socket.emit('user_disconnected', this.info.id);
     }
 }

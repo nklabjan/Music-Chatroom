@@ -50,10 +50,6 @@ class LoungePopover extends Component {
     }
 
     render() {
-        //prep important props info
-        console.log(this.props.style)
-        console.log(this.props.arrowProps)
-
         return (
           <Popover  id="popover-basic"
                     arrowProps= {this.props.arrowProps}

@@ -28,10 +28,10 @@ class WhoAreWe extends Component {
                       <div className="Info">
                         <div className="Name">Neville Ng</div>
                         <div className="Description">
-                          Neville is a Senior majoring in Computer Sciences at UW-Madison. In his free time,
-                          he likes to jam out with friends, pretend to know art and catch up on the latest memes.
+                          Neville is a Senior majoring in Computer Sciences at UW-Madison graduating in May 2020.
+                          In his free time, he likes to jam out with friends, pretend to know art and catch up on the latest memes.
                           Neville is an avid DotA 2 fan and plays for the UW-Madison Varsity DotA team. His favorite
-                          drink is a nice, cold Long Island. Pls hire him.
+                          drink is a nice, cold Long Island.
                         </div>
                       </div>
                     </div>
@@ -51,7 +51,7 @@ class WhoAreWe extends Component {
                       <div className="Info">
                         <div className="Name">Tomas Larrain</div>
                         <div className="Description">
-                          Tomas is a senior studying Computer Science at UW-Madison.  He has an expected 
+                          Tomas is a senior studying Computer Science at UW-Madison.  He has an expected
                           graduation date of December, 2020.  In his free time, Tomas enjoys watching sports,
                           playing video games, and hanging out with friends.  After graduation, Tomas hopes
                           to find a job in the Madison Area.
