@@ -2,7 +2,6 @@
     height: 7vh;
     border-top-left-radius: 1rem !important;
     border-top-right-radius: 1rem !important;
-
 }
 
 .modTitleProf {
@@ -10,13 +9,16 @@
     font-size: 18px !important;
 }
 
+.profImg {
+    text-align: center;
+}
+
 .modal-content {
   background-color: rgba(0,0,0,0) !important;
 }
 
 .modBodyProf {
-    height: 50vh;
-    overflow-y: auto !important;
+    height: 80vh;
 }
 
 .createBtnCloseProf {
