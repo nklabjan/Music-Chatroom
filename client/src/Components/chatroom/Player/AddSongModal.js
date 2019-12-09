@@ -21,6 +21,11 @@ class AddSongModal extends Component {
 
     async getSongs() {
         let value = this.search.current.value.split(' ').join('+');
+        //console.log("the length of VALUE: " + value.length);
+        if(value.length === 0)
+        {
+            this.setState({data: undefined});
+        }
         if (value.length > 0)
         {
           let url = 'https://api.spotify.com/v1/search/?q=' + value + '*&type=track&limit=20';
@@ -32,7 +37,7 @@ class AddSongModal extends Component {
           });
           const myJson = await response.json();
           this.setState({ data: myJson });
-          //console.log(this.state.data);
+          console.log(this.state.data);
         }
 
     }
@@ -51,18 +56,19 @@ class AddSongModal extends Component {
                                   isLM={this.props.isLM}/>
                         )
                     }
+                    console.log(songs);
                     return songs
 
 
                 }
             }
+            console.log("Song list:" + songs);
             return "Songs will be displayed as you search for them."
     }
 
     onEnterPress = (e) => {
         if (e.keyCode === 13) {
             e.preventDefault();
-            //this.sendValidMessage();
         }
     }
 
