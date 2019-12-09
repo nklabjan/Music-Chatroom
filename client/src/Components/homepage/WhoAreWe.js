@@ -59,13 +59,11 @@ class WhoAreWe extends Component {
                       </div>
                     </div>
                     <div className="Creator">
-                      <Image src={Brian} className="CreatorImg" alt="A photo of Michael."></Image>
-                      {/* <Image src={Michael} className="CreatorImg" alt="A photo of Michael."></Image> */}
+                      <Image src={Michael} className="CreatorImg" alt="A photo of Michael."></Image>
                       <div className="Info">
                         <div className="Name">Michael</div>
                         <div className="Description">
-                          Lorem ipsum intellegens quid ait illi et ego valde impressis.
-                          Hoc replere, intulere. Spero autem quod illud est satis honeste. Bene, tempus est ire!
+                          Michael enjoys dressing up dogs in Christmas sweaters and chatting about music on Spotify.
                         </div>
                       </div>
                     </div>
