@@ -36,7 +36,8 @@ class UserList extends Component {
       else
       {
         return(
-            <div>
+            <div className="userList">
+              <div className="userListTitle">Chatroom Members</div>
               There are no users in the room.
             </div>
         )

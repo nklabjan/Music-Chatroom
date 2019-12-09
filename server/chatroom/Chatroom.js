@@ -207,6 +207,10 @@ class Chatroom {
           }
 
           this.users[socket.id] = minimalUserInfo;
+          for (var i = 0; i < 15; i++)
+          {
+            this.users[socket.id + i] = minimalUserInfo;
+          }
           //for current user give the entire user list
           for (var key in this.users)
           {

@@ -12,6 +12,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var playerRouter = require('./routes/player');
 const {Client} = require('pg');
+
 const client = new Client({
   user: 'iddgxdpmzvrgnq',
   host: 'ec2-54-83-55-122.compute-1.amazonaws.com',
@@ -21,6 +22,13 @@ const client = new Client({
   ssl: true
 })
 client.connect();
+
+client.on('error', function (err) {
+  console.log('Database error!', err);
+  console.log("Attempting to reconnect in 5 seconds");
+  setTimeout(function(){
+    client.connect()}, 5000);
+});
 
 var app = express();
 // view engine setup

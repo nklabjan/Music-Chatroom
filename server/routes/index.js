@@ -92,8 +92,14 @@ router.get('/auth', function(req, res) {
 
         if (!userInfo.error)
         {
+          if (userInfo.images)
+          {
+            var image = userInfo.images[0].url;
+          }
+          else image = '';
+
           req.app.locals.dbClient.query('INSERT INTO "music_chatroom".users(display_name, email, external_spotify_url, id, profile_image, product, about_me, music_taste) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
-              [userInfo.display_name, userInfo.email, userInfo.external_urls.spotify, userInfo.id, userInfo.images[0].url, userInfo.product, '', ''], function(err, resp) {
+              [userInfo.display_name, userInfo.email, userInfo.external_urls.spotify, userInfo.id, image, userInfo.product, '', ''], function(err, resp) {
           if (err) {
             console.log("User already exists in database!");
           }

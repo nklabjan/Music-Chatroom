@@ -30,10 +30,16 @@ class UserListMember extends Component {
         var userListMember = this;
 
         this.props.socket.on('receive_add_user_info', function(extraInfo) {
-          //Receives extra info from database
-          userListMember.setState({extraInfo: extraInfo});
-          //Reopen popover
-          setTimeout(function(){ userListMember.setState({showInfo: true})}, 200);
+          //Checks if extra info belongs to this user member
+          console.log(userListMember.props.user)
+          if (extraInfo.id === userListMember.props.user.id)
+          {
+            //Receives extra info from database
+            userListMember.setState({extraInfo: extraInfo});
+            //Reopen popover
+            setTimeout(function(){ userListMember.setState({showInfo: true})}, 200);
+          }
+
         })
 
     }
@@ -79,12 +85,14 @@ class UserListMember extends Component {
                       show={this.state.showInfo}
                       placement="left">
               {props => (
+                <div className="popoverWrapper">
                 <UserInfoPopover  {...props}
                                   user= {this.props.user}
                                   isLM = {this.props.isLM}
                                   extraInfo = {this.state.extraInfo}
                                   requestAdditionalInfo = {this.requestAdditionalInfo}
                                   />
+                </div>
               )}
             </Overlay>
             </div>
