@@ -290,8 +290,9 @@ class Player extends Component {
                           isLM={this.props.isLM}/>
             <div className="playerLeft">
               <div className="albumInfo">
-                <img className="albumCover" src={this.state.albumCover} style={{width:75, height:75}} alt="Album Cover Doesn't Exist"></img>
-                <div className="albumName">{this.state.albumName}</div>
+                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">{this.state.albumName}</Tooltip>}>
+                  <img className="albumCover" src={this.state.albumCover} style={{width:75, height:75}} alt="Album Cover Doesn't Exist"></img>
+                </OverlayTrigger>
               </div>
             </div>
 
