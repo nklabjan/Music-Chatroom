@@ -4,7 +4,7 @@ import Brian from "../../images/Brian.jpg";
 import Neville from "../../images/Neville.jpg";
 import Tomas from "../../images/Tomas.jpg";
 import Nick from "../../images/Nick.jpg";
-// import Michael from "../../images/Michael.jpg";
+import Michael from "../../images/Michael.jpg";
 import James from "../../images/James.jpg";
 
 class WhoAreWe extends Component {
