@@ -61,9 +61,10 @@ class WhoAreWe extends Component {
                     <div className="Creator">
                       <Image src={Michael} className="CreatorImg" alt="A photo of Michael."></Image>
                       <div className="Info">
-                        <div className="Name">Michael</div>
+                        <div className="Name">Michael Roy</div>
                         <div className="Description">
-                          Michael enjoys dressing up dogs in Christmas sweaters and chatting about music on Spotify.
+                          Michael has a Masters in Mathematics from Florida State University and worked at Epic Systems for 4 years performing database conversions and project managing
+                          new client's EMPI's.  He attended UW-Madison to earn a Capstone Certificate in Computer Science in the fall of 2019.
                         </div>
                       </div>
                     </div>
