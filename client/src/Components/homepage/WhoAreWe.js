@@ -61,7 +61,7 @@ class WhoAreWe extends Component {
                     <div className="Creator">
                       <Image src={Michael} className="CreatorImg" alt="A photo of Michael."></Image>
                       <div className="Info">
-                        <div className="Name">Michael</div>
+                        <div className="Name">Michael Roy</div>
                         <div className="Description">
                           Michael enjoys dressing up dogs in Christmas sweaters and chatting about music on Spotify.
                         </div>
