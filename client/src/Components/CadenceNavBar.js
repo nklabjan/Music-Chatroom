@@ -29,7 +29,6 @@ class CadenceNavBar extends Component {
     }
 
     makeChatRender() {
-      console.log("Making chatroom...")
       this.setState({showModalMakeChat: true});
     }
 

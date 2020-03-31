@@ -4,7 +4,7 @@ import Brian from "../../images/Brian.jpg";
 import Neville from "../../images/Neville.jpg";
 import Tomas from "../../images/Tomas.jpg";
 import Nick from "../../images/Nick.jpg";
-// import Michael from "../../images/Michael.jpg";
+import Michael from "../../images/Michael.jpg";
 import James from "../../images/James.jpg";
 
 class WhoAreWe extends Component {
@@ -59,13 +59,15 @@ class WhoAreWe extends Component {
                       </div>
                     </div>
                     <div className="Creator">
-                      <Image src={Brian} className="CreatorImg" alt="A photo of Michael."></Image>
+                      <Image src={Michael} className="CreatorImg" alt="A photo of Michael."></Image>
                       {/* <Image src={Michael} className="CreatorImg" alt="A photo of Michael."></Image> */}
                       <div className="Info">
-                        <div className="Name">Michael</div>
+                        <div className="Name">Michael Roy</div>
                         <div className="Description">
-                          Lorem ipsum intellegens quid ait illi et ego valde impressis.
-                          Hoc replere, intulere. Spero autem quod illud est satis honeste. Bene, tempus est ire!
+                        Michael has a Masters in Mathematics from Florida State University and worked at Epic 
+                        Systems for 4 years performing database conversions and project managing new client's 
+                        EMPI's. He attended UW-Madison to earn a Capstone Certificate in Computer Science in 
+                        the fall of 2019.
                         </div>
                       </div>
                     </div>

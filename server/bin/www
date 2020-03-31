@@ -126,10 +126,10 @@ io.on('connection', function(socket) {
       }
     });
 
-    socket.on('toggle_play', function(loungeID) {
+    socket.on('toggle_play', function(loungeID, isPlaying) {
       if (chatrooms[loungeID] !== undefined)
       {
-        chatrooms[loungeID].togglePlay();
+        chatrooms[loungeID].togglePlay(isPlaying);
       }
       else {
         console.log("Attempt to toggle music failed")

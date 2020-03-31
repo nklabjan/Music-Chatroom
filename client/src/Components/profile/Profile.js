@@ -71,7 +71,7 @@ class Profile extends Component {
                         aria-labelledby="contained-modal-title-vcenter" centered>
                     <Modal.Header className="modHeaderProf" closeButton>
                     <Modal.Title className="modTitleProf">
-                      {this.props.userInfo ? this.props.userInfo.display_name : "Cadence User"}'s Profile
+                      Profile
                     </Modal.Title>
                         </Modal.Header>
                     <Modal.Body className="modBodyProf">
@@ -89,7 +89,7 @@ class Profile extends Component {
                                 <div className="musicIcon"> <FontAwesomeIcon icon={faSpotify} /> </div>
                                 {
                                  this.props.userInfo !== null ? 
-                                 <div>{this.props.userInfo.product === "premium" ? " Apple Music Connected " : " Get Apple Music "}</div> 
+                                 <div>{this.props.userInfo.product === "premium" ? " Spotify Premium Connected " : " Get Spotify Premium "}</div> 
                                  : "Loading"                                  
                                 }
                               </Button>

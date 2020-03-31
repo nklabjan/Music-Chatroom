@@ -38,11 +38,21 @@ class Player extends Component {
   setUpSocket() {
       var player = this;
 
-      this.props.socket.on('toggle_play', function() {
+      this.props.socket.on('toggle_play', function(new_state) {
         //Attempt to toggle play for everyone
         if (player !== null)
         {
-          player.player.togglePlay();
+          //Not good implementation -> Need to follow Loungemaster's state
+          //player.player.togglePlay();
+          console.log(new_state)
+          if (new_state === true)
+          {
+            player.player.resume();
+          }
+          else if (new_state === false)
+          {
+            player.player.pause();
+          }
         }
         else
         {
@@ -200,7 +210,9 @@ class Player extends Component {
     }
 
     onPlayClick() {
-      this.props.togglePlay();
+
+      console.log(this.state.playing);
+      this.props.togglePlay(this.state.playing);
     }
 
     onNextClick() {

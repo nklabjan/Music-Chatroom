@@ -149,13 +149,13 @@ class Lounge extends Component {
 
     }
 
-    togglePlay() {
+    togglePlay(isPlaying) {
 
       //Check if is loungemaster
       if (this.info.loungeMasterID === this.props.userInfo.id)
       {
         //Toggle play for everyone else
-        this.socket.emit('toggle_play', this.info.id);
+        this.socket.emit('toggle_play', this.info.id, isPlaying);
       }
 
     }

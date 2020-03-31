@@ -113,9 +113,10 @@ class Chatroom {
       this.io.to(this.id).emit("queue_received",  queueList, this.queue.position);
     }
 
-    togglePlay() {
+    togglePlay(isPlaying) {
       //this.io.to(this.id).emit("queue_received",  queueList, this.queue.position);
-      this.io.to(this.id).emit("toggle_play");
+
+      this.io.to(this.id).emit("toggle_play", !isPlaying);
 
     }
 
