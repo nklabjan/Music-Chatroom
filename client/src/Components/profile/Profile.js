@@ -4,6 +4,7 @@ import ProfileDetail from './Detail';
 import {Modal, Button, Image} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpotify, faItunesNote } from '@fortawesome/free-brands-svg-icons'
+import default_pic from '../../images/anonymous.png';
 
 class Profile extends Component {
     constructor(props) {
@@ -38,11 +39,13 @@ class Profile extends Component {
     }
     
     componentDidMount() {
-      this.setState({
-        userName: this.props.userInfo.display_name,
-        aboutMe: this.props.userInfo.about_me ? this.props.userInfo.about_me : "",
-        musicTaste: this.props.userInfo.music_taste ? this.props.userInfo.music_taste : "",
-      })
+
+        this.setState({
+          userName: this.props.userInfo.display_name ? this.props.userInfo.display_name : "",
+          aboutMe: this.props.userInfo.about_me ? this.props.userInfo.about_me : "",
+          musicTaste: this.props.userInfo.music_taste ? this.props.userInfo.music_taste : "",
+        })
+
     }
 
     onDetailChange(type,value) {
@@ -61,18 +64,20 @@ class Profile extends Component {
 
     render() {
         if(this.state.loading === false) {
-            console.log(this.props.userInfo.images);
+            console.log("Still loading");
         }
         return(
                 <Modal className="modalProf" show={this.props.showModalProfile} onHide={this.props.profileClose} 
                         aria-labelledby="contained-modal-title-vcenter" centered>
                     <Modal.Header className="modHeaderProf" closeButton>
-                    <Modal.Title className="modTitleProf">{this.props.userInfo.display_name}'s Profile</Modal.Title>
+                    <Modal.Title className="modTitleProf">
+                      {this.props.userInfo ? this.props.userInfo.display_name : "Cadence User"}'s Profile
+                    </Modal.Title>
                         </Modal.Header>
                     <Modal.Body className="modBodyProf">
                         <div className="profDisplay">
                           <div className="leftProf">
-                            <Image src={this.props.userInfo.profile_image} alt="Not Found" roundedCircle fluid></Image>
+                            <Image src={this.props.userInfo ? this.props.userInfo.profile_image: default_pic} alt="Not Found" roundedCircle fluid></Image>
                           </div>
                           <div className="rightProf">
                             <ProfileDetail  viewType={this.state.viewType}
@@ -82,13 +87,21 @@ class Profile extends Component {
                             <div className="socialBtn">
                               <Button className= "spotifyBtn">
                                 <div className="musicIcon"> <FontAwesomeIcon icon={faSpotify} /> </div>
-                                {this.props.userInfo.product === "premium" ? " Spotify Premium Connected " : " Get Spotify Premium "}
+                                {
+                                 this.props.userInfo !== null ? 
+                                 <div>{this.props.userInfo.product === "premium" ? " Apple Music Connected " : " Get Apple Music "}</div> 
+                                 : "Loading"                                  
+                                }
                               </Button>
                             </div>
                             <div className="socialBtn">
                               <Button className= "appleMusicBtn">
                                 <div className="musicIcon"> <FontAwesomeIcon icon={faItunesNote} /> </div>
-                                {this.props.userInfo.apple === "premium" ? " Apple Music Connected " : " Get Apple Music "}
+                                {
+                                 this.props.userInfo !== null ? 
+                                 <div>{this.props.userInfo.apple === "premium" ? " Apple Music Connected " : " Get Apple Music "}</div> 
+                                 : "Loading"                                  
+                                }
                               </Button>
                             </div>
                           </div>

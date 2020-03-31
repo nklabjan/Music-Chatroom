@@ -8,7 +8,6 @@ class MakeChatroom extends Component {
 
     constructor(props) {
         super(props);
-        this.handleShow = this.handleShow.bind(this);
         this.state = {
             display_name: "",
             show: false,
@@ -27,20 +26,15 @@ class MakeChatroom extends Component {
       }
     }
 
-    handleShow() {
-        this.setState({show: true});
-      }
-
-      handleClose = () => {
-        this.setState({show: false});
-      }
-
     render() {
-        console.log(this.props.access_token);
         return (
-            <>
-                <Modal className="modal" show={this.props.showModalChat} onHide={this.props.handleClose} size="lg"
-                        aria-labelledby="contained-modal-title-vcenter" centered>
+                <Modal  className="modal" 
+                        show={this.props.handleShow} 
+                        onHide={this.props.handleClose} 
+                        size="lg"
+                        aria-labelledby="contained-modal-title-vcenter" 
+                        centered>
+
                     <Modal.Header className="modHeader" closeButton>
                     <Modal.Title className="modTitle">Create Your Own Lounge</Modal.Title>
                     </Modal.Header>
@@ -58,7 +52,6 @@ class MakeChatroom extends Component {
                     </Button>
                     </Modal.Footer>
                 </Modal>
-            </>
         );
     }
 }

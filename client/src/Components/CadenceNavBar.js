@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Navbar, Nav, Button} from 'react-bootstrap';
 import Profile from "./profile/Profile";
+import MakeChatRoom from "./makechatroom/makechatroom";
 import '../css/CadenceNavBar.css';
 
 class CadenceNavBar extends Component {
@@ -13,7 +14,8 @@ class CadenceNavBar extends Component {
       };
 
       this.profileRender = this.profileRender.bind(this);
-      this.profileClose = this.profileClose.bind(this);
+
+      this.makeChatRender = this.makeChatRender.bind(this);
     }
 
 
@@ -26,9 +28,11 @@ class CadenceNavBar extends Component {
       this.setState({showModalProfile: true});
     }
 
-    profileClose() {
-      this.setState({showModalProfile: false});
+    makeChatRender() {
+      console.log("Making chatroom...")
+      this.setState({showModalMakeChat: true});
     }
+
 
     //Include selective rendering for content
     selectivelyRender(){
@@ -55,7 +59,7 @@ class CadenceNavBar extends Component {
           <Nav.Link onClick={() => this.profileRender()}
                     disabled={!this.props.isPremiumUser ? true : false}>Profile</Nav.Link>
           {this.props.currDisplay === "lounge" ? <Nav.Link onClick={this.props.handleHome}>Leave Lounge</Nav.Link> :
-                  <Nav.Link onClick={this.props.handleShow} disabled={!this.props.isPremiumUser ? true : false}>
+                  <Nav.Link onClick={() => this.makeChatRender()} disabled={!this.props.isPremiumUser ? true : false}>
                   Make Lounge
                   </Nav.Link>}
         </Nav>
@@ -72,12 +76,21 @@ class CadenceNavBar extends Component {
     render() {
         return  (<div >
               {this.selectivelyRender()}
-              {this.state.showModalProfile === true ? 
-              <Profile access_token={this.props.access_token}
+              {this.props.userInfo !== null ? 
+                <Profile  access_token={this.props.access_token}
                 userInfo={this.props.userInfo}
                 showModalProfile={this.state.showModalProfile}
                 updateProfileInfo={this.props.updateProfileInfo}
-                profileClose={() => this.profileClose()}/> : <></>}
+                profileClose={this.handleClose}/>
+                :
+                <></>
+              }
+              
+              <MakeChatRoom access_token={this.props.access_token}
+                            saveChatRoom={this.props.saveChatRoom}
+                            handleShow={this.state.showModalMakeChat}
+                            handleClose={this.handleClose}
+                            userInfo={this.props.userInfo}/>
           </div>)
       }
 }

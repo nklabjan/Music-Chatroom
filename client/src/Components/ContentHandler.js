@@ -225,15 +225,7 @@ class ContentHandler extends Component {
                       userInfo={this.state.userInfo}
                       />);
     }
-    else if(this.state.currDisplay === "makeChat") {
-      return (<MakeChatRoom access_token={this.state.access_token}
-                            handleHome={this.handleHome}
-                            saveChatRoom={this.saveChatRoom}
-                            handleShow={this.handleShow}
-                            handleClose={this.handleClose}
-                            showModalChat={this.state.showModalChat}
-                            userInfo={this.state.userInfo}/>);
-    }
+
   }
 
   renderAlertBar() {
@@ -291,7 +283,9 @@ class ContentHandler extends Component {
                         handleShow={this.handleShow}
                         userInfo={this.state.userInfo}
                         updateProfileInfo={this.updateProfileInfo}
-                        isPremiumUser={this.state.isPremiumUser}/>
+                        isPremiumUser={this.state.isPremiumUser}
+                        saveChatRoom={this.saveChatRoom}
+                        />
 
       )
     }
