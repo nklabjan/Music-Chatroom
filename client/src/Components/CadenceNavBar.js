@@ -72,7 +72,8 @@ class CadenceNavBar extends Component {
     render() {
         return  (<div >
               {this.selectivelyRender()}
-              {this.state.showModalProfile === true ? <Profile access_token={this.props.access_token}
+              {this.state.showModalProfile === true ? 
+              <Profile access_token={this.props.access_token}
                 userInfo={this.props.userInfo}
                 showModalProfile={this.state.showModalProfile}
                 updateProfileInfo={this.props.updateProfileInfo}

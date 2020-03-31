@@ -112,7 +112,7 @@ class CardFront extends Component {
 
     render() {
         return(
-            <Card key={this.props.idx} bg="dark" text="white">
+            <Card className="roomCardContainer" key={this.props.idx} bg="dark" text="white">
                 <Card.Header className="roomCardHeader">
                     <Card.Title>{this.props.chatroom.name}</Card.Title>
                     <div className="roomFlip" onClick={this.props.handleFlip}>

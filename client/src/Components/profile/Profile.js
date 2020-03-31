@@ -1,7 +1,9 @@
 import React, {Component} from "react";
 import '../../css/profile/Profile.css';
 import ProfileDetail from './Detail';
-import {Modal, Button} from 'react-bootstrap';
+import {Modal, Button, Image} from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpotify, faItunesNote } from '@fortawesome/free-brands-svg-icons'
 
 class Profile extends Component {
     constructor(props) {
@@ -53,6 +55,8 @@ class Profile extends Component {
       else if (type === "Music Taste") {
         this.setState({musicTaste: value});
       }
+      //Add more options for other things
+
     }
 
     render() {
@@ -60,26 +64,46 @@ class Profile extends Component {
             console.log(this.props.userInfo.images);
         }
         return(
-            <>
-                <Modal className="modalProf" show={this.props.showModalProfile} onHide={this.props.profileClose} size="lg"
+                <Modal className="modalProf" show={this.props.showModalProfile} onHide={this.props.profileClose} 
                         aria-labelledby="contained-modal-title-vcenter" centered>
                     <Modal.Header className="modHeaderProf" closeButton>
                     <Modal.Title className="modTitleProf">{this.props.userInfo.display_name}'s Profile</Modal.Title>
                         </Modal.Header>
                     <Modal.Body className="modBodyProf">
-                        <div className="profImg">
-                          <img src={this.props.userInfo.profile_image} alt="Not Found" ></img>
-                        </div>
-                        <ProfileDetail  viewType={this.state.viewType}
+                        <div className="profDisplay">
+                          <div className="leftProf">
+                            <Image src={this.props.userInfo.profile_image} alt="Not Found" roundedCircle fluid></Image>
+                          </div>
+                          <div className="rightProf">
+                            <ProfileDetail  viewType={this.state.viewType}
                                         label="Username"
                                         info={this.state.userName}
                                         onDetailChange={this.onDetailChange}/>
+                            <div className="socialBtn">
+                              <Button className= "spotifyBtn">
+                                <div className="musicIcon"> <FontAwesomeIcon icon={faSpotify} /> </div>
+                                {this.props.userInfo.product === "premium" ? " Spotify Premium Connected " : " Get Spotify Premium "}
+                              </Button>
+                            </div>
+                            <div className="socialBtn">
+                              <Button className= "appleMusicBtn">
+                                <div className="musicIcon"> <FontAwesomeIcon icon={faItunesNote} /> </div>
+                                {this.props.userInfo.apple === "premium" ? " Apple Music Connected " : " Get Apple Music "}
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                        
                         <ProfileDetail  viewType={this.state.viewType}
                                         label="About Me"
                                         info={this.state.aboutMe}
                                         onDetailChange={this.onDetailChange}/>
                         <ProfileDetail  viewType={this.state.viewType}
                                         label="Music Taste"
+                                        info={this.state.musicTaste}
+                                        onDetailChange={this.onDetailChange}/>
+                        <ProfileDetail  viewType={this.state.viewType}
+                                        label="User Experience"
                                         info={this.state.musicTaste}
                                         onDetailChange={this.onDetailChange}/>
                     </Modal.Body>
@@ -94,7 +118,6 @@ class Profile extends Component {
                         )}
                     </Modal.Footer>
                 </Modal>
-            </>
         );
     }
 }
