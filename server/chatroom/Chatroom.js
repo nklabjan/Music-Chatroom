@@ -89,11 +89,12 @@ class Chatroom {
       }
     }
 
-    addSong(access_token, song_info, position) {
+    addSong(access_token, song_info, position, instantPlay) {
       this.queue.addSong(song_info, position);
       var queueList = this.queue.songs;
       this.io.to(this.id).emit("queue_received",  queueList, this.queue.position);
       //if there is only 1 song in the queue, play the song immediately
+      //if there are no songs in the queue, also play the song immediately
       if (queueList.length === 1)
       {
         this.io.to(this.id).emit("play_song", song_info.uri);
