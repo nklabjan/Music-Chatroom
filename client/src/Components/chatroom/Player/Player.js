@@ -43,16 +43,15 @@ class Player extends Component {
         if (player !== null)
         {
           //Not good implementation -> Need to follow Loungemaster's state
-          //player.player.togglePlay();
-          console.log(new_state)
-          if (new_state === true)
-          {
-            player.player.resume();
-          }
-          else if (new_state === false)
-          {
-            player.player.pause();
-          }
+          player.player.togglePlay();
+          // if (new_state === true)
+          // {
+          //   player.player.resume();
+          // }
+          // else if (new_state === false)
+          // {
+          //   player.player.pause();
+          // }
         }
         else
         {
@@ -123,6 +122,7 @@ class Player extends Component {
     handlePlayNextSong() {
       if (this.props.queueList.length > 0 && (this.props.queueList.length - this.props.queuePos > 1))
       {
+        console.log("same")
         var next_song = this.props.queueList[this.props.queuePos + 1];
         this.props.playSong(next_song.uri, this.props.queuePos + 1);
       }
@@ -135,6 +135,7 @@ class Player extends Component {
     autoPlayNextSong() {
       if (this.props.queueList.length > 0 && (this.props.queueList.length - this.props.queuePos > 1))
       {
+        console.log("different")
         var next_song = this.props.queueList[this.props.queuePos + 1];
         this.props.playSong(next_song.uri, this.props.queuePos + 1);
       }
@@ -159,8 +160,9 @@ class Player extends Component {
         const playing = !state.paused;
 
         //if song is over, plays next song from Lounge's queue
-        if (state.paused === true && (duration - position < 300))
+        if (state.paused === true && duration - position < 300)
         {
+          console.log("Hi I got here")
           this.autoPlayNextSong();
         }
         this.setState({
@@ -210,9 +212,8 @@ class Player extends Component {
     }
 
     onPlayClick() {
-
-      console.log(this.state.playing);
-      this.props.togglePlay(this.state.playing);
+      console.log("?")
+      this.props.togglePlay(true);
     }
 
     onNextClick() {
@@ -299,7 +300,8 @@ class Player extends Component {
                           addSong={this.props.addSong}
                           access_token={this.props.access_token}
                           playSong={this.props.playSong}
-                          isLM={this.props.isLM}/>
+                          isLM={this.props.isLM}
+                          instantPlay={!this.state.playing && this.state.position === 0 ? true: false}/>
             <div className="playerLeft">
               <div className="albumInfo">
                 <img className="albumCover" src={this.state.albumCover} style={{width:75, height:75}} alt="Album Cover Doesn't Exist"></img>

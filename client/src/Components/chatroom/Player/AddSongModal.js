@@ -53,7 +53,8 @@ class AddSongModal extends Component {
                                   data={this.state.data.tracks.items[song]}
                                   addSong={this.props.addSong}
                                   playSong={this.props.playSong}
-                                  isLM={this.props.isLM}/>
+                                  isLM={this.props.isLM}
+                                  instantPlay={this.props.instantPlay}/>
                         )
                     }
                     //console.log(songs);

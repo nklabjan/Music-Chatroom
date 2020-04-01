@@ -118,9 +118,9 @@ class Lounge extends Component {
       this.socket.emit('add_song', this.props.access_token, this.info.id);
     }
 
-    addSong(song_info, position) {
+    addSong(song_info, position, instantPlay) {
       //when the song info parameter is left blank, adds a random song
-      this.socket.emit('add_song', this.props.access_token, this.info.id, song_info, position);
+      this.socket.emit('add_song', this.props.access_token, this.info.id, song_info, position, instantPlay);
     }
 
     moveToNext(position) {

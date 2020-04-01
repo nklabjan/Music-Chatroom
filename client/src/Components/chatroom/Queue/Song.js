@@ -15,7 +15,7 @@ class Song extends Component {
 
     let song_info = {title: title, album: album, artist: artists, uri: uri, images: images};
     console.log(this.props.data)
-    this.props.addSong(song_info, position)
+    this.props.addSong(song_info, position, this.props.instantPlay)
   }
 
   playNewSong(){
