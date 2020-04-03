@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Lounge from './chatroom/Lounge';
 import HomePage from './homepage/HomePage';
 import LandingPage from './homepage/LandingPage';
-import MakeChatRoom from "./makechatroom/makechatroom";
 import CadenceNavBar from './CadenceNavBar';
 import {Alert, Spinner} from 'react-bootstrap';
 import '../css/ContentHandler.css';
@@ -183,7 +182,6 @@ class ContentHandler extends Component {
               isPremiumUser: null,
             });
           }
-
         }
 
       })

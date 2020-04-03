@@ -22,10 +22,11 @@ class LoungeQueue {
     }
 
     moveToNext(position) {
+      
       var temp = this.songs[position]
       this.songs.splice( position, 1);
-      //console.log(temp);
       this.songs.splice( this.position + 1, 0 , temp);
+
     }
     //Adds a song to the queue - could be at the front or the back
     //unshift for start of songs

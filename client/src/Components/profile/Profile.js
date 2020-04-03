@@ -2,8 +2,10 @@ import React, {Component} from "react";
 import '../../css/profile/Profile.css';
 import ProfileDetail from './Detail';
 import {Modal, Button, Image} from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSpotify, faItunesNote } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpotify, faItunesNote } from '@fortawesome/free-brands-svg-icons';
+import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+
 import default_pic from '../../images/anonymous.png';
 
 class Profile extends Component {
@@ -85,7 +87,7 @@ class Profile extends Component {
                                         info={this.state.userName}
                                         onDetailChange={this.onDetailChange}/>
                             <div className="socialBtn">
-                              <Button className= "spotifyBtn">
+                              <Button className= "spotifyBtn" variant="dark">
                                 <div className="musicIcon"> <FontAwesomeIcon icon={faSpotify} /> </div>
                                 {
                                  this.props.userInfo !== null ? 
@@ -95,7 +97,7 @@ class Profile extends Component {
                               </Button>
                             </div>
                             <div className="socialBtn">
-                              <Button className= "appleMusicBtn">
+                              <Button className= "appleMusicBtn"  variant="dark">
                                 <div className="musicIcon"> <FontAwesomeIcon icon={faItunesNote} /> </div>
                                 {
                                  this.props.userInfo !== null ? 

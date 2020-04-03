@@ -31,11 +31,13 @@ class Chatroom {
 
     //This method helps users in the chatroom to get the current song
     //Using the Loungemaster access token stored on the server side
-    getCurrentSong(socket) {
+    getCurrentSong(socket, access_token, deviceId) {
+      var def_song = this.queue.songs[this.queue.position];
+
+
       //if loungeMaster AT is null, then just play super rich kids with timestamp
       if (this.loungeMasterAT === null)
       {
-        var def_song = this.queue.songs[this.queue.position];
         socket.emit("play_song", def_song.uri);
 
         //socket.emit("play_song", def_song, def_timestamp);
@@ -49,9 +51,9 @@ class Chatroom {
         {
           //This means that the user is the lounge master and forces the
           //song to play along with the loungemaster
+          
           if (this.queue.songs.length > 0)
           {
-            var def_song = this.queue.songs[this.queue.position];
             this.io.to(this.id).emit("play_song", def_song.uri);
           }
         }
@@ -89,17 +91,7 @@ class Chatroom {
       }
     }
 
-    addSong(access_token, song_info, position, instantPlay) {
-      this.queue.addSong(song_info, position);
-      var queueList = this.queue.songs;
-      this.io.to(this.id).emit("queue_received",  queueList, this.queue.position);
-      //if there is only 1 song in the queue, play the song immediately
-      //if there are no songs in the queue, also play the song immediately
-      if (queueList.length === 1)
-      {
-        this.io.to(this.id).emit("play_song", song_info.uri);
-      }
-    }
+
 
     deleteSong(position) {
       this.queue.removeSong(position);
@@ -116,7 +108,6 @@ class Chatroom {
 
     togglePlay(isPlaying) {
       //this.io.to(this.id).emit("queue_received",  queueList, this.queue.position);
-
       this.io.to(this.id).emit("toggle_play", !isPlaying);
 
     }
@@ -128,7 +119,33 @@ class Chatroom {
 
     }
 
-    addRandomSong(access_token) {
+    addSong(access_token, song_info, position, instantPlay, socket_id) {
+      this.queue.addSong(song_info, position);
+      var queueList = this.queue.songs;
+      //if there is only 1 song in the queue, play the song immediately
+      //if there are no songs in the queue, also play the song immediately
+
+      if (queueList.length === 1)
+      {
+        this.io.to(this.id).emit("play_song", song_info.uri);
+
+        this.io.to(this.id).emit("queue_received",  queueList, this.queue.position);
+      }
+      else if (queueList.length - this.queue.position === 2 && instantPlay)
+      {
+        this.io.to(this.id).emit("play_song", song_info.uri);
+        this.queue.playSong(this.queue.position + 1);
+        this.io.to(this.id).emit("queue_received",  queueList, this.queue.position);
+
+      }
+      else
+      {
+        this.io.to(this.id).emit("queue_received",  queueList, this.queue.position);
+      }
+
+    }
+
+    addRandomSong(access_token, instantPlay, socket_id) {
       // A list of all characters that can be chosen.
       const characters = 'abcdefghijklmnopqrstuvwxyz';
       let chatroom = this;
@@ -179,7 +196,7 @@ class Chatroom {
 
             let song_info = {title: title, album: album, artist: artists, uri: uri, images: images};
 
-            chatroom.addSong(access_token, song_info, "end");
+            chatroom.addSong(access_token, song_info, "end", instantPlay);
           }
 
         }

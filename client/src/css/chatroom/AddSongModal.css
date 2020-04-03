@@ -7,6 +7,43 @@
 
 .add-song-modal-body {
     overflow: hidden;
+    height: 50vh;
+}
+
+.add-song-modal-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.modal-title-option {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 10;
+  border-radius: 25px;
+  padding: 5px;
+  
+}
+
+.modal-title-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-title-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-title-option:hover {
+  background-color: rgba(33, 32, 36, 1) !important;
+  cursor: pointer;
 }
 
 .song {
@@ -60,7 +97,18 @@
     overflow: scroll;
 }
 
-.albumNameSearch {
+.playlist-container {
+  height: 40vh;
+  overflow: scroll;
+}
+
+.albumName {
+  font-style: italic;
+  font-size: 14px;
+  color: rgba(134, 137, 131,1 );
+}
+
+.subtext {
   font-style: italic;
   font-size: 14px;
   color: rgba(134, 137, 131,1 );
@@ -72,6 +120,9 @@
   text-align: left;
   height: 64px !important;
   font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .resultControls {
@@ -105,7 +156,8 @@
 }
 
 .searchLogo {
-  margin-left: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 .addResult:focus,.addNextResult:focus {
   outline: none;
@@ -115,4 +167,16 @@
   transition: all .2s ease-in-out;
   color: rgba(104, 82, 156, 1);
   transform: scale(1.1);
+}
+
+.collab {
+  font-style: italic;
+  font-size: 14px;
+  color: rgba(134, 137, 131,1 );
+}
+
+.browsingHeader {
+  font-style: italic;
+  font-size: 14px;
+  color: rgba(134, 137, 131,1 );
 }

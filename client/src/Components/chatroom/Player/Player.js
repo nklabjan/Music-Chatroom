@@ -9,6 +9,8 @@ import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 import AddSongModal from './AddSongModal';
 import '../../../css/chatroom/player/Player.css';
 
+const DEF_VOLUME = 50;
+
 class Player extends Component {
     _isMounted = false;
 
@@ -43,15 +45,15 @@ class Player extends Component {
         if (player !== null)
         {
           //Not good implementation -> Need to follow Loungemaster's state
-          player.player.togglePlay();
-          // if (new_state === true)
-          // {
-          //   player.player.resume();
-          // }
-          // else if (new_state === false)
-          // {
-          //   player.player.pause();
-          // }
+          //player.player.togglePlay();
+          if (new_state === true)
+          {
+            player.player.resume();
+          }
+          else if (new_state === false)
+          {
+            player.player.pause();
+          }
         }
         else
         {
@@ -65,6 +67,8 @@ class Player extends Component {
         {
           player.player.seek(new_position);
           player.setState({position: new_position});
+
+          console.log(player.state);
         }
         else
         {
@@ -122,7 +126,6 @@ class Player extends Component {
     handlePlayNextSong() {
       if (this.props.queueList.length > 0 && (this.props.queueList.length - this.props.queuePos > 1))
       {
-        console.log("same")
         var next_song = this.props.queueList[this.props.queuePos + 1];
         this.props.playSong(next_song.uri, this.props.queuePos + 1);
       }
@@ -135,7 +138,6 @@ class Player extends Component {
     autoPlayNextSong() {
       if (this.props.queueList.length > 0 && (this.props.queueList.length - this.props.queuePos > 1))
       {
-        console.log("different")
         var next_song = this.props.queueList[this.props.queuePos + 1];
         this.props.playSong(next_song.uri, this.props.queuePos + 1);
       }
@@ -160,9 +162,8 @@ class Player extends Component {
         const playing = !state.paused;
 
         //if song is over, plays next song from Lounge's queue
-        if (state.paused === true && duration - position < 300)
+        if (state.paused === true && duration - position < 400)
         {
-          console.log("Hi I got here")
           this.autoPlayNextSong();
         }
         this.setState({
@@ -174,6 +175,18 @@ class Player extends Component {
           playing,
           albumCover,
         });
+
+        if (state.repeat_mode !== 0)
+        {
+            fetch("https://api.spotify.com/v1/me/player/repeat?state=off", {
+              headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${this.props.access_token}`,
+              "Content-Type": "application/json"
+            },
+            method: "PUT"
+            })
+        }
       }
     }
 
@@ -183,6 +196,7 @@ class Player extends Component {
       //const access_token = this.props.access_token;
       this.props.setDeviceId(deviceId);
       this.props.syncMusicToRoom();
+
 
     }
 
@@ -212,8 +226,7 @@ class Player extends Component {
     }
 
     onPlayClick() {
-      console.log("?")
-      this.props.togglePlay(true);
+      this.props.togglePlay(this.state.playing);
     }
 
     onNextClick() {
@@ -265,6 +278,7 @@ class Player extends Component {
         else {
           this.player.setVolume(this.state.value/100).then(() => {
             //console.log("volume updated to: " + this.state.value / 100);
+            
           });
         }
       }
@@ -285,14 +299,30 @@ class Player extends Component {
       }
     }
 
+    async setDefVolume() {
+      if (this._isMounted)
+      {
+        this.player.setVolume(50);
+      }
+    }
+
     componentDidMount(){
       this._isMounted = true;
 
         setInterval(this.passiveTimer, 1000);
+        setTimeout(this.setDefVolume, 1000);
+
+        
      // store intervalId in the state so it can be accessed later:
     }
 
     render() {
+        var instaPlay = false;
+
+        if (!this.state.playing && this.state.position === 0)
+        {
+          instaPlay = true;
+        }
         return (
             <div className="player">
             <AddSongModal show={this.state.show}
@@ -301,7 +331,8 @@ class Player extends Component {
                           access_token={this.props.access_token}
                           playSong={this.props.playSong}
                           isLM={this.props.isLM}
-                          instantPlay={!this.state.playing && this.state.position === 0 ? true: false}/>
+                          userId={this.props.userId}
+                          instantPlay={instaPlay}/>
             <div className="playerLeft">
               <div className="albumInfo">
                 <img className="albumCover" src={this.state.albumCover} style={{width:75, height:75}} alt="Album Cover Doesn't Exist"></img>
@@ -336,7 +367,7 @@ class Player extends Component {
             </div>
 
             <div className="playerRight">
-              <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Add Specific Song to Queue</Tooltip>}>
+              <OverlayTrigger overlay={<Tooltip >Add Specific Song to Queue</Tooltip>}>
                 <button className="add-song" onClick={() => this.handleShow()}>
                   <FontAwesomeIcon size="lg" icon={faPlusCircle} />
                 </button>

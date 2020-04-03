@@ -43,12 +43,11 @@ class MakeChatroom extends Component {
 
     renderAlert()
     {
-        console.log(this);
         if (this.state.alertShow)
         {
             return(
                 <Alert variant="danger" className="NotPremiumAlert">
-                  You need to enter a name for your chatroom!
+                  You need to enter a name for your lounge!
                 </Alert>
                 )
         }

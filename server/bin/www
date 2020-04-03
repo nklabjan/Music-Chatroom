@@ -188,7 +188,7 @@ io.on('connection', function(socket) {
       }
     });
 
-    socket.on('add_song', function(access_token, loungeID, song_info, position) {
+    socket.on('add_song', function(access_token, loungeID, song_info, position, instantPlay) {
       if (chatrooms[loungeID] !== undefined)
       {
         //Do the search here if song_info is empty
@@ -196,11 +196,11 @@ io.on('connection', function(socket) {
         if (song_info === undefined)
         {
           //Add random song based on the genre of the room
-          chatrooms[loungeID].addRandomSong(access_token);
+          chatrooms[loungeID].addRandomSong(access_token, instantPlay, socket.id);
         }
         else
         {
-          chatrooms[loungeID].addSong(access_token, song_info, position);
+          chatrooms[loungeID].addSong(access_token, song_info, position, instantPlay, socket.id);
         }
       }
       else {
@@ -208,10 +208,11 @@ io.on('connection', function(socket) {
       }
     });
 
-    socket.on('init_player', function(loungeID) {
+    socket.on('init_player', function(loungeID, access_token, deviceId) {
       if (chatrooms[loungeID] !== undefined)
       {
-        chatrooms[loungeID].getCurrentSong(socket);
+
+        chatrooms[loungeID].getCurrentSong(socket, access_token, deviceId);
       }
       else {
         console.log("Player can't be initialized in undefined room")

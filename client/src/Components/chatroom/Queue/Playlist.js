@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle, faSortAmountUp, faTimes, faPlay } from '@fortawesome/free-solid-svg-icons';
 import '../../../css/chatroom/AddSongModal.css';
 
-class Song extends Component {
+class Playlist extends Component {
 
   addNewSong(position){
     //call this.props.addSong from here
@@ -14,7 +14,6 @@ class Song extends Component {
     let images = this.props.data.album.images;
 
     let song_info = {title: title, album: album, artist: artists, uri: uri, images: images};
-    console.log(this.props.data)
     this.props.addSong(song_info, position, this.props.instantPlay)
   }
 
@@ -31,36 +30,46 @@ class Song extends Component {
 
   }
 
-  getArtists() {
+  getDescription() {
     if (this.props.viewType === "queue")
     {
-      var name = this.props.data.artist
+      var name = this.props.data.description
     }
     else
     {
-      name = this.props.data.artists.map(artist => artist.name).join(", ");
+      name = this.props.data.description;
     }
 
     return name;
   }
 
   getAlbumArt() {
+    if (this.props.data !== undefined)
+    {
+      var imageIdx = 2;
+      if (this.props.data.images.length === 1)
+      {
+        imageIdx = 0
+      }
+
       if (this.props.viewType === "queue")
       {
         return (
-          <img src={this.props.data.images[2].url}
+          <img src={this.props.data.images[imageIdx].url}
                className="albumart"
-               alt="Could not retrieve album art."/>
+               alt="Could not retrieve playlist art."/>
         )
       }
       else
       {
+        
         return (
-          <img src={this.props.data.album.images[2].url}
+          <img src={this.props.data.images[imageIdx].url}
                className="albumart"
-               alt="Could not retrieve album art."/>
+               alt="Could not retrieve playlist art."/>
         )
       }
+    }
 
   }
 
@@ -131,23 +140,16 @@ class Song extends Component {
           </div>
           <div className="infoContainer">
             <div className="info">
-              <b>{this.props.data.title}</b>
-              {this.getArtists()}
-              <div className="albumName">
-                  {this.props.data.album}
-              </div>
+              <b>{this.props.data.name}</b>
+              {this.getDescription()}
             </div>
           </div>
-          <div className="resultControls">
-            {this.renderDeleteBtn()}
-            {this.moveToNextBtn()}
-            {this.renderPlayBtn()}
-          </div>
+          {this.renderControls()}
         </div>
       )
     }
     else return (
-      <div className="song" onDoubleClick={()=> this.playNewSong()}>
+      <div className="song" onClick={this.props.onClick}>
         <div className="albumContainer">
           {this.getAlbumArt()}
         </div>
@@ -155,10 +157,7 @@ class Song extends Component {
 
           <div className="info">
             <b>{this.props.data.name}</b>
-            {this.getArtists()}
-            <div className="albumName">
-                  {this.props.data.album.name}
-            </div>
+            <div className="subtext">{this.props.data.owner.display_name}</div>
           </div>
         </div>
         {this.renderControls()}
@@ -167,4 +166,4 @@ class Song extends Component {
   }
 }
 
-export default Song;
+export default Playlist;

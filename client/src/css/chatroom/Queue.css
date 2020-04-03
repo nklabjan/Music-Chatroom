@@ -56,7 +56,6 @@
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  background-color: rgba(33, 32, 36, 1) !important;
 
 }
 

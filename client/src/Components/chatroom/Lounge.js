@@ -52,7 +52,6 @@ class Lounge extends Component {
         })
 
         this.socket.on('user_disconnected', function(user) {
-            //console.log(user);
             //Handle removing users from list
             for (var i = 0; i < lounge.state.users.length; i++)
             {
@@ -65,7 +64,6 @@ class Lounge extends Component {
                 lounge.setState({users: newList});
               }
             }
-
         })
 
         this.socket.on('play_song', function(song_uri, position_ms) {
@@ -76,6 +74,7 @@ class Lounge extends Component {
               req_body = { uris: [song_uri] , position_ms: position_ms};
             }
 
+
             fetch('https://api.spotify.com/v1/me/player/play?device_id=' + lounge.state.deviceId, {
               method: "PUT",
               headers: {
@@ -83,7 +82,10 @@ class Lounge extends Component {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify(req_body),
+            }).then((response)=>{
             });
+
+
 
         })
 
@@ -109,8 +111,9 @@ class Lounge extends Component {
       this.setState({deviceId: device_id});
     }
 
-    syncMusicToRoom(){
-      this.socket.emit('init_player', this.info.id);
+    syncMusicToRoom(deviceId){
+      
+      this.socket.emit('init_player', this.info.id, this.props.access_token, deviceId);
     }
 
     addRandomSong() {
@@ -126,6 +129,7 @@ class Lounge extends Component {
     moveToNext(position) {
       //when the song info parameter is left blank, adds a random song
       this.socket.emit('move_to_next', this.props.access_token, this.info.id, position);
+      
     }
 
     deleteSong(position) {
@@ -145,6 +149,7 @@ class Lounge extends Component {
                           song_uri,
                           this.info.id,
                           queuePos);
+
       }
 
     }
@@ -174,7 +179,6 @@ class Lounge extends Component {
       this.socket.emit('user_connected', this.props.access_token, this.info.id, this.props.userInfo);
     }
     render() {
-
             return (
                 <div className="lounge">
 
@@ -206,6 +210,7 @@ class Lounge extends Component {
                             seekToNewPos={this.seekToNewPos}
                             queueList={this.state.queueList}
                             queuePos = {this.state.queuePos}
+                            userId = {this.props.userInfo.id}
                             isLM = {this.info.loungeMasterID === this.props.userInfo.id ? true : false}
                             />
 

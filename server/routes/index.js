@@ -29,7 +29,7 @@ router.get('/', function(req, res, next) {
 router.get('/login', function(req, res) {
     console.log(req.app.locals.test)
     console.log(redirect_uri);
-  var scopes = 'user-read-private user-read-email user-read-playback-state streaming user-modify-playback-state';
+  var scopes = 'user-read-private user-read-email user-read-playback-state streaming user-modify-playback-state playlist-read-private playlist-read-collaborative';
 
   res.redirect('https://accounts.spotify.com/authorize' +
     '?response_type=code' +
