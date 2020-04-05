@@ -2,6 +2,10 @@ import React, {Component} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle, faSortAmountUp, faTimes, faPlay } from '@fortawesome/free-solid-svg-icons';
 import '../../../css/chatroom/AddSongModal.css';
+import {Tooltip, OverlayTrigger} from 'react-bootstrap';
+
+import question_mark from '../../../images/question-mark.png';
+
 
 class Song extends Component {
 
@@ -38,7 +42,10 @@ class Song extends Component {
     }
     else
     {
-      name = this.props.data.artists.map(artist => artist.name).join(", ");
+      if (this.props.data)
+      {
+        name = this.props.data.artists.map(artist => artist.name).join(", ");
+      }
     }
 
     return name;
@@ -48,15 +55,21 @@ class Song extends Component {
       if (this.props.viewType === "queue")
       {
         return (
-          <img src={this.props.data.images[2].url}
+          <img src={this.props.data ? this.props.data.images[2].url :""}
                className="albumart"
                alt="Could not retrieve album art."/>
         )
       }
       else
       {
+        var idx = 2;
+        if (this.props.data.album.images === 1)
+        {
+          idx = 0
+        }
+
         return (
-          <img src={this.props.data.album.images[2].url}
+          <img src={this.props.data.album.images.length > 0 ? this.props.data.album.images[idx].url : question_mark}
                className="albumart"
                alt="Could not retrieve album art."/>
         )
@@ -125,25 +138,31 @@ class Song extends Component {
     if (this.props.viewType === "queue")
     {
       return (
-        <div  className="queueSong">
-          <div className="albumContainer">
-            {this.getAlbumArt()}
-          </div>
-          <div className="infoContainer">
-            <div className="info">
-              <b>{this.props.data.title}</b>
-              {this.getArtists()}
-              <div className="albumName">
-                  {this.props.data.album}
+      <OverlayTrigger placement={"bottom"}
+                      overlay={<Tooltip id="tooltip-disabled">
+              Added by {this.props.data.added_by ? this.props.data.added_by :"Unknown"}
+              </Tooltip>}>
+          <div  className="queueSong">
+            <div className="albumContainer">
+              {this.getAlbumArt()}
+            </div>
+            <div className="infoContainer">
+              <div className="info">
+                <b>{this.props.data ? this.props.data.title : ""}</b>
+                {this.getArtists()}
+                <div className="albumName">
+                    {this.props.data ? this.props.data.album : ""}
+                </div>
               </div>
             </div>
-          </div>
-          <div className="resultControls">
-            {this.renderDeleteBtn()}
-            {this.moveToNextBtn()}
-            {this.renderPlayBtn()}
-          </div>
-        </div>
+            <div className="resultControls">
+              {this.renderDeleteBtn()}
+              {this.moveToNextBtn()}
+              {this.renderPlayBtn()}
+            </div>
+          </div>          
+        </OverlayTrigger>
+        
       )
     }
     else return (
@@ -154,10 +173,10 @@ class Song extends Component {
         <div className="infoContainer">
 
           <div className="info">
-            <b>{this.props.data.name}</b>
+            <b>{this.props.data ? this.props.data.name : ""}</b>
             {this.getArtists()}
             <div className="albumName">
-                  {this.props.data.album.name}
+                  {this.props.data ? this.props.data.album.name : ""}
             </div>
           </div>
         </div>

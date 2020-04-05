@@ -78,6 +78,33 @@ router.get('/auth', function(req, res) {
     })
 });
 
+router.post('/refreshAuth', function(req, res) {
+  let refresh_token = req.body.refresh_token || null
+  let authOptions = {
+  url: 'https://accounts.spotify.com/api/token',
+  form: {
+    refresh_token: refresh_token,
+    grant_type: 'refresh_token'
+  },
+  headers: {
+    'Authorization': 'Basic ' + (new Buffer(
+      process.env.CLIENT_APP_ID + ':' + process.env.CLIENT_APP_SECRET
+    ).toString('base64'))
+  },
+  json: true
+}
+
+  //Get spotify access token and refresh tokens
+  request.post(authOptions, function(error, response, body) {
+    var access_token = body.access_token
+    var refresh_token = body.refresh_token
+    
+    console.log(body);
+
+    res.json({access_token: access_token});
+  })
+});
+
   router.post('/realLogin', function(req, res) {
     if (req.body.access_token) {
       let authOptions = {

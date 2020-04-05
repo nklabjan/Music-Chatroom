@@ -17,6 +17,7 @@ class Chatroom {
         this.messageList = [];
         this.queue = new LoungeQueue.LoungeQueue(this.io); //Queue of songs
         this.password = null;
+        this.room_code = null;
 
         //If there are songs preloaded into the Chatroom -> load them into the queue
         if (songList !== undefined)
@@ -33,7 +34,6 @@ class Chatroom {
     //Using the Loungemaster access token stored on the server side
     getCurrentSong(socket, access_token, deviceId) {
       var def_song = this.queue.songs[this.queue.position];
-
 
       //if loungeMaster AT is null, then just play super rich kids with timestamp
       if (this.loungeMasterAT === null)
@@ -120,8 +120,18 @@ class Chatroom {
     }
 
     addSong(access_token, song_info, position, instantPlay, socket_id) {
-      this.queue.addSong(song_info, position);
       var queueList = this.queue.songs;
+      if (this.users[socket_id])
+      {
+        var username = this.users[socket_id].display_name;
+        song_info.added_by = username;
+      }
+      else song_info.added_by = "unknown"
+
+      //Keep track of who added the song
+
+      this.queue.addSong(song_info, position);
+
       //if there is only 1 song in the queue, play the song immediately
       //if there are no songs in the queue, also play the song immediately
 
@@ -196,7 +206,7 @@ class Chatroom {
 
             let song_info = {title: title, album: album, artist: artists, uri: uri, images: images};
 
-            chatroom.addSong(access_token, song_info, "end", instantPlay);
+            chatroom.addSong(access_token, song_info, "end", instantPlay, socket_id);
           }
 
         }

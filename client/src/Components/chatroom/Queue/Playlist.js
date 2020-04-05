@@ -1,7 +1,9 @@
 import React, {Component} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle, faSortAmountUp, faTimes, faPlay } from '@fortawesome/free-solid-svg-icons';
+import {Tooltip, OverlayTrigger} from 'react-bootstrap';
+import { faPlusCircle, faSortAmountUp, faTimes, faPlay, faUserFriends } from '@fortawesome/free-solid-svg-icons';
 import '../../../css/chatroom/AddSongModal.css';
+import question_mark from '../../../images/question-mark.png';
 
 class Playlist extends Component {
 
@@ -47,27 +49,35 @@ class Playlist extends Component {
     if (this.props.data !== undefined)
     {
       var imageIdx = 2;
-      if (this.props.data.images.length === 1)
+      if (this.props.data.images)
       {
-        imageIdx = 0
+        if (this.props.data.images.length === 1)
+        {
+          imageIdx = 0
+        }
       }
 
       if (this.props.viewType === "queue")
       {
-        return (
-          <img src={this.props.data.images[imageIdx].url}
-               className="albumart"
-               alt="Could not retrieve playlist art."/>
-        )
+        if (this.props.data.images)
+        {
+          return (
+            <img src={this.props.data.images.length > 0 ? this.props.data.images[imageIdx].url : question_mark}
+                 className="albumart"
+                 alt="Could not retrieve playlist art."/>
+          )
+        }
       }
       else
       {
-        
-        return (
-          <img src={this.props.data.images[imageIdx].url}
-               className="albumart"
-               alt="Could not retrieve playlist art."/>
-        )
+        if (this.props.data.images)
+        {
+          return (
+            <img src={this.props.data.images.length > 0 ? this.props.data.images[imageIdx].url : question_mark}
+                 className="albumart"
+                 alt="Could not retrieve playlist art."/>
+          )
+        }
       }
     }
 
@@ -122,15 +132,17 @@ class Playlist extends Component {
   renderControls() {
       return(
         <div className="resultControls">
-          <button className="addResult" onClick={()=> this.addNewSong("end")}>
-            <FontAwesomeIcon icon={faPlusCircle}/>
-          </button>
-          {this.renderAddToNextBtn()}
+            {this.props.data.collaborative ? 
+          <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Collaborative Playlist</Tooltip>}>
+            <FontAwesomeIcon icon={faUserFriends}/>
+          </OverlayTrigger>
+            : <div></div>}
         </div>
       )
   }
 
   render() {
+
     if (this.props.viewType === "queue")
     {
       return (
@@ -149,15 +161,14 @@ class Playlist extends Component {
       )
     }
     else return (
-      <div className="song" onClick={this.props.onClick}>
+      <div className="playlist" onClick={this.props.onClick}>
         <div className="albumContainer">
           {this.getAlbumArt()}
         </div>
         <div className="infoContainer">
-
           <div className="info">
             <b>{this.props.data.name}</b>
-            <div className="subtext">{this.props.data.owner.display_name}</div>
+            <div className="subtext">{this.props.data.owner ? this.props.data.owner.display_name : "??"}</div>
           </div>
         </div>
         {this.renderControls()}

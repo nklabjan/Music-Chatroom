@@ -52,11 +52,27 @@
     height: 110px;
     display: flex;
     flex-direction: row;
+    padding: 0 10px;
 }
 
 .song:hover {
     background-color: rgba(33, 32, 36, 0.5);
 }
+
+.playlist {
+  color: white;
+  overflow: hidden;
+  height: 110px;
+  display: flex;
+  flex-direction: row;
+  padding: 0 10px;
+}
+
+.playlist:hover {
+  background-color: rgba(33, 32, 36, 0.5);
+  cursor: pointer;
+}
+
 
 .queueSong {
     color: white;
@@ -176,7 +192,21 @@
 }
 
 .browsingHeader {
-  font-style: italic;
   font-size: 14px;
   color: rgba(134, 137, 131,1 );
+  display: flex;
+  flex-direction: row;
+  align-items:center;
+  justify-content: space-between;
+}
+
+.playlistTitle {
+  font-size: 16px;
+  font-style: bold;
+  color: white; 
+}
+
+.loadMoreBtn {
+  width: 100% !important;
+  background-color: black !important;
 }

@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import Song from '../Queue/Song';
 import Playlist from '../Queue/Playlist';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faList, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faList, faArrowLeft, faSortDown } from '@fortawesome/free-solid-svg-icons';
 import '../../../css/chatroom/AddSongModal.css';
-import {Tooltip, OverlayTrigger, Form, Modal} from 'react-bootstrap';
+import {Tooltip, OverlayTrigger, Form, Modal, Button} from 'react-bootstrap';
 
 let timeout = null;
 
@@ -13,14 +13,20 @@ class AddSongModal extends Component {
         super(props);
         this.state = {
             searchData: '',
-            playlistData: '',
+            playlists: '',
+            selectPlaylistData: '',
+
             mode: 'search',
             playlistSelected: false,
-            selectPlaylistData: '',
+
+            nextPlaylists: null,
+            nextSearch: null,
+            nextPlaylistSongs: null,
         }
 
         this.search = React.createRef();
         this.retrievePlaylists = this.retrievePlaylists();
+        this.displayPlaylistTitle = this.displayPlaylistTitle.bind(this);
         //this.retrievePlaylistTracks = this.retrievePlaylistTracks();
 
     }
@@ -30,24 +36,25 @@ class AddSongModal extends Component {
 
         if (this.state.selectPlaylistData === '' || !this.state.playlistSelected)
         {
-            console.log(url)
-            console.log("Retrieving playlist tracks")
             this.retrievePlaylistTracks(name,url);
         }
     }
 
     onPlaylistBtnPressed() {
-        this.setState({mode: "playlist"});
-
-        if (this.state.playlistData === '')
+        if (this.state.mode === "search")
         {
-            this.retrievePlaylists();
+            this.setState({mode: "playlist"});
+
+            if (this.state.playlists === '')
+            {
+                this.retrievePlaylists();
+            }
         }
     }
 
     async getSongs() {
         let value = this.search.current.value.split(' ').join('+');
-        //console.log("the length of VALUE: " + value.length);
+
         if(value.length === 0)
         {
             this.setState({searchData: undefined});
@@ -62,12 +69,14 @@ class AddSongModal extends Component {
               },
           });
           const myJson = await response.json();
-          this.setState({ searchData: myJson });
+          console.log(myJson)
+
+          this.setState({   searchData: myJson.tracks.items,
+                            nextSearch: myJson.tracks.next });
         }
     }
 
     async retrievePlaylists() {
-        console.log(this.props.userId);
         let url = 'https://api.spotify.com/v1/users/' + this.props.userId + '/playlists';
         const response = await fetch(url, {
             method: "GET",
@@ -76,12 +85,11 @@ class AddSongModal extends Component {
             },
         });
         const myJson = await response.json();
-        console.log(myJson);
-        this.setState({ playlistData: myJson });
+        this.setState({ playlists: myJson.items,
+                        nextPlaylists: myJson.next });
     }
 
     async retrievePlaylistTracks(name, url) {
-        console.log(this.props.userId);
 
         const response = await fetch(url, {
             method: "GET",
@@ -90,13 +98,70 @@ class AddSongModal extends Component {
             },
         });
         const myJson = await response.json();
+        console.log(myJson);
         this.setState({ selectPlaylistData: {
             name: name,
             url: url,
-            songs: myJson
+            info: myJson
         } });
+    }
 
+    async retrieveMore() {
+         if (this.state.mode === "playlist")
+         {
+        let url = this.state.nextPlaylists;
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                authorization: `Bearer ${this.props.access_token}`,
+            },
+        });
+        const myJson = await response.json();
         console.log(myJson);
+
+        this.setState({ playlists: [...this.state.playlists, ...myJson.items],
+                        nextPlaylists: myJson.next});
+
+         }
+         else if (this.state.mode === "search")
+         {
+            let url = this.state.nextSearch;
+            const response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    authorization: `Bearer ${this.props.access_token}`,
+                },
+            });
+            const myJson = await response.json();
+            console.log(myJson);
+    
+            this.setState({ searchData: [...this.state.searchData, ...myJson.tracks.items],
+                            nextSearch: myJson.tracks.next});
+         }
+         else if (this.state.mode === "playlistSongs")
+         {
+            let url = this.state.selectPlaylistData.info.next;
+            const response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    authorization: `Bearer ${this.props.access_token}`,
+                },
+            });
+            const myJson = await response.json();
+            console.log(myJson);
+    
+            this.setState({ selectPlaylistData: {
+                                name: this.state.selectPlaylistData.name,
+                                url: this.state.selectPlaylistData.url,
+                                info: {
+                                    href: myJson.href,
+                                    items: [...this.state.selectPlaylistData.info.items, ...myJson.items],
+                                    limit: myJson.limit,
+                                    next: myJson.next,
+                                    total: myJson.total
+                                    }
+            }});
+         }
     }
 
     renderBodyContent()
@@ -126,24 +191,39 @@ class AddSongModal extends Component {
     displayPlaylists() {
         let playlists = [];
             //console.log(this.state.data)
-            if (this.state.playlistData !== undefined) {
-                if (this.state.playlistData.total !== undefined) {
-                    for (const song in Object.entries(this.state.playlistData.items)) {
-                        playlists.push(
-                            <Playlist   key={song}
-                                        data={this.state.playlistData.items[song]}
-                                        addSong={this.props.addSong}
-                                        playSong={this.props.playSong}
-                                        onClick={()=>this.onPlaylistPressed(this.state.playlistData.items[song].name, this.state.playlistData.items[song].tracks.href)}
-                                        isLM={this.props.isLM}
-                                        instantPlay={this.props.instantPlay}/>
-                        )
+            if (this.state.playlists !== undefined) {
+                    for (const song in Object.entries(this.state.playlists)) {
+                        if (this.state.playlists[song])
+                        {
+                            playlists.push(
+                                <Playlist   key={song}
+                                            data={this.state.playlists[song]}
+                                            addSong={this.props.addSong}
+                                            playSong={this.props.playSong}
+                                            onClick={()=>this.onPlaylistPressed(this.state.playlists[song].name, this.state.playlists[song].tracks.href)}
+                                            isLM={this.props.isLM}
+                                            instantPlay={this.props.instantPlay}/>
+                            )
+                        }
                     }
+                    
                     //console.log(songs);
-                    return playlists
+
+                    //Push load more component playlists if there are more playlists available
+                    
+                    return (<div className = "playlists">
+                        {playlists}
+                        {this.state.nextPlaylists !== null ?
+                        <Button onClick = {()=>this.retrieveMore()} 
+                                variant="dark" 
+                                className ="loadMoreBtn">
+                            <FontAwesomeIcon icon={faSortDown}/>
+                        </Button> : 
+                        <div></div>}
+                    </div>)
 
 
-                }
+                
             }
             return "You do not have playlists available!"
     }
@@ -151,12 +231,11 @@ class AddSongModal extends Component {
     displaySongs() {
             let songs = [];
             //console.log(this.state.data)
-            if (this.state.searchData !== undefined) {
-                if (this.state.searchData.tracks !== undefined) {
-                    for (const song in Object.entries(this.state.searchData.tracks.items)) {
+            if (this.state.searchData !== undefined && this.state.searchData !== '') {
+                    for (const song in Object.entries(this.state.searchData)) {
                         songs.push(
                             <Song key={song}
-                                  data={this.state.searchData.tracks.items[song]}
+                                  data={this.state.searchData[song]}
                                   addSong={this.props.addSong}
                                   playSong={this.props.playSong}
                                   isLM={this.props.isLM}
@@ -164,8 +243,17 @@ class AddSongModal extends Component {
                         )
                     }
                     //console.log(songs);
-                    return songs
-                }
+                    return (<div className = "playlists">
+                        {songs}
+                        {this.state.nextSearch !== null ?
+                        <Button onClick = {()=>this.retrieveMore()} 
+                                variant="dark" 
+                                className ="loadMoreBtn">
+                            <FontAwesomeIcon icon={faSortDown}/>
+                        </Button> : 
+                        <div></div>}
+                    </div>)
+                
             }
             return "Songs will be displayed as you search for them."
     }
@@ -174,19 +262,31 @@ class AddSongModal extends Component {
         let songs = [];
         //console.log(this.state.data)
         if (this.state.selectPlaylistData !== undefined) {
-            if (this.state.selectPlaylistData.songs !== undefined) {
-                for (const song in Object.entries(this.state.selectPlaylistData.songs.items)) {
-                    songs.push(
-                        <Song key={song}
-                              data={this.state.selectPlaylistData.songs.items[song].track}
-                              addSong={this.props.addSong}
-                              playSong={this.props.playSong}
-                              isLM={this.props.isLM}
-                              instantPlay={this.props.instantPlay}/>
-                    )
+            if (this.state.selectPlaylistData.info !== undefined) {
+                for (const song in Object.entries(this.state.selectPlaylistData.info.items)) {
+                    if (this.state.selectPlaylistData.info.items[song].track)
+                    {
+                        songs.push(
+                            <Song key={song}
+                                  data={this.state.selectPlaylistData.info.items[song].track}
+                                  addSong={this.props.addSong}
+                                  playSong={this.props.playSong}
+                                  isLM={this.props.isLM}
+                                  instantPlay={this.props.instantPlay}/>
+                        )
+                    }
                 }
                 //console.log(songs);
-                return songs
+                return (<div className = "playlists">
+                        {songs}
+                        {this.state.selectPlaylistData.info.next !== null ?
+                        <Button onClick = {()=>this.retrieveMore()} 
+                                variant="dark" 
+                                className ="loadMoreBtn">
+                            <FontAwesomeIcon icon={faSortDown}/>
+                        </Button> : 
+                        <div></div>}
+                    </div>)
             }
         }
         return "Songs will be displayed as you search for them."
@@ -207,22 +307,17 @@ class AddSongModal extends Component {
                                           placeholder='Search'
                                           autoComplete='off'
                                           ref={this.search}
-                                          onKeyDown={this.onEnterPress}/>
+                                          onKeyDown={this.onEnterPress}
+                                          autoFocus
+                                          />
                 </div>
             )
-        }
-        else if (this.state.mode === "playlist"){
-            return(
-                <div>
-
-                </div>
-            )
-
         }
         else if (this.state.mode === "playlistSongs"){
+            var playlist = this.state.selectPlaylistData;
             return (
                 <div className = "browsingHeader">
-                    Browsing {this.state.selectPlaylistData ? this.state.selectPlaylistData.name: "Playlist"}
+                    <div>Displaying 1 - {playlist ? playlist.info.items.length: "1"} of {playlist ? playlist.info.total: "1"}</div>
                 </div>
             )
         }
@@ -234,6 +329,23 @@ class AddSongModal extends Component {
         timeout = setTimeout(function() {
             e.getSongs();
         }, 300);
+    }
+
+    displayPlaylistTitle() {
+        if (this.state.mode === "search")
+        {
+            return ""
+        }
+        else if (this.state.mode === "playlist")
+        {
+            return "Add a song from your playlist"
+        }
+        else if (this.state.mode === "playlistSongs")
+        {
+            return (<div>
+                {this.state.selectPlaylistData ? this.state.selectPlaylistData.name : "Playlist"}
+            </div>)
+        }
     }
 
     render() {
@@ -254,10 +366,10 @@ class AddSongModal extends Component {
                                             </div>
                                     </OverlayTrigger>
                                     <OverlayTrigger overlay={this.state.mode === "search" ? 
-                                                        <Tooltip id="tooltip-disabled">Add from Playlist</Tooltip> : <div></div>}>
+                                                        <Tooltip id="tooltip-disabled" >Add from Playlist</Tooltip> : <div></div>}>
                                         <div className="modal-title-option" onClick={()=>this.onPlaylistBtnPressed()}>
                                             <FontAwesomeIcon icon={faList} className="searchLogo"/>
-                                            {this.state.mode !== "search" ? 'Add a song from your playlist' : ''} 
+                                            {this.displayPlaylistTitle()} 
                                         </div>
                                     </OverlayTrigger>
                                 </div>

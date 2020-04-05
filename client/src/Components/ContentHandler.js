@@ -41,7 +41,19 @@ class ContentHandler extends Component {
     this.handleClose = this.handleClose.bind(this);
     this.getLounges = this.getLounges.bind(this);
     this.updateProfileInfo = this.updateProfileInfo.bind(this);
+    this.refreshAccessToken = this.refreshAccessToken.bind(this);
+  }
 
+  async refreshAccessToken() {
+    if (this.state.access_token)
+    {
+      //Do an axios get to the backend, and wait for the backend to talk to the spotify servers 
+      axios.post(urls.backend_url + '/refreshAuth', {refresh_token: this.state.refresh_token})
+      .then(res => {
+        console.log(res);
+        this.setState({access_token: res.access_token});
+      })
+    }
   }
 
   enterWhoAreWe() {
@@ -148,9 +160,11 @@ class ContentHandler extends Component {
   componentWillMount() {
     let parsed = queryString.parse(window.location.search);
     let access_token = parsed.access_token;
+    let refresh_token = parsed.refresh_token;
+
 
     if (access_token) {
-      this.setState({loggedInStatus: true, access_token: access_token});
+      this.setState({loggedInStatus: true, access_token: access_token, refresh_token: refresh_token});
     }
   }
 
@@ -185,6 +199,10 @@ class ContentHandler extends Component {
         }
 
       })
+      
+      //Refreshes every 50 minutes
+      setInterval(this.refreshAccessToken, 3000000);
+
   }
 
   renderContent() {
